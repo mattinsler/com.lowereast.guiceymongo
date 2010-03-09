@@ -82,6 +82,7 @@ public class ConfigurationBuilder {
 			super(Key.get(DB.class, MongooseDatabases.database(databaseKey)));
 		}
 		@Inject
+		@SuppressWarnings("unused")
 		void initialize(Injector injector, @Configuration String configuration) {
 			_injector = injector;
 			_configuration = configuration;
@@ -108,6 +109,7 @@ public class ConfigurationBuilder {
 			super(Key.get(DBCollection.class, MongooseCollections.collection(databaseKey, collectionKey)));
 		}
 		@Inject
+		@SuppressWarnings("unused")
 		void initialize(Injector injector, @Configuration String configuration) {
 			_injector = injector;
 			_configuration = configuration;
