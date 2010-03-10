@@ -18,7 +18,6 @@ package com.lowereast.guiceymongo.guice;
 
 import com.google.inject.Binder;
 import com.google.inject.Module;
-import com.lowereast.guiceymongo.guice.internal.Configuration;
 import com.lowereast.guiceymongo.guice.internal.ConfigurationBuilder;
 import com.lowereast.guiceymongo.guice.internal.JavascriptProxy;
 
