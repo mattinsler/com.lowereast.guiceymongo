@@ -16,14 +16,15 @@
 
 package com.lowereast.guiceymongo.guice.internal;
 
-import com.google.inject.internal.ImmutableMap;
-import com.lowereast.guiceymongo.annotation.Annotations;
-import com.lowereast.guiceymongo.guice.annotation.GuiceyMongoDatabase;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-final class GuiceyMongoDatabases {
-	private GuiceyMongoDatabases() {}
-	
-	public static GuiceyMongoDatabase database(String databaseKey) {
-		return Annotations.proxy(GuiceyMongoDatabase.class, ImmutableMap.<String, Object>of("value", databaseKey));
-	}
+import com.google.inject.BindingAnnotation;
+
+@BindingAnnotation
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.FIELD, ElementType.PARAMETER, ElementType.METHOD})
+public @interface Configuration {
 }

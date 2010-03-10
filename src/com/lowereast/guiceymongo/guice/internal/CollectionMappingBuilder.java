@@ -16,14 +16,18 @@
 
 package com.lowereast.guiceymongo.guice.internal;
 
-import com.google.inject.internal.ImmutableMap;
-import com.lowereast.guiceymongo.annotation.Annotations;
-import com.lowereast.guiceymongo.guice.annotation.GuiceyMongoDatabase;
+public class CollectionMappingBuilder {
+	private final String _collectionKey;
+	private final String _configurationName;
+	private final ConfigurationBuilder _configurationBuilder;
 
-final class GuiceyMongoDatabases {
-	private GuiceyMongoDatabases() {}
-	
-	public static GuiceyMongoDatabase database(String databaseKey) {
-		return Annotations.proxy(GuiceyMongoDatabase.class, ImmutableMap.<String, Object>of("value", databaseKey));
+	public CollectionMappingBuilder(ConfigurationBuilder configurationBuilder, String configurationName, String collectionKey) {
+		_configurationName = configurationName;
+		_collectionKey = collectionKey;
+		_configurationBuilder = configurationBuilder;
+	}
+
+	public InDatabaseBuilder to(String collection) {
+		return new InDatabaseBuilder(_configurationBuilder, _configurationName, _collectionKey, collection);
 	}
 }

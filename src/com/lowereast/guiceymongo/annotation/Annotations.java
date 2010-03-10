@@ -92,7 +92,11 @@ public class Annotations {
 			if (!_annotationClass.isAssignableFrom(other.getClass()))
 				return false;
 			for (String element : _elements) {
-				if (!_values.get(element).equals(_methods.get(element).invoke(other)))
+				Method method = _methods.get(element);
+				method.setAccessible(true);
+				Object value = _values.get(element);
+				Object otherValue = method.invoke(other);
+				if (!value.equals(otherValue))
 					return false;
 			}
 			return true;

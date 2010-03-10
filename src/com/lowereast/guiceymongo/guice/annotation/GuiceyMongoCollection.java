@@ -27,6 +27,5 @@ import com.google.inject.BindingAnnotation;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD, ElementType.PARAMETER, ElementType.METHOD})
 public @interface GuiceyMongoCollection {
-	String database();
-	String collection();
+	String value();
 }
