@@ -22,12 +22,11 @@ import com.google.inject.Binder;
 import com.google.inject.Module;
 import com.google.inject.internal.Lists;
 
-public class ConfigurationBuilder extends SingletonModule<Class<ConfigurationBuilder>> {
+public class ConfigurationBuilder implements Module {
 	private final String _name;
 	private final List<Module> _moduleCollector = Lists.newArrayList();
 
 	public ConfigurationBuilder(String name) {
-		super(ConfigurationBuilder.class);
 		_name = name;
 	}
 	
