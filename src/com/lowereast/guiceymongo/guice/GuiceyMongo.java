@@ -1,13 +1,13 @@
-package com.lowereast.mongoose.guice;
+package com.lowereast.guiceymongo.guice;
 
 import com.google.inject.Binder;
 import com.google.inject.Module;
-import com.lowereast.mongoose.guice.internal.ConfigurationBuilder;
-import com.lowereast.mongoose.guice.internal.JavascriptProxy;
-import com.lowereast.mongoose.guice.internal.ConfigurationBuilder.Configuration;
+import com.lowereast.guiceymongo.guice.internal.ConfigurationBuilder;
+import com.lowereast.guiceymongo.guice.internal.JavascriptProxy;
+import com.lowereast.guiceymongo.guice.internal.ConfigurationBuilder.Configuration;
 
-public class Mongoose {
-	private Mongoose() {}
+public class GuiceyMongo {
+	private GuiceyMongo() {}
 
 	public static ConfigurationBuilder configure(String configurationName) {
 		return new ConfigurationBuilder(configurationName);

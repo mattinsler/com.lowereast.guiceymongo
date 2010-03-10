@@ -1,4 +1,4 @@
-package com.lowereast.mongoose.guice.internal;
+package com.lowereast.guiceymongo.guice.internal;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -15,9 +15,9 @@ import com.google.inject.Module;
 import com.google.inject.Provider;
 import com.google.inject.internal.ImmutableMap;
 import com.google.inject.internal.Maps;
-import com.lowereast.mongoose.annotation.Annotations;
-import com.lowereast.mongoose.guice.annotation.MongooseCollection;
-import com.lowereast.mongoose.guice.annotation.MongooseDatabase;
+import com.lowereast.guiceymongo.annotation.Annotations;
+import com.lowereast.guiceymongo.guice.annotation.GuiceyMongoCollection;
+import com.lowereast.guiceymongo.guice.annotation.GuiceyMongoDatabase;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.Mongo;
@@ -79,7 +79,7 @@ public class ConfigurationBuilder {
 		private Injector _injector;
 		private String _configuration;
 		public DBProviderModule(String databaseKey) {
-			super(Key.get(DB.class, MongooseDatabases.database(databaseKey)));
+			super(Key.get(DB.class, GuiceyMongoDatabases.database(databaseKey)));
 		}
 		@Inject
 		@SuppressWarnings("unused")
@@ -92,7 +92,7 @@ public class ConfigurationBuilder {
 		}
 		public DB get() {
 			try {
-				String databaseKey = ((MongooseDatabase)key.getAnnotation()).value();
+				String databaseKey = ((GuiceyMongoDatabase)key.getAnnotation()).value();
 				String database = _injector.getInstance(Key.get(String.class, configuredDatabase(_configuration, databaseKey)));
 				return new Mongo().getDB(database);
 			} catch (Exception e) {
@@ -106,22 +106,22 @@ public class ConfigurationBuilder {
 		private String _configuration;
 		private Provider<DB> _databaseProvider;
 		public CollectionProviderModule(String databaseKey, String collectionKey) {
-			super(Key.get(DBCollection.class, MongooseCollections.collection(databaseKey, collectionKey)));
+			super(Key.get(DBCollection.class, GuiceyMongoCollections.collection(databaseKey, collectionKey)));
 		}
 		@Inject
 		@SuppressWarnings("unused")
 		void initialize(Injector injector, @Configuration String configuration) {
 			_injector = injector;
 			_configuration = configuration;
-			_databaseProvider = injector.getProvider(Key.get(DB.class, MongooseDatabases.database(((MongooseCollection)key.getAnnotation()).database())));
+			_databaseProvider = injector.getProvider(Key.get(DB.class, GuiceyMongoDatabases.database(((GuiceyMongoCollection)key.getAnnotation()).database())));
 		}
 		public void configure(Binder binder) {
 			binder.skipSources(CollectionProviderModule.class).bind(key).toProvider(this);
 		}
 		public DBCollection get() {
 			try {
-				String databaseKey = ((MongooseCollection)((Key<?>)key).getAnnotation()).database();
-				String collectionKey = ((MongooseCollection)((Key<?>)key).getAnnotation()).collection();
+				String databaseKey = ((GuiceyMongoCollection)((Key<?>)key).getAnnotation()).database();
+				String collectionKey = ((GuiceyMongoCollection)((Key<?>)key).getAnnotation()).collection();
 				String collection = _injector.getInstance(Key.get(String.class, configuredCollection(_configuration, databaseKey, collectionKey)));
 				return _databaseProvider.get().getCollection(collection);
 			} catch (Exception e) {

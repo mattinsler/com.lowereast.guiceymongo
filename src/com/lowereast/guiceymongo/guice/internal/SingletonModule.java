@@ -1,4 +1,4 @@
-package com.lowereast.mongoose.guice.internal;
+package com.lowereast.guiceymongo.guice.internal;
 
 import com.google.inject.Module;
 

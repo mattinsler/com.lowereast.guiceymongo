@@ -1,4 +1,4 @@
-package com.lowereast.mongoose.annotation;
+package com.lowereast.guiceymongo.annotation;
 
 import java.io.Serializable;
 import java.lang.annotation.Annotation;

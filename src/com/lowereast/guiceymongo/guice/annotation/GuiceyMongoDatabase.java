@@ -1,4 +1,4 @@
-package com.lowereast.mongoose.guice.annotation;
+package com.lowereast.guiceymongo.guice.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -10,6 +10,6 @@ import com.google.inject.BindingAnnotation;
 @BindingAnnotation
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD, ElementType.PARAMETER, ElementType.METHOD})
-public @interface MongooseDatabase {
+public @interface GuiceyMongoDatabase {
 	String value();
 }

@@ -1,12 +1,12 @@
-package com.lowereast.mongoose;
+package com.lowereast.guiceymongo;
 
 import com.mongodb.MongoException;
 
 @SuppressWarnings("serial")
-public class MongooseEvalException extends MongoException {
+public class GuiceyMongoEvalException extends MongoException {
 	private static String _errorPrefix = "eval failed: { \"errno\" : -3.0 , \"errmsg\" : \"invoke failed: JS Error: uncaught exception: ";
 	
-	public MongooseEvalException(String exceptionMessage) {
+	public GuiceyMongoEvalException(String exceptionMessage) {
 		super(exceptionMessage);
 	}
 	
@@ -19,7 +19,7 @@ public class MongooseEvalException extends MongoException {
 		String errorString = e.getMessage();
 		if (errorString.startsWith(_errorPrefix)) {
 			int length = _errorPrefix.length();
-			return new MongooseEvalException(errorString.substring(length, errorString.indexOf('"', length)).trim());
+			return new GuiceyMongoEvalException(errorString.substring(length, errorString.indexOf('"', length)).trim());
 		}
 		return e;
 	}

@@ -1,4 +1,4 @@
-package com.lowereast.mongoose.guice.internal;
+package com.lowereast.guiceymongo.guice.internal;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -13,8 +13,8 @@ import com.google.inject.Key;
 import com.google.inject.Module;
 import com.google.inject.Provider;
 import com.google.inject.internal.Maps;
-import com.lowereast.mongoose.MongooseEvalException;
-import com.lowereast.mongoose.guice.Mongoose;
+import com.lowereast.guiceymongo.GuiceyMongoEvalException;
+import com.lowereast.guiceymongo.guice.GuiceyMongo;
 import com.mongodb.DB;
 import com.mongodb.MongoException;
 
@@ -33,11 +33,11 @@ public class JavascriptProxy<T> implements Module, Provider<T> {
 
 	@Inject
 	void initialize(Injector injector) {
-		_databaseProvider = injector.getProvider(Key.get(DB.class, MongooseDatabases.database(_databaseKey)));
+		_databaseProvider = injector.getProvider(Key.get(DB.class, GuiceyMongoDatabases.database(_databaseKey)));
 	}
 	
 	public void configure(Binder binder) {
-		binder.skipSources(JavascriptProxy.class, Mongoose.class).bind(_proxyInterface).toProvider(this);
+		binder.skipSources(JavascriptProxy.class, GuiceyMongo.class).bind(_proxyInterface).toProvider(this);
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -157,7 +157,7 @@ public class JavascriptProxy<T> implements Module, Provider<T> {
 					throw new RuntimeException();
 				return invocation.invoke(_database, args);
 			} catch (MongoException e) {
-				throw MongooseEvalException.create(e);
+				throw GuiceyMongoEvalException.create(e);
 			}
 		}
 		
