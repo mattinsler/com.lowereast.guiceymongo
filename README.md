@@ -4,9 +4,12 @@ mongoose home: http://github.com/mattinsler/com.lowereast.guiceymongo/
 
 mongodb home: http://www.mongodb.org/
 
+#### Usage
+Check out the examples directory
+
 #### Questions and Bug Reports
  * email matt.insler@gmail.com
  * post an issue to http://github.com/mattinsler/com.lowereast.guiceymongo/issues
 
 ### Authors:
-* Matt Insler       matt.insler@gmail.com
+ * Matt Insler       matt.insler@gmail.com
