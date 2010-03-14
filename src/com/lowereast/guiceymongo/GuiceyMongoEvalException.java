@@ -20,10 +20,17 @@ import com.mongodb.MongoException;
 
 @SuppressWarnings("serial")
 public class GuiceyMongoEvalException extends MongoException {
-	private static String _errorPrefix = "eval failed: { \"errno\" : -3.0 , \"errmsg\" : \"invoke failed: JS Error: uncaught exception: ";
+	private static String _errorPrefix = "eval failed: { \"errno\" : -3.0 , \"errmsg\" : \"invoke failed: JS Error: ";
 	
-	public GuiceyMongoEvalException(String exceptionMessage) {
+	private String _type;
+	
+	private GuiceyMongoEvalException(String exceptionType, String exceptionMessage) {
 		super(exceptionMessage);
+		_type = exceptionType;
+	}
+	
+	public String getType() {
+		return _type;
 	}
 	
 	/**
@@ -35,7 +42,10 @@ public class GuiceyMongoEvalException extends MongoException {
 		String errorString = e.getMessage();
 		if (errorString.startsWith(_errorPrefix)) {
 			int length = _errorPrefix.length();
-			return new GuiceyMongoEvalException(errorString.substring(length, errorString.indexOf('"', length)).trim());
+			int colonLocation = errorString.indexOf(':', length);
+			String type = errorString.substring(length, colonLocation).trim();
+			String message = errorString.substring(colonLocation + 1, errorString.indexOf('"', colonLocation)).trim();
+			return new GuiceyMongoEvalException(type, message);
 		}
 		return e;
 	}
