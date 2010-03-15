@@ -33,7 +33,7 @@ class CollectionProviderModule extends SingletonModule<Key<DBCollection>> implem
 	private Provider<DB> _databaseProvider;
 
 	public CollectionProviderModule(String databaseKey, String collectionKey) {
-		super(Key.get(DBCollection.class, GuiceyMongoCollections.collection(collectionKey)));
+		super(Key.get(DBCollection.class, AnnotationUtil.guiceyMongoCollection(collectionKey)));
 		_databaseKey = databaseKey;
 	}
 
@@ -41,7 +41,7 @@ class CollectionProviderModule extends SingletonModule<Key<DBCollection>> implem
 	void initialize(Injector injector, @Configuration String configuration) {
 		_injector = injector;
 		_configuration = configuration;
-		_databaseProvider = injector.getProvider(Key.get(DB.class, GuiceyMongoDatabases.database(_databaseKey)));
+		_databaseProvider = injector.getProvider(Key.get(DB.class, AnnotationUtil.guiceyMongoDatabase(_databaseKey)));
 	}
 
 	public void configure(Binder binder) {
@@ -51,7 +51,7 @@ class CollectionProviderModule extends SingletonModule<Key<DBCollection>> implem
 	public DBCollection get() {
 		try {
 			String collectionKey = ((GuiceyMongoCollection) ((Key<?>) key).getAnnotation()).value();
-			String collection = _injector.getInstance(Key.get(String.class, ConfiguredCollections.collection(_configuration, collectionKey)));
+			String collection = _injector.getInstance(Key.get(String.class, AnnotationUtil.configuredCollection(_configuration, collectionKey)));
 			return _databaseProvider.get().getCollection(collection);
 		} catch (Exception e) {
 			return null;

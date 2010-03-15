@@ -18,14 +18,19 @@ package com.lowereast.guiceymongo.guice;
 
 import com.google.inject.Binder;
 import com.google.inject.Module;
-import com.lowereast.guiceymongo.guice.internal.ConfigurationBuilder;
+import com.lowereast.guiceymongo.guice.internal.BuilderImpls;
+import com.lowereast.guiceymongo.guice.internal.Builders;
 import com.lowereast.guiceymongo.guice.internal.JavascriptProxy;
 
 public final class GuiceyMongo {
 	private GuiceyMongo() {}
 
-	public static ConfigurationBuilder configure(String configurationName) {
-		return new ConfigurationBuilder(configurationName);
+	public static Builders.Configuration configure(String configurationName) {
+		return new BuilderImpls.Configuration(configurationName);
+	}
+	
+	public static Builders.Connection configureConnection(String connectionName) {
+		return new BuilderImpls.Connection(connectionName);
 	}
 	
 	public static Module chooseConfiguration(final String configurationName) {

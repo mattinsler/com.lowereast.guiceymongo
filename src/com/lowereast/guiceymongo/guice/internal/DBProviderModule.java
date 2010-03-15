@@ -30,7 +30,13 @@ class DBProviderModule extends SingletonModule<Key<DB>> implements Provider<DB> 
 	private String _configuration;
 
 	public DBProviderModule(String databaseKey) {
-		super(Key.get(DB.class, GuiceyMongoDatabases.database(databaseKey)));
+		super(Key.get(DB.class, AnnotationUtil.guiceyMongoDatabase(databaseKey)));
+	}
+	
+	private <T> T getInstance(Injector injector, Key<T> key) {
+		if (!injector.getBindings().containsKey(key))
+			return null;
+		return injector.getInstance(key);
 	}
 
 	@Inject
@@ -45,9 +51,26 @@ class DBProviderModule extends SingletonModule<Key<DB>> implements Provider<DB> 
 
 	public DB get() {
 		try {
-			String databaseKey = ((GuiceyMongoDatabase) key.getAnnotation()).value();
-			String database = _injector.getInstance(Key.get(String.class, ConfiguredDatabases.database(_configuration, databaseKey)));
-			return new Mongo().getDB(database);
+			String databaseKey = ((GuiceyMongoDatabase)key.getAnnotation()).value();
+			String database = _injector.getInstance(Key.get(String.class, AnnotationUtil.configuredDatabase(_configuration, databaseKey)));
+			
+			Mongo mongo;
+			
+			String connectionKey = getInstance(_injector, Key.get(String.class, AnnotationUtil.configuredDatabaseConnection(_configuration, databaseKey)));
+			if (connectionKey != null) {
+				String hostname = getInstance(_injector, Key.get(String.class, AnnotationUtil.configuredConnectionHostname(connectionKey)));
+				Integer port = getInstance(_injector, Key.get(int.class, AnnotationUtil.configuredConnectionPort(connectionKey)));
+				
+				if (hostname == null)
+					hostname = "localhost";
+				if (port == null)
+					mongo = new Mongo(hostname);
+				else
+					mongo = new Mongo(hostname, port.intValue());
+			} else {
+				mongo = new Mongo();
+			}
+			return mongo.getDB(database);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

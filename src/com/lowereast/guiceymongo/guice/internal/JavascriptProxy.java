@@ -49,7 +49,7 @@ public class JavascriptProxy<T> implements Module, Provider<T> {
 
 	@Inject
 	void initialize(Injector injector) {
-		_databaseProvider = injector.getProvider(Key.get(DB.class, GuiceyMongoDatabases.database(_databaseKey)));
+		_databaseProvider = injector.getProvider(Key.get(DB.class, AnnotationUtil.guiceyMongoDatabase(_databaseKey)));
 	}
 	
 	public void configure(Binder binder) {
