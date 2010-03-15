@@ -3,7 +3,7 @@ package com.lowereast.guiceymongo.guice;
 import com.google.inject.Binder;
 import com.google.inject.Injector;
 import com.google.inject.Key;
-import com.lowereast.guiceymongo.guice.internal.Configuration;
+import com.lowereast.guiceymongo.guice.spi.Configuration;
 
 public final class GuiceyMongoUtil {
 	private GuiceyMongoUtil() {}

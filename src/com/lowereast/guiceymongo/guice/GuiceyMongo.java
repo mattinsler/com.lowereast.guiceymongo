@@ -20,7 +20,8 @@ import com.google.inject.Binder;
 import com.google.inject.Module;
 import com.lowereast.guiceymongo.guice.internal.BuilderImpls;
 import com.lowereast.guiceymongo.guice.internal.Builders;
-import com.lowereast.guiceymongo.guice.internal.JavascriptProxy;
+import com.lowereast.guiceymongo.guice.internal.JsonConfigurationFileModule;
+import com.lowereast.guiceymongo.guice.spi.JavascriptProxy;
 
 public final class GuiceyMongo {
 	private GuiceyMongo() {}
@@ -31,6 +32,22 @@ public final class GuiceyMongo {
 	
 	public static Builders.Connection configureConnection(String connectionName) {
 		return new BuilderImpls.Connection(connectionName);
+	}
+	
+	public static Module configureFromFile(String filename) {
+		String extension = filename.substring(filename.lastIndexOf('.') + 1);
+		FileType type = FileType.byFileExtension(extension);
+		if (type == null)
+			throw new RuntimeException("Unknown file extension");
+		return configureFromFile(filename, type);
+	}
+	
+	public static Module configureFromFile(String filename, FileType fileType) {
+		switch (fileType) {
+		case JSON:
+			return new JsonConfigurationFileModule(filename);
+		}
+		throw new RuntimeException("Unknown FileType");
 	}
 	
 	public static Module chooseConfiguration(final String configurationName) {

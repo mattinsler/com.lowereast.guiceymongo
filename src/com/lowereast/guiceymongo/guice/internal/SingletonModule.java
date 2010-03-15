@@ -18,7 +18,7 @@ package com.lowereast.guiceymongo.guice.internal;
 
 import com.google.inject.Module;
 
-abstract class SingletonModule<T> implements Module {
+public abstract class SingletonModule<T> implements Module {
 	protected T key;
 	
 	public SingletonModule(T key) {

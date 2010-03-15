@@ -14,7 +14,7 @@
  *   limitations under the License.
  */
 
-package com.lowereast.guiceymongo.guice.internal;
+package com.lowereast.guiceymongo.guice.spi;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -26,7 +26,5 @@ import com.google.inject.BindingAnnotation;
 @BindingAnnotation
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD, ElementType.PARAMETER, ElementType.METHOD})
-public @interface ConfiguredCollection {
-	String configuration();
-	String collection();
+public @interface Configuration {
 }

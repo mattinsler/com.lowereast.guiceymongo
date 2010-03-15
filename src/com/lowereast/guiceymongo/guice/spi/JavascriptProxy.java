@@ -14,7 +14,7 @@
  *   limitations under the License.
  */
 
-package com.lowereast.guiceymongo.guice.internal;
+package com.lowereast.guiceymongo.guice.spi;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;

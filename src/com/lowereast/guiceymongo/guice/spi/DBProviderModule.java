@@ -14,7 +14,7 @@
  *   limitations under the License.
  */
 
-package com.lowereast.guiceymongo.guice.internal;
+package com.lowereast.guiceymongo.guice.spi;
 
 import com.google.inject.Binder;
 import com.google.inject.Inject;
@@ -22,6 +22,7 @@ import com.google.inject.Injector;
 import com.google.inject.Key;
 import com.google.inject.Provider;
 import com.lowereast.guiceymongo.guice.annotation.GuiceyMongoDatabase;
+import com.lowereast.guiceymongo.guice.internal.SingletonModule;
 import com.mongodb.DB;
 import com.mongodb.Mongo;
 

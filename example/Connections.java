@@ -1,5 +1,5 @@
 public final class Connections {
 	private Connections() {}
 	
-	public static final String Primary = "PRIMARY";
+	public static final String Primary = "Primary";
 }

@@ -16,24 +16,18 @@
 
 package com.lowereast.guiceymongo.guice.internal;
 
-import java.util.Map;
-import java.util.Set;
-
 import com.google.inject.Binder;
-import com.google.inject.Key;
-import com.google.inject.Module;
-import com.google.inject.internal.Maps;
-import com.google.inject.internal.Sets;
 import com.lowereast.guiceymongo.guice.internal.Builders.CollectionConfiguration;
 import com.lowereast.guiceymongo.guice.internal.Builders.DatabaseConfiguration;
 import com.lowereast.guiceymongo.guice.internal.Builders.DatabaseOptionConfiguration;
 import com.lowereast.guiceymongo.guice.internal.Builders.FinishableConfiguration;
+import com.lowereast.guiceymongo.guice.spi.GuiceyMongoBinder;
+import com.lowereast.guiceymongo.guice.spi.GuiceyMongoBindingCollector;
 
 public final class BuilderImpls {
 	public static class Configuration implements Builders.Configuration, Builders.FinishableConfiguration {
 		private final String _name;
-		private final Set<Module> _modules = Sets.newHashSet();
-		private final Map<Key<?>, Object> _instanceBindings = Maps.newHashMap();
+		private final GuiceyMongoBindingCollector _collector = new GuiceyMongoBindingCollector();
 		
 		public Configuration(String name) {
 			_name = name;
@@ -45,25 +39,15 @@ public final class BuilderImpls {
 			return new Database(this, databaseKey);
 		}
 		
-		@SuppressWarnings("unchecked")
 		public void configure(Binder binder) {
-			Binder skippedBinder = binder.skipSources(Configuration.class);
-			
-			for (Module module : _modules)
-				skippedBinder.install(module);
-			
-			for (Map.Entry<Key<?>, Object> binding : _instanceBindings.entrySet())
-				skippedBinder.bind((Key)binding.getKey()).toInstance(binding.getValue());
+			new GuiceyMongoBinder(binder.skipSources(Configuration.class)).bind(_collector);
 		}
 		
 		String getName() {
 			return _name;
 		}
-		<T> void addInstanceBinding(Key<T> key, T value) {
-			_instanceBindings.put(key, value);
-		}
-		void addModule(Module module) {
-			_modules.add(module);
+		GuiceyMongoBindingCollector getCollector() {
+			return _collector;
 		}
 	}
 	
@@ -84,12 +68,11 @@ public final class BuilderImpls {
 			return _configuration.mapDatabase(databaseKey);
 		}
 		public FinishableConfiguration overConnection(String connectionKey) {
-			_configuration.addInstanceBinding(Key.get(String.class, AnnotationUtil.configuredDatabaseConnection(_configuration.getName(), _databaseKey)), connectionKey);
+			_configuration.getCollector().bindConfiguredDatabaseConnection(_configuration.getName(), _databaseKey, connectionKey);
 			return _configuration;
 		}
 		public DatabaseOptionConfiguration to(String database) {
-			_configuration.addModule(new DBProviderModule(_databaseKey));
-			_configuration.addInstanceBinding(Key.get(String.class, AnnotationUtil.configuredDatabase(_configuration.getName(), _databaseKey)), database);
+			_configuration.getCollector().bindConfiguredDatabase(_configuration.getName(), _databaseKey, database);
 			return this;
 		}
 	}
@@ -107,8 +90,7 @@ public final class BuilderImpls {
 			return this;
 		}
 		public Builders.FinishableConfiguration inDatabase(String databaseKey) {
-			_configuration.addModule(new CollectionProviderModule(databaseKey, _collectionKey));
-			_configuration.addInstanceBinding(Key.get(String.class, AnnotationUtil.configuredCollection(_configuration.getName(), _collectionKey)), _collection);
+			_configuration.getCollector().bindConfiguredCollection(_configuration.getName(), databaseKey, _collectionKey, _collection);
 			return _configuration;
 		}
 	}
@@ -129,11 +111,11 @@ public final class BuilderImpls {
 			return this;
 		}
 		public void configure(Binder binder) {
-			Binder skippedBinder = binder.skipSources(Connection.class);
+			GuiceyMongoBinder guiceyBinder = new GuiceyMongoBinder(binder.skipSources(Connection.class));
 			if (_hostname != null)
-				skippedBinder.bind(Key.get(String.class, AnnotationUtil.configuredConnectionHostname(_name))).toInstance(_hostname);
+				guiceyBinder.bindConnectionHostname(_name, _hostname);
 			if (_port != -1)
-				skippedBinder.bind(Key.get(int.class, AnnotationUtil.configuredConnectionPort(_name))).toInstance(_port);
+				guiceyBinder.bindConnectionPort(_name, _port);
 		}
 	}
 }
