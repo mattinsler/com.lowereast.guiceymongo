@@ -2,4 +2,5 @@
 .project
 bin
 test
+build
 *.jar

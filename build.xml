@@ -1,0 +1,41 @@
+<?xml version='1.0'?>
+<project name="GuiceyMongo" default="compile" basedir=".">
+  <property name="version" value="0.1" />
+  <property name="targetdir" location="target" />
+
+  <path id="classpath">
+    <fileset dir="lib">
+      <include name="**/*.jar" />
+    </fileset>
+  </path>
+
+  <target name="init">
+    <mkdir dir="build" />
+  </target>
+
+  <target name="clean">
+    <delete dir="build" />
+  </target>
+
+  <target name="compile" depends="init">
+    <javac srcdir="src"
+	   destdir="build"
+	   optimize="off"
+	   source="1.5"
+	   target="1.5"
+	   encoding="ISO-8859-1"
+	   memoryMaximumSize="256M"
+	   fork="true"
+	   debug="on">
+      <classpath refid="classpath" />
+    </javac>
+  </target>
+
+  <target name="jar" depends="compile">
+    <jar jarfile="guiceymongo.jar">
+      <fileset dir="build" />
+    </jar>
+  </target>
+
+  <target name="rebuild" depends="clean, compile" />
+</project>
