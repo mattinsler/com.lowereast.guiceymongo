@@ -53,7 +53,7 @@ public final class GuiceyMongo {
 	public static Module chooseConfiguration(final String configurationName) {
 		return new Module() {
 			public void configure(Binder binder) {
-				GuiceyMongoUtil.setCurrentConfiguration(binder, configurationName);
+				GuiceyMongoUtil.setCurrentConfiguration(binder.skipSources(GuiceyMongo.class), configurationName);
 			}
 		};
 	}

@@ -19,17 +19,18 @@ package com.lowereast.guiceymongo.guice.internal;
 import com.google.inject.Module;
 
 public interface Builders {
-	public interface Configuration {
+	public interface FinishableConfiguration extends Module {
 		DatabaseConfiguration mapDatabase(String databaseKey);
 		CollectionConfiguration mapCollection(String collectionKey);
 	}
-	public interface FinishableConfiguration extends Configuration, Module {
+	public interface Configuration extends FinishableConfiguration {
+		Module cloneFrom(String configurationName);
 	}
 	
 	public interface DatabaseConfiguration {
 		DatabaseOptionConfiguration to(String database);
 	}
-	public interface DatabaseOptionConfiguration extends Configuration, Module {
+	public interface DatabaseOptionConfiguration extends FinishableConfiguration, Module {
 		FinishableConfiguration overConnection(String connectionKey);
 	}
 	

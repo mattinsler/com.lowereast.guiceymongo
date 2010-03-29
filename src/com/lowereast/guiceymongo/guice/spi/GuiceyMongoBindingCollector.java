@@ -38,6 +38,10 @@ public class GuiceyMongoBindingCollector {
 		_errors.add(message);
 	}
 	
+	public void bindClonedConfiguration(String configurationName, String clonedConfigurationName) {
+		_instanceBindings.put(Key.get(String.class, AnnotationUtil.clonedConfiguration(configurationName)), clonedConfigurationName);
+	}
+	
 	public void bindConnectionHostname(String connectionKey, String hostname) {
 		_instanceBindings.put(Key.get(String.class, AnnotationUtil.configuredConnectionHostname(connectionKey)), hostname);
 	}

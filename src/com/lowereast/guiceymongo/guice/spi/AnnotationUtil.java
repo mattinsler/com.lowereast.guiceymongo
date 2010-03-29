@@ -24,6 +24,10 @@ import com.lowereast.guiceymongo.guice.annotation.GuiceyMongoDatabase;
 final class AnnotationUtil {
 	private AnnotationUtil() {}
 	
+	public static ClonedConfiguration clonedConfiguration(String configuration) {
+		return Annotations.proxy(ClonedConfiguration.class, ImmutableMap.<String, Object>of("configuration", configuration));
+	}
+	
 	public static ConfiguredCollection configuredCollection(String configuration, String collectionKey) {
 		return Annotations.proxy(ConfiguredCollection.class, ImmutableMap.<String, Object>of("configuration", configuration, "collection", collectionKey));
 	}

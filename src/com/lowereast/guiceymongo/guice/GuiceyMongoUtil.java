@@ -13,6 +13,6 @@ public final class GuiceyMongoUtil {
 	}
 	
 	public static void setCurrentConfiguration(Binder binder, String configuration) {
-		binder.bindConstant().annotatedWith(Configuration.class).to(configuration);
+		binder.skipSources(GuiceyMongoUtil.class).bindConstant().annotatedWith(Configuration.class).to(configuration);
 	}
 }

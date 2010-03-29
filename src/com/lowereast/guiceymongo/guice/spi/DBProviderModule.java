@@ -16,6 +16,8 @@
 
 package com.lowereast.guiceymongo.guice.spi;
 
+import java.util.UUID;
+
 import com.google.inject.Binder;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
@@ -27,51 +29,80 @@ import com.mongodb.DB;
 import com.mongodb.Mongo;
 
 class DBProviderModule extends SingletonModule<Key<DB>> implements Provider<DB> {
+	private static class RemoveTemporaryDB extends Thread {
+		private final DB _db;
+		public RemoveTemporaryDB(DB db) {
+			_db = db;
+		}
+		@Override
+		public void run() {
+			_db.dropDatabase();
+		}
+	}
+	
 	private Injector _injector;
 	private String _configuration;
-
+ 
 	public DBProviderModule(String databaseKey) {
 		super(Key.get(DB.class, AnnotationUtil.guiceyMongoDatabase(databaseKey)));
 	}
-	
+ 
 	private <T> T getInstance(Injector injector, Key<T> key) {
 		if (!injector.getBindings().containsKey(key))
 			return null;
 		return injector.getInstance(key);
 	}
-
+ 
 	@Inject
 	void initialize(Injector injector, @Configuration String configuration) {
 		_injector = injector;
 		_configuration = configuration;
 	}
-
+ 
 	public void configure(Binder binder) {
 		binder.skipSources(DBProviderModule.class).bind(key).toProvider(this);
 	}
+	
+	private Mongo getConnection(String configuration, String databaseKey) throws Exception {
+		String connectionKey = getInstance(_injector, Key.get(String.class, AnnotationUtil.configuredDatabaseConnection(configuration, databaseKey)));
+		if (connectionKey != null) {
+			String hostname = getInstance(_injector, Key.get(String.class, AnnotationUtil.configuredConnectionHostname(connectionKey)));
+			Integer port = getInstance(_injector, Key.get(int.class, AnnotationUtil.configuredConnectionPort(connectionKey)));
 
+			if (hostname == null)
+				hostname = "localhost";
+			if (port == null)
+				return new Mongo(hostname);
+			return new Mongo(hostname, port.intValue());
+		}
+		return new Mongo();
+	}
+
+	private void cacheDB() throws Exception {
+		String databaseKey = ((GuiceyMongoDatabase)key.getAnnotation()).value();
+		
+		String clonedConfiguration = getInstance(_injector, Key.get(String.class, AnnotationUtil.clonedConfiguration(_configuration)));
+		if (clonedConfiguration == null) {
+			String database = _injector.getInstance(Key.get(String.class, AnnotationUtil.configuredDatabase(_configuration, databaseKey)));
+			Mongo connection = getConnection(_configuration, databaseKey);
+			_cachedDB = connection.getDB(database);
+		} else {
+			Mongo connection = getConnection(clonedConfiguration, databaseKey);
+			_cachedDB = connection.getDB(UUID.randomUUID().toString());
+			String clonedDatabase = _injector.getInstance(Key.get(String.class, AnnotationUtil.configuredDatabase(clonedConfiguration, databaseKey)));
+			_cachedDB.eval("var c = connect('" + clonedDatabase + "'); c.system.js.find().forEach(function(x){db.system.js.save(x)}); db.system.js.ensureIndex({_id: 1});");
+			
+			Runtime.getRuntime().addShutdownHook(new RemoveTemporaryDB(_cachedDB));
+		}
+	}
+ 
+	private DB _cachedDB;
+	
 	public DB get() {
 		try {
-			String databaseKey = ((GuiceyMongoDatabase)key.getAnnotation()).value();
-			String database = _injector.getInstance(Key.get(String.class, AnnotationUtil.configuredDatabase(_configuration, databaseKey)));
-			
-			Mongo mongo;
-			
-			String connectionKey = getInstance(_injector, Key.get(String.class, AnnotationUtil.configuredDatabaseConnection(_configuration, databaseKey)));
-			if (connectionKey != null) {
-				String hostname = getInstance(_injector, Key.get(String.class, AnnotationUtil.configuredConnectionHostname(connectionKey)));
-				Integer port = getInstance(_injector, Key.get(int.class, AnnotationUtil.configuredConnectionPort(connectionKey)));
-				
-				if (hostname == null)
-					hostname = "localhost";
-				if (port == null)
-					mongo = new Mongo(hostname);
-				else
-					mongo = new Mongo(hostname, port.intValue());
-			} else {
-				mongo = new Mongo();
-			}
-			return mongo.getDB(database);
+			if (_cachedDB == null)
+				cacheDB();
+			return _cachedDB;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

@@ -1,6 +1,11 @@
+import org.aopalliance.intercept.MethodInterceptor;
+import org.aopalliance.intercept.MethodInvocation;
+
+import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
+import com.google.inject.matcher.Matchers;
 import com.lowereast.guiceymongo.guice.GuiceyMongo;
 import com.lowereast.guiceymongo.guice.annotation.GuiceyMongoDatabase;
 import com.mongodb.DB;
@@ -28,7 +33,21 @@ public class DatabaseConfigurationExample {
 					.mapDatabase(Databases.Search).to("test_search_db"),
 				
 				// choose the configuration to use
-				GuiceyMongo.chooseConfiguration(Configurations.Test)
+				GuiceyMongo.chooseConfiguration(Configurations.Test),
+				
+				new AbstractModule() {
+					@Override
+					protected void configure() {
+						bindInterceptor(Matchers.any(), Matchers.any(), new MethodInterceptor() {
+							public Object invoke(MethodInvocation invocation) throws Throwable {
+								System.out.println("Before: " + invocation.getMethod());
+								Object result = invocation.proceed();
+								System.out.println("After: " + invocation.getMethod());
+								return result;
+							}
+						});
+					}
+				}
 		);
 		
 		injector.getInstance(DatabaseConfigurationExample.class);

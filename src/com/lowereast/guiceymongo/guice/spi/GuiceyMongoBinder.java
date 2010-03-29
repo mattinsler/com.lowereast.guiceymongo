@@ -26,7 +26,7 @@ public class GuiceyMongoBinder {
 	private final Binder _binder;
 	
 	public GuiceyMongoBinder(Binder binder) {
-		_binder = binder;
+		_binder = binder.skipSources(GuiceyMongoBinder.class);
 	}
 	
 	public void addError(String message) {

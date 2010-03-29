@@ -17,6 +17,7 @@
 package com.lowereast.guiceymongo.guice.internal;
 
 import com.google.inject.Binder;
+import com.google.inject.Module;
 import com.lowereast.guiceymongo.guice.internal.Builders.CollectionConfiguration;
 import com.lowereast.guiceymongo.guice.internal.Builders.DatabaseConfiguration;
 import com.lowereast.guiceymongo.guice.internal.Builders.DatabaseOptionConfiguration;
@@ -28,9 +29,13 @@ public final class BuilderImpls {
 	public static class Configuration implements Builders.Configuration, Builders.FinishableConfiguration {
 		private final String _name;
 		private final GuiceyMongoBindingCollector _collector = new GuiceyMongoBindingCollector();
-		
+
 		public Configuration(String name) {
 			_name = name;
+		}
+		public Module cloneFrom(String configurationName) {
+			_collector.bindClonedConfiguration(_name, configurationName);
+			return this;
 		}
 		public Builders.CollectionConfiguration mapCollection(String collectionKey) {
 			return new Collection(this, collectionKey);
@@ -40,7 +45,7 @@ public final class BuilderImpls {
 		}
 		
 		public void configure(Binder binder) {
-			new GuiceyMongoBinder(binder.skipSources(Configuration.class)).bind(_collector);
+			new GuiceyMongoBinder(binder.skipSources(Configuration.class, Database.class, Collection.class)).bind(_collector);
 		}
 		
 		String getName() {
