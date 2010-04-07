@@ -1,11 +1,11 @@
 ## GuiceyMongo (Guice integration for MongoDB) ##
 
-mongoose home: http://github.com/mattinsler/com.lowereast.guiceymongo/
+GuiceyMongo home: http://github.com/mattinsler/com.lowereast.guiceymongo/
 
 mongodb home: http://www.mongodb.org/
 
 #### Usage
-Check out the examples directory
+Check out the examples directory and the posts at [Fun with Dependencies](http://www.mattinsler.com)
 
 #### Questions and Bug Reports
  * email matt.insler@gmail.com
