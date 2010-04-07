@@ -88,16 +88,25 @@ public final class DBObjectUtil {
 		return current;
 	}
 	
-	private static void setPropertyValue(Object object, String key, Object value) {
+	private static Object setPropertyValue(Object object, String key, Object value) {
 		if (value instanceof Enum<?>)
 			value = ((Enum<?>)value).name();
 
 		if (object instanceof List<?>) {
 			// not sure yet
-			throw new IllegalStateException();
 		} else if (object instanceof DBObject) {
-			((DBObject)object).put(key, value);
+			return ((DBObject)object).put(key, value);
 		}
+		throw new IllegalStateException();
+	}
+	
+	private static Object removePropertyValue(Object object, String key) {
+		if (object instanceof List<?>) {
+			// not sure yet
+		} else if (object instanceof DBObject) {
+			return ((DBObject)object).removeField(key);
+		}
+		throw new IllegalStateException();
 	}
 	
 	
@@ -158,8 +167,31 @@ public final class DBObjectUtil {
 		Object object = dbObject;
 		if (pieces.length > 1)
 			object = navigateToSubObject(dbObject, Arrays.copyOf(pieces, pieces.length - 1), true);
-		setPropertyValue(object, pieces[pieces.length - 1], value);
+		return (T)setPropertyValue(object, pieces[pieces.length - 1], value);
+	}
+	
+	public static <T> T removeProperty(DBObject dbObject, String property) {
+		checkArgNull(dbObject, "dbObject");
+		String[] pieces = checkArgNull(property, "property").split("[.]");
 		
-		return value;
+		if (pieces.length == 0)
+			throw new IllegalArgumentException("");
+		for (String key : pieces) {
+			if (key == null)
+				throw new IllegalArgumentException("");
+		}
+		
+		Object object = dbObject;
+		if (pieces.length > 1)
+			object = navigateToSubObject(dbObject, Arrays.copyOf(pieces, pieces.length - 1), true);
+		return (T)removePropertyValue(object, pieces[pieces.length - 1]);
+	}
+
+	public static String encodeKey(String key) {
+		return key.replace("_", "_" + (int)'_').replace(".", "_" + (int)'.');
+	}
+	
+	public static String decodeKey(String key) {
+		return key.replace("_" + (int)'.', ".").replace("_" + (int)'_', "_");
 	}
 }

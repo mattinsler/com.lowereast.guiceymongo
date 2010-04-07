@@ -37,6 +37,12 @@ class CollectionProviderModule extends SingletonModule<Key<DBCollection>> implem
 		super(Key.get(DBCollection.class, AnnotationUtil.guiceyMongoCollection(collectionKey)));
 		_databaseKey = databaseKey;
 	}
+	
+	private <T> T getInstance(Injector injector, Key<T> key) {
+		if (!injector.getBindings().containsKey(key))
+			return null;
+		return injector.getInstance(key);
+	}
 
 	@Inject
 	void initialize(Injector injector, @Configuration String configuration) {
@@ -48,12 +54,27 @@ class CollectionProviderModule extends SingletonModule<Key<DBCollection>> implem
 	public void configure(Binder binder) {
 		binder.skipSources(CollectionProviderModule.class).bind(key).toProvider(this);
 	}
+	
+	private void cacheDBCollection() throws Exception {
+		String collectionKey = ((GuiceyMongoCollection) ((Key<?>) key).getAnnotation()).value();
 
+		String clonedConfiguration = getInstance(_injector, Key.get(String.class, AnnotationUtil.clonedConfiguration(_configuration)));
+		if (clonedConfiguration == null) {
+			String collection = _injector.getInstance(Key.get(String.class, AnnotationUtil.configuredCollection(_configuration, collectionKey)));
+			_cachedDBCollection = _databaseProvider.get().getCollection(collection);
+		} else {
+			String collection = _injector.getInstance(Key.get(String.class, AnnotationUtil.configuredCollection(clonedConfiguration, collectionKey)));
+			_cachedDBCollection = _databaseProvider.get().getCollection(collection);
+		}
+	}
+	
+	private DBCollection _cachedDBCollection;
+	
 	public DBCollection get() {
 		try {
-			String collectionKey = ((GuiceyMongoCollection) ((Key<?>) key).getAnnotation()).value();
-			String collection = _injector.getInstance(Key.get(String.class, AnnotationUtil.configuredCollection(_configuration, collectionKey)));
-			return _databaseProvider.get().getCollection(collection);
+			if (_cachedDBCollection == null)
+				cacheDBCollection();
+			return _cachedDBCollection;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
