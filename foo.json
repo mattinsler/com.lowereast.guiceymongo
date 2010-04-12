@@ -1,0 +1,7 @@
+{
+	"foo": {
+		"foo": "string",
+		"bar": "int",
+		"baz": ["string"]
+	}
+}
