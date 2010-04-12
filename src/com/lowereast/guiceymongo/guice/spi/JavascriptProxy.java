@@ -30,8 +30,10 @@ import com.google.inject.Module;
 import com.google.inject.Provider;
 import com.google.inject.internal.Maps;
 import com.lowereast.guiceymongo.GuiceyMongoEvalException;
+import com.lowereast.guiceymongo.ReadableDBObject;
 import com.lowereast.guiceymongo.guice.GuiceyMongo;
 import com.mongodb.DB;
+import com.mongodb.DBObject;
 import com.mongodb.MongoException;
 
 public class JavascriptProxy<T> implements Module, Provider<T> {
@@ -111,6 +113,25 @@ public class JavascriptProxy<T> implements Module, Provider<T> {
 		}
 	};
 	
+	private static class ReadableDBObjectConverter<T extends ReadableDBObject> implements Converter<DBObject, T> {
+		private final Method _wrapMethod;
+		public ReadableDBObjectConverter(Class<T> readableClass) {
+			try {
+				_wrapMethod = readableClass.getDeclaredMethod("wrap", DBObject.class);
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}
+		}
+		public T convert(DBObject value) {
+			try {
+				return (T)_wrapMethod.invoke(null, value);
+			} catch (Exception e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
+	}
+	
 	private static class ReturningInvocation implements Invocation {
 		private final String _code;
 		private final Converter<?, ?> _converter;
@@ -119,7 +140,9 @@ public class JavascriptProxy<T> implements Module, Provider<T> {
 			String argumentString = createArgumentString(argumentTypes.length);
 			_code = "function" + argumentString + "{return " + methodName + argumentString + "}";
 
-			if (int.class.equals(returnType) || Integer.class.equals(returnType)) {
+			if (ReadableDBObject.class.isAssignableFrom(returnType)) {
+				_converter = new ReadableDBObjectConverter(returnType);
+			} else if (int.class.equals(returnType) || Integer.class.equals(returnType)) {
 				_converter = DoubleToIntConverter;
 			} else {
 				_converter = NoOpConverter;
