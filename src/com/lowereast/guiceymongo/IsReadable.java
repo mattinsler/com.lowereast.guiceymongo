@@ -14,18 +14,13 @@
  *   limitations under the License.
  */
 
-package com.lowereast.guiceymongo.wrapper.generator;
+package com.lowereast.guiceymongo;
 
-public class Property {
-	public String name;
-	public String camelCaseName;
-	public String lowerCamelCaseName;
-	public String type;
-	public Property(String name, String type) {
-		this.name = name;
-		this.type = type;
-		
-		this.camelCaseName = TypeGenerator.toCamelCase(this.name);
-		this.lowerCamelCaseName = TypeGenerator.toLowerCamelCase(this.name);
-	}
+import java.util.Set;
+
+public interface IsReadable {
+	Set<String> keySet();
+	
+	public boolean hasField(String fieldKey);
+	public Object getField(String fieldKey);
 }

@@ -14,13 +14,17 @@
  *   limitations under the License.
  */
 
-package com.lowereast.guiceymongo;
+package com.lowereast.guiceymongo.data.property;
 
-import java.util.Set;
+import com.lowereast.guiceymongo.data.type.MapType;
 
-public interface ReadableDBObject {
-	Set<String> keySet();
+public class MapProperty extends Property<MapType> {
+	public MapProperty(String name, MapType type, boolean useCamelCaseKeys) {
+		super(name, type, useCamelCaseKeys);
+	}
 	
-	public boolean hasField(String fieldKey);
-	public Object getField(String fieldKey);
+	@Override
+	public String getMemberVariableName() {
+		return super.getMemberVariableName() + "Map";
+	}
 }

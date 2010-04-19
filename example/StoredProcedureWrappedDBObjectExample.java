@@ -3,20 +3,17 @@ import org.junit.Test;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Key;
-import com.lowereast.guiceymongo.ReadableDBObject;
+import com.lowereast.guiceymongo.IsReadable;
 import com.lowereast.guiceymongo.guice.GuiceyMongo;
 import com.lowereast.guiceymongo.guice.spi.GuiceyMongoDatabases;
-import com.lowereast.guiceymongo.wrapper.generator.GuiceyDBObjectGenerator;
 import com.mongodb.DB;
-
-import example.mongo.Foo;
 
 public class StoredProcedureWrappedDBObjectExample {
 	public interface FooQuery {
-		Foo get();
+//		Foo get();
 	}
 	
-	private void printReadableDBObject(ReadableDBObject object) {
+	private void printReadableDBObject(IsReadable object) {
 		for (String key : object.keySet()) {
 			if (object.hasField(key))
 				System.out.println(key + ": " + object.getField(key));
@@ -37,12 +34,14 @@ public class StoredProcedureWrappedDBObjectExample {
 		
 		FooQuery query = injector.getInstance(FooQuery.class);
 		
-		Foo foo = query.get();
-		printReadableDBObject(foo);
+//		Foo foo = query.get();
+//		printReadableDBObject(foo);
 	}
 	
 	@Test
 	public void generateFoo() {
-		GuiceyDBObjectGenerator.generate("example", "example.mongo", "foo.json");
+//		GuiceyDBObjectGenerator.generate("example", "example.mongo", "foo.json");
+//		GuiceyDBObjectGenerator.generate("example", "example.mongo", "user.json");
+//		GuiceyDBObjectGenerator.generate("example", "example.mongo", "session.json");
 	}
 }

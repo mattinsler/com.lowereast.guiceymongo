@@ -14,11 +14,17 @@
  *   limitations under the License.
  */
 
-package com.lowereast.guiceymongo.wrapper.generator;
+package com.lowereast.guiceymongo.data.property;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.lowereast.guiceymongo.data.type.ListType;
 
-public class TypeRegistry {
-	public Map<String, Type> types = new HashMap<String, Type>();
+public class ListProperty extends Property<ListType> {
+	public ListProperty(String name, ListType type, boolean useCamelCaseKeys) {
+		super(name, type, useCamelCaseKeys);
+	}
+
+	@Override
+	public String getMemberVariableName() {
+		return super.getMemberVariableName() + "List";
+	}
 }

@@ -14,15 +14,14 @@
  *   limitations under the License.
  */
 
-package com.lowereast.guiceymongo.wrapper;
+package com.lowereast.guiceymongo.data;
 
 import java.util.List;
 import java.util.Set;
 
-import com.lowereast.guiceymongo.ReadableDBObject;
 import com.mongodb.DBObject;
 
-public abstract class GuiceyDBObject implements ReadableDBObject {
+public abstract class GuiceyDBObject {
 	private final DBObject _backing;
 	
 	protected GuiceyDBObject(DBObject backing) {
