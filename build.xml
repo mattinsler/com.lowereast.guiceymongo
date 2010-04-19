@@ -1,41 +1,29 @@
-<?xml version='1.0'?>
-<project name="GuiceyMongo" default="compile" basedir=".">
-  <property name="version" value="0.1" />
-  <property name="targetdir" location="target" />
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="GuiceyMongo" basedir="." default="compile">
+	<property name="jar.name" value="guiceymongo.jar" />
 
-  <path id="classpath">
-    <fileset dir="lib">
-      <include name="**/*.jar" />
-    </fileset>
-  </path>
+	<property name="src.dir" value="src" />
+	<property name="lib.dir" value="lib" />
 
-  <target name="init">
-    <mkdir dir="build" />
-  </target>
+	<property name="classes.dir" value="classes" />
+	<property name="target.dir" value="target" />
 
-  <target name="clean">
-    <delete dir="build" />
-  </target>
+	<path id="classpath">
+		<fileset dir="${lib.dir}" includes="**/*.jar"/>
+	</path>
 
-  <target name="compile" depends="init">
-    <javac srcdir="src"
-	   destdir="build"
-	   optimize="off"
-	   source="1.5"
-	   target="1.5"
-	   encoding="ISO-8859-1"
-	   memoryMaximumSize="256M"
-	   fork="true"
-	   debug="on">
-      <classpath refid="classpath" />
-    </javac>
-  </target>
+	<target name="clean">
+		<delete dir="${classes.dir}" />
+		<delete dir="${target.dir}" />
+	</target>
 
-  <target name="jar" depends="compile">
-    <jar jarfile="guiceymongo.jar">
-      <fileset dir="build" />
-    </jar>
-  </target>
+	<target name="compile">
+		<mkdir dir="${classes.dir}" />
+		<javac srcdir="${src.dir}" destdir="${classes.dir}" classpathref="classpath" />
+	</target>
 
-  <target name="rebuild" depends="clean, compile" />
+	<target name="jar" depends="compile">
+		<mkdir dir="${target.dir}"/>
+		<jar destfile="${target.dir}/${jar.name}" basedir="${classes.dir}" />
+	</target>
 </project>
