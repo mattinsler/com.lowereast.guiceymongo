@@ -27,7 +27,7 @@ public class SetPropertyGenerator extends PropertyGenerator<SetType, SetProperty
 		// getSet
 		appendIndent(builder, indentCount).append("public abstract ").append(type.getCanonicalJavaType()).append(" get").append(property.getCamelCaseName()).append("Set();\n");
 		// contains
-		appendIndent(builder, indentCount).append("public abstract boolean contains(").append(type.getCanonicalJavaType()).append(" value);\n");
+		appendIndent(builder, indentCount).append("public abstract boolean contains").append(property.getCamelCaseName()).append("(").append(type.getCanonicalJavaType()).append(" value);\n");
 	}
 	
 	@Override
@@ -67,7 +67,7 @@ public class SetPropertyGenerator extends PropertyGenerator<SetType, SetProperty
 		appendIndent(builder, indentCount).append("}\n");
 		
 		// contains
-		appendIndent(builder, indentCount).append("@Override public boolean contains(").append(type.getCanonicalJavaType()).append(" value) {\n");
+		appendIndent(builder, indentCount).append("@Override public boolean contains").append(property.getCamelCaseName()).append("(").append(type.getCanonicalJavaType()).append(" value) {\n");
 		appendIndent(builder, indentCount + 1).append(type.getCanonicalJavaType()).append(" set = get").append(property.getCamelCaseName()).append("Set();\n");
 		appendIndent(builder, indentCount + 1).append("return set == null ? null : set.contains(value);\n");
 		appendIndent(builder, indentCount).append("}\n");
@@ -98,7 +98,7 @@ public class SetPropertyGenerator extends PropertyGenerator<SetType, SetProperty
 		appendIndent(builder, indentCount).append("}\n");
 		
 		// contains
-		appendIndent(builder, indentCount).append("@Override public boolean contains(").append(type.getCanonicalJavaType()).append(" value) {\n");
+		appendIndent(builder, indentCount).append("@Override public boolean contains").append(property.getCamelCaseName()).append("(").append(type.getCanonicalJavaType()).append(" value) {\n");
 		appendIndent(builder, indentCount + 1).append("return ").append(property.getMemberVariableName()).append(" == null ? false : ").append(property.getMemberVariableName()).append(".contains(value);\n");
 		appendIndent(builder, indentCount).append("}\n");
 
