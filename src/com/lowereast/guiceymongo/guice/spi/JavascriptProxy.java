@@ -20,6 +20,7 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Proxy;
+import java.util.List;
 import java.util.Map;
 
 import com.google.inject.Binder;
@@ -28,9 +29,11 @@ import com.google.inject.Injector;
 import com.google.inject.Key;
 import com.google.inject.Module;
 import com.google.inject.Provider;
+import com.google.inject.internal.Lists;
 import com.google.inject.internal.Maps;
 import com.lowereast.guiceymongo.GuiceyMongoEvalException;
 import com.lowereast.guiceymongo.IsReadable;
+import com.lowereast.guiceymongo.annotation.ItemType;
 import com.lowereast.guiceymongo.guice.GuiceyMongo;
 import com.mongodb.DB;
 import com.mongodb.DBObject;
@@ -132,20 +135,45 @@ public class JavascriptProxy<T> implements Module, Provider<T> {
 		}
 	}
 	
+	private static class ListReadableDBObjectConverter<T extends IsReadable> implements Converter<List<DBObject>, List<T>> {
+		private final Method _wrapMethod;
+		public ListReadableDBObjectConverter(Class<T> readableClass) {
+			try {
+				_wrapMethod = readableClass.getDeclaredMethod("wrap", DBObject.class);
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}
+		}
+		public List<T> convert(List<DBObject> value) {
+			try {
+				List<T> list = Lists.newArrayList();
+				for (DBObject o : value)
+					list.add((T)_wrapMethod.invoke(null, o));
+				return list;
+			} catch (Exception e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
+	}
+	
 	private static class ReturningInvocation implements Invocation {
 		private final String _code;
-		private final Converter<?, ?> _converter;
 		
-		public ReturningInvocation(Class<?> returnType, String methodName, Class<?>[] argumentTypes) {
+		private Converter<?, ?> _converter = NoOpConverter;
+		
+		public ReturningInvocation(Class<?> returnType, Method method, Class<?>[] argumentTypes) {
 			String argumentString = createArgumentString(argumentTypes.length);
-			_code = "function" + argumentString + "{return " + methodName + argumentString + "}";
+			_code = "function" + argumentString + "{return " + method.getName() + argumentString + "}";
 
 			if (IsReadable.class.isAssignableFrom(returnType)) {
 				_converter = new ReadableDBObjectConverter(returnType);
+			} else if (List.class.isAssignableFrom(returnType)) {
+				ItemType itemType = method.getAnnotation(ItemType.class);
+				if (itemType != null && IsReadable.class.isAssignableFrom(itemType.value()))
+					_converter = new ListReadableDBObjectConverter(itemType.value());
 			} else if (int.class.equals(returnType) || Integer.class.equals(returnType)) {
 				_converter = DoubleToIntConverter;
-			} else {
-				_converter = NoOpConverter;
 			}
 		}
 		@SuppressWarnings("unchecked")
@@ -178,7 +206,7 @@ public class JavascriptProxy<T> implements Module, Provider<T> {
 							invocation = new VoidInvocation(methodName, argumentTypes);
 						}
 					} else {
-						invocation = new ReturningInvocation(methodReturnType, methodName, argumentTypes);
+						invocation = new ReturningInvocation(methodReturnType, method, argumentTypes);
 					}
 					
 					_invocations.put(method, invocation);

@@ -1,18 +1,10 @@
 package com.lowereast.guiceymongo.data.type;
 
-import java.util.Arrays;
-import java.util.List;
-
 public class PrimitiveType extends Type {
 	private final String _javaBoxedType;
 
-	public PrimitiveType(String guiceyType, String javaType, String javaBoxedType) {
-		super(guiceyType, javaType, javaBoxedType);
-		_javaBoxedType = javaBoxedType;
-	}
-	
-	public PrimitiveType(String guiceyType, String javaType, String javaBoxedType, List<String> imports) {
-		super(guiceyType, javaType, imports);
+	public PrimitiveType(String guiceyType, String simpleJavaType, String canonicalJavaType, String javaBoxedType) {
+		super(guiceyType, simpleJavaType, canonicalJavaType);
 		_javaBoxedType = javaBoxedType;
 	}
 	
@@ -20,16 +12,16 @@ public class PrimitiveType extends Type {
 		return _javaBoxedType;
 	}
 	
-	public static PrimitiveType DoubleType = new PrimitiveType("double", "double", "Double");
-	public static PrimitiveType FloatType = new PrimitiveType("float", "float", "Float");
-	public static PrimitiveType Int32Type = new PrimitiveType("int32", "int", "Integer");
-	public static PrimitiveType Int64Type = new PrimitiveType("int64", "long", "Long");
-	public static PrimitiveType BoolType = new PrimitiveType("bool", "boolean", "Boolean");
-	public static PrimitiveType StringType = new PrimitiveType("string", "String", "String");
+	public static PrimitiveType DoubleType = new PrimitiveType("double", "double", "double", "Double");
+	public static PrimitiveType FloatType = new PrimitiveType("float", "float", "float", "Float");
+	public static PrimitiveType Int32Type = new PrimitiveType("int32", "int", "int", "Integer");
+	public static PrimitiveType Int64Type = new PrimitiveType("int64", "long", "long", "Long");
+	public static PrimitiveType BoolType = new PrimitiveType("bool", "boolean", "boolean", "Boolean");
+	public static PrimitiveType StringType = new PrimitiveType("string", "String", "String", "String");
 //	public static PrimitiveType BytesType = new PrimitiveType("bytes", "", ""); // byte[]??
-	public static PrimitiveType DateType = new PrimitiveType("date", "Date", "Date", Arrays.asList("java.util.Date"));
+	public static PrimitiveType DateType = new PrimitiveType("date", "Date", "java.util.Date", "java.util.Date");
 	
-	public static PrimitiveType ObjectIdType = new PrimitiveType("object_id", "ObjectId", "ObjectId", Arrays.asList("com.mongodb.ObjectId"));
+	public static PrimitiveType ObjectIdType = new PrimitiveType("object_id", "ObjectId", "com.mongodb.ObjectId", "com.mongodb.ObjectId");
 	
 	// DBTimestamp??
 	

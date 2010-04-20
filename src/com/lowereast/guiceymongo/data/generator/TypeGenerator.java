@@ -17,6 +17,7 @@
 package com.lowereast.guiceymongo.data.generator;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,46 +53,92 @@ public class TypeGenerator {
 			builder.append("\t");
 		return builder;
 	}
-
-	private void createPropertyKeys(Appendable builder, UserType type, int indentCount) throws IOException {
-		for (Property<?> property : type.getProperties()) {
-			if (property instanceof PrimitiveProperty)
-				_primitivePropertyGenerator.createKey(builder, (PrimitiveProperty)property, indentCount + 1);
-			else if (property instanceof ListProperty)
-				_listPropertyGenerator.createKey(builder, (ListProperty)property, indentCount + 1);
-			else if (property instanceof SetProperty)
-				_setPropertyGenerator.createKey(builder, (SetProperty)property, indentCount + 1);
-			else if (property instanceof MapProperty)
-				_mapPropertyGenerator.createKey(builder, (MapProperty)property, indentCount + 1);
-			else if (property instanceof UserEnumTypeProperty)
-				_userEnumTypePropertyGenerator.createKey(builder, (UserEnumTypeProperty)property, indentCount + 1);
-			else if (property instanceof UserTypeProperty)
-				_userTypePropertyGenerator.createKey(builder, (UserTypeProperty)property, indentCount + 1);
+	
+	private void create(String methodName, Appendable builder, UserType type, int indentCount) throws IOException {
+		methodName = "create" + methodName;
+		try {
+			for (Property<?> property : type.getProperties()) {
+				if (property instanceof PrimitiveProperty)
+					PrimitivePropertyGenerator.class.getDeclaredMethod(methodName, Appendable.class, PrimitiveProperty.class, int.class).invoke(_primitivePropertyGenerator, builder, property, indentCount);
+				else if (property instanceof ListProperty)
+					ListPropertyGenerator.class.getDeclaredMethod(methodName, Appendable.class, ListProperty.class, int.class).invoke(_listPropertyGenerator, builder, property, indentCount);
+				else if (property instanceof SetProperty)
+					SetPropertyGenerator.class.getDeclaredMethod(methodName, Appendable.class, SetProperty.class, int.class).invoke(_setPropertyGenerator, builder, property, indentCount);
+				else if (property instanceof MapProperty)
+					MapPropertyGenerator.class.getDeclaredMethod(methodName, Appendable.class, MapProperty.class, int.class).invoke(_mapPropertyGenerator, builder, property, indentCount);
+				else if (property instanceof UserEnumTypeProperty)
+					UserEnumTypePropertyGenerator.class.getDeclaredMethod(methodName, Appendable.class, UserEnumTypeProperty.class, int.class).invoke(_userEnumTypePropertyGenerator, builder, property, indentCount);
+				else if (property instanceof UserTypeProperty)
+					UserTypePropertyGenerator.class.getDeclaredMethod(methodName, Appendable.class, UserTypeProperty.class, int.class).invoke(_userTypePropertyGenerator, builder, property, indentCount);
+			}
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
 		}
 	}
-	
-	private void createUserTypeBuilder(Appendable builder, UserType type, int indentCount) throws IOException {
-		appendIndent(builder, indentCount).append("public static class Builder implements IsBuildable {\n");
-		
-		appendIndent(builder, indentCount + 1).append("private Builder() {}\n");
 
-		for (Property<?> property : type.getProperties()) {
-			if (property instanceof PrimitiveProperty)
-				_primitivePropertyGenerator.createBuilder(builder, (PrimitiveProperty)property, indentCount + 1);
-			else if (property instanceof ListProperty)
-				_listPropertyGenerator.createBuilder(builder, (ListProperty)property, indentCount + 1);
-			else if (property instanceof SetProperty)
-				_setPropertyGenerator.createBuilder(builder, (SetProperty)property, indentCount + 1);
-			else if (property instanceof MapProperty)
-				_mapPropertyGenerator.createBuilder(builder, (MapProperty)property, indentCount + 1);
-			else if (property instanceof UserEnumTypeProperty)
-				_userEnumTypePropertyGenerator.createBuilder(builder, (UserEnumTypeProperty)property, indentCount + 1);
-			else if (property instanceof UserTypeProperty)
-				_userTypePropertyGenerator.createBuilder(builder, (UserTypeProperty)property, indentCount + 1);
-		}
+	private void createUpdater(Appendable builder, UserType type, int indentCount) throws IOException {
+		if (type.getIdentityProperty() == null)
+			return;
 		
-		appendIndent(builder, indentCount + 1).append("public DBObject build() {\n");
+		appendIndent(builder, indentCount).append("public static class Updater extends ").append(type.getSimpleJavaType()).append(" implements com.lowereast.guiceymongo.IsUpdatable {\n");
+
+		// member variables
+		appendIndent(builder, indentCount + 1).append("private final Wrapper _wrapper;\n");
+		appendIndent(builder, indentCount + 1).append("private final Builder _builder;\n");
+		appendIndent(builder, indentCount + 1).append("private final com.mongodb.DBCollection _collection;\n");
+		
+		// constructor
+		appendIndent(builder, indentCount + 1).append("private Updater(Wrapper wrapper, com.mongodb.DBCollection collection) {\n");
+		appendIndent(builder, indentCount + 2).append("_wrapper = wrapper;\n");
+		appendIndent(builder, indentCount + 2).append("_builder = ").append(type.getSimpleJavaType()).append(".newBuilder();\n");
+		appendIndent(builder, indentCount + 2).append("_collection = collection;\n");
+		appendIndent(builder, indentCount + 1).append("}\n");
+		
+		create("UpdaterMethod", builder, type, indentCount + 1);
+		
+		appendIndent(builder, indentCount + 1).append("public com.mongodb.DBObject buildUpdate() {\n");
+		appendIndent(builder, indentCount + 2).append("com.mongodb.DBObject dbObject = new com.mongodb.BasicDBObject();\n");
+		create("UpdaterBuildUpdate", builder, type, indentCount + 2);
+		appendIndent(builder, indentCount + 2).append("if (dbObject.keySet().size() == 0)\n");
+		appendIndent(builder, indentCount + 3).append("return null;\n");
+		appendIndent(builder, indentCount + 2).append("return new com.mongodb.BasicDBObject(\"$set\", dbObject);\n");
+		appendIndent(builder, indentCount + 1).append("}\n");
+
+		appendIndent(builder, indentCount + 1).append("public void update() {\n");
+		appendIndent(builder, indentCount + 2).append("com.mongodb.DBObject updateObject = buildUpdate();\n");
+		appendIndent(builder, indentCount + 2).append("if (updateObject != null)\n");
+		appendIndent(builder, indentCount + 3).append("_collection.update(new com.mongodb.BasicDBObject(").append(type.getIdentityProperty().getKeyName()).append(", get").append(type.getIdentityProperty().getCamelCaseName()).append("()), updateObject);\n");
+		appendIndent(builder, indentCount + 1).append("}\n");
+		
+		appendIndent(builder, indentCount).append("}\n");
+
+		appendIndent(builder, indentCount).append("public static Updater newUpdater(com.mongodb.DBObject backing, com.mongodb.DBCollection collection) {\n");
+		appendIndent(builder, indentCount + 1).append("if (backing != null && collection != null)\n");
 		appendIndent(builder, indentCount + 2).append("return null;\n");
+		appendIndent(builder, indentCount + 1).append("return new Updater(").append(type.getSimpleJavaType()).append(".wrap(backing), collection);\n");
+		appendIndent(builder, indentCount).append("}\n");
+	}
+	
+	private void createBuilder(Appendable builder, UserType type, int indentCount) throws IOException {
+		appendIndent(builder, indentCount).append("public static class Builder extends ").append(type.getSimpleJavaType()).append(" implements com.lowereast.guiceymongo.IsBuildable {\n");
+		
+		// constructor
+		appendIndent(builder, indentCount + 1).append("private Builder() {}\n");
+		
+		create("BuilderMethod", builder, type, indentCount + 1);
+		
+		appendIndent(builder, indentCount + 1).append("public com.mongodb.DBObject build() {\n");
+		appendIndent(builder, indentCount + 2).append("com.mongodb.DBObject dbObject = new com.mongodb.BasicDBObject();\n");
+		create("BuilderBuild", builder, type, indentCount + 2);
+		appendIndent(builder, indentCount + 2).append("return dbObject;\n");
 		appendIndent(builder, indentCount + 1).append("}\n");
 		
 		appendIndent(builder, indentCount).append("}\n");
@@ -101,45 +148,26 @@ public class TypeGenerator {
 		appendIndent(builder, indentCount).append("}\n");
 	}
 	
-	private void createReadableUserType(Appendable builder, UserType type, int indentCount, boolean innerClass) throws IOException {
-		if (type instanceof UserEnumType) {
-			createEnumType(builder, (UserEnumType)type, indentCount, innerClass);
-			return;
-		}
-		appendIndent(builder, indentCount).append("public " + (innerClass ? "static " : "") + "class ").append(type.getSimpleJavaType()).append(" extends GuiceyDBObject implements IsReadable {\n");
+	private void createWrapper(Appendable builder, UserType type, int indentCount) throws IOException {
+		appendIndent(builder, indentCount).append("public static class Wrapper extends ").append(type.getSimpleJavaType()).append(" {\n");
 		
-		createPropertyKeys(builder, type, indentCount + 1);
+		// member variable
+		appendIndent(builder, indentCount + 1).append("private com.mongodb.DBObject _backing;\n");
+		builder.append("\n");
 		
-		appendIndent(builder, indentCount + 1).append("private ").append(type.getSimpleJavaType()).append("(DBObject backing) {\n");
-		appendIndent(builder, indentCount + 2).append("super(backing);\n");
+		// constructor
+		appendIndent(builder, indentCount + 1).append("private Wrapper(com.mongodb.DBObject backing) {\n");
+		appendIndent(builder, indentCount + 2).append("_backing = backing;\n");
 		appendIndent(builder, indentCount + 1).append("}\n");
 
-		for (Property<?> property : type.getProperties()) {
-			if (property instanceof PrimitiveProperty)
-				_primitivePropertyGenerator.createReadable(builder, (PrimitiveProperty)property, indentCount + 1);
-			else if (property instanceof ListProperty)
-				_listPropertyGenerator.createReadable(builder, (ListProperty)property, indentCount + 1);
-			else if (property instanceof SetProperty)
-				_setPropertyGenerator.createReadable(builder, (SetProperty)property, indentCount + 1);
-			else if (property instanceof MapProperty)
-				_mapPropertyGenerator.createReadable(builder, (MapProperty)property, indentCount + 1);
-			else if (property instanceof UserEnumTypeProperty)
-				_userEnumTypePropertyGenerator.createReadable(builder, (UserEnumTypeProperty)property, indentCount + 1);
-			else if (property instanceof UserTypeProperty)
-				_userTypePropertyGenerator.createReadable(builder, (UserTypeProperty)property, indentCount + 1);
-		}
+		create("WrapperMethod", builder, type, indentCount + 1);
+
+		appendIndent(builder, indentCount).append("}\n");
 		
-		appendIndent(builder, indentCount + 1).append("public static ").append(type.getSimpleJavaType()).append(" wrap(DBObject backing) {\n");
-		appendIndent(builder, indentCount + 2).append("if (backing == null)\n");
-		appendIndent(builder, indentCount + 3).append("return null;\n");
-		appendIndent(builder, indentCount + 2).append("return new ").append(type.getSimpleJavaType()).append("(backing);\n");
-		appendIndent(builder, indentCount + 1).append("}\n");
-		
-//		createUserTypeBuilder(builder, type, indentCount + 1);
-		
-		for (UserType childType : type.getChildTypes())
-			createReadableUserType(builder, childType, indentCount + 1, true);
-		
+		appendIndent(builder, indentCount).append("public static ").append(type.getSimpleJavaType()).append(".Wrapper wrap(com.mongodb.DBObject backing) {\n");
+		appendIndent(builder, indentCount + 1).append("if (backing == null)\n");
+		appendIndent(builder, indentCount + 2).append("return null;\n");
+		appendIndent(builder, indentCount + 1).append("return new ").append(type.getSimpleJavaType()).append(".Wrapper(backing);\n");
 		appendIndent(builder, indentCount).append("}\n");
 	}
 	
@@ -156,13 +184,37 @@ public class TypeGenerator {
 		
 		appendIndent(builder, indentCount).append("}\n");
 	}
-	
-	public void createUserType(Appendable builder, UserType type) throws IOException {
-		builder.append("// Generated file!!!  DO NOT EDIT THIS!!!\n\n");
-		// create imports
-		for (String i : type.getUserTypeFileImports())
-			builder.append("import ").append(i).append(";\n");
+
+	private void createUserType(Appendable builder, UserType type, int indentCount, boolean innerClass) throws IOException {
+		if (type instanceof UserEnumType) {
+			createEnumType(builder, (UserEnumType)type, 1, false);
+			return;
+		}
+		appendIndent(builder, indentCount).append("public " + (innerClass ? "static " : "") + "abstract class ").append(type.getSimpleJavaType()).append(" implements com.lowereast.guiceymongo.IsReadable {\n");
 		
-		createReadableUserType(builder, type, 0, false);
+		create("Key", builder, type, indentCount + 1);
+		builder.append("\n");
+		
+		create("ReadableMethod", builder, type, indentCount + 1);
+		builder.append("\n");
+		
+		createWrapper(builder, type, indentCount + 1);
+		
+		createBuilder(builder, type, indentCount + 1);
+		
+//		createUpdater(builder, type, indentCount + 1);
+		
+		for (UserType childType : type.getChildTypes())
+			createUserType(builder, childType, indentCount + 1, true);
+		appendIndent(builder, indentCount).append("}\n");
+	}
+	
+	public void generate(Appendable builder, UserType type) throws IOException {
+		builder.append("// Generated file!!!  DO NOT EDIT THIS!!!\n\n");
+//		// create imports
+//		for (String i : type.getUserTypeFileImports())
+//			builder.append("import ").append(i).append(";\n");
+
+		createUserType(builder, type, 0, false);
 	}
 }

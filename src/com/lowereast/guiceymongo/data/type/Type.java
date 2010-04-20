@@ -16,33 +16,19 @@
 
 package com.lowereast.guiceymongo.data.type;
 
-import java.util.List;
-
-import com.google.inject.internal.Lists;
-
 public class Type {
 	protected String _guiceyType;
 	protected final String _simpleJavaType;
 	protected String _canonicalJavaType;
-	protected final List<String> _includes;
-	
+
 	protected Type(String guiceyType, String simpleJavaType) {
-		this(guiceyType, simpleJavaType, simpleJavaType, Lists.<String>newArrayList());
+		this(guiceyType, simpleJavaType, simpleJavaType);
 	}
-	
-	protected Type(String guiceyType, String simpleJavaType, List<String> includes) {
-		this(guiceyType, simpleJavaType, simpleJavaType, includes);
-	}
-	
+
 	protected Type(String guiceyType, String simpleJavaType, String canonicalJavaType) {
-		this(guiceyType, simpleJavaType, canonicalJavaType, Lists.<String>newArrayList());
-	}
-	
-	protected Type(String guiceyType, String simpleJavaType, String canonicalJavaType, List<String> includes) {
 		_guiceyType = guiceyType;
 		_simpleJavaType = simpleJavaType;
 		_canonicalJavaType = canonicalJavaType;
-		_includes = includes;
 	}
 	
 	public String getGuiceyType() {
@@ -55,10 +41,6 @@ public class Type {
 	
 	public String getCanonicalJavaType() {
 		return _canonicalJavaType;
-	}
-	
-	public List<String> getReadableImports() {
-		return _includes;
 	}
 	
 	@Override

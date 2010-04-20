@@ -89,7 +89,7 @@ public class GuiceyDataGenerator {
 				try {
 					FileWriter writer = new FileWriter(new File(outputDirFile, type.getSimpleJavaType() + ".java"));
 					writer.append("package ").append(_outputPackage).append(";\n\n");
-					generator.createUserType(writer, type);
+					generator.generate(writer, type);
 					writer.close();
 				} catch (Exception e) {
 					System.err.println("Error in writing type " + type.getGuiceyType());

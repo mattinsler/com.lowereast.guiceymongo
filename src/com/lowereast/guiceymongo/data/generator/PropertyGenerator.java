@@ -20,7 +20,23 @@ public abstract class PropertyGenerator<T extends Type, P extends Property<T>> {
 		return builder;
 	}
 	
+	protected void createStandardReadableMethod(Appendable builder, P property, int indentCount) throws IOException {
+		Type type = property.getType();
+		
+		// has
+		appendIndent(builder, indentCount).append("public abstract boolean has").append(property.getCamelCaseName()).append("();\n");
+		// get
+		appendIndent(builder, indentCount).append("public abstract ").append(type.getCanonicalJavaType()).append(" get").append(property.getCamelCaseName()).append("();\n");
+	}
+	
 	public abstract void createKey(Appendable builder, P property, int indentCount) throws IOException;
-	public abstract void createReadable(Appendable builder, P property, int indentCount) throws IOException;
-	public abstract void createBuilder(Appendable builder, P property, int indentCount) throws IOException;
+	public abstract void createReadableMethod(Appendable builder, P property, int indentCount) throws IOException;
+	
+	public abstract void createWrapperMethod(Appendable builder, P property, int indentCount) throws IOException;
+	
+	public abstract void createBuilderMethod(Appendable builder, P property, int indentCount) throws IOException;
+	public abstract void createBuilderBuild(Appendable builder, P property, int indentCount) throws IOException;
+	
+	public abstract void createUpdaterMethod(Appendable builder, P property, int indentCount) throws IOException;
+	public abstract void createUpdaterBuildUpdate(Appendable builder, P property, int indentCount) throws IOException;
 }

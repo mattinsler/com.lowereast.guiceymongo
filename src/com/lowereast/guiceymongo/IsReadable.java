@@ -16,11 +16,9 @@
 
 package com.lowereast.guiceymongo;
 
-import java.util.Set;
-
 public interface IsReadable {
-	Set<String> keySet();
-	
-	public boolean hasField(String fieldKey);
-	public Object getField(String fieldKey);
+//	Set<String> keySet();
+//	
+//	public boolean hasField(String fieldKey);
+//	public Object getField(String fieldKey);
 }

@@ -1,13 +1,11 @@
 package com.lowereast.guiceymongo.data.type;
 
-import java.util.Arrays;
-
 public class MapType extends Type {
 	private Type _keyType;
 	private Type _valueType;
 	
 	public MapType(Type keyType, Type valueType) {
-		super("map", "Map<" + keyType.getSimpleJavaType() + ", " + valueType.getSimpleJavaType() + ">", Arrays.asList("java.util.Map", "java.util.HashMap", "java.util.Set", "java.util.Collections", "com.lowereast.guiceymongo.util.DBObjectUtil"));
+		super("map", "Map<" + keyType.getSimpleJavaType() + ", " + valueType.getSimpleJavaType() + ">", "java.util.Map<" + keyType.getCanonicalJavaType() + ", " + valueType.getCanonicalJavaType() + ">");
 		_keyType = keyType;
 		_valueType = valueType;
 	}

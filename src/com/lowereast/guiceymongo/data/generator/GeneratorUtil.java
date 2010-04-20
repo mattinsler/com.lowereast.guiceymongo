@@ -1,5 +1,7 @@
 package com.lowereast.guiceymongo.data.generator;
 
+import java.util.Map;
+
 public final class GeneratorUtil {
 	private GeneratorUtil() {}
 	
@@ -29,5 +31,33 @@ public final class GeneratorUtil {
 		for (int x = 1; x < pieces.length; ++x)
 			builder.append(toUpperFirstLetter(pieces[x]));
 		return builder.toString();
+	}
+
+	private static String replaceAll(String source, String key, String value) {
+		StringBuilder builder = new StringBuilder();
+		int start;
+		while ((start = source.indexOf(key)) != -1) {
+			builder.append(source.substring(0, start));
+			builder.append(value);
+			builder.append(source.substring(start + key.length()));
+		}
+		return builder.toString();
+	}
+	
+	public static String formatTemplate(String format, Map<String, String> values) {
+		return formatTemplate(format, values, 0);
+	}
+	
+	public static String formatTemplate(String format, Map<String, String> values, int indentCount) {
+		String result = format;
+		for (Map.Entry<String, String> entry : values.entrySet())
+			result = replaceAll(result, "${" + entry.getKey() + "}", entry.getValue());
+		if (indentCount > 0) {
+			String tab = "\n";
+			for (int x = 0; x < indentCount; ++x)
+				tab += "\t";
+			result = replaceAll(result, "\n", tab);
+		}
+		return result;
 	}
 }

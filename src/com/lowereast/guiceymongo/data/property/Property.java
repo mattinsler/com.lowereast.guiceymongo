@@ -81,10 +81,6 @@ public class Property<T extends Type> {
 	public List<Option> getOptions() {
 		return Collections.unmodifiableList(new ArrayList<Option>(_options.values()));
 	}
-	
-	public List<String> getReadableImports() {
-		return _type.getReadableImports();
-	}
 
 	@Override
 	public String toString() {

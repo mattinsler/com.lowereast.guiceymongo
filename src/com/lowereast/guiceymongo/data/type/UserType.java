@@ -1,10 +1,8 @@
 package com.lowereast.guiceymongo.data.type;
 
 import java.util.List;
-import java.util.Set;
 
 import com.google.inject.internal.Lists;
-import com.google.inject.internal.Sets;
 import com.lowereast.guiceymongo.data.property.Property;
 
 public class UserType extends Type {
@@ -12,6 +10,7 @@ public class UserType extends Type {
 	private final List<UserType> _childTypes = Lists.newArrayList();
 	
 	private UserType _parentType;
+	private Property<?> _identityProperty;
 	
 	public UserType(String guiceyType) {
 		super(guiceyType, guiceyType);
@@ -49,19 +48,11 @@ public class UserType extends Type {
 		}
 	}
 	
-	public List<String> getUserTypeFileImports() {
-		Set<String> imports = Sets.newHashSet();
-		imports.add("com.mongodb.DBObject");
-		imports.add("com.lowereast.guiceymongo.IsReadable");
-		imports.add("com.lowereast.guiceymongo.IsBuildable");
-		imports.add("com.lowereast.guiceymongo.data.GuiceyDBObject");
-
-		for (Property<?> property : _properties) {
-			imports.addAll(property.getReadableImports());
-		}
-		for (UserType child : _childTypes) {
-			imports.addAll(child.getUserTypeFileImports());
-		}
-		return Lists.newArrayList(imports);
+	public Property<?> getIdentityProperty() {
+		return _identityProperty;
+	}
+	
+	public void setIdentityProperty(Property<?> identityProperty) {
+		_identityProperty = identityProperty;
 	}
 }

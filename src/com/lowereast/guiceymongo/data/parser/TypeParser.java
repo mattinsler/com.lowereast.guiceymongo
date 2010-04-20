@@ -98,8 +98,14 @@ public class TypeParser {
 		type.addProperty(property);
 		
 		for (int x = 3; x < children.size(); ++x) {
-			if (GuiceyDataParser.OPTION == children.get(x).getToken().getType())
-				property.addOption(parseOptionTree(children.get(x)));
+			if (GuiceyDataParser.OPTION == children.get(x).getToken().getType()) {
+				Option option = parseOptionTree(children.get(x));
+				property.addOption(option);
+				if ("identity".equals(option.getName())) {
+					// validation possibly...
+					type.setIdentityProperty(property);
+				}
+			}
 		}
 	}
 	
