@@ -112,40 +112,40 @@ public class MapPropertyGenerator extends PropertyGenerator<MapType, MapProperty
 
 		// contains
 		appendIndent(builder, indentCount).append("@Override public boolean contains").append(property.getCamelCaseName()).append("(").append(keyType.getCanonicalJavaType()).append(" key) {\n");
-		if (valueType instanceof UserType)
-			appendIndent(builder, indentCount + 1).append("java.util.Map<").append(keyType.getCanonicalJavaType()).append(", ").append(valueType.getCanonicalJavaType()).append(".Builder> map = get").append(property.getCamelCaseName()).append("Map();\n");
-		else
-			appendIndent(builder, indentCount + 1).append(type.getCanonicalJavaType()).append(" map = get").append(property.getCamelCaseName()).append("Map();\n");
-		appendIndent(builder, indentCount + 1).append("return map == null ? false : map.containsKey(key);\n");
+		appendIndent(builder, indentCount + 1).append("return ").append(property.getMemberVariableName()).append(" == null ? false : ").append(property.getMemberVariableName()).append(".containsKey(key);\n");
 		appendIndent(builder, indentCount).append("}\n");
 		
 		// get
-		if (valueType instanceof UserType) {
+		if (valueType instanceof UserType)
 			appendIndent(builder, indentCount).append("@Override public ").append(valueType.getCanonicalJavaType()).append(".Builder get").append(property.getCamelCaseName()).append("(").append(keyType.getCanonicalJavaType()).append(" key) {\n");
-			appendIndent(builder, indentCount + 1).append("java.util.Map<").append(keyType.getCanonicalJavaType()).append(", ").append(valueType.getCanonicalJavaType()).append(".Builder> map = get").append(property.getCamelCaseName()).append("Map();\n");
-		} else {
+		else
 			appendIndent(builder, indentCount).append("@Override public ").append(valueType.getCanonicalJavaType()).append(" get").append(property.getCamelCaseName()).append("(").append(keyType.getCanonicalJavaType()).append(" key) {\n");
-			appendIndent(builder, indentCount + 1).append(type.getCanonicalJavaType()).append(" map = get").append(property.getCamelCaseName()).append("Map();\n");
-		}
-		appendIndent(builder, indentCount + 1).append("return map == null ? null : map.get(key);\n");
+		appendIndent(builder, indentCount + 1).append("return ").append(property.getMemberVariableName()).append(" == null ? null : ").append(property.getMemberVariableName()).append(".get(key);\n");
 		appendIndent(builder, indentCount).append("}\n");
 		
 		// getCount
 		appendIndent(builder, indentCount).append("@Override public int get").append(property.getCamelCaseName()).append("Count() {\n");
-		if (valueType instanceof UserType)
-			appendIndent(builder, indentCount + 1).append("java.util.Map<").append(keyType.getCanonicalJavaType()).append(", ").append(valueType.getCanonicalJavaType()).append(".Builder> map = get").append(property.getCamelCaseName()).append("Map();\n");
-		else
-			appendIndent(builder, indentCount + 1).append(type.getCanonicalJavaType()).append(" map = get").append(property.getCamelCaseName()).append("Map();\n");
-		appendIndent(builder, indentCount + 1).append("return map == null ? 0 : map.size();\n");
+		appendIndent(builder, indentCount + 1).append("return ").append(property.getMemberVariableName()).append(" == null ? 0 : ").append(property.getMemberVariableName()).append(".size();\n");
 		appendIndent(builder, indentCount).append("}\n");
 		
 		// keys
 		appendIndent(builder, indentCount).append("@Override public java.util.Set<String> get").append(property.getCamelCaseName()).append("Keys() {\n");
+		appendIndent(builder, indentCount + 1).append("return ").append(property.getMemberVariableName()).append(" == null ? null : ").append(property.getMemberVariableName()).append(".keySet();\n");
+		appendIndent(builder, indentCount).append("}\n");
+		
+		// add
 		if (valueType instanceof UserType)
-			appendIndent(builder, indentCount + 1).append("java.util.Map<").append(keyType.getCanonicalJavaType()).append(", ").append(valueType.getCanonicalJavaType()).append(".Builder> map = get").append(property.getCamelCaseName()).append("Map();\n");
+			appendIndent(builder, indentCount).append("public Builder add").append(property.getCamelCaseName()).append("(").append(keyType.getCanonicalJavaType()).append(" key, ").append(valueType.getCanonicalJavaType()).append(".Builder value) {\n");
 		else
-			appendIndent(builder, indentCount + 1).append(type.getCanonicalJavaType()).append(" map = get").append(property.getCamelCaseName()).append("Map();\n");
-		appendIndent(builder, indentCount + 1).append("return map == null ? null : map.keySet();\n");
+			appendIndent(builder, indentCount).append("public Builder add").append(property.getCamelCaseName()).append("(").append(keyType.getCanonicalJavaType()).append(" key, ").append(valueType.getCanonicalJavaType()).append(" value) {\n");
+		appendIndent(builder, indentCount + 1).append("get").append(property.getCamelCaseName()).append("Map().put(key, value);\n");
+		appendIndent(builder, indentCount + 1).append("return this;\n");
+		appendIndent(builder, indentCount).append("}\n");
+		
+		// clear
+		appendIndent(builder, indentCount).append("public Builder clear").append(property.getCamelCaseName()).append("() {\n");
+		appendIndent(builder, indentCount + 1).append(property.getMemberVariableName()).append(" = null;\n");
+		appendIndent(builder, indentCount + 1).append("return this;\n");
 		appendIndent(builder, indentCount).append("}\n");
 	}
 	
@@ -159,14 +159,14 @@ public class MapPropertyGenerator extends PropertyGenerator<MapType, MapProperty
 			appendIndent(builder, indentCount).append("if (").append(property.getMemberVariableName()).append(" != null) {\n");
 			appendIndent(builder, indentCount + 1).append("java.util.Map<String, String> map = new java.util.HashMap<String, String>();\n");
 			appendIndent(builder, indentCount + 1).append("for (java.util.Map.Entry<").append(keyType.getCanonicalJavaType()).append(", ").append(valueType.getCanonicalJavaType()).append("> value : ").append(property.getMemberVariableName()).append(".entrySet())\n");
-			appendIndent(builder, indentCount + 2).append("map.put(value.getKey(), value.getValue().name());\n");
+			appendIndent(builder, indentCount + 2).append("map.put(com.lowereast.guiceymongo.util.DBObjectUtil.encodeKey(value.getKey()), value.getValue().name());\n");
 			appendIndent(builder, indentCount + 1).append("dbObject.put(").append(property.getKeyName()).append(", map);\n");
 			appendIndent(builder, indentCount).append("}\n");
 		} else if (valueType instanceof UserType) {
 			appendIndent(builder, indentCount).append("if (").append(property.getMemberVariableName()).append(" != null) {\n");
 			appendIndent(builder, indentCount + 1).append("java.util.Map<String, com.mongodb.DBObject> map = new java.util.HashMap<String, com.mongodb.DBObject>();\n");
 			appendIndent(builder, indentCount + 1).append("for (java.util.Map.Entry<").append(keyType.getCanonicalJavaType()).append(", ").append(valueType.getCanonicalJavaType()).append(".Builder> value : ").append(property.getMemberVariableName()).append(".entrySet())\n");
-			appendIndent(builder, indentCount + 2).append("map.put(value.getKey(), value.getValue().build());\n");
+			appendIndent(builder, indentCount + 2).append("map.put(com.lowereast.guiceymongo.util.DBObjectUtil.encodeKey(value.getKey()), value.getValue().build());\n");
 			appendIndent(builder, indentCount + 1).append("dbObject.put(").append(property.getKeyName()).append(", map);\n");
 			appendIndent(builder, indentCount).append("}\n");
 		} else {

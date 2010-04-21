@@ -76,7 +76,7 @@ public class UserTypePropertyGenerator extends PropertyGenerator<UserType, UserT
 	@Override
 	public void createBuilderBuild(Appendable builder, UserTypeProperty property, int indentCount) throws IOException {
 		appendIndent(builder, indentCount).append("if (").append(property.getMemberVariableName()).append(" != null)\n");
-		appendIndent(builder, indentCount + 1).append("dbObject.put(").append(property.getKeyName()).append(", ").append(property.getMemberVariableName()).append(");\n");
+		appendIndent(builder, indentCount + 1).append("dbObject.put(").append(property.getKeyName()).append(", ").append(property.getMemberVariableName()).append(".build());\n");
 	}
 	
 	@Override
@@ -89,12 +89,12 @@ public class UserTypePropertyGenerator extends PropertyGenerator<UserType, UserT
 		appendIndent(builder, indentCount).append("}\n");
 		
 		// get
-		appendIndent(builder, indentCount).append("@Override public ").append(type.getCanonicalJavaType()).append(" get").append(property.getCamelCaseName()).append("() {\n");
+		appendIndent(builder, indentCount).append("@Override public ").append(type.getCanonicalJavaType()).append(".Builder get").append(property.getCamelCaseName()).append("() {\n");
 		appendIndent(builder, indentCount + 1).append("return _builder.has").append(property.getCamelCaseName()).append("() ? _builder.get").append(property.getCamelCaseName()).append("() : _wrapper.get").append(property.getCamelCaseName()).append("();\n");
 		appendIndent(builder, indentCount).append("}\n");
 		
 		// set
-		appendIndent(builder, indentCount).append("public Updater set").append(property.getCamelCaseName()).append("(").append(type.getCanonicalJavaType()).append(" value) {\n");
+		appendIndent(builder, indentCount).append("public Updater set").append(property.getCamelCaseName()).append("(").append(type.getCanonicalJavaType()).append(".Builder value) {\n");
 		appendIndent(builder, indentCount + 1).append("_builder.set").append(property.getCamelCaseName()).append("(value);\n");
 		appendIndent(builder, indentCount + 1).append("return this;\n");
 		appendIndent(builder, indentCount).append("}\n");
@@ -109,6 +109,6 @@ public class UserTypePropertyGenerator extends PropertyGenerator<UserType, UserT
 	@Override
 	public void createUpdaterBuildUpdate(Appendable builder, UserTypeProperty property, int indentCount) throws IOException {
 		appendIndent(builder, indentCount).append("if (_builder.has").append(property.getCamelCaseName()).append("())\n");
-		appendIndent(builder, indentCount + 1).append("dbObject.put(").append(property.getKeyName()).append(", _builder.get").append(property.getCamelCaseName()).append("());\n");
+		appendIndent(builder, indentCount + 1).append("dbObject.put((\"\".equals(path) ? \"\" : path + \".\") + ").append(property.getKeyName()).append(", _builder.get").append(property.getCamelCaseName()).append("());\n");
 	}
 }

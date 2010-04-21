@@ -16,9 +16,7 @@
 
 package com.lowereast.guiceymongo;
 
-import com.mongodb.DBObject;
-
 public interface IsUpdatable {
-	DBObject buildUpdate();
+//	DBObject buildUpdate();
 	void update();
 }

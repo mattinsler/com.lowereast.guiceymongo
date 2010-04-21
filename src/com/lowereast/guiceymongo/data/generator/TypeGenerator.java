@@ -85,18 +85,29 @@ public class TypeGenerator {
 	}
 
 	private void createUpdater(Appendable builder, UserType type, int indentCount) throws IOException {
-		if (type.getIdentityProperty() == null)
+		// find root type...
+		UserType rootType = type;
+		while (rootType.getParentType() != null)
+			rootType = rootType.getParentType();
+		if (rootType.getIdentityProperty() == null)
 			return;
 		
 		appendIndent(builder, indentCount).append("public static class Updater extends ").append(type.getSimpleJavaType()).append(" implements com.lowereast.guiceymongo.IsUpdatable {\n");
 
 		// member variables
+		if (type.getParentType() != null)
+			appendIndent(builder, indentCount + 1).append("private final ").append(type.getParentType().getCanonicalJavaType()).append(" _parent;\n");
 		appendIndent(builder, indentCount + 1).append("private final Wrapper _wrapper;\n");
 		appendIndent(builder, indentCount + 1).append("private final Builder _builder;\n");
 		appendIndent(builder, indentCount + 1).append("private final com.mongodb.DBCollection _collection;\n");
 		
 		// constructor
-		appendIndent(builder, indentCount + 1).append("private Updater(Wrapper wrapper, com.mongodb.DBCollection collection) {\n");
+		if (type.getParentType() == null)
+			appendIndent(builder, indentCount + 1).append("private Updater(Wrapper wrapper, com.mongodb.DBCollection collection) {\n");
+		else {
+			appendIndent(builder, indentCount + 1).append("private Updater(").append(type.getParentType().getCanonicalJavaType()).append(" parent, Wrapper wrapper, com.mongodb.DBCollection collection) {\n");
+			appendIndent(builder, indentCount + 2).append("_parent = parent;\n");
+		}
 		appendIndent(builder, indentCount + 2).append("_wrapper = wrapper;\n");
 		appendIndent(builder, indentCount + 2).append("_builder = ").append(type.getSimpleJavaType()).append(".newBuilder();\n");
 		appendIndent(builder, indentCount + 2).append("_collection = collection;\n");
@@ -104,27 +115,40 @@ public class TypeGenerator {
 		
 		create("UpdaterMethod", builder, type, indentCount + 1);
 		
-		appendIndent(builder, indentCount + 1).append("public com.mongodb.DBObject buildUpdate() {\n");
-		appendIndent(builder, indentCount + 2).append("com.mongodb.DBObject dbObject = new com.mongodb.BasicDBObject();\n");
+		if (type.getParentType() == null) {
+			appendIndent(builder, indentCount + 1).append("public com.mongodb.DBObject buildUpdate() {\n");
+			appendIndent(builder, indentCount + 2).append("com.mongodb.DBObject dbObject = new com.mongodb.BasicDBObject();\n");
+			appendIndent(builder, indentCount + 2).append("buildUpdate(dbObject, \"\")\n");
+			appendIndent(builder, indentCount + 2).append("if (dbObject.keySet().size() == 0)\n");
+			appendIndent(builder, indentCount + 3).append("return null;\n");
+			appendIndent(builder, indentCount + 2).append("return new com.mongodb.BasicDBObject(\"$set\", dbObject);\n");
+			appendIndent(builder, indentCount + 1).append("}\n");
+		}
+		appendIndent(builder, indentCount + 1).append("private void buildUpdate(com.mongodb.DBObject dbObject, String path) {\n");
 		create("UpdaterBuildUpdate", builder, type, indentCount + 2);
-		appendIndent(builder, indentCount + 2).append("if (dbObject.keySet().size() == 0)\n");
-		appendIndent(builder, indentCount + 3).append("return null;\n");
-		appendIndent(builder, indentCount + 2).append("return new com.mongodb.BasicDBObject(\"$set\", dbObject);\n");
 		appendIndent(builder, indentCount + 1).append("}\n");
 
-		appendIndent(builder, indentCount + 1).append("public void update() {\n");
-		appendIndent(builder, indentCount + 2).append("com.mongodb.DBObject updateObject = buildUpdate();\n");
-		appendIndent(builder, indentCount + 2).append("if (updateObject != null)\n");
-		appendIndent(builder, indentCount + 3).append("_collection.update(new com.mongodb.BasicDBObject(").append(type.getIdentityProperty().getKeyName()).append(", get").append(type.getIdentityProperty().getCamelCaseName()).append("()), updateObject);\n");
-		appendIndent(builder, indentCount + 1).append("}\n");
+		if (type.getParentType() == null) {
+			appendIndent(builder, indentCount + 1).append("public void update() {\n");
+			appendIndent(builder, indentCount + 2).append("com.mongodb.DBObject updateObject = buildUpdate();\n");
+			appendIndent(builder, indentCount + 2).append("if (updateObject != null)\n");
+			appendIndent(builder, indentCount + 3).append("_collection.update(new com.mongodb.BasicDBObject(").append(type.getIdentityProperty().getKeyName()).append(", get").append(type.getIdentityProperty().getCamelCaseName()).append("()), updateObject);\n");
+			appendIndent(builder, indentCount + 1).append("}\n");
+		} else {
+			appendIndent(builder, indentCount + 1).append("public void update() {\n");
+			appendIndent(builder, indentCount + 2).append("_parent.update();\n");
+			appendIndent(builder, indentCount + 1).append("}\n");
+		}
 		
 		appendIndent(builder, indentCount).append("}\n");
 
-		appendIndent(builder, indentCount).append("public static Updater newUpdater(com.mongodb.DBObject backing, com.mongodb.DBCollection collection) {\n");
-		appendIndent(builder, indentCount + 1).append("if (backing != null && collection != null)\n");
-		appendIndent(builder, indentCount + 2).append("return null;\n");
-		appendIndent(builder, indentCount + 1).append("return new Updater(").append(type.getSimpleJavaType()).append(".wrap(backing), collection);\n");
-		appendIndent(builder, indentCount).append("}\n");
+		if (type.getParentType() == null) {
+			appendIndent(builder, indentCount).append("public static Updater newUpdater(com.mongodb.DBObject backing, com.mongodb.DBCollection collection) {\n");
+			appendIndent(builder, indentCount + 1).append("if (backing != null && collection != null)\n");
+			appendIndent(builder, indentCount + 2).append("return null;\n");
+			appendIndent(builder, indentCount + 1).append("return new Updater(").append(type.getSimpleJavaType()).append(".wrap(backing), collection);\n");
+			appendIndent(builder, indentCount).append("}\n");
+		}
 	}
 	
 	private void createBuilder(Appendable builder, UserType type, int indentCount) throws IOException {
