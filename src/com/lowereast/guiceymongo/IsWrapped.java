@@ -18,6 +18,6 @@ package com.lowereast.guiceymongo;
 
 import com.mongodb.DBObject;
 
-public interface IsWrapped {
+public interface IsWrapped<T extends IsData> {
 	DBObject getDBObject();
 }

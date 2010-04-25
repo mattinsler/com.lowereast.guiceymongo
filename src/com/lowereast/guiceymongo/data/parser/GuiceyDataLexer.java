@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 GuiceyData.g 2010-04-18 05:28:19
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 GuiceyData.g 2010-04-24 21:12:27
 
 package com.lowereast.guiceymongo.data.parser;
 
@@ -435,10 +435,10 @@ public class GuiceyDataLexer extends Lexer {
         try {
             int _type = T__33;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:29:7: ( 'map<' )
-            // GuiceyData.g:29:9: 'map<'
+            // GuiceyData.g:29:7: ( 'data;' )
+            // GuiceyData.g:29:9: 'data;'
             {
-            match("map<"); 
+            match("data;"); 
 
 
             }
@@ -456,10 +456,10 @@ public class GuiceyDataLexer extends Lexer {
         try {
             int _type = T__34;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:30:7: ( '>' )
-            // GuiceyData.g:30:9: '>'
+            // GuiceyData.g:30:7: ( ';' )
+            // GuiceyData.g:30:9: ';'
             {
-            match('>'); 
+            match(';'); 
 
             }
 
@@ -476,10 +476,11 @@ public class GuiceyDataLexer extends Lexer {
         try {
             int _type = T__35;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:31:7: ( ';' )
-            // GuiceyData.g:31:9: ';'
+            // GuiceyData.g:31:7: ( 'map<' )
+            // GuiceyData.g:31:9: 'map<'
             {
-            match(';'); 
+            match("map<"); 
+
 
             }
 
@@ -496,11 +497,10 @@ public class GuiceyDataLexer extends Lexer {
         try {
             int _type = T__36;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:32:7: ( 'set<' )
-            // GuiceyData.g:32:9: 'set<'
+            // GuiceyData.g:32:7: ( '>' )
+            // GuiceyData.g:32:9: '>'
             {
-            match("set<"); 
-
+            match('>'); 
 
             }
 
@@ -517,10 +517,10 @@ public class GuiceyDataLexer extends Lexer {
         try {
             int _type = T__37;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:33:7: ( 'list<' )
-            // GuiceyData.g:33:9: 'list<'
+            // GuiceyData.g:33:7: ( 'set<' )
+            // GuiceyData.g:33:9: 'set<'
             {
-            match("list<"); 
+            match("set<"); 
 
 
             }
@@ -538,10 +538,10 @@ public class GuiceyDataLexer extends Lexer {
         try {
             int _type = T__38;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:34:7: ( 'data;' )
-            // GuiceyData.g:34:9: 'data;'
+            // GuiceyData.g:34:7: ( 'list<' )
+            // GuiceyData.g:34:9: 'list<'
             {
-            match("data;"); 
+            match("list<"); 
 
 
             }
@@ -559,11 +559,11 @@ public class GuiceyDataLexer extends Lexer {
         try {
             int _type = TYPE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:89:6: ( ID ( '.' ID )+ )
-            // GuiceyData.g:89:8: ID ( '.' ID )+
+            // GuiceyData.g:97:6: ( ID ( '.' ID )+ )
+            // GuiceyData.g:97:8: ID ( '.' ID )+
             {
             mID(); 
-            // GuiceyData.g:89:11: ( '.' ID )+
+            // GuiceyData.g:97:11: ( '.' ID )+
             int cnt1=0;
             loop1:
             do {
@@ -577,7 +577,7 @@ public class GuiceyDataLexer extends Lexer {
 
                 switch (alt1) {
             	case 1 :
-            	    // GuiceyData.g:89:12: '.' ID
+            	    // GuiceyData.g:97:12: '.' ID
             	    {
             	    match('.'); 
             	    mID(); 
@@ -610,8 +610,8 @@ public class GuiceyDataLexer extends Lexer {
         try {
             int _type = ID;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:92:5: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
-            // GuiceyData.g:92:7: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+            // GuiceyData.g:100:5: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
+            // GuiceyData.g:100:7: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||(input.LA(1)>='a' && input.LA(1)<='z') ) {
                 input.consume();
@@ -622,7 +622,7 @@ public class GuiceyDataLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // GuiceyData.g:92:27: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+            // GuiceyData.g:100:27: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
             loop2:
             do {
                 int alt2=2;
@@ -671,8 +671,8 @@ public class GuiceyDataLexer extends Lexer {
         try {
             int _type = WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:95:5: ( ( ' ' | '\\t' | '\\r' | '\\n' ) )
-            // GuiceyData.g:95:9: ( ' ' | '\\t' | '\\r' | '\\n' )
+            // GuiceyData.g:103:5: ( ( ' ' | '\\t' | '\\r' | '\\n' ) )
+            // GuiceyData.g:103:9: ( ' ' | '\\t' | '\\r' | '\\n' )
             {
             if ( (input.LA(1)>='\t' && input.LA(1)<='\n')||input.LA(1)=='\r'||input.LA(1)==' ' ) {
                 input.consume();
@@ -700,10 +700,10 @@ public class GuiceyDataLexer extends Lexer {
         try {
             int _type = INT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:102:5: ( ( '0' .. '9' )+ )
-            // GuiceyData.g:102:7: ( '0' .. '9' )+
+            // GuiceyData.g:110:5: ( ( '0' .. '9' )+ )
+            // GuiceyData.g:110:7: ( '0' .. '9' )+
             {
-            // GuiceyData.g:102:7: ( '0' .. '9' )+
+            // GuiceyData.g:110:7: ( '0' .. '9' )+
             int cnt3=0;
             loop3:
             do {
@@ -717,7 +717,7 @@ public class GuiceyDataLexer extends Lexer {
 
                 switch (alt3) {
             	case 1 :
-            	    // GuiceyData.g:102:7: '0' .. '9'
+            	    // GuiceyData.g:110:7: '0' .. '9'
             	    {
             	    matchRange('0','9'); 
 
@@ -749,14 +749,14 @@ public class GuiceyDataLexer extends Lexer {
         try {
             int _type = FLOAT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:106:5: ( ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )? | '.' ( '0' .. '9' )+ ( EXPONENT )? | ( '0' .. '9' )+ EXPONENT )
+            // GuiceyData.g:114:5: ( ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )? | '.' ( '0' .. '9' )+ ( EXPONENT )? | ( '0' .. '9' )+ EXPONENT )
             int alt10=3;
             alt10 = dfa10.predict(input);
             switch (alt10) {
                 case 1 :
-                    // GuiceyData.g:106:9: ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )?
+                    // GuiceyData.g:114:9: ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )?
                     {
-                    // GuiceyData.g:106:9: ( '0' .. '9' )+
+                    // GuiceyData.g:114:9: ( '0' .. '9' )+
                     int cnt4=0;
                     loop4:
                     do {
@@ -770,7 +770,7 @@ public class GuiceyDataLexer extends Lexer {
 
                         switch (alt4) {
                     	case 1 :
-                    	    // GuiceyData.g:106:10: '0' .. '9'
+                    	    // GuiceyData.g:114:10: '0' .. '9'
                     	    {
                     	    matchRange('0','9'); 
 
@@ -787,7 +787,7 @@ public class GuiceyDataLexer extends Lexer {
                     } while (true);
 
                     match('.'); 
-                    // GuiceyData.g:106:25: ( '0' .. '9' )*
+                    // GuiceyData.g:114:25: ( '0' .. '9' )*
                     loop5:
                     do {
                         int alt5=2;
@@ -800,7 +800,7 @@ public class GuiceyDataLexer extends Lexer {
 
                         switch (alt5) {
                     	case 1 :
-                    	    // GuiceyData.g:106:26: '0' .. '9'
+                    	    // GuiceyData.g:114:26: '0' .. '9'
                     	    {
                     	    matchRange('0','9'); 
 
@@ -812,7 +812,7 @@ public class GuiceyDataLexer extends Lexer {
                         }
                     } while (true);
 
-                    // GuiceyData.g:106:37: ( EXPONENT )?
+                    // GuiceyData.g:114:37: ( EXPONENT )?
                     int alt6=2;
                     int LA6_0 = input.LA(1);
 
@@ -821,7 +821,7 @@ public class GuiceyDataLexer extends Lexer {
                     }
                     switch (alt6) {
                         case 1 :
-                            // GuiceyData.g:106:37: EXPONENT
+                            // GuiceyData.g:114:37: EXPONENT
                             {
                             mEXPONENT(); 
 
@@ -834,10 +834,10 @@ public class GuiceyDataLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // GuiceyData.g:107:9: '.' ( '0' .. '9' )+ ( EXPONENT )?
+                    // GuiceyData.g:115:9: '.' ( '0' .. '9' )+ ( EXPONENT )?
                     {
                     match('.'); 
-                    // GuiceyData.g:107:13: ( '0' .. '9' )+
+                    // GuiceyData.g:115:13: ( '0' .. '9' )+
                     int cnt7=0;
                     loop7:
                     do {
@@ -851,7 +851,7 @@ public class GuiceyDataLexer extends Lexer {
 
                         switch (alt7) {
                     	case 1 :
-                    	    // GuiceyData.g:107:14: '0' .. '9'
+                    	    // GuiceyData.g:115:14: '0' .. '9'
                     	    {
                     	    matchRange('0','9'); 
 
@@ -867,7 +867,7 @@ public class GuiceyDataLexer extends Lexer {
                         cnt7++;
                     } while (true);
 
-                    // GuiceyData.g:107:25: ( EXPONENT )?
+                    // GuiceyData.g:115:25: ( EXPONENT )?
                     int alt8=2;
                     int LA8_0 = input.LA(1);
 
@@ -876,7 +876,7 @@ public class GuiceyDataLexer extends Lexer {
                     }
                     switch (alt8) {
                         case 1 :
-                            // GuiceyData.g:107:25: EXPONENT
+                            // GuiceyData.g:115:25: EXPONENT
                             {
                             mEXPONENT(); 
 
@@ -889,9 +889,9 @@ public class GuiceyDataLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // GuiceyData.g:108:9: ( '0' .. '9' )+ EXPONENT
+                    // GuiceyData.g:116:9: ( '0' .. '9' )+ EXPONENT
                     {
-                    // GuiceyData.g:108:9: ( '0' .. '9' )+
+                    // GuiceyData.g:116:9: ( '0' .. '9' )+
                     int cnt9=0;
                     loop9:
                     do {
@@ -905,7 +905,7 @@ public class GuiceyDataLexer extends Lexer {
 
                         switch (alt9) {
                     	case 1 :
-                    	    // GuiceyData.g:108:10: '0' .. '9'
+                    	    // GuiceyData.g:116:10: '0' .. '9'
                     	    {
                     	    matchRange('0','9'); 
 
@@ -940,11 +940,11 @@ public class GuiceyDataLexer extends Lexer {
         try {
             int _type = STRING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:117:5: ( '\\'' ( ESC_SEQ | ~ ( '\\\\' | '\\'' ) )* '\\'' )
-            // GuiceyData.g:117:8: '\\'' ( ESC_SEQ | ~ ( '\\\\' | '\\'' ) )* '\\''
+            // GuiceyData.g:125:5: ( '\\'' ( ESC_SEQ | ~ ( '\\\\' | '\\'' ) )* '\\'' )
+            // GuiceyData.g:125:8: '\\'' ( ESC_SEQ | ~ ( '\\\\' | '\\'' ) )* '\\''
             {
             match('\''); 
-            // GuiceyData.g:117:13: ( ESC_SEQ | ~ ( '\\\\' | '\\'' ) )*
+            // GuiceyData.g:125:13: ( ESC_SEQ | ~ ( '\\\\' | '\\'' ) )*
             loop11:
             do {
                 int alt11=3;
@@ -960,14 +960,14 @@ public class GuiceyDataLexer extends Lexer {
 
                 switch (alt11) {
             	case 1 :
-            	    // GuiceyData.g:117:15: ESC_SEQ
+            	    // GuiceyData.g:125:15: ESC_SEQ
             	    {
             	    mESC_SEQ(); 
 
             	    }
             	    break;
             	case 2 :
-            	    // GuiceyData.g:117:25: ~ ( '\\\\' | '\\'' )
+            	    // GuiceyData.g:125:25: ~ ( '\\\\' | '\\'' )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -1002,8 +1002,8 @@ public class GuiceyDataLexer extends Lexer {
     // $ANTLR start "EXPONENT"
     public final void mEXPONENT() throws RecognitionException {
         try {
-            // GuiceyData.g:121:10: ( ( 'e' | 'E' ) ( '+' | '-' )? ( '0' .. '9' )+ )
-            // GuiceyData.g:121:12: ( 'e' | 'E' ) ( '+' | '-' )? ( '0' .. '9' )+
+            // GuiceyData.g:129:10: ( ( 'e' | 'E' ) ( '+' | '-' )? ( '0' .. '9' )+ )
+            // GuiceyData.g:129:12: ( 'e' | 'E' ) ( '+' | '-' )? ( '0' .. '9' )+
             {
             if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                 input.consume();
@@ -1014,7 +1014,7 @@ public class GuiceyDataLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // GuiceyData.g:121:22: ( '+' | '-' )?
+            // GuiceyData.g:129:22: ( '+' | '-' )?
             int alt12=2;
             int LA12_0 = input.LA(1);
 
@@ -1040,7 +1040,7 @@ public class GuiceyDataLexer extends Lexer {
 
             }
 
-            // GuiceyData.g:121:33: ( '0' .. '9' )+
+            // GuiceyData.g:129:33: ( '0' .. '9' )+
             int cnt13=0;
             loop13:
             do {
@@ -1054,7 +1054,7 @@ public class GuiceyDataLexer extends Lexer {
 
                 switch (alt13) {
             	case 1 :
-            	    // GuiceyData.g:121:34: '0' .. '9'
+            	    // GuiceyData.g:129:34: '0' .. '9'
             	    {
             	    matchRange('0','9'); 
 
@@ -1082,8 +1082,8 @@ public class GuiceyDataLexer extends Lexer {
     // $ANTLR start "HEX_DIGIT"
     public final void mHEX_DIGIT() throws RecognitionException {
         try {
-            // GuiceyData.g:124:11: ( ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) )
-            // GuiceyData.g:124:13: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )
+            // GuiceyData.g:132:11: ( ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) )
+            // GuiceyData.g:132:13: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )
             {
             if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='F')||(input.LA(1)>='a' && input.LA(1)<='f') ) {
                 input.consume();
@@ -1106,7 +1106,7 @@ public class GuiceyDataLexer extends Lexer {
     // $ANTLR start "ESC_SEQ"
     public final void mESC_SEQ() throws RecognitionException {
         try {
-            // GuiceyData.g:128:5: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' ) | UNICODE_ESC | OCTAL_ESC )
+            // GuiceyData.g:136:5: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' ) | UNICODE_ESC | OCTAL_ESC )
             int alt14=3;
             int LA14_0 = input.LA(1);
 
@@ -1157,7 +1157,7 @@ public class GuiceyDataLexer extends Lexer {
             }
             switch (alt14) {
                 case 1 :
-                    // GuiceyData.g:128:9: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' )
+                    // GuiceyData.g:136:9: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' )
                     {
                     match('\\'); 
                     if ( input.LA(1)=='\"'||input.LA(1)=='\''||input.LA(1)=='\\'||input.LA(1)=='b'||input.LA(1)=='f'||input.LA(1)=='n'||input.LA(1)=='r'||input.LA(1)=='t' ) {
@@ -1173,14 +1173,14 @@ public class GuiceyDataLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // GuiceyData.g:129:9: UNICODE_ESC
+                    // GuiceyData.g:137:9: UNICODE_ESC
                     {
                     mUNICODE_ESC(); 
 
                     }
                     break;
                 case 3 :
-                    // GuiceyData.g:130:9: OCTAL_ESC
+                    // GuiceyData.g:138:9: OCTAL_ESC
                     {
                     mOCTAL_ESC(); 
 
@@ -1197,7 +1197,7 @@ public class GuiceyDataLexer extends Lexer {
     // $ANTLR start "OCTAL_ESC"
     public final void mOCTAL_ESC() throws RecognitionException {
         try {
-            // GuiceyData.g:135:5: ( '\\\\' ( '0' .. '3' ) ( '0' .. '7' ) ( '0' .. '7' ) | '\\\\' ( '0' .. '7' ) ( '0' .. '7' ) | '\\\\' ( '0' .. '7' ) )
+            // GuiceyData.g:143:5: ( '\\\\' ( '0' .. '3' ) ( '0' .. '7' ) ( '0' .. '7' ) | '\\\\' ( '0' .. '7' ) ( '0' .. '7' ) | '\\\\' ( '0' .. '7' ) )
             int alt15=3;
             int LA15_0 = input.LA(1);
 
@@ -1243,25 +1243,25 @@ public class GuiceyDataLexer extends Lexer {
             }
             switch (alt15) {
                 case 1 :
-                    // GuiceyData.g:135:9: '\\\\' ( '0' .. '3' ) ( '0' .. '7' ) ( '0' .. '7' )
+                    // GuiceyData.g:143:9: '\\\\' ( '0' .. '3' ) ( '0' .. '7' ) ( '0' .. '7' )
                     {
                     match('\\'); 
-                    // GuiceyData.g:135:14: ( '0' .. '3' )
-                    // GuiceyData.g:135:15: '0' .. '3'
+                    // GuiceyData.g:143:14: ( '0' .. '3' )
+                    // GuiceyData.g:143:15: '0' .. '3'
                     {
                     matchRange('0','3'); 
 
                     }
 
-                    // GuiceyData.g:135:25: ( '0' .. '7' )
-                    // GuiceyData.g:135:26: '0' .. '7'
+                    // GuiceyData.g:143:25: ( '0' .. '7' )
+                    // GuiceyData.g:143:26: '0' .. '7'
                     {
                     matchRange('0','7'); 
 
                     }
 
-                    // GuiceyData.g:135:36: ( '0' .. '7' )
-                    // GuiceyData.g:135:37: '0' .. '7'
+                    // GuiceyData.g:143:36: ( '0' .. '7' )
+                    // GuiceyData.g:143:37: '0' .. '7'
                     {
                     matchRange('0','7'); 
 
@@ -1271,18 +1271,18 @@ public class GuiceyDataLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // GuiceyData.g:136:9: '\\\\' ( '0' .. '7' ) ( '0' .. '7' )
+                    // GuiceyData.g:144:9: '\\\\' ( '0' .. '7' ) ( '0' .. '7' )
                     {
                     match('\\'); 
-                    // GuiceyData.g:136:14: ( '0' .. '7' )
-                    // GuiceyData.g:136:15: '0' .. '7'
+                    // GuiceyData.g:144:14: ( '0' .. '7' )
+                    // GuiceyData.g:144:15: '0' .. '7'
                     {
                     matchRange('0','7'); 
 
                     }
 
-                    // GuiceyData.g:136:25: ( '0' .. '7' )
-                    // GuiceyData.g:136:26: '0' .. '7'
+                    // GuiceyData.g:144:25: ( '0' .. '7' )
+                    // GuiceyData.g:144:26: '0' .. '7'
                     {
                     matchRange('0','7'); 
 
@@ -1292,11 +1292,11 @@ public class GuiceyDataLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // GuiceyData.g:137:9: '\\\\' ( '0' .. '7' )
+                    // GuiceyData.g:145:9: '\\\\' ( '0' .. '7' )
                     {
                     match('\\'); 
-                    // GuiceyData.g:137:14: ( '0' .. '7' )
-                    // GuiceyData.g:137:15: '0' .. '7'
+                    // GuiceyData.g:145:14: ( '0' .. '7' )
+                    // GuiceyData.g:145:15: '0' .. '7'
                     {
                     matchRange('0','7'); 
 
@@ -1316,8 +1316,8 @@ public class GuiceyDataLexer extends Lexer {
     // $ANTLR start "UNICODE_ESC"
     public final void mUNICODE_ESC() throws RecognitionException {
         try {
-            // GuiceyData.g:142:5: ( '\\\\' 'u' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT )
-            // GuiceyData.g:142:9: '\\\\' 'u' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT
+            // GuiceyData.g:150:5: ( '\\\\' 'u' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT )
+            // GuiceyData.g:150:9: '\\\\' 'u' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT
             {
             match('\\'); 
             match('u'); 
@@ -1607,7 +1607,7 @@ public class GuiceyDataLexer extends Lexer {
             this.transition = DFA10_transition;
         }
         public String getDescription() {
-            return "105:1: FLOAT : ( ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )? | '.' ( '0' .. '9' )+ ( EXPONENT )? | ( '0' .. '9' )+ EXPONENT );";
+            return "113:1: FLOAT : ( ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )? | '.' ( '0' .. '9' )+ ( EXPONENT )? | ( '0' .. '9' )+ EXPONENT );";
         }
     }
     static final String DFA16_eotS =
@@ -1626,16 +1626,16 @@ public class GuiceyDataLexer extends Lexer {
         "\uffff\7\172\3\uffff\12\172\4\uffff\6\172\4\uffff\2\172\1\uffff"+
         "\1\172\1\uffff\5\172\1\uffff\3\172\2\uffff";
     static final String DFA16_acceptS =
-        "\11\uffff\1\13\1\15\1\16\1\17\1\20\1\21\1\22\1\24\1\25\1\uffff\1"+
+        "\11\uffff\1\13\1\15\1\16\1\17\1\20\1\21\1\22\1\24\1\26\1\uffff\1"+
         "\33\1\uffff\1\35\1\36\2\uffff\1\32\1\31\7\uffff\1\14\1\12\1\34\12"+
-        "\uffff\1\23\1\2\1\26\1\3\6\uffff\1\30\1\1\1\27\1\4\2\uffff\1\10"+
+        "\uffff\1\25\1\2\1\27\1\3\6\uffff\1\23\1\1\1\30\1\4\2\uffff\1\10"+
         "\1\uffff\1\11\5\uffff\1\7\3\uffff\1\6\1\5";
     static final String DFA16_specialS =
         "\115\uffff}>";
     static final String[] DFA16_transitionS = {
             "\2\23\2\uffff\1\23\22\uffff\1\23\6\uffff\1\26\1\15\1\16\2\uffff"+
-            "\1\12\1\uffff\1\25\1\uffff\12\24\1\uffff\1\21\1\uffff\1\17\1"+
-            "\20\2\uffff\32\22\1\13\1\uffff\1\14\3\uffff\3\22\1\1\1\7\6\22"+
+            "\1\12\1\uffff\1\25\1\uffff\12\24\1\uffff\1\20\1\uffff\1\17\1"+
+            "\21\2\uffff\32\22\1\13\1\uffff\1\14\3\uffff\3\22\1\1\1\7\6\22"+
             "\1\4\1\2\1\22\1\6\1\5\2\22\1\3\7\22\1\10\1\uffff\1\11",
             "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\1\27"+
             "\31\30",

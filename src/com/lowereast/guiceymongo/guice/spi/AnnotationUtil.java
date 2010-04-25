@@ -32,6 +32,10 @@ final class AnnotationUtil {
 		return Annotations.proxy(ConfiguredCollection.class, ImmutableMap.<String, Object>of("configuration", configuration, "collection", collectionKey));
 	}
 	
+	public static ConfiguredCollectionDataType configuredCollectionDataType(String configuration, String collectionKey) {
+		return Annotations.proxy(ConfiguredCollectionDataType.class, ImmutableMap.<String, Object>of("configuration", configuration, "collection", collectionKey));
+	}
+	
 	public static ConfiguredConnection configuredConnectionHostname(String connection) {
 		return Annotations.proxy(ConfiguredConnection.class, ImmutableMap.<String, Object>of("connection", connection, "key", "hostname"));
 	}

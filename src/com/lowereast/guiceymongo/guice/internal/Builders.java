@@ -17,6 +17,7 @@
 package com.lowereast.guiceymongo.guice.internal;
 
 import com.google.inject.Module;
+import com.lowereast.guiceymongo.IsData;
 
 public interface Builders {
 	public interface FinishableConfiguration extends Module {
@@ -34,8 +35,11 @@ public interface Builders {
 		FinishableConfiguration overConnection(String connectionKey);
 	}
 	
-	public interface CollectionConfiguration {
+	public interface CollectionConfigurationOnlyTo {
 		CollectionOptionConfiguration to(String collection);
+	}
+	public interface CollectionConfiguration extends CollectionConfigurationOnlyTo {
+		CollectionConfigurationOnlyTo ofType(Class<? extends IsData> dataType);
 	}
 	public interface CollectionOptionConfiguration {
 		FinishableConfiguration inDatabase(String databaseKey);

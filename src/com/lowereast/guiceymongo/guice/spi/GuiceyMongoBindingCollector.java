@@ -25,6 +25,7 @@ import com.google.inject.Module;
 import com.google.inject.internal.Lists;
 import com.google.inject.internal.Maps;
 import com.google.inject.internal.Sets;
+import com.lowereast.guiceymongo.IsData;
 
 public class GuiceyMongoBindingCollector {
 	private final List<String> _errors = Lists.newArrayList();
@@ -62,6 +63,11 @@ public class GuiceyMongoBindingCollector {
 	public void bindConfiguredCollection(String configurationName, String databaseKey, String collectionKey, String collection) {
 		_modules.add(new CollectionProviderModule(databaseKey, collectionKey));
 		_instanceBindings.put(Key.get(String.class, AnnotationUtil.configuredCollection(configurationName, collectionKey)), collection);
+	}
+
+	public <T extends IsData> void bindConfiguredCollectionDataType(String configurationName, String collectionKey, Class<T> dataType) {
+		_modules.add(new GuiceyCollectionProviderModule<T>(collectionKey, dataType));
+//		_instanceBindings.put(Key.get(String.class, AnnotationUtil.configuredCollectionDataType(configurationName, collectionKey)), dataType);
 	}
 	
 	List<String> getErrors() {

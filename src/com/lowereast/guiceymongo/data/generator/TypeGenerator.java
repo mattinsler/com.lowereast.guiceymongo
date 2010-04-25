@@ -92,7 +92,7 @@ public class TypeGenerator {
 		if (rootType.getIdentityProperty() == null)
 			return;
 		
-		appendIndent(builder, indentCount).append("public static class Updater extends ").append(type.getSimpleJavaType()).append(" implements com.lowereast.guiceymongo.IsUpdatable {\n");
+		appendIndent(builder, indentCount).append("public static class Updater extends ").append(type.getSimpleJavaType()).append(" implements com.lowereast.guiceymongo.IsUpdatable<").append(type.getSimpleJavaType()).append("> {\n");
 
 		// member variables
 		if (type.getParentType() != null)
@@ -152,7 +152,7 @@ public class TypeGenerator {
 	}
 	
 	private void createBuilder(Appendable builder, UserType type, int indentCount) throws IOException {
-		appendIndent(builder, indentCount).append("public static class Builder extends ").append(type.getSimpleJavaType()).append(" implements com.lowereast.guiceymongo.IsBuildable {\n");
+		appendIndent(builder, indentCount).append("public static class Builder extends ").append(type.getSimpleJavaType()).append(" implements com.lowereast.guiceymongo.IsBuildable<").append(type.getSimpleJavaType()).append("> {\n");
 		
 		// constructor
 		appendIndent(builder, indentCount + 1).append("private Builder() {}\n");
@@ -173,7 +173,7 @@ public class TypeGenerator {
 	}
 	
 	private void createWrapper(Appendable builder, UserType type, int indentCount) throws IOException {
-		appendIndent(builder, indentCount).append("public static class Wrapper extends ").append(type.getSimpleJavaType()).append(" implements com.lowereast.guiceymongo.IsWrapped {\n");
+		appendIndent(builder, indentCount).append("public static class Wrapper extends ").append(type.getSimpleJavaType()).append(" implements com.lowereast.guiceymongo.IsWrapped<").append(type.getSimpleJavaType()).append("> {\n");
 		
 		// member variable
 		appendIndent(builder, indentCount + 1).append("private com.mongodb.DBObject _backing;\n");
@@ -192,22 +192,28 @@ public class TypeGenerator {
 
 		appendIndent(builder, indentCount).append("}\n");
 		
+		appendIndent(builder, indentCount).append("public static com.lowereast.guiceymongo.DataWrapper<").append(type.getSimpleJavaType()).append("> DataWrapper = new com.lowereast.guiceymongo.DataWrapper<").append(type.getSimpleJavaType()).append(">() {\n");
+		appendIndent(builder, indentCount + 1).append("public ").append(type.getSimpleJavaType()).append(".Wrapper wrap(com.mongodb.DBObject backing) {\n");
+		appendIndent(builder, indentCount + 2).append("return ").append(type.getSimpleJavaType()).append(".wrap(backing);\n");
+		appendIndent(builder, indentCount + 1).append("}\n");
+		appendIndent(builder, indentCount).append("};\n");
+		
 		appendIndent(builder, indentCount).append("public static ").append(type.getSimpleJavaType()).append(".Wrapper wrap(com.mongodb.DBObject backing) {\n");
 		appendIndent(builder, indentCount + 1).append("if (backing == null)\n");
 		appendIndent(builder, indentCount + 2).append("return null;\n");
 		appendIndent(builder, indentCount + 1).append("return new ").append(type.getSimpleJavaType()).append(".Wrapper(backing);\n");
 		appendIndent(builder, indentCount).append("}\n");
 		
-		appendIndent(builder, indentCount).append("public static ").append(type.getSimpleJavaType()).append(".Wrapper convertFrom(com.lowereast.guiceymongo.IsWrapped wrapped) {\n");
+		appendIndent(builder, indentCount).append("public static ").append(type.getSimpleJavaType()).append(".Wrapper convertFrom(com.lowereast.guiceymongo.IsWrapped<?> wrapped) {\n");
 		appendIndent(builder, indentCount + 1).append("if (wrapped == null)\n");
 		appendIndent(builder, indentCount + 2).append("return null;\n");
 		appendIndent(builder, indentCount + 1).append("return new ").append(type.getSimpleJavaType()).append(".Wrapper(wrapped.getDBObject());\n");
 		appendIndent(builder, indentCount).append("}\n");
 		
-		appendIndent(builder, indentCount).append("public static ").append(type.getSimpleJavaType()).append(".Wrapper convertFrom(com.lowereast.guiceymongo.IsReadable readable) {\n");
-		appendIndent(builder, indentCount + 1).append("if (readable == null || !(readable instanceof com.lowereast.guiceymongo.IsWrapped))\n");
+		appendIndent(builder, indentCount).append("public static ").append(type.getSimpleJavaType()).append(".Wrapper convertFrom(com.lowereast.guiceymongo.IsData data) {\n");
+		appendIndent(builder, indentCount + 1).append("if (data == null || !(data instanceof com.lowereast.guiceymongo.IsWrapped<?>))\n");
 		appendIndent(builder, indentCount + 2).append("return null;\n");
-		appendIndent(builder, indentCount + 1).append("return new ").append(type.getSimpleJavaType()).append(".Wrapper(((com.lowereast.guiceymongo.IsWrapped)readable).getDBObject());\n");
+		appendIndent(builder, indentCount + 1).append("return new ").append(type.getSimpleJavaType()).append(".Wrapper(((com.lowereast.guiceymongo.IsWrapped<?>)data).getDBObject());\n");
 		appendIndent(builder, indentCount).append("}\n");
 	}
 	
@@ -230,7 +236,7 @@ public class TypeGenerator {
 			createEnumType(builder, (UserEnumType)type, 1, false);
 			return;
 		}
-		appendIndent(builder, indentCount).append("public " + (innerClass ? "static " : "") + "abstract class ").append(type.getSimpleJavaType()).append(" implements com.lowereast.guiceymongo.IsReadable {\n");
+		appendIndent(builder, indentCount).append("public " + (innerClass ? "static " : "") + "abstract class ").append(type.getSimpleJavaType()).append(" implements com.lowereast.guiceymongo.IsData {\n");
 		
 		create("Key", builder, type, indentCount + 1);
 		builder.append("\n");

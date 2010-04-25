@@ -61,31 +61,51 @@ public class TypeParser {
 		}
 		return option;
 	}
+
+//	private Property<?> getProperty(UserType userType, String propertyName, int typeNumber, List<CommonTree> typeArguments) {
+//		Type type = _typeRegistry.getScopedGuiceyType(userType, typeArguments.get(0).getText());
+//		if (type == null)
+//			throw new RuntimeException("Could not find type " + typeArguments.get(0).getText());
+//		
+//		switch (typeNumber) {
+//		case GuiceyDataParser.TYPE_PRIMITIVE:
+//			if (type instanceof PrimitiveType)
+//				return new PrimitiveProperty(propertyName, (PrimitiveType)type, _useCamelCaseKeys);
+//			else if (type instanceof UserEnumType)
+//				return new UserEnumTypeProperty(propertyName, (UserEnumType)type, _useCamelCaseKeys);
+//			else if (type instanceof UserType)
+//				return new UserTypeProperty(propertyName, (UserType)type, _useCamelCaseKeys);
+//		case GuiceyDataParser.TYPE_LIST:
+//			return new ListProperty(propertyName, new ListType(type), _useCamelCaseKeys);
+//		case GuiceyDataParser.TYPE_SET:
+//			return new SetProperty(propertyName, new SetType(type), _useCamelCaseKeys);
+//		case GuiceyDataParser.TYPE_MAP:
+//			Type valueType = _typeRegistry.getScopedGuiceyType(userType, typeArguments.get(1).getText());
+//			if (valueType == null)
+//				throw new RuntimeException("Could not find type " + typeArguments.get(1).getText());
+//			return new MapProperty(propertyName, new MapType(type, valueType), _useCamelCaseKeys);
+//		}
+//		throw new RuntimeException("The parser might have messed up...");
+//	}
 	
-	private Property<?> getProperty(UserType userType, String propertyName, int typeNumber, List<CommonTree> typeArguments) {
-		Type type = _typeRegistry.getScopedGuiceyType(userType, typeArguments.get(0).getText());
-		if (type == null)
-			throw new RuntimeException("Could not find type " + typeArguments.get(0).getText());
-		
-		switch (typeNumber) {
+	private Type parseType(UserType scopingType, List<CommonTree> typeArguments) {
+		switch (typeArguments.remove(0).getToken().getType()) {
 		case GuiceyDataParser.TYPE_PRIMITIVE:
-			if (type instanceof PrimitiveType)
-				return new PrimitiveProperty(propertyName, (PrimitiveType)type, _useCamelCaseKeys);
-			else if (type instanceof UserEnumType)
-				return new UserEnumTypeProperty(propertyName, (UserEnumType)type, _useCamelCaseKeys);
-			else if (type instanceof UserType)
-				return new UserTypeProperty(propertyName, (UserType)type, _useCamelCaseKeys);
+			String typeName = typeArguments.remove(0).getText();
+			Type type = _typeRegistry.getScopedGuiceyType(scopingType, typeName);
+			if (type == null)
+				throw new RuntimeException("Could not find type " + typeName);
+			return type;
 		case GuiceyDataParser.TYPE_LIST:
-			return new ListProperty(propertyName, new ListType(type), _useCamelCaseKeys);
+			return new ListType(parseType(scopingType, typeArguments));
 		case GuiceyDataParser.TYPE_SET:
-			return new SetProperty(propertyName, new SetType(type), _useCamelCaseKeys);
+			return new SetType(parseType(scopingType, typeArguments));
 		case GuiceyDataParser.TYPE_MAP:
-			Type valueType = _typeRegistry.getScopedGuiceyType(userType, typeArguments.get(1).getText());
-			if (valueType == null)
-				throw new RuntimeException("Could not find type " + typeArguments.get(1).getText());
-			return new MapProperty(propertyName, new MapType(type, valueType), _useCamelCaseKeys);
+			Type keyType = parseType(scopingType, typeArguments);
+			Type valueType = parseType(scopingType, typeArguments);
+			return new MapType(keyType, valueType);
 		}
-		throw new RuntimeException("The parser might have messed up...");
+		throw new RuntimeException("The parser might have messed up or there's a type here I didn't account for (which is my mess up)");
 	}
 	
 	private void parsePropertyTree(CommonTree tree, UserType type) {
@@ -94,12 +114,31 @@ public class TypeParser {
 		List<CommonTree> children = tree.getChildren();
 		String propertyName = children.get(0).getText();
 		
-		Property<?> property = getProperty(type, propertyName, children.get(1).getToken().getType(), children.subList(2, children.size()));
+		children = children.subList(1, children.size());
+		Type propertyType = parseType(type, children);
+		
+		Property<?> property;
+		if (propertyType instanceof PrimitiveType) {
+			property = new PrimitiveProperty(propertyName, (PrimitiveType)propertyType, _useCamelCaseKeys);
+		} else if (propertyType instanceof UserEnumType) {
+			property = new UserEnumTypeProperty(propertyName, (UserEnumType)propertyType, _useCamelCaseKeys);
+		} else if (propertyType instanceof UserType) {
+			property = new UserTypeProperty(propertyName, (UserType)propertyType, _useCamelCaseKeys);
+		} else if (propertyType instanceof ListType) {
+			property = new ListProperty(propertyName, (ListType)propertyType, _useCamelCaseKeys);
+		} else if (propertyType instanceof SetType) {
+			property = new SetProperty(propertyName, (SetType)propertyType, _useCamelCaseKeys);
+		} else if (propertyType instanceof MapType) {
+			property = new MapProperty(propertyName, (MapType)propertyType, _useCamelCaseKeys);
+		} else {
+			throw new RuntimeException("Shouldn't happen");
+		}
+
 		type.addProperty(property);
 		
-		for (int x = 3; x < children.size(); ++x) {
-			if (GuiceyDataParser.OPTION == children.get(x).getToken().getType()) {
-				Option option = parseOptionTree(children.get(x));
+		for (CommonTree child : children) {
+			if (GuiceyDataParser.OPTION == child.getToken().getType()) {
+				Option option = parseOptionTree(child);
 				property.addOption(option);
 				if ("identity".equals(option.getName())) {
 					// validation possibly...

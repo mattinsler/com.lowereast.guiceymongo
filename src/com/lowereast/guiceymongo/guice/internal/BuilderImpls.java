@@ -18,7 +18,9 @@ package com.lowereast.guiceymongo.guice.internal;
 
 import com.google.inject.Binder;
 import com.google.inject.Module;
+import com.lowereast.guiceymongo.IsData;
 import com.lowereast.guiceymongo.guice.internal.Builders.CollectionConfiguration;
+import com.lowereast.guiceymongo.guice.internal.Builders.CollectionConfigurationOnlyTo;
 import com.lowereast.guiceymongo.guice.internal.Builders.DatabaseConfiguration;
 import com.lowereast.guiceymongo.guice.internal.Builders.DatabaseOptionConfiguration;
 import com.lowereast.guiceymongo.guice.internal.Builders.FinishableConfiguration;
@@ -82,13 +84,17 @@ public final class BuilderImpls {
 		}
 	}
 	
-	private static class Collection implements Builders.CollectionConfiguration, Builders.CollectionOptionConfiguration {
+	private static class Collection implements Builders.CollectionConfiguration, Builders.CollectionConfigurationOnlyTo, Builders.CollectionOptionConfiguration {
 		private final Configuration _configuration;
 		private final String _collectionKey;
 		private String _collection;
 		public Collection(Configuration configuration, String collectionKey) {
 			_configuration = configuration;
 			_collectionKey = collectionKey;
+		}
+		public CollectionConfigurationOnlyTo ofType(Class<? extends IsData> dataType) {
+			_configuration.getCollector().bindConfiguredCollectionDataType(_configuration.getName(), _collectionKey, dataType);
+			return this;
 		}
 		public Builders.CollectionOptionConfiguration to(String collection) {
 			_collection = collection;

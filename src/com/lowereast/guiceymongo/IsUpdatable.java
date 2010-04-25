@@ -16,7 +16,7 @@
 
 package com.lowereast.guiceymongo;
 
-public interface IsUpdatable {
+public interface IsUpdatable<T extends IsData> {
 //	DBObject buildUpdate();
 	void update();
 }

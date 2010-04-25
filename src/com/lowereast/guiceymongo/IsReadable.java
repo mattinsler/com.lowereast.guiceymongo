@@ -16,7 +16,7 @@
 
 package com.lowereast.guiceymongo;
 
-public interface IsReadable {
+public interface IsReadable<T extends IsData> {
 //	Set<String> keySet();
 //	
 //	public boolean hasField(String fieldKey);

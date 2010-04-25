@@ -18,6 +18,6 @@ package com.lowereast.guiceymongo;
 
 import com.mongodb.DBObject;
 
-public interface IsBuildable {
+public interface IsBuildable<T extends IsData> {
 	DBObject build();
 }

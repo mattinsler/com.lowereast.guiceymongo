@@ -3,6 +3,7 @@ grammar GuiceyData;
 options {
 	language=Java;
 	output=AST;
+	backtrack=true;
 }
 
 tokens {
@@ -32,12 +33,12 @@ entry	:	data
 	|	enumeration
 	;
 
-data	:	DATA type '{' data_entry* '}' -> ^(DATA type data_entry*)
+data	:	DATA ID '{' data_entry* '}' -> ^(DATA ID data_entry*)
 	;
 
 enumeration
-	:	ENUM type '{}' -> ^(ENUM type)
-	|	ENUM type '{' (value_type ',')* value_type '}' -> ^(ENUM type value_type+)
+	:	ENUM ID '{}' -> ^(ENUM ID)
+	|	ENUM ID '{' (ID ',')* ID '}' -> ^(ENUM ID+)
 	;
 
 data_entry
@@ -66,11 +67,15 @@ value
 	;
 
 property 
+/*
 	:	'map<' key_type ',' value_type '>' ID ';' -> ^(PROPERTY ID TYPE_MAP key_type value_type)
 	|	'set<' type '>' ID ';' -> ^(PROPERTY ID TYPE_SET type)
 	|	'list<' type '>' ID ';' -> ^( PROPERTY ID TYPE_LIST type)
 	|	type 'data;' -> ^(PROPERTY 'data' TYPE_PRIMITIVE type)
 	|	type ID ';' -> ^(PROPERTY ID TYPE_PRIMITIVE type)
+*/
+	:	type 'data;' -> ^(PROPERTY 'data' type)
+	|	type ID ';' -> ^(PROPERTY ID type)
 	;
 
 key_type
@@ -82,8 +87,11 @@ value_type
 	;
 
 type
-	:	ID
-	|	TYPE
+	:	'map<' type ',' type '>' -> TYPE_MAP type+
+	|	'set<' type '>' -> TYPE_SET type
+	|	'list<' type '>' -> TYPE_LIST type
+	|	TYPE -> TYPE_PRIMITIVE TYPE
+	|	ID -> TYPE_PRIMITIVE ID
 	;
 
 TYPE	:	ID ('.' ID)+
