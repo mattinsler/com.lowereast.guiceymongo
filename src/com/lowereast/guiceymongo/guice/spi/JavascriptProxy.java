@@ -16,6 +16,7 @@
 
 package com.lowereast.guiceymongo.guice.spi;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -31,8 +32,11 @@ import com.google.inject.Module;
 import com.google.inject.Provider;
 import com.google.inject.internal.Lists;
 import com.google.inject.internal.Maps;
+import com.lowereast.guiceymongo.DataWrapper;
 import com.lowereast.guiceymongo.GuiceyMongoEvalException;
+import com.lowereast.guiceymongo.IsData;
 import com.lowereast.guiceymongo.IsReadable;
+import com.lowereast.guiceymongo.IsWrapped;
 import com.lowereast.guiceymongo.annotation.ItemType;
 import com.lowereast.guiceymongo.guice.GuiceyMongo;
 import com.mongodb.DB;
@@ -116,18 +120,18 @@ public class JavascriptProxy<T> implements Module, Provider<T> {
 		}
 	};
 	
-	private static class ReadableDBObjectConverter<T extends IsReadable> implements Converter<DBObject, T> {
-		private final Method _wrapMethod;
-		public ReadableDBObjectConverter(Class<T> readableClass) {
+	private static class DBObjectToWrapperConverter<T extends IsData> implements Converter<DBObject, T> {
+		private final DataWrapper<T> _wrapper;
+		public DBObjectToWrapperConverter(Class<T> dataClass) {
 			try {
-				_wrapMethod = readableClass.getDeclaredMethod("wrap", DBObject.class);
+				_wrapper = (DataWrapper<T>)dataClass.getField("DataWrapper").get(null);
 			} catch (Exception e) {
 				throw new RuntimeException(e);
 			}
 		}
 		public T convert(DBObject value) {
 			try {
-				return (T)_wrapMethod.invoke(null, value);
+				return (T)_wrapper.wrap(value);
 			} catch (Exception e) {
 				e.printStackTrace();
 				return null;
@@ -135,20 +139,16 @@ public class JavascriptProxy<T> implements Module, Provider<T> {
 		}
 	}
 	
-	private static class ListReadableDBObjectConverter<T extends IsReadable> implements Converter<List<DBObject>, List<T>> {
-		private final Method _wrapMethod;
-		public ListReadableDBObjectConverter(Class<T> readableClass) {
-			try {
-				_wrapMethod = readableClass.getDeclaredMethod("wrap", DBObject.class);
-			} catch (Exception e) {
-				throw new RuntimeException(e);
-			}
+	private static class ListDBObjectToWrapperConverter<T extends IsData> implements Converter<List<DBObject>, List<T>> {
+		private final DBObjectToWrapperConverter<T> _itemWrapper;
+		public ListDBObjectToWrapperConverter(Class<T> dataClass) {
+			_itemWrapper = new DBObjectToWrapperConverter<T>(dataClass);
 		}
 		public List<T> convert(List<DBObject> value) {
 			try {
 				List<T> list = Lists.newArrayList();
 				for (DBObject o : value)
-					list.add((T)_wrapMethod.invoke(null, o));
+					list.add(_itemWrapper.convert(o));
 				return list;
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -166,12 +166,12 @@ public class JavascriptProxy<T> implements Module, Provider<T> {
 			String argumentString = createArgumentString(argumentTypes.length);
 			_code = "function" + argumentString + "{return " + method.getName() + argumentString + "}";
 
-			if (IsReadable.class.isAssignableFrom(returnType)) {
-				_converter = new ReadableDBObjectConverter(returnType);
+			if (IsData.class.isAssignableFrom(returnType) || IsWrapped.class.isAssignableFrom(returnType)) {
+				_converter = new DBObjectToWrapperConverter(returnType);
 			} else if (List.class.isAssignableFrom(returnType)) {
 				ItemType itemType = method.getAnnotation(ItemType.class);
-				if (itemType != null && IsReadable.class.isAssignableFrom(itemType.value()))
-					_converter = new ListReadableDBObjectConverter(itemType.value());
+				if (itemType != null && (IsData.class.isAssignableFrom(itemType.value()) || IsWrapped.class.isAssignableFrom(itemType.value())))
+					_converter = new ListDBObjectToWrapperConverter(itemType.value());
 			} else if (int.class.equals(returnType) || Integer.class.equals(returnType)) {
 				_converter = DoubleToIntConverter;
 			}
