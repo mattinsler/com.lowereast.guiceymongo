@@ -16,8 +16,6 @@
 
 package com.lowereast.guiceymongo.data.generator;
 
-import guiceydata.data.UserTypeTestEntity.Internal;
-
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
