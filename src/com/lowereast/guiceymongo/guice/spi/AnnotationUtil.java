@@ -18,6 +18,7 @@ package com.lowereast.guiceymongo.guice.spi;
 
 import com.google.inject.internal.ImmutableMap;
 import com.lowereast.guiceymongo.annotation.Annotations;
+import com.lowereast.guiceymongo.guice.annotation.GuiceyMongoBucket;
 import com.lowereast.guiceymongo.guice.annotation.GuiceyMongoCollection;
 import com.lowereast.guiceymongo.guice.annotation.GuiceyMongoDatabase;
 
@@ -30,6 +31,10 @@ final class AnnotationUtil {
 	
 	public static ConfiguredCollection configuredCollection(String configuration, String collectionKey) {
 		return Annotations.proxy(ConfiguredCollection.class, ImmutableMap.<String, Object>of("configuration", configuration, "collection", collectionKey));
+	}
+	
+	public static ConfiguredBucket configuredBucket(String configuration, String bucketKey) {
+		return Annotations.proxy(ConfiguredBucket.class, ImmutableMap.<String, Object>of("configuration", configuration, "bucket", bucketKey));
 	}
 	
 	public static ConfiguredCollectionDataType configuredCollectionDataType(String configuration, String collectionKey) {
@@ -58,5 +63,9 @@ final class AnnotationUtil {
 	
 	public static GuiceyMongoDatabase guiceyMongoDatabase(String databaseKey) {
 		return Annotations.proxy(GuiceyMongoDatabase.class, ImmutableMap.<String, Object>of("value", databaseKey));
+	}
+	
+	public static GuiceyMongoBucket guiceyMongoBucket(String bucketKey) {
+		return Annotations.proxy(GuiceyMongoBucket.class, ImmutableMap.<String, Object>of("value", bucketKey));
 	}
 }

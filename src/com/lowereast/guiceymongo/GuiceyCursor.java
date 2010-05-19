@@ -1,7 +1,25 @@
+/**
+ *      Copyright (C) 2010 Lowereast Software
+ *
+ *   Licensed under the Apache License, Version 2.0 (the "License");
+ *   you may not use this file except in compliance with the License.
+ *   You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *   Unless required by applicable law or agreed to in writing, software
+ *   distributed under the License is distributed on an "AS IS" BASIS,
+ *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *   See the License for the specific language governing permissions and
+ *   limitations under the License.
+ */
+
 package com.lowereast.guiceymongo;
 
 import java.util.Iterator;
 
+import com.lowereast.guiceymongo.data.DataWrapper;
+import com.lowereast.guiceymongo.data.IsData;
 import com.mongodb.DBCursor;
 
 public class GuiceyCursor<Item extends IsData> implements Iterator<Item>, Iterable<Item> {
@@ -13,6 +31,10 @@ public class GuiceyCursor<Item extends IsData> implements Iterator<Item>, Iterab
 		_wrapper = wrapper;
 	}
 
+	public DBCursor getDBCursor() {
+		return _cursor;
+	}
+	
 	public Iterator<Item> iterator() {
 		return this;
 	}
@@ -29,4 +51,9 @@ public class GuiceyCursor<Item extends IsData> implements Iterator<Item>, Iterab
 	public void remove() {
 		throw new UnsupportedOperationException("can't remove from a cursor");
 	}
+//	
+//	public GuiceyCursor<Item> sort() {
+//		_cursor = _cursor.sort();
+//		return this;
+//	}
 }

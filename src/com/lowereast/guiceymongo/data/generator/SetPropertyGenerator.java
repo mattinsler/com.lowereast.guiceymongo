@@ -1,12 +1,30 @@
+/**
+ *      Copyright (C) 2010 Lowereast Software
+ *
+ *   Licensed under the Apache License, Version 2.0 (the "License");
+ *   you may not use this file except in compliance with the License.
+ *   You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *   Unless required by applicable law or agreed to in writing, software
+ *   distributed under the License is distributed on an "AS IS" BASIS,
+ *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *   See the License for the specific language governing permissions and
+ *   limitations under the License.
+ */
+
 package com.lowereast.guiceymongo.data.generator;
 
 import java.io.IOException;
 
-import com.lowereast.guiceymongo.data.property.SetProperty;
-import com.lowereast.guiceymongo.data.type.SetType;
-import com.lowereast.guiceymongo.data.type.Type;
-import com.lowereast.guiceymongo.data.type.UserEnumType;
-import com.lowereast.guiceymongo.data.type.UserType;
+import org.antlr.stringtemplate.StringTemplate;
+
+import com.lowereast.guiceymongo.data.generator.property.SetProperty;
+import com.lowereast.guiceymongo.data.generator.type.SetType;
+import com.lowereast.guiceymongo.data.generator.type.Type;
+import com.lowereast.guiceymongo.data.generator.type.UserEnumType;
+import com.lowereast.guiceymongo.data.generator.type.UserType;
 
 public class SetPropertyGenerator extends PropertyGenerator<SetType, SetProperty> {
 	public SetPropertyGenerator(TypeRegistry typeRegistry) {
@@ -14,159 +32,200 @@ public class SetPropertyGenerator extends PropertyGenerator<SetType, SetProperty
 	}
 	
 	@Override
+	public void createEquals(Appendable builder, SetProperty property, int indentCount) throws IOException {
+		StringTemplate template = new StringTemplate(
+				"if (this.get$p.camelCaseName$Count() != other.get$p.camelCaseName$Count())\n" +
+	        		"return false;\n" +
+	        	"if (this.get$p.camelCaseName$Count() > 0) {\n" +
+	        		"for ($p.itemType$ item : this.get$p.camelCaseName$Set()) {\n" +
+	        			"if (!other.contains$p.camelCaseName$(item))\n" +
+	        				"return false;" +
+	        		"}\n" +
+	        	"}\n"
+		);
+		template.setAttribute("p", property);
+		builder.append(template.toString());
+	}
+
+	@Override
 	public void createKey(Appendable builder, SetProperty property, int indentCount) throws IOException {
-		appendIndent(builder, indentCount).append("public static final String ").append(property.getKeyName()).append(" = \"").append(property.getKeyValue()).append("\";\n");
+		StringTemplate template = new StringTemplate(
+				"public static final String $p.keyName$ = \"$p.keyValue$\";\n"
+		);
+		template.setAttribute("p", property);
+		builder.append(template.toString());
 	}
 	
 	@Override
 	public void createReadableMethod(Appendable builder, SetProperty property, int indentCount) throws IOException {
-		SetType type = property.getType();
-		
-		// getCount
-		appendIndent(builder, indentCount).append("public abstract int get").append(property.getCamelCaseName()).append("Count();\n");
-		// getSet
-		appendIndent(builder, indentCount).append("public abstract ").append(type.getCanonicalJavaType()).append(" get").append(property.getCamelCaseName()).append("Set();\n");
-		// contains
-		appendIndent(builder, indentCount).append("public abstract boolean contains").append(property.getCamelCaseName()).append("(").append(type.getCanonicalJavaType()).append(" value);\n");
+		StringTemplate template = new StringTemplate(
+				"public abstract int get$p.camelCaseName$Count();\n" +
+				"public abstract $p.setType$ get$p.camelCaseName$Set();\n" +
+				"public abstract boolean contains$p.camelCaseName$($p.itemType$ value);\n"
+		);
+		template.setAttribute("p", property);
+		builder.append(template.toString());
 	}
 	
 	@Override
 	public void createWrapperMethod(Appendable builder, SetProperty property, int indentCount) throws IOException {
-		SetType type = property.getType();
-		Type itemType = type.getItemType();
+		Type itemType = property.getType().getItemType();
 
-		// member variable
-		appendIndent(builder, indentCount).append("protected ").append(type.getCanonicalJavaType()).append(" ").append(property.getMemberVariableName()).append(" = null;\n");
-
-		// getCount
-		appendIndent(builder, indentCount).append("@Override public int get").append(property.getCamelCaseName()).append("Count() {\n");
-		appendIndent(builder, indentCount + 1).append("java.util.Set<?> set = get").append(property.getCamelCaseName()).append("Set();\n");
-		appendIndent(builder, indentCount + 1).append("return set == null ? 0 : set.size();\n");
-		appendIndent(builder, indentCount).append("}\n");
+		String s =
+				"protected $p.setType$ $p.memberVariableName$ = null;\n" +
+				"@Override\n" +
+				"public int get$p.camelCaseName$Count() {\n" +
+					"$p.setType$ set = get$p.camelCaseName$Set();\n" +
+					"return set == null ? 0 : set.size();\n" +
+				"}\n" +
+				"@Override\n" +
+				"@SuppressWarnings(\"unchecked\")" +
+				"public $p.setType$ get$p.camelCaseName$Set() {\n" +
+					"if ($p.memberVariableName$ == null) {\n" +
+						"Object value = _backing.get($p.keyName$);\n" +
+						"if (value != null && value instanceof java.util.List<?>) {\n";
 		
-		// getSet
-		appendIndent(builder, indentCount).append("@SuppressWarnings(\"unchecked\") @Override public ").append(type.getCanonicalJavaType()).append(" get").append(property.getCamelCaseName()).append("Set() {\n");
-		appendIndent(builder, indentCount + 1).append("if (").append(property.getMemberVariableName()).append(" == null) {\n");
+		if (itemType instanceof UserEnumType) {
+			s +=
+							"$p.setType$ set = new $p.newSetType$();\n" +
+							"for (String item : (java.util.List<String>)value) {\n" +
+								"try {\n" +
+									"set.add($p.setItemType$.valueOf(item));\n" +
+								"} catch (Exception e) {\n" +
+								"}\n" +
+							"}\n" +
+							"$p.memberVariableName$ = java.util.Collections.unmodifiableSet(set);\n";
+		} else if (itemType instanceof UserType) {
+			s +=
+							"$p.setType$ set = new $p.newSetType$();\n" +
+							"for (com.mongodb.DBObject o : (java.util.List<com.mongodb.DBObject>)value)\n" +
+								"set.add($p.setItemType$.wrap(o));\n" +
+							"$p.memberVariableName$ = java.util.Collections.unmodifiableSet(set);\n";
+		} else
+			s +=			"$p.memberVariableName$ = java.util.Collections.unmodifiableSet(new $p.newSetType$((java.util.List<$p.setItemType$>)value));\n";
 		
-		if (itemType instanceof UserType) {
-			appendIndent(builder, indentCount + 2).append("Object value = _backing.get(").append(property.getKeyName()).append(");\n");
-			appendIndent(builder, indentCount + 2).append("if (value != null && value instanceof java.util.List<?>) {\n");
-			appendIndent(builder, indentCount + 3).append(type.getCanonicalJavaType()).append(" set = new java.util.HashSet<").append(itemType.getCanonicalJavaType()).append(">();\n");
-			appendIndent(builder, indentCount + 3).append("for (com.mongodb.DBObject o : (java.util.List<com.mongodb.DBObject>)value)\n");
-			appendIndent(builder, indentCount + 4).append("set.add(").append(itemType.getCanonicalJavaType()).append(".wrap(o));\n");
-			appendIndent(builder, indentCount + 3).append(property.getMemberVariableName()).append(" = java.util.Collections.unmodifiableSet(set);\n");
-			appendIndent(builder, indentCount + 2).append("}\n");
-		} else {
-			appendIndent(builder, indentCount + 2).append("Object value = _backing.get(").append(property.getKeyName()).append(");\n");
-			appendIndent(builder, indentCount + 2).append("if (value != null && value instanceof java.util.List<?>)\n");
-			appendIndent(builder, indentCount + 3).append(property.getMemberVariableName()).append(" = java.util.Collections.unmodifiableSet(new java.util.HashSet<").append(itemType.getCanonicalJavaType()).append(">((java.util.List<").append(itemType.getCanonicalJavaType()).append(">)value));\n");
-		}
+		s +=
+						"}\n" +
+					"}\n" +
+					"return $p.memberVariableName$;\n" +
+				"}\n" +
+				"@Override\n" +
+				"public boolean contains$p.camelCaseName$($p.itemType$ value) {\n" +
+					"$p.setType$ set = get$p.camelCaseName$Set();\n" +
+					"return set == null ? false : set.contains(value);\n" +
+				"}\n";
 		
-		appendIndent(builder, indentCount + 1).append("}\n");
-		appendIndent(builder, indentCount + 1).append("return ").append(property.getMemberVariableName()).append(";\n");
-		appendIndent(builder, indentCount).append("}\n");
-		
-		// contains
-		appendIndent(builder, indentCount).append("@Override public boolean contains").append(property.getCamelCaseName()).append("(").append(type.getCanonicalJavaType()).append(" value) {\n");
-		appendIndent(builder, indentCount + 1).append(type.getCanonicalJavaType()).append(" set = get").append(property.getCamelCaseName()).append("Set();\n");
-		appendIndent(builder, indentCount + 1).append("return set == null ? null : set.contains(value);\n");
-		appendIndent(builder, indentCount).append("}\n");
+		StringTemplate template = new StringTemplate(s);
+		template.setAttribute("p", property);
+		builder.append(template.toString());
 	}
 	
 	@Override
 	public void createBuilderMethod(Appendable builder, SetProperty property, int indentCount) throws IOException {
-		SetType type = property.getType();
-		Type itemType = type.getItemType();
+		String s =
+				// member variable
+				"protected $p.setType$ $p.memberVariableName$ = null;\n" +
+				// getCount
+				"@Override\n" +
+				"public int get$p.camelCaseName$Count() {\n" +
+					"return $p.memberVariableName$ == null ? 0 : $p.memberVariableName$.size();\n" +
+				"}\n" +
+				// getSet
+				"@Override\n" +
+				"public $p.setType$ get$p.camelCaseName$Set() {\n" +
+					"return java.util.Collections.unmodifiableSet($p.memberVariableName$);\n" +
+				"}\n" +
+				// contains
+				"@Override\n" +
+				"public boolean contains$p.camelCaseName$($p.itemType$ value) {\n" +
+					"return $p.memberVariableName$ == null ? false : $p.memberVariableName$.contains(value);\n" +
+				"}\n" +
+				// add
+				"public Builder add$p.camelCaseName$($p.builderItemType$ value) {\n" +
+					"if ($p.memberVariableName$ == null)\n" +
+						"$p.memberVariableName$ = new $p.newSetType$();\n" +
+					"$p.memberVariableName$.add(value);\n" +
+					"return this;" +
+				"}\n" +
+				// addAll
+				"public Builder addAll$p.camelCaseName$(Iterable<? extends $p.builderSetItemType$> value) {\n" +
+					"if ($p.memberVariableName$ == null)\n" +
+						"$p.memberVariableName$ = new $p.newSetType$();\n" +
+					"for ($p.builderItemType$ item : value)\n" +
+						"$p.memberVariableName$.add(item);\n" +
+					"return this;\n" +
+				"}\n" +
+				"public Builder clear$p.camelCaseName$() {\n" +
+					"$p.memberVariableName$ = null;\n" +
+					"return this;\n" +
+				"}\n";
 		
-		// member variable
+		StringTemplate template = new StringTemplate(s);
+		template.setAttribute("p", property);
+		builder.append(template.toString());
+	}
+	
+	@Override
+	public void createBuilderNewBuilder(Appendable builder, SetProperty property, int indentCount) throws IOException {
+		Type itemType = property.getType().getItemType();
+		
+		String s =
+				"if (value.get$p.camelCaseName$Count() > 0) {\n";
 		if (itemType instanceof UserType)
-			appendIndent(builder, indentCount).append("protected java.util.Set<").append(itemType.getCanonicalJavaType()).append(".Builder> ").append(property.getMemberVariableName()).append(" = null;\n");
+			s +=	"for ($p.itemType$ item : value.get$p.camelCaseName$Set())\n" +
+						"builder.add$p.camelCaseName$($p.itemType$.newBuilder(item));\n";
 		else
-			appendIndent(builder, indentCount).append("protected ").append(type.getCanonicalJavaType()).append(" ").append(property.getMemberVariableName()).append(" = null;\n");
+			s +=	"builder.addAll$p.camelCaseName$(value.get$p.camelCaseName$Set());\n";
+		s +=	"}\n";
 		
-		// getCount
-		appendIndent(builder, indentCount).append("@Override public int get").append(property.getCamelCaseName()).append("Count() {\n");
-		appendIndent(builder, indentCount + 1).append("return ").append(property.getMemberVariableName()).append(" == null ? 0 : ").append(property.getMemberVariableName()).append(".size();\n");
-		appendIndent(builder, indentCount).append("}\n");
-		
-		// getSet
-		if (itemType instanceof UserType)
-			appendIndent(builder, indentCount).append("@Override public java.util.Set<").append(itemType.getCanonicalJavaType()).append(".Builder> get").append(property.getCamelCaseName()).append("Set() {\n");
-		else
-			appendIndent(builder, indentCount).append("@Override public ").append(type.getCanonicalJavaType()).append(" get").append(property.getCamelCaseName()).append("Set() {\n");
-		appendIndent(builder, indentCount + 1).append("return ").append(property.getMemberVariableName()).append(";\n");
-		appendIndent(builder, indentCount).append("}\n");
-		
-		// contains
-		appendIndent(builder, indentCount).append("@Override public boolean contains").append(property.getCamelCaseName()).append("(").append(type.getCanonicalJavaType()).append(" value) {\n");
-		appendIndent(builder, indentCount + 1).append("return ").append(property.getMemberVariableName()).append(" == null ? false : ").append(property.getMemberVariableName()).append(".contains(value);\n");
-		appendIndent(builder, indentCount).append("}\n");
-
-		// add
-		if (itemType instanceof UserType)
-			appendIndent(builder, indentCount).append("public Builder add").append(property.getCamelCaseName()).append("(").append(itemType.getCanonicalJavaType()).append(".Builder value) {\n");
-		else
-			appendIndent(builder, indentCount).append("public Builder add").append(property.getCamelCaseName()).append("(").append(itemType.getCanonicalJavaType()).append(" value) {\n");
-		appendIndent(builder, indentCount + 1).append("if (").append(property.getMemberVariableName()).append(" == null)\n");
-		if (itemType instanceof UserType)
-			appendIndent(builder, indentCount + 2).append(property.getMemberVariableName()).append(" = new java.util.HashSet<").append(itemType.getCanonicalJavaType()).append(".Builder>();\n");
-		else
-			appendIndent(builder, indentCount + 2).append(property.getMemberVariableName()).append(" = new java.util.HashSet<").append(itemType.getCanonicalJavaType()).append(">();\n");
-		appendIndent(builder, indentCount + 1).append(property.getMemberVariableName()).append(".add(value);\n");
-		appendIndent(builder, indentCount + 1).append("return this;\n");
-		appendIndent(builder, indentCount).append("}\n");
-		
-		// addAll
-		if (itemType instanceof UserType)
-			appendIndent(builder, indentCount).append("public Builder addAll").append(property.getCamelCaseName()).append("(Iterable<? extends ").append(itemType.getCanonicalJavaType()).append(".Builder> value) {\n");
-		else
-			appendIndent(builder, indentCount).append("public Builder addAll").append(property.getCamelCaseName()).append("(Iterable<? extends ").append(itemType.getCanonicalJavaType()).append("> value) {\n");
-		appendIndent(builder, indentCount + 1).append("if (").append(property.getMemberVariableName()).append(" == null)\n");
-		if (itemType instanceof UserType) {
-			appendIndent(builder, indentCount + 2).append(property.getMemberVariableName()).append(" = new java.util.HashSet<").append(itemType.getCanonicalJavaType()).append(".Builder>();\n");
-			appendIndent(builder, indentCount + 1).append("for (").append(itemType.getCanonicalJavaType()).append(".Builder item : value)\n");
-		} else {
-			appendIndent(builder, indentCount + 2).append(property.getMemberVariableName()).append(" = new java.util.HashSet<").append(itemType.getCanonicalJavaType()).append(">();\n");
-			appendIndent(builder, indentCount + 1).append("for (").append(itemType.getCanonicalJavaType()).append(" item : value)\n");
-		}
-		appendIndent(builder, indentCount + 2).append(property.getMemberVariableName()).append(".add(item);\n");
-		appendIndent(builder, indentCount + 1).append("return this;\n");
-		appendIndent(builder, indentCount).append("}\n");
-		
-		// clear
-		appendIndent(builder, indentCount).append("public Builder clear").append(property.getCamelCaseName()).append("() {\n");
-		appendIndent(builder, indentCount + 1).append(property.getMemberVariableName()).append(" = null;\n");
-		appendIndent(builder, indentCount + 1).append("return this;\n");
-		appendIndent(builder, indentCount).append("}\n");
+		StringTemplate template = new StringTemplate(s);
+		template.setAttribute("p", property);
+		builder.append(template.toString());
 	}
 	
 	@Override
 	public void createBuilderBuild(Appendable builder, SetProperty property, int indentCount) throws IOException {
-		SetType type = property.getType();
-		Type itemType = type.getItemType();
+		Type itemType = property.getType().getItemType();
 		
+		String s;
 		if (itemType instanceof UserEnumType) {
-			appendIndent(builder, indentCount).append("if (").append(property.getMemberVariableName()).append(" != null) {\n");
-			appendIndent(builder, indentCount + 1).append("java.util.List<String> list = new java.util.ArrayList<String>();\n");
-			appendIndent(builder, indentCount + 1).append("for (").append(itemType.getCanonicalJavaType()).append(" value : ").append(property.getMemberVariableName()).append(")\n");
-			appendIndent(builder, indentCount + 2).append("list.add(value.name());\n");
-			appendIndent(builder, indentCount + 1).append("dbObject.put(").append(property.getKeyName()).append(", list);\n");
-			appendIndent(builder, indentCount).append("}\n");
-		} if (itemType instanceof UserType) {
-			appendIndent(builder, indentCount).append("if (").append(property.getMemberVariableName()).append(" != null) {\n");
-			appendIndent(builder, indentCount + 1).append("java.util.List<com.mongodb.DBObject> list = new java.util.ArrayList<com.mongodb.DBObject>();\n");
-			appendIndent(builder, indentCount + 1).append("for (").append(itemType.getCanonicalJavaType()).append(".Builder value : ").append(property.getMemberVariableName()).append(")\n");
-			appendIndent(builder, indentCount + 2).append("list.add(value.build());\n");
-			appendIndent(builder, indentCount + 1).append("dbObject.put(").append(property.getKeyName()).append(", list);\n");
-			appendIndent(builder, indentCount).append("}\n");
+			s =
+				"if ($p.memberVariableName$ != null) {\n" +
+					"java.util.List<String> list = new java.util.ArrayList<String>();\n" +
+					"for ($p.itemType$ item : $p.memberVariableName$)\n" +
+						"list.add(item.name());\n" +
+					"dbObject.put($p.keyName$, list);\n" +
+				"}\n";
+		} else if (itemType instanceof UserType) {
+			s = 
+				"if ($p.memberVariableName$ != null) {\n" +
+					"java.util.List<com.mongodb.DBObject> list = new java.util.ArrayList<com.mongodb.DBObject>();\n" +
+					"for ($p.itemType$ item : $p.memberVariableName$)\n" +
+						"list.add((($p.builderSetItemType$)item).build());\n" +
+					"dbObject.put($p.keyName$, list);\n" +
+				"}\n";
 		} else {
-			appendIndent(builder, indentCount).append("if (").append(property.getMemberVariableName()).append(" != null)\n");
-			appendIndent(builder, indentCount + 1).append("dbObject.put(").append(property.getKeyName()).append(", new java.util.ArrayList<").append(itemType.getCanonicalJavaType()).append(">(").append(property.getMemberVariableName()).append("));\n");
+			s =
+				"if ($p.memberVariableName$ != null)\n" +
+					"dbObject.put($p.keyName$, new java.util.ArrayList<$p.setItemType$>($p.memberVariableName$));\n";
 		}
+		
+		StringTemplate template = new StringTemplate(s);
+		template.setAttribute("p", property);
+		builder.append(template.toString());
 	}
 
 	@Override
 	public void createUpdaterMethod(Appendable builder, SetProperty property, int indentCount) throws IOException {
+//		@Override public int getEmailAddressCount() {
+//			return _builder._emailAddressSet == null ? _wrapper.getEmailAddressCount() : _builder.getEmailAddressCount();
+//		}
+//		@Override public java.util.Set<String> getEmailAddressSet() {
+//			return _builder._emailAddressSet == null ? _wrapper.getEmailAddressSet() : _builder.getEmailAddressSet();
+//		}
+//		@Override public boolean containsEmailAddress(java.util.Set<String> value) {
+//			return _builder._emailAddressSet == null ? _wrapper.containsEmailAddress(value) : _builder.containsEmailAddress(value);
+//		}
 	}
 	
 	@Override

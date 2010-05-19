@@ -21,12 +21,18 @@ import java.util.Map;
 import com.google.inject.Binder;
 import com.google.inject.Key;
 import com.google.inject.Module;
+import com.lowereast.guiceymongo.guice.GuiceyMongoUtil;
 
 public class GuiceyMongoBinder {
 	private final Binder _binder;
 	
 	public GuiceyMongoBinder(Binder binder) {
 		_binder = binder.skipSources(GuiceyMongoBinder.class);
+		_binder.install(new SingletonModule<Class<GuiceyMongoUtil>>(GuiceyMongoUtil.class) {
+			public void configure(Binder binder) {
+				binder.requestStaticInjection(GuiceyMongoUtil.class);
+			}
+		});
 	}
 	
 	public void addError(String message) {
@@ -53,6 +59,12 @@ public class GuiceyMongoBinder {
 	public void bindConfiguredCollection(String configurationName, String databaseKey, String collectionKey, String collection) {
 		_binder.install(new CollectionProviderModule(databaseKey, collectionKey));
 		_binder.bind(Key.get(String.class, AnnotationUtil.configuredCollection(configurationName, collectionKey))).toInstance(collection);
+	}
+	
+	public void bindConfiguredBucket(String configurationName, String databaseKey, String bucketKey, String bucket) {
+		_binder.install(new GridFSProviderModule(databaseKey, bucketKey));
+		_binder.install(new GuiceyBucketProviderModule(bucketKey));
+		_binder.bind(Key.get(String.class, AnnotationUtil.configuredBucket(configurationName, bucketKey))).toInstance(bucket);
 	}
 	
 	@SuppressWarnings("unchecked")

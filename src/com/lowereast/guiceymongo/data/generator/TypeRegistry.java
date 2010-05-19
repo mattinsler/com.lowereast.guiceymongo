@@ -21,15 +21,18 @@ import java.util.List;
 import java.util.Map;
 
 import com.google.inject.internal.Lists;
-import com.lowereast.guiceymongo.data.type.PrimitiveType;
-import com.lowereast.guiceymongo.data.type.Type;
-import com.lowereast.guiceymongo.data.type.UserType;
+import com.lowereast.guiceymongo.data.generator.type.BlobType;
+import com.lowereast.guiceymongo.data.generator.type.PrimitiveType;
+import com.lowereast.guiceymongo.data.generator.type.Type;
+import com.lowereast.guiceymongo.data.generator.type.UserType;
 
 public class TypeRegistry {
 	public final Map<String, Type> _types = new HashMap<String, Type>();
 
 	public TypeRegistry() {
 		addType(PrimitiveType.BoolType);
+		addType(PrimitiveType.DBObjectType);
+		addType(PrimitiveType.DBTimestampType);
 		addType(PrimitiveType.DateType);
 		addType(PrimitiveType.DoubleType);
 		addType(PrimitiveType.FloatType);
@@ -37,6 +40,7 @@ public class TypeRegistry {
 		addType(PrimitiveType.Int64Type);
 		addType(PrimitiveType.ObjectIdType);
 		addType(PrimitiveType.StringType);
+		addType(BlobType.BlobType);
 	}
 	
 	public void addType(Type type) {
@@ -49,8 +53,12 @@ public class TypeRegistry {
 	
 	public <T extends Type> T getScopedGuiceyType(UserType scopingType, String guiceyType) {
 		T type = (T)_types.get(guiceyType);
-		if (type == null)
+		while (type == null && scopingType != null) {
 			type = (T)_types.get(scopingType.getGuiceyType() + "." + guiceyType);
+			if (type != null)
+				break;
+			scopingType = scopingType.getParentType();
+		}
 		return type;
 	}
 	

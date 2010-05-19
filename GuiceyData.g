@@ -20,10 +20,10 @@ tokens {
 }
 
 @header {
-package com.lowereast.guiceymongo.data.parser;
+package com.lowereast.guiceymongo.data.generator.parser;
 }
 @lexer::header {
-package com.lowereast.guiceymongo.data.parser;
+package com.lowereast.guiceymongo.data.generator.parser;
 }
 
 start	:	entry+ EOF
@@ -34,6 +34,7 @@ entry	:	data
 	;
 
 data	:	DATA ID '{' data_entry* '}' -> ^(DATA ID data_entry*)
+	|	DATA ID '{}' -> ^(DATA ID)
 	;
 
 enumeration

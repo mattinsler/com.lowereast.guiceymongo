@@ -1,10 +1,28 @@
+/**
+ *      Copyright (C) 2010 Lowereast Software
+ *
+ *   Licensed under the Apache License, Version 2.0 (the "License");
+ *   you may not use this file except in compliance with the License.
+ *   You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *   Unless required by applicable law or agreed to in writing, software
+ *   distributed under the License is distributed on an "AS IS" BASIS,
+ *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *   See the License for the specific language governing permissions and
+ *   limitations under the License.
+ */
+
 package com.lowereast.guiceymongo.data.generator;
 
 import java.io.IOException;
 
-import com.lowereast.guiceymongo.data.option.Option;
-import com.lowereast.guiceymongo.data.property.PrimitiveProperty;
-import com.lowereast.guiceymongo.data.type.PrimitiveType;
+import org.antlr.stringtemplate.StringTemplate;
+
+import com.lowereast.guiceymongo.data.generator.property.PrimitiveProperty;
+import com.lowereast.guiceymongo.data.generator.type.PrimitiveType;
+import com.lowereast.guiceymongo.data.generator.type.Type;
 
 public class PrimitivePropertyGenerator extends PropertyGenerator<PrimitiveType, PrimitiveProperty> {
 	public PrimitivePropertyGenerator(TypeRegistry typeRegistry) {
@@ -12,90 +30,129 @@ public class PrimitivePropertyGenerator extends PropertyGenerator<PrimitiveType,
 	}
 	
 	@Override
+	public void createEquals(Appendable builder, PrimitiveProperty property, int indentCount) throws IOException {
+		Type type = property.getType();
+		
+		String s;
+		if (PrimitiveType.BoolType.equals(type) ||
+				PrimitiveType.DoubleType.equals(type) ||
+				PrimitiveType.FloatType.equals(type) ||
+				PrimitiveType.Int32Type.equals(type) ||
+				PrimitiveType.Int64Type.equals(type))
+			s =	"if (this.has$p.camelCaseName$() != other.has$p.camelCaseName$() || (this.has$p.camelCaseName$() && this.get$p.camelCaseName$() != other.get$p.camelCaseName$()))\n";
+		else
+			s =	"if (this.has$p.camelCaseName$() != other.has$p.camelCaseName$() || (this.has$p.camelCaseName$() && !this.get$p.camelCaseName$().equals(other.get$p.camelCaseName$())))\n";
+		s +=		"return false;\n";
+		
+		StringTemplate template = new StringTemplate(s);
+		template.setAttribute("p", property);
+		builder.append(template.toString());
+	}
+	
+	@Override
 	public void createKey(Appendable builder, PrimitiveProperty property, int indentCount) throws IOException {
-		String keyValue;
-		
-		Option identityOption = property.getOption("identity");
-		if (identityOption != null) {
-			if (identityOption.getParameters().isEmpty())
-				keyValue = "_id";
-			else {
-				keyValue = identityOption.getParameters().get("value").toString();
-				if (keyValue == null)
-					throw new RuntimeException("Problems with the identity option... Can only be [identity] or [identity('key')] or [identity(value='key')]");
-			}
-		} else {
-			keyValue = property.getKeyValue();
-		}
-		
-		appendIndent(builder, indentCount).append("public static final String ").append(property.getKeyName()).append(" = \"").append(keyValue).append("\";\n");
+		StringTemplate template = new StringTemplate(
+				"public static final String $p.keyName$ = \"$p.keyValue$\";\n"
+		);
+		template.setAttribute("p", property);
+		builder.append(template.toString());
 	}
 	
 	@Override
 	public void createReadableMethod(Appendable builder, PrimitiveProperty property, int indentCount) throws IOException {
-		createStandardReadableMethod(builder, property, indentCount);
+		StringTemplate template = new StringTemplate(
+				"public abstract boolean has$p.camelCaseName$();\n" +
+				"public abstract $p.primitiveType$ get$p.camelCaseName$();\n"
+		);
+		template.setAttribute("p", property);
+		builder.append(template.toString());
 	}
 	
 	@Override
 	public void createWrapperMethod(Appendable builder, PrimitiveProperty property, int indentCount) throws IOException {
 		PrimitiveType type = property.getType();
 
-		// has
-		appendIndent(builder, indentCount).append("@Override public boolean has").append(property.getCamelCaseName()).append("() {\n");
-		appendIndent(builder, indentCount + 1).append("return _backing.containsField(").append(property.getKeyName()).append(");\n");
-		appendIndent(builder, indentCount).append("}\n");
+		String s =
+				"@Override\n" +
+				"public boolean has$p.camelCaseName$() {\n" +
+					"return _backing.containsField($p.keyName$);\n" +
+				"}\n" +
+				"@Override\n" +
+				"public $p.primitiveType$ get$p.camelCaseName$() {\n";
 		
-		// get
-		appendIndent(builder, indentCount).append("@Override public ").append(type.getCanonicalJavaType()).append(" get").append(property.getCamelCaseName()).append("() {\n");
-		if (property.getOption("identity") != null && PrimitiveType.StringType.equals(type)) {
-			appendIndent(builder, indentCount + 1).append("return _backing.get(").append(property.getKeyName()).append(").toString();\n");
-		} else if (property.getOption("identity") != null && !PrimitiveType.ObjectIdType.equals(type)) {
-			throw new RuntimeException("Option identity is only valid for properties of type string or object_id");
+		if (property.hasOption("identity")) {
+			if (PrimitiveType.StringType.equals(type)) {
+				s +=
+					"Object value = _backing.get($p.keyName$);\n" +
+					"return value == null ? null : value.toString();\n";
+			} else if (PrimitiveType.ObjectIdType.equals(type))
+				s +=
+					"return ($p.primitiveBoxedType$)_backing.get($p.keyName$);\n";
+			else
+				throw new RuntimeException("Option identity is only valid for properties of type string or object_id");
 		} else if (PrimitiveType.Int32Type.equals(type)) {
-			appendIndent(builder, indentCount + 1).append("Object value = _backing.get(").append(property.getKeyName()).append(");\n");
-			appendIndent(builder, indentCount + 1).append("if (value instanceof Double)\n");
-			appendIndent(builder, indentCount + 2).append("return ((Double)value).intValue();\n");
-			appendIndent(builder, indentCount + 1).append("return (Integer)value;\n");
-		} else {
-			appendIndent(builder, indentCount + 1).append("return (").append(type.getJavaBoxedType()).append(")_backing.get(").append(property.getKeyName()).append(");\n");
-		}
-		appendIndent(builder, indentCount).append("}\n");
+			s +=	"Object value = _backing.get($p.keyName$);\n" +
+					"if (value instanceof Double)\n" +
+						"return ((Double)value).intValue();\n" +
+					"return (Integer)value;\n";
+		} else
+			s +=	"return ($p.primitiveBoxedType$)_backing.get($p.keyName$);\n";
+		
+		s += 	"}\n";
+		
+		StringTemplate template = new StringTemplate(s);
+		template.setAttribute("p", property);
+		builder.append(template.toString());
 	}
 	
 	@Override
 	public void createBuilderMethod(Appendable builder, PrimitiveProperty property, int indentCount) throws IOException {
-		PrimitiveType type = property.getType();
-		
-		// member variable
-		appendIndent(builder, indentCount).append("protected ").append(type.getJavaBoxedType()).append(" ").append(property.getMemberVariableName()).append(" = null;\n");
-		
-		// has
-		appendIndent(builder, indentCount).append("@Override public boolean has").append(property.getCamelCaseName()).append("() {\n");
-		appendIndent(builder, indentCount + 1).append("return ").append(property.getMemberVariableName()).append(" != null;\n");
-		appendIndent(builder, indentCount).append("}\n");
-		
-		// get
-		appendIndent(builder, indentCount).append("@Override public ").append(type.getCanonicalJavaType()).append(" get").append(property.getCamelCaseName()).append("() {\n");
-		appendIndent(builder, indentCount + 1).append("return ").append(property.getMemberVariableName()).append(";\n");
-		appendIndent(builder, indentCount).append("}\n");
-		
-		// set
-		appendIndent(builder, indentCount).append("public Builder set").append(property.getCamelCaseName()).append("(").append(type.getCanonicalJavaType()).append(" value) {\n");
-		appendIndent(builder, indentCount + 1).append(property.getMemberVariableName()).append(" = value;\n");
-		appendIndent(builder, indentCount + 1).append("return this;\n");
-		appendIndent(builder, indentCount).append("}\n");
-		
-		// clear
-		appendIndent(builder, indentCount).append("public Builder clear").append(property.getCamelCaseName()).append("() {\n");
-		appendIndent(builder, indentCount + 1).append(property.getMemberVariableName()).append(" = null;\n");
-		appendIndent(builder, indentCount + 1).append("return this;\n");
-		appendIndent(builder, indentCount).append("}\n");
+		StringTemplate template = new StringTemplate(
+				// member variable
+				"protected $p.primitiveBoxedType$ $p.memberVariableName$ = null;\n" +
+				// has
+				"@Override\n" +
+				"public boolean has$p.camelCaseName$() {\n" +
+					"return $p.memberVariableName$ != null;\n" +
+				"}\n" +
+				// get
+				"@Override\n" +
+				"public $p.primitiveType$ get$p.camelCaseName$() {\n" +
+					"return $p.memberVariableName$;\n" +
+				"}\n" +
+				// set
+				"public Builder set$p.camelCaseName$($p.primitiveType$ value) {\n" +
+					"$p.memberVariableName$ = value;\n" +
+					"return this;\n" +
+				"}\n" +
+				// clear
+				"public Builder clear$p.camelCaseName$() {\n" +
+					"$p.memberVariableName$ = null;\n" +
+					"return this;\n" +
+				"}\n"
+		);
+		template.setAttribute("p", property);
+		builder.append(template.toString());
+	}
+
+	@Override
+	public void createBuilderNewBuilder(Appendable builder, PrimitiveProperty property, int indentCount) throws IOException {
+		StringTemplate template = new StringTemplate(
+				"if (value.has$p.camelCaseName$())\n" +
+					"builder.set$p.camelCaseName$(value.get$p.camelCaseName$());\n"
+		);
+		template.setAttribute("p", property);
+		builder.append(template.toString());
 	}
 	
 	@Override
 	public void createBuilderBuild(Appendable builder, PrimitiveProperty property, int indentCount) throws IOException {
-		appendIndent(builder, indentCount).append("if (").append(property.getMemberVariableName()).append(" != null)\n");
-		appendIndent(builder, indentCount + 1).append("dbObject.put(").append(property.getKeyName()).append(", ").append(property.getMemberVariableName()).append(");\n");
+		StringTemplate template = new StringTemplate(
+				"if ($p.memberVariableName$ != null)\n" +
+					"dbObject.put($p.keyName$, $p.memberVariableName$);\n"
+		);
+		template.setAttribute("p", property);
+		builder.append(template.toString());
 	}
 	
 	@Override
@@ -108,12 +165,12 @@ public class PrimitivePropertyGenerator extends PropertyGenerator<PrimitiveType,
 		appendIndent(builder, indentCount).append("}\n");
 		
 		// get
-		appendIndent(builder, indentCount).append("@Override public ").append(type.getCanonicalJavaType()).append(" get").append(property.getCamelCaseName()).append("() {\n");
+		appendIndent(builder, indentCount).append("@Override public ").append(type.getJavaType()).append(" get").append(property.getCamelCaseName()).append("() {\n");
 		appendIndent(builder, indentCount + 1).append("return _builder.has").append(property.getCamelCaseName()).append("() ? _builder.get").append(property.getCamelCaseName()).append("() : _wrapper.get").append(property.getCamelCaseName()).append("();\n");
 		appendIndent(builder, indentCount).append("}\n");
 		
 		// set
-		appendIndent(builder, indentCount).append("public Updater set").append(property.getCamelCaseName()).append("(").append(type.getCanonicalJavaType()).append(" value) {\n");
+		appendIndent(builder, indentCount).append("public Updater set").append(property.getCamelCaseName()).append("(").append(type.getJavaType()).append(" value) {\n");
 		appendIndent(builder, indentCount + 1).append("_builder.set").append(property.getCamelCaseName()).append("(value);\n");
 		appendIndent(builder, indentCount + 1).append("return this;\n");
 		appendIndent(builder, indentCount).append("}\n");
@@ -127,7 +184,9 @@ public class PrimitivePropertyGenerator extends PropertyGenerator<PrimitiveType,
 	
 	@Override
 	public void createUpdaterBuildUpdate(Appendable builder, PrimitiveProperty property, int indentCount) throws IOException {
-		appendIndent(builder, indentCount).append("if (_builder.has").append(property.getCamelCaseName()).append("())\n");
-		appendIndent(builder, indentCount + 1).append("dbObject.put(").append(property.getKeyName()).append(", _builder.get").append(property.getCamelCaseName()).append("());\n");
+		if (property.getOption("identity") == null) {
+			appendIndent(builder, indentCount).append("if (_builder.has").append(property.getCamelCaseName()).append("())\n");
+			appendIndent(builder, indentCount + 1).append("dbObject.put(path + ").append(property.getKeyName()).append(", _builder.get").append(property.getCamelCaseName()).append("());\n");
+		}
 	}
 }

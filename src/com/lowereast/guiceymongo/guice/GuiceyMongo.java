@@ -18,10 +18,10 @@ package com.lowereast.guiceymongo.guice;
 
 import com.google.inject.Binder;
 import com.google.inject.Module;
-import com.lowereast.guiceymongo.guice.internal.BuilderImpls;
-import com.lowereast.guiceymongo.guice.internal.Builders;
-import com.lowereast.guiceymongo.guice.internal.JsonConfigurationFileModule;
+import com.lowereast.guiceymongo.guice.spi.BuilderImpls;
+import com.lowereast.guiceymongo.guice.spi.Builders;
 import com.lowereast.guiceymongo.guice.spi.JavascriptProxy;
+import com.lowereast.guiceymongo.guice.spi.JsonConfigurationFileModule;
 
 public final class GuiceyMongo {
 	private GuiceyMongo() {}
