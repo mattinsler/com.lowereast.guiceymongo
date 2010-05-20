@@ -19,7 +19,6 @@ package com.lowereast.guiceymongo;
 import java.util.List;
 
 import com.lowereast.guiceymongo.data.DataWrapper;
-import com.lowereast.guiceymongo.data.FieldSet;
 import com.lowereast.guiceymongo.data.IsBuilder;
 import com.lowereast.guiceymongo.data.IsData;
 import com.mongodb.BasicDBObject;
