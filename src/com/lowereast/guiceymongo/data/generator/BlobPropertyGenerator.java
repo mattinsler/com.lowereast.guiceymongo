@@ -54,6 +54,8 @@ public class BlobPropertyGenerator extends PropertyGenerator<BlobType, BlobPrope
 	@Override
 	public void createReadableMethod(Appendable builder, BlobProperty property, int indentCount) throws IOException {
 		StringTemplate template = new StringTemplate(
+				// has
+				"public abstract boolean has$p.camelCaseName$();\n" +
 				// hasBucket
 				"public abstract boolean has$p.camelCaseName$Bucket();\n" +
 				// hasIdentity
@@ -74,6 +76,14 @@ public class BlobPropertyGenerator extends PropertyGenerator<BlobType, BlobPrope
 		StringTemplate template = new StringTemplate(
 				// member variable
 				"protected com.mongodb.gridfs.GridFSDBFile $p.memberVariableName$ = null;\n" +
+				// has
+				"@Override\n" +
+				"public boolean has$p.camelCaseName$() {\n" +
+					"Object o = _backing.containsField($p.keyName$);" +
+					"if (o == null || !(o instanceof com.mongodb.DBObject))\n" +
+						"return false;" +
+					"return ((com.mongodb.DBObject)o).containsField(\"bucket\") && ((com.mongodb.DBObject)o).containsField(\"identity\");" +
+				"}\n" +
 				// hasBucket
 				"@Override\n" +
 				"public boolean has$p.camelCaseName$Bucket() {\n" +
@@ -124,6 +134,11 @@ public class BlobPropertyGenerator extends PropertyGenerator<BlobType, BlobPrope
 				"protected java.io.ByteArrayOutputStream $p.memberVariableName$ = null;\n" +
 				"protected String $p.memberVariableName$Bucket = null;\n" +
 				"protected com.mongodb.ObjectId $p.memberVariableName$Identity = null;\n" +
+				// has
+				"@Override\n" +
+				"public boolean has$p.camelCaseName$() {\n" +
+					"return $p.memberVariableName$ != null || ($p.memberVariableName$Bucket != null && $p.memberVariableName$Identity != null);" +
+				"}\n" +
 				// hasBucket
 				"@Override\n" +
 				"public boolean has$p.camelCaseName$Bucket() {\n" +
