@@ -21,14 +21,14 @@ import java.util.List;
 import com.google.inject.internal.Lists;
 import com.lowereast.guiceymongo.data.generator.property.Property;
 
-public class UserType extends Type {
+public class UserDataType extends Type {
 	private final List<Property<?>> _properties = Lists.newArrayList();
 	private final List<Type> _childTypes = Lists.newArrayList();
 	
-	private UserType _parentType;
+	private UserDataType _parentType;
 	private Property<?> _identityProperty;
 	
-	public UserType(String guiceyType) {
+	public UserDataType(String guiceyType) {
 		super(guiceyType, guiceyType);
 	}
 
@@ -44,7 +44,7 @@ public class UserType extends Type {
 		return _childTypes;
 	}
 	
-	public void addChildType(UserType childType) {
+	public void addChildType(UserDataType childType) {
 		if (_childTypes.indexOf(childType) == -1) {
 			_childTypes.add(childType);
 			childType.setParentType(this);
@@ -58,11 +58,11 @@ public class UserType extends Type {
 		}
 	}
 	
-	public UserType getParentType() {
+	public UserDataType getParentType() {
 		return _parentType;
 	}
 	
-	public void setParentType(UserType parentType) {
+	public void setParentType(UserDataType parentType) {
 		if (_parentType != parentType) {
 			_parentType = parentType;
 			_parentType.addChildType(this);

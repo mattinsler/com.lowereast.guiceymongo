@@ -20,16 +20,16 @@ import java.io.IOException;
 
 import org.antlr.stringtemplate.StringTemplate;
 
-import com.lowereast.guiceymongo.data.generator.property.UserTypeProperty;
-import com.lowereast.guiceymongo.data.generator.type.UserType;
+import com.lowereast.guiceymongo.data.generator.property.UserDataProperty;
+import com.lowereast.guiceymongo.data.generator.type.UserDataType;
 
-public class UserTypePropertyGenerator extends PropertyGenerator<UserType, UserTypeProperty> {
-	public UserTypePropertyGenerator(TypeRegistry typeRegistry) {
-		super(UserType.class, typeRegistry);
+public class UserDataPropertyGenerator extends PropertyGenerator<UserDataType, UserDataProperty> {
+	public UserDataPropertyGenerator(TypeRegistry typeRegistry) {
+		super(UserDataType.class, typeRegistry);
 	}
 	
 	@Override
-	public void createEquals(Appendable builder, UserTypeProperty property, int indentCount) throws IOException {
+	public void createEquals(Appendable builder, UserDataProperty property, int indentCount) throws IOException {
 		StringTemplate template = new StringTemplate(
 				"if (this.has$p.camelCaseName$() != other.has$p.camelCaseName$() || (this.has$p.camelCaseName$() && !this.get$p.camelCaseName$().equals(other.get$p.camelCaseName$())))\n" +
 		        	"return false;\n"
@@ -39,7 +39,7 @@ public class UserTypePropertyGenerator extends PropertyGenerator<UserType, UserT
 	}
 	
 	@Override
-	public void createKey(Appendable builder, UserTypeProperty property, int indentCount) throws IOException {
+	public void createKey(Appendable builder, UserDataProperty property, int indentCount) throws IOException {
 //		appendIndent(builder, indentCount).append("public static final com.lowereast.guiceymongo.data.DocumentProperty<").append(property.getEnclosingType().getCanonicalJavaType()).append(", ").append(property.getType().getCanonicalJavaType()).append("> ").append(property.getKeyName()).append(" = com.lowereast.guiceymongo.data.DocumentProperty.create(\"").append(property.getKeyValue()).append("\");\n");
 		
 		StringTemplate template = new StringTemplate(
@@ -50,7 +50,7 @@ public class UserTypePropertyGenerator extends PropertyGenerator<UserType, UserT
 	}
 	
 	@Override
-	public void createReadableMethod(Appendable builder, UserTypeProperty property, int indentCount) throws IOException {
+	public void createReadableMethod(Appendable builder, UserDataProperty property, int indentCount) throws IOException {
 		StringTemplate template = new StringTemplate(
 				"public abstract boolean has$p.camelCaseName$();\n" +
 				"public abstract $p.userType$ get$p.camelCaseName$();\n"
@@ -60,7 +60,7 @@ public class UserTypePropertyGenerator extends PropertyGenerator<UserType, UserT
 	}
 	
 	@Override
-	public void createWrapperMethod(Appendable builder, UserTypeProperty property, int indentCount) throws IOException {
+	public void createWrapperMethod(Appendable builder, UserDataProperty property, int indentCount) throws IOException {
 		StringTemplate template = new StringTemplate(
 				"protected $p.userType$.Wrapper $p.memberVariableName$ = null;\n" +
 				"@Override\n" +
@@ -82,7 +82,7 @@ public class UserTypePropertyGenerator extends PropertyGenerator<UserType, UserT
 	}
 	
 	@Override
-	public void createBuilderMethod(Appendable builder, UserTypeProperty property, int indentCount) throws IOException {
+	public void createBuilderMethod(Appendable builder, UserDataProperty property, int indentCount) throws IOException {
 		StringTemplate template = new StringTemplate(
 				// member variable
 				"protected $p.builderUserType$ $p.memberVariableName$ = null;\n" +
@@ -118,7 +118,7 @@ public class UserTypePropertyGenerator extends PropertyGenerator<UserType, UserT
 	}
 	
 	@Override
-	public void createBuilderNewBuilder(Appendable builder, UserTypeProperty property, int indentCount) throws IOException {
+	public void createBuilderNewBuilder(Appendable builder, UserDataProperty property, int indentCount) throws IOException {
 		StringTemplate template = new StringTemplate(
 				"if (value.has$p.camelCaseName$())\n" +
 					"builder.set$p.camelCaseName$($p.userType$.newBuilder(value.get$p.camelCaseName$()));\n"
@@ -128,7 +128,7 @@ public class UserTypePropertyGenerator extends PropertyGenerator<UserType, UserT
 	}
 	
 	@Override
-	public void createBuilderBuild(Appendable builder, UserTypeProperty property, int indentCount) throws IOException {
+	public void createBuilderBuild(Appendable builder, UserDataProperty property, int indentCount) throws IOException {
 		StringTemplate template = new StringTemplate(
 				"if ($p.memberVariableName$ != null)\n" +
 					"dbObject.put($p.keyName$, $p.memberVariableName$.build());\n"
@@ -138,8 +138,8 @@ public class UserTypePropertyGenerator extends PropertyGenerator<UserType, UserT
 	}
 	
 	@Override
-	public void createUpdaterMethod(Appendable builder, UserTypeProperty property, int indentCount) throws IOException {
-		UserType type = property.getType();
+	public void createUpdaterMethod(Appendable builder, UserDataProperty property, int indentCount) throws IOException {
+		UserDataType type = property.getType();
 		
 //		protected UserEntity.Settings.Updater _settings = null;
 //		@Override public boolean hasSettings() {
@@ -189,7 +189,7 @@ public class UserTypePropertyGenerator extends PropertyGenerator<UserType, UserT
 	}
 	
 	@Override
-	public void createUpdaterBuildUpdate(Appendable builder, UserTypeProperty property, int indentCount) throws IOException {
+	public void createUpdaterBuildUpdate(Appendable builder, UserDataProperty property, int indentCount) throws IOException {
 //		if (_settings != null)
 //			_settings.buildUpdate(dbObject, path + SettingsKey + ".");
 		appendIndent(builder, indentCount).append("if (").append(property.getMemberVariableName()).append(" != null)\n");

@@ -25,7 +25,7 @@ import com.lowereast.guiceymongo.data.generator.type.ListType;
 import com.lowereast.guiceymongo.data.generator.type.PrimitiveType;
 import com.lowereast.guiceymongo.data.generator.type.Type;
 import com.lowereast.guiceymongo.data.generator.type.UserEnumType;
-import com.lowereast.guiceymongo.data.generator.type.UserType;
+import com.lowereast.guiceymongo.data.generator.type.UserDataType;
 
 public class ListPropertyGenerator extends PropertyGenerator<ListType, ListProperty> {
 	public ListPropertyGenerator(TypeRegistry typeRegistry) {
@@ -107,7 +107,7 @@ public class ListPropertyGenerator extends PropertyGenerator<ListType, ListPrope
 								"}\n" +
 							"}\n" +
 							"$p.memberVariableName$ = java.util.Collections.unmodifiableList(list);\n";
-		} else if (type.getItemType() instanceof UserType) {
+		} else if (type.getItemType() instanceof UserDataType) {
 			s +=
 							"$p.listType$ list = new $p.newListType$();\n" +
 							"for (com.mongodb.DBObject o : (java.util.List<com.mongodb.DBObject>)value)\n" +
@@ -154,7 +154,7 @@ public class ListPropertyGenerator extends PropertyGenerator<ListType, ListPrope
 				"@Override\n" +
 				// get
 				"public $p.builderItemType$ get$p.camelCaseName$(int index) {\n";
-		if (itemType instanceof UserType)
+		if (itemType instanceof UserDataType)
 			s +=	"return $p.memberVariableName$ == null ? null : ($p.builderItemType$)$p.memberVariableName$.get(index);\n";
 		else
 			s +=	"return $p.memberVariableName$ == null ? null : $p.memberVariableName$.get(index);\n";
@@ -192,7 +192,7 @@ public class ListPropertyGenerator extends PropertyGenerator<ListType, ListPrope
 		
 		String s =
 				"if (value.get$p.camelCaseName$Count() > 0) {\n";
-		if (itemType instanceof UserType) {
+		if (itemType instanceof UserDataType) {
 			s +=
 					"for ($p.itemType$ item : value.get$p.camelCaseName$List())\n" +
 						"builder.add$p.camelCaseName$($p.builderListItemType$.newBuilder(item));\n";
@@ -219,7 +219,7 @@ public class ListPropertyGenerator extends PropertyGenerator<ListType, ListPrope
 						"list.add(value.name());\n" +
 					"dbObject.put($p.keyName$, list);\n" +
 				"}\n";
-		} else if (itemType instanceof UserType) {
+		} else if (itemType instanceof UserDataType) {
 			s =
 				"if ($p.memberVariableName$ != null) {\n" +
 					"java.util.List<com.mongodb.DBObject> list = new java.util.ArrayList<com.mongodb.DBObject>();\n" +
@@ -279,7 +279,7 @@ public class ListPropertyGenerator extends PropertyGenerator<ListType, ListPrope
 		Type itemType = type.getItemType();
 		
 		// member variable
-		if (itemType instanceof UserType)
+		if (itemType instanceof UserDataType)
 			appendIndent(builder, indentCount).append("protected java.util.List<").append(itemType.getJavaType()).append(".Updater> ").append(property.getMemberVariableName()).append("Added = null;\n");
 		else
 			appendIndent(builder, indentCount).append("protected ").append(type.getJavaType()).append(" ").append(property.getMemberVariableName()).append("Added = null;\n");
@@ -290,7 +290,7 @@ public class ListPropertyGenerator extends PropertyGenerator<ListType, ListPrope
 		appendIndent(builder, indentCount).append("}\n");
 		
 		// getList
-		if (itemType instanceof UserType)
+		if (itemType instanceof UserDataType)
 			appendIndent(builder, indentCount).append("@Override public java.util.List<").append(itemType.getJavaType()).append(".Builder> get").append(property.getCamelCaseName()).append("List() {\n");
 		else
 			appendIndent(builder, indentCount).append("@Override public ").append(type.getJavaType()).append(" get").append(property.getCamelCaseName()).append("List() {\n");
@@ -298,7 +298,7 @@ public class ListPropertyGenerator extends PropertyGenerator<ListType, ListPrope
 		appendIndent(builder, indentCount).append("}\n");
 		
 		// get
-		if (itemType instanceof UserType)
+		if (itemType instanceof UserDataType)
 			appendIndent(builder, indentCount).append("@Override public ").append(type.getItemType().getJavaType()).append(".Builder get").append(property.getCamelCaseName()).append("(int index) {\n");
 		else
 			appendIndent(builder, indentCount).append("@Override public ").append(type.getItemType().getJavaType()).append(" get").append(property.getCamelCaseName()).append("(int index) {\n");
@@ -306,12 +306,12 @@ public class ListPropertyGenerator extends PropertyGenerator<ListType, ListPrope
 		appendIndent(builder, indentCount).append("}\n");
 		
 		// add
-		if (itemType instanceof UserType)
+		if (itemType instanceof UserDataType)
 			appendIndent(builder, indentCount).append("public Builder add").append(property.getCamelCaseName()).append("(").append(itemType.getJavaType()).append(".Builder value) {\n");
 		else
 			appendIndent(builder, indentCount).append("public Builder add").append(property.getCamelCaseName()).append("(").append(itemType.getJavaType()).append(" value) {\n");
 		appendIndent(builder, indentCount + 1).append("if (").append(property.getMemberVariableName()).append(" == null)\n");
-		if (itemType instanceof UserType)
+		if (itemType instanceof UserDataType)
 			appendIndent(builder, indentCount + 2).append(property.getMemberVariableName()).append(" = new java.util.ArrayList<").append(itemType.getJavaType()).append(".Builder>();\n");
 		else
 			appendIndent(builder, indentCount + 2).append(property.getMemberVariableName()).append(" = new java.util.ArrayList<").append(itemType.getJavaType()).append(">();\n");
@@ -320,12 +320,12 @@ public class ListPropertyGenerator extends PropertyGenerator<ListType, ListPrope
 		appendIndent(builder, indentCount).append("}\n");
 		
 		// addAll
-		if (itemType instanceof UserType)
+		if (itemType instanceof UserDataType)
 			appendIndent(builder, indentCount).append("public Builder addAll").append(property.getCamelCaseName()).append("(Iterable<? extends ").append(itemType.getJavaType()).append(".Builder> value) {\n");
 		else
 			appendIndent(builder, indentCount).append("public Builder addAll").append(property.getCamelCaseName()).append("(Iterable<? extends ").append(itemType.getJavaType()).append("> value) {\n");
 		appendIndent(builder, indentCount + 1).append("if (").append(property.getMemberVariableName()).append(" == null)\n");
-		if (itemType instanceof UserType) {
+		if (itemType instanceof UserDataType) {
 			appendIndent(builder, indentCount + 2).append(property.getMemberVariableName()).append(" = new java.util.ArrayList<").append(itemType.getJavaType()).append(".Builder>();\n");
 			appendIndent(builder, indentCount + 1).append("for (").append(itemType.getJavaType()).append(".Builder item : value)\n");
 		} else {

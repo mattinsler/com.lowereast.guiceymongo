@@ -35,7 +35,7 @@ import org.apache.log4j.Logger;
 import com.lowereast.guiceymongo.data.generator.parser.GuiceyDataLexer;
 import com.lowereast.guiceymongo.data.generator.parser.GuiceyDataParser;
 import com.lowereast.guiceymongo.data.generator.parser.TypeParser;
-import com.lowereast.guiceymongo.data.generator.type.UserType;
+import com.lowereast.guiceymongo.data.generator.type.UserDataType;
 
 import de.hunsicker.jalopy.Jalopy;
 
@@ -123,7 +123,7 @@ public class GuiceyDataGenerator {
 
 		Jalopy jalopy = new Jalopy();
 		
-		for (UserType type : registry.getTypes(UserType.class)) {
+		for (UserDataType type : registry.getTypes(UserDataType.class)) {
 			if (type.getParentType() == null) {
 				try {
 					File file = new File(outputDirFile, type.getJavaType() + ".java");

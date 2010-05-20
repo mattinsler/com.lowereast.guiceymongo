@@ -27,11 +27,11 @@ import com.lowereast.guiceymongo.data.generator.property.MapProperty;
 import com.lowereast.guiceymongo.data.generator.property.PrimitiveProperty;
 import com.lowereast.guiceymongo.data.generator.property.Property;
 import com.lowereast.guiceymongo.data.generator.property.SetProperty;
-import com.lowereast.guiceymongo.data.generator.property.UserEnumTypeProperty;
-import com.lowereast.guiceymongo.data.generator.property.UserTypeProperty;
+import com.lowereast.guiceymongo.data.generator.property.UserEnumProperty;
+import com.lowereast.guiceymongo.data.generator.property.UserDataProperty;
 import com.lowereast.guiceymongo.data.generator.type.Type;
 import com.lowereast.guiceymongo.data.generator.type.UserEnumType;
-import com.lowereast.guiceymongo.data.generator.type.UserType;
+import com.lowereast.guiceymongo.data.generator.type.UserDataType;
 
 public class TypeGenerator {
 	private final PrimitivePropertyGenerator _primitivePropertyGenerator;
@@ -39,8 +39,8 @@ public class TypeGenerator {
 	private final ListPropertyGenerator _listPropertyGenerator;
 	private final SetPropertyGenerator _setPropertyGenerator;
 	private final MapPropertyGenerator _mapPropertyGenerator;
-	private final UserEnumTypePropertyGenerator _userEnumTypePropertyGenerator;
-	private final UserTypePropertyGenerator _userTypePropertyGenerator;
+	private final UserEnumPropertyGenerator _userEnumTypePropertyGenerator;
+	private final UserDataPropertyGenerator _userTypePropertyGenerator;
 	
 	public TypeGenerator(TypeRegistry registry) {
 		_primitivePropertyGenerator = new PrimitivePropertyGenerator(registry);
@@ -48,8 +48,8 @@ public class TypeGenerator {
 		_listPropertyGenerator = new ListPropertyGenerator(registry);
 		_setPropertyGenerator = new SetPropertyGenerator(registry);
 		_mapPropertyGenerator = new MapPropertyGenerator(registry);
-		_userEnumTypePropertyGenerator = new UserEnumTypePropertyGenerator(registry);
-		_userTypePropertyGenerator = new UserTypePropertyGenerator(registry);
+		_userEnumTypePropertyGenerator = new UserEnumPropertyGenerator(registry);
+		_userTypePropertyGenerator = new UserDataPropertyGenerator(registry);
 	}
 	
 	private Appendable appendIndent(Appendable builder, int indentCount) throws IOException {
@@ -65,7 +65,7 @@ public class TypeGenerator {
 		return typeName;
 	}
 	
-	private void create(String methodName, Appendable builder, UserType type, int indentCount) throws IOException {
+	private void create(String methodName, Appendable builder, UserDataType type, int indentCount) throws IOException {
 		methodName = "create" + methodName;
 		try {
 			for (Property<?> property : type.getProperties()) {
@@ -79,10 +79,10 @@ public class TypeGenerator {
 					SetPropertyGenerator.class.getDeclaredMethod(methodName, Appendable.class, SetProperty.class, int.class).invoke(_setPropertyGenerator, builder, property, indentCount);
 				else if (property instanceof MapProperty)
 					MapPropertyGenerator.class.getDeclaredMethod(methodName, Appendable.class, MapProperty.class, int.class).invoke(_mapPropertyGenerator, builder, property, indentCount);
-				else if (property instanceof UserEnumTypeProperty)
-					UserEnumTypePropertyGenerator.class.getDeclaredMethod(methodName, Appendable.class, UserEnumTypeProperty.class, int.class).invoke(_userEnumTypePropertyGenerator, builder, property, indentCount);
-				else if (property instanceof UserTypeProperty)
-					UserTypePropertyGenerator.class.getDeclaredMethod(methodName, Appendable.class, UserTypeProperty.class, int.class).invoke(_userTypePropertyGenerator, builder, property, indentCount);
+				else if (property instanceof UserEnumProperty)
+					UserEnumPropertyGenerator.class.getDeclaredMethod(methodName, Appendable.class, UserEnumProperty.class, int.class).invoke(_userEnumTypePropertyGenerator, builder, property, indentCount);
+				else if (property instanceof UserDataProperty)
+					UserDataPropertyGenerator.class.getDeclaredMethod(methodName, Appendable.class, UserDataProperty.class, int.class).invoke(_userTypePropertyGenerator, builder, property, indentCount);
 			}
 		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
@@ -97,9 +97,9 @@ public class TypeGenerator {
 		}
 	}
 
-	private void createUpdater(Appendable builder, UserType type, int indentCount) throws IOException {
+	private void createUpdater(Appendable builder, UserDataType type, int indentCount) throws IOException {
 		// find root type...
-		UserType rootType = type;
+		UserDataType rootType = type;
 		while (rootType.getParentType() != null)
 			rootType = rootType.getParentType();
 		if (rootType.getIdentityProperty() == null)
@@ -171,7 +171,7 @@ public class TypeGenerator {
 		}
 	}
 	
-	private void createBuilder(Appendable builder, UserType type, int indentCount) throws IOException {
+	private void createBuilder(Appendable builder, UserDataType type, int indentCount) throws IOException {
 		appendIndent(builder, indentCount).append("public static class Builder extends ").append(getSimpleName(type.getJavaType())).append(" implements com.lowereast.guiceymongo.data.IsBuilder<").append(getSimpleName(type.getJavaType())).append("> {\n");
 		
 		// constructor
@@ -198,7 +198,7 @@ public class TypeGenerator {
 		appendIndent(builder, indentCount).append("}\n");
 	}
 	
-	private void createWrapper(Appendable builder, UserType type, int indentCount) throws IOException {
+	private void createWrapper(Appendable builder, UserDataType type, int indentCount) throws IOException {
 		appendIndent(builder, indentCount).append("public static class Wrapper extends ").append(getSimpleName(type.getJavaType())).append(" implements com.lowereast.guiceymongo.data.IsWrapper<").append(getSimpleName(type.getJavaType())).append("> {\n");
 		
 		// member variable
@@ -261,7 +261,7 @@ public class TypeGenerator {
 		appendIndent(builder, indentCount).append("}\n");
 	}
 
-	private void createUserType(Appendable builder, UserType type, int indentCount, boolean innerClass) throws IOException {
+	private void createUserType(Appendable builder, UserDataType type, int indentCount, boolean innerClass) throws IOException {
 		appendIndent(builder, indentCount).append("public " + (innerClass ? "static " : "") + "abstract class ").append(getSimpleName(type.getJavaType())).append(" implements com.lowereast.guiceymongo.data.IsData {\n");
 		
 		create("Key", builder, type, indentCount + 1);
@@ -287,15 +287,15 @@ public class TypeGenerator {
 		appendIndent(builder, indentCount + 1).append("}\n");
 		
 		for (Type childType : type.getChildTypes()) {
-			if (childType instanceof UserType)
-				createUserType(builder, (UserType)childType, indentCount + 1, true);
+			if (childType instanceof UserDataType)
+				createUserType(builder, (UserDataType)childType, indentCount + 1, true);
 			else if (childType instanceof UserEnumType)
 				createEnumType(builder, (UserEnumType)childType, indentCount + 1, true);
 		}
 		appendIndent(builder, indentCount).append("}\n");
 	}
 	
-	public void generate(Appendable builder, UserType type) throws IOException {
+	public void generate(Appendable builder, UserDataType type) throws IOException {
 		builder.append("// Generated file!!!  DO NOT EDIT THIS!!!\n\n");
 
 		createUserType(builder, type, 0, false);

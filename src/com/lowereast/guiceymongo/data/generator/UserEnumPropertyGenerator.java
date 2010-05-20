@@ -20,16 +20,16 @@ import java.io.IOException;
 
 import org.antlr.stringtemplate.StringTemplate;
 
-import com.lowereast.guiceymongo.data.generator.property.UserEnumTypeProperty;
+import com.lowereast.guiceymongo.data.generator.property.UserEnumProperty;
 import com.lowereast.guiceymongo.data.generator.type.UserEnumType;
 
-public class UserEnumTypePropertyGenerator extends PropertyGenerator<UserEnumType, UserEnumTypeProperty> {
-	public UserEnumTypePropertyGenerator(TypeRegistry typeRegistry) {
+public class UserEnumPropertyGenerator extends PropertyGenerator<UserEnumType, UserEnumProperty> {
+	public UserEnumPropertyGenerator(TypeRegistry typeRegistry) {
 		super(UserEnumType.class, typeRegistry);
 	}
 	
 	@Override
-	public void createEquals(Appendable builder, UserEnumTypeProperty property, int indentCount) throws IOException {
+	public void createEquals(Appendable builder, UserEnumProperty property, int indentCount) throws IOException {
 		StringTemplate template = new StringTemplate(
 				"if (this.has$p.camelCaseName$() != other.has$p.camelCaseName$() || (this.has$p.camelCaseName$() && this.get$p.camelCaseName$() != other.get$p.camelCaseName$()))\n" +
 		        	"return false;\n"
@@ -39,7 +39,7 @@ public class UserEnumTypePropertyGenerator extends PropertyGenerator<UserEnumTyp
 	}
 	
 	@Override
-	public void createKey(Appendable builder, UserEnumTypeProperty property, int indentCount) throws IOException {
+	public void createKey(Appendable builder, UserEnumProperty property, int indentCount) throws IOException {
 		StringTemplate template = new StringTemplate(
 				"public static final String $p.keyName$ = \"$p.keyValue$\";\n"
 		);
@@ -48,7 +48,7 @@ public class UserEnumTypePropertyGenerator extends PropertyGenerator<UserEnumTyp
 	}
 	
 	@Override
-	public void createReadableMethod(Appendable builder, UserEnumTypeProperty property, int indentCount) throws IOException {
+	public void createReadableMethod(Appendable builder, UserEnumProperty property, int indentCount) throws IOException {
 		StringTemplate template = new StringTemplate(
 				"public abstract boolean has$p.camelCaseName$();\n" +
 				"public abstract $p.enumType$ get$p.camelCaseName$();\n"
@@ -58,7 +58,7 @@ public class UserEnumTypePropertyGenerator extends PropertyGenerator<UserEnumTyp
 	}
 	
 	@Override
-	public void createWrapperMethod(Appendable builder, UserEnumTypeProperty property, int indentCount) throws IOException {
+	public void createWrapperMethod(Appendable builder, UserEnumProperty property, int indentCount) throws IOException {
 		StringTemplate template = new StringTemplate(
 				"protected $p.enumType$ $p.memberVariableName$ = null;\n" +
 				"@Override\n" +
@@ -84,7 +84,7 @@ public class UserEnumTypePropertyGenerator extends PropertyGenerator<UserEnumTyp
 	}
 	
 	@Override
-	public void createBuilderMethod(Appendable builder, UserEnumTypeProperty property, int indentCount) throws IOException {
+	public void createBuilderMethod(Appendable builder, UserEnumProperty property, int indentCount) throws IOException {
 		StringTemplate template = new StringTemplate(
 				// member variable
 				"protected $p.enumType$ $p.memberVariableName$ = null;\n" +
@@ -114,7 +114,7 @@ public class UserEnumTypePropertyGenerator extends PropertyGenerator<UserEnumTyp
 	}
 	
 	@Override
-	public void createBuilderNewBuilder(Appendable builder, UserEnumTypeProperty property, int indentCount) throws IOException {
+	public void createBuilderNewBuilder(Appendable builder, UserEnumProperty property, int indentCount) throws IOException {
 		StringTemplate template = new StringTemplate(
 				"if (value.has$p.camelCaseName$())\n" +
 					"builder.set$p.camelCaseName$(value.get$p.camelCaseName$());\n"
@@ -124,7 +124,7 @@ public class UserEnumTypePropertyGenerator extends PropertyGenerator<UserEnumTyp
 	}
 	
 	@Override
-	public void createBuilderBuild(Appendable builder, UserEnumTypeProperty property, int indentCount) throws IOException {
+	public void createBuilderBuild(Appendable builder, UserEnumProperty property, int indentCount) throws IOException {
 		StringTemplate template = new StringTemplate(
 				"if ($p.memberVariableName$ != null)\n" +
 					"dbObject.put($p.keyName$, $p.memberVariableName$.name());\n"
@@ -134,10 +134,10 @@ public class UserEnumTypePropertyGenerator extends PropertyGenerator<UserEnumTyp
 	}
 
 	@Override
-	public void createUpdaterMethod(Appendable builder, UserEnumTypeProperty property, int indentCount) throws IOException {
+	public void createUpdaterMethod(Appendable builder, UserEnumProperty property, int indentCount) throws IOException {
 	}
 	
 	@Override
-	public void createUpdaterBuildUpdate(Appendable builder, UserEnumTypeProperty property, int indentCount) throws IOException {
+	public void createUpdaterBuildUpdate(Appendable builder, UserEnumProperty property, int indentCount) throws IOException {
 	}
 }

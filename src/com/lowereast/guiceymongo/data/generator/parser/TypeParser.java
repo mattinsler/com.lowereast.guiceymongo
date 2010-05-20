@@ -29,8 +29,8 @@ import com.lowereast.guiceymongo.data.generator.property.MapProperty;
 import com.lowereast.guiceymongo.data.generator.property.PrimitiveProperty;
 import com.lowereast.guiceymongo.data.generator.property.Property;
 import com.lowereast.guiceymongo.data.generator.property.SetProperty;
-import com.lowereast.guiceymongo.data.generator.property.UserEnumTypeProperty;
-import com.lowereast.guiceymongo.data.generator.property.UserTypeProperty;
+import com.lowereast.guiceymongo.data.generator.property.UserEnumProperty;
+import com.lowereast.guiceymongo.data.generator.property.UserDataProperty;
 import com.lowereast.guiceymongo.data.generator.type.BlobType;
 import com.lowereast.guiceymongo.data.generator.type.ListType;
 import com.lowereast.guiceymongo.data.generator.type.MapType;
@@ -38,7 +38,7 @@ import com.lowereast.guiceymongo.data.generator.type.PrimitiveType;
 import com.lowereast.guiceymongo.data.generator.type.SetType;
 import com.lowereast.guiceymongo.data.generator.type.Type;
 import com.lowereast.guiceymongo.data.generator.type.UserEnumType;
-import com.lowereast.guiceymongo.data.generator.type.UserType;
+import com.lowereast.guiceymongo.data.generator.type.UserDataType;
 
 public class TypeParser {
 	private final boolean _useCamelCaseKeys;
@@ -78,7 +78,7 @@ public class TypeParser {
 		return option;
 	}
 
-	private Type parseType(UserType scopingType, List<CommonTree> typeArguments) {
+	private Type parseType(UserDataType scopingType, List<CommonTree> typeArguments) {
 		switch (typeArguments.remove(0).getToken().getType()) {
 		case GuiceyDataParser.TYPE_PRIMITIVE:
 			String typeName = typeArguments.remove(0).getText();
@@ -98,7 +98,7 @@ public class TypeParser {
 		throw new RuntimeException("The parser might have messed up or there's a type here I didn't account for (which is my mess up)");
 	}
 	
-	private void parsePropertyTree(CommonTree tree, UserType type) {
+	private void parsePropertyTree(CommonTree tree, UserDataType type) {
 		assert GuiceyDataParser.PROPERTY == tree.getToken().getType();
 		
 		List<CommonTree> children = tree.getChildren();
@@ -113,9 +113,9 @@ public class TypeParser {
 		} else if (propertyType instanceof BlobType) {
 			property = new BlobProperty(type, propertyName, (BlobType)propertyType, _useCamelCaseKeys);
 		} else if (propertyType instanceof UserEnumType) {
-			property = new UserEnumTypeProperty(type, propertyName, (UserEnumType)propertyType, _useCamelCaseKeys);
-		} else if (propertyType instanceof UserType) {
-			property = new UserTypeProperty(type, propertyName, (UserType)propertyType, _useCamelCaseKeys);
+			property = new UserEnumProperty(type, propertyName, (UserEnumType)propertyType, _useCamelCaseKeys);
+		} else if (propertyType instanceof UserDataType) {
+			property = new UserDataProperty(type, propertyName, (UserDataType)propertyType, _useCamelCaseKeys);
 		} else if (propertyType instanceof ListType) {
 			property = new ListProperty(type, propertyName, (ListType)propertyType, _useCamelCaseKeys);
 		} else if (propertyType instanceof SetType) {
@@ -140,10 +140,10 @@ public class TypeParser {
 		}
 	}
 	
-	private void parseDataTree(CommonTree tree, UserType parentType) {
+	private void parseDataTree(CommonTree tree, UserDataType parentType) {
 		assert GuiceyDataParser.DATA == tree.getToken().getType();
 
-		UserType type = _typeRegistry.getGuiceyType((parentType == null ? "" : parentType.getGuiceyType() + ".") + tree.getChild(0).getText());
+		UserDataType type = _typeRegistry.getGuiceyType((parentType == null ? "" : parentType.getGuiceyType() + ".") + tree.getChild(0).getText());
 		
 		List<CommonTree> children = tree.getChildren();
 		for (CommonTree child : children.subList(1, children.size())) {
@@ -161,7 +161,7 @@ public class TypeParser {
 		}
 	}
 	
-	private void parseEnumTree(CommonTree tree, UserType parentType) {
+	private void parseEnumTree(CommonTree tree, UserDataType parentType) {
 		assert GuiceyDataParser.ENUM == tree.getToken().getType();
 		
 		UserEnumType type = _typeRegistry.getGuiceyType((parentType == null ? "" : parentType.getGuiceyType() + ".") + tree.getChild(0).getText());
@@ -171,14 +171,14 @@ public class TypeParser {
 			type.addValue(children.get(x).getText());
 	}
 	
-	private void registerAllUserTypes(CommonTree tree, UserType parentType) {
+	private void registerAllUserTypes(CommonTree tree, UserDataType parentType) {
 		try {
 			Type type = null;
 			if (tree.getToken() != null) {
 				if (GuiceyDataParser.DATA == tree.getToken().getType() && tree.getChildCount() > 0) {
-					type = new UserType(tree.getChild(0).getText());
+					type = new UserDataType(tree.getChild(0).getText());
 					if (parentType != null)
-						parentType.addChildType((UserType)type);
+						parentType.addChildType((UserDataType)type);
 				} else if (GuiceyDataParser.ENUM == tree.getToken().getType() && tree.getChildCount() > 0) {
 					type = new UserEnumType(tree.getChild(0).getText());
 					if (parentType != null)
@@ -189,8 +189,8 @@ public class TypeParser {
 			}
 			if (tree.getChildCount() > 0) {
 				for (CommonTree child : (List<CommonTree>)tree.getChildren()) {
-					if (type instanceof UserType)
-						registerAllUserTypes(child, (UserType)type);
+					if (type instanceof UserDataType)
+						registerAllUserTypes(child, (UserDataType)type);
 					else
 						registerAllUserTypes(child, null);
 				}
@@ -205,7 +205,7 @@ public class TypeParser {
 			return;
 			
 		registerAllUserTypes(tree, null);
-		for (UserType type : _typeRegistry.getTypes(UserType.class))
+		for (UserDataType type : _typeRegistry.getTypes(UserDataType.class))
 			System.out.println(type.getJavaType());
 		
 		for (CommonTree typeTree : (List<CommonTree>)tree.getChildren()) {

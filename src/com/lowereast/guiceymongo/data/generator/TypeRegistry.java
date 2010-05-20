@@ -24,7 +24,7 @@ import com.google.inject.internal.Lists;
 import com.lowereast.guiceymongo.data.generator.type.BlobType;
 import com.lowereast.guiceymongo.data.generator.type.PrimitiveType;
 import com.lowereast.guiceymongo.data.generator.type.Type;
-import com.lowereast.guiceymongo.data.generator.type.UserType;
+import com.lowereast.guiceymongo.data.generator.type.UserDataType;
 
 public class TypeRegistry {
 	public final Map<String, Type> _types = new HashMap<String, Type>();
@@ -51,7 +51,7 @@ public class TypeRegistry {
 		return (T)_types.get(guiceyType);
 	}
 	
-	public <T extends Type> T getScopedGuiceyType(UserType scopingType, String guiceyType) {
+	public <T extends Type> T getScopedGuiceyType(UserDataType scopingType, String guiceyType) {
 		T type = (T)_types.get(guiceyType);
 		while (type == null && scopingType != null) {
 			type = (T)_types.get(scopingType.getGuiceyType() + "." + guiceyType);

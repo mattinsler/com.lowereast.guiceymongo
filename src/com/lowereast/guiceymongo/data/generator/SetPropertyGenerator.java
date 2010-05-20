@@ -24,7 +24,7 @@ import com.lowereast.guiceymongo.data.generator.property.SetProperty;
 import com.lowereast.guiceymongo.data.generator.type.SetType;
 import com.lowereast.guiceymongo.data.generator.type.Type;
 import com.lowereast.guiceymongo.data.generator.type.UserEnumType;
-import com.lowereast.guiceymongo.data.generator.type.UserType;
+import com.lowereast.guiceymongo.data.generator.type.UserDataType;
 
 public class SetPropertyGenerator extends PropertyGenerator<SetType, SetProperty> {
 	public SetPropertyGenerator(TypeRegistry typeRegistry) {
@@ -95,7 +95,7 @@ public class SetPropertyGenerator extends PropertyGenerator<SetType, SetProperty
 								"}\n" +
 							"}\n" +
 							"$p.memberVariableName$ = java.util.Collections.unmodifiableSet(set);\n";
-		} else if (itemType instanceof UserType) {
+		} else if (itemType instanceof UserDataType) {
 			s +=
 							"$p.setType$ set = new $p.newSetType$();\n" +
 							"for (com.mongodb.DBObject o : (java.util.List<com.mongodb.DBObject>)value)\n" +
@@ -171,7 +171,7 @@ public class SetPropertyGenerator extends PropertyGenerator<SetType, SetProperty
 		
 		String s =
 				"if (value.get$p.camelCaseName$Count() > 0) {\n";
-		if (itemType instanceof UserType)
+		if (itemType instanceof UserDataType)
 			s +=	"for ($p.itemType$ item : value.get$p.camelCaseName$Set())\n" +
 						"builder.add$p.camelCaseName$($p.itemType$.newBuilder(item));\n";
 		else
@@ -196,7 +196,7 @@ public class SetPropertyGenerator extends PropertyGenerator<SetType, SetProperty
 						"list.add(item.name());\n" +
 					"dbObject.put($p.keyName$, list);\n" +
 				"}\n";
-		} else if (itemType instanceof UserType) {
+		} else if (itemType instanceof UserDataType) {
 			s = 
 				"if ($p.memberVariableName$ != null) {\n" +
 					"java.util.List<com.mongodb.DBObject> list = new java.util.ArrayList<com.mongodb.DBObject>();\n" +
