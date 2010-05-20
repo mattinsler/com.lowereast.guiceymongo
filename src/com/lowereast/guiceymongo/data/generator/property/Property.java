@@ -25,10 +25,10 @@ import com.google.inject.internal.Maps;
 import com.lowereast.guiceymongo.data.generator.GeneratorUtil;
 import com.lowereast.guiceymongo.data.generator.option.Option;
 import com.lowereast.guiceymongo.data.generator.type.Type;
-import com.lowereast.guiceymongo.data.generator.type.UserType;
+import com.lowereast.guiceymongo.data.generator.type.UserDataType;
 
 public class Property<T extends Type> {
-	private final UserType _enclosingType;
+	private final UserDataType _enclosingType;
 	
 	private final String _name;
 	private final String _keyName;
@@ -40,7 +40,7 @@ public class Property<T extends Type> {
 	private final T _type;
 	private final Map<String, Option> _options = Maps.newHashMap();
 	
-	public Property(UserType enclosingType, String name, T type, boolean useCamelCaseKeys) {
+	public Property(UserDataType enclosingType, String name, T type, boolean useCamelCaseKeys) {
 		_enclosingType = enclosingType;
 		_name = name;
 		_camelCaseName = GeneratorUtil.toCamelCase(name);
@@ -50,7 +50,7 @@ public class Property<T extends Type> {
 		_type = type;
 	}
 	
-	public UserType getEnclosingType() {
+	public UserDataType getEnclosingType() {
 		return _enclosingType;
 	}
 	

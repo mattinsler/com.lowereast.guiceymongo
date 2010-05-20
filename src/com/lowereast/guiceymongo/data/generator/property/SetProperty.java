@@ -19,10 +19,10 @@ package com.lowereast.guiceymongo.data.generator.property;
 import com.lowereast.guiceymongo.data.generator.type.PrimitiveType;
 import com.lowereast.guiceymongo.data.generator.type.SetType;
 import com.lowereast.guiceymongo.data.generator.type.Type;
-import com.lowereast.guiceymongo.data.generator.type.UserType;
+import com.lowereast.guiceymongo.data.generator.type.UserDataType;
 
 public class SetProperty extends Property<SetType> {
-	public SetProperty(UserType enclosingType, String name, SetType type, boolean useCamelCaseKeys) {
+	public SetProperty(UserDataType enclosingType, String name, SetType type, boolean useCamelCaseKeys) {
 		super(enclosingType, name, type, useCamelCaseKeys);
 	}
 	
@@ -44,14 +44,14 @@ public class SetProperty extends Property<SetType> {
 	
 	public String getBuilderItemType() {
 		Type type = super.getType().getItemType();
-		if (type instanceof UserType)
+		if (type instanceof UserDataType)
 			return getItemType() + ".Builder";
 		return getItemType();
 	}
 	
 	public String getBuilderSetItemType() {
 		Type type = super.getType().getItemType();
-		if (type instanceof UserType)
+		if (type instanceof UserDataType)
 			return getSetItemType() + ".Builder";
 		return getSetItemType();
 	}

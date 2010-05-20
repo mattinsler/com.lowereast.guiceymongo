@@ -23,7 +23,7 @@ import com.google.inject.internal.Sets;
 public class UserEnumType extends Type {	
 	private final Set<String> _values = Sets.newHashSet();
 	
-	private UserType _parentType;
+	private UserDataType _parentType;
 	
 	public UserEnumType(String guiceyType) {
 		super(guiceyType, guiceyType);
@@ -37,11 +37,11 @@ public class UserEnumType extends Type {
 		return _values;
 	}
 	
-	public UserType getParentType() {
+	public UserDataType getParentType() {
 		return _parentType;
 	}
 	
-	public void setParentType(UserType parentType) {
+	public void setParentType(UserDataType parentType) {
 		if (_parentType != parentType) {
 			_parentType = parentType;
 			_parentType.addChildType(this);

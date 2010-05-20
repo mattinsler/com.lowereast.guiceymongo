@@ -16,15 +16,18 @@
 
 package com.lowereast.guiceymongo.data.generator.property;
 
-import com.lowereast.guiceymongo.data.generator.type.UserEnumType;
-import com.lowereast.guiceymongo.data.generator.type.UserType;
+import com.lowereast.guiceymongo.data.generator.type.UserDataType;
 
-public class UserEnumTypeProperty extends Property<UserEnumType> {
-	public UserEnumTypeProperty(UserType enclosingType, String name, UserEnumType type, boolean useCamelCaseKeys) {
+public class UserDataProperty extends Property<UserDataType> {
+	public UserDataProperty(UserDataType enclosingType, String name, UserDataType type, boolean useCamelCaseKeys) {
 		super(enclosingType, name, type, useCamelCaseKeys);
 	}
 	
-	public String getEnumType() {
+	public String getUserType() {
 		return super.getType().getJavaType();
+	}
+	
+	public String getBuilderUserType() {
+		return getUserType() + ".Builder";
 	}
 }

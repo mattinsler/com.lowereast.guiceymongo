@@ -20,10 +20,10 @@ import java.util.Map;
 
 import com.lowereast.guiceymongo.data.generator.option.Option;
 import com.lowereast.guiceymongo.data.generator.type.PrimitiveType;
-import com.lowereast.guiceymongo.data.generator.type.UserType;
+import com.lowereast.guiceymongo.data.generator.type.UserDataType;
 
 public class PrimitiveProperty extends Property<PrimitiveType> {
-	public PrimitiveProperty(UserType enclosingType, String name, PrimitiveType type, boolean useCamelCaseKeys) {
+	public PrimitiveProperty(UserDataType enclosingType, String name, PrimitiveType type, boolean useCamelCaseKeys) {
 		super(enclosingType, name, type, useCamelCaseKeys);
 	}
 	

@@ -17,10 +17,10 @@
 package com.lowereast.guiceymongo.data.generator.property;
 
 import com.lowereast.guiceymongo.data.generator.type.BlobType;
-import com.lowereast.guiceymongo.data.generator.type.UserType;
+import com.lowereast.guiceymongo.data.generator.type.UserDataType;
 
 public class BlobProperty extends Property<BlobType> {
-	public BlobProperty(UserType enclosingType, String name, BlobType type, boolean useCamelCaseKeys) {
+	public BlobProperty(UserDataType enclosingType, String name, BlobType type, boolean useCamelCaseKeys) {
 		super(enclosingType, name, type, useCamelCaseKeys);
 	}
 }

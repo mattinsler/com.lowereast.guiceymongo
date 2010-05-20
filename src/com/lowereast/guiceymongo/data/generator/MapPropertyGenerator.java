@@ -27,7 +27,7 @@ import com.lowereast.guiceymongo.data.generator.type.PrimitiveType;
 import com.lowereast.guiceymongo.data.generator.type.SetType;
 import com.lowereast.guiceymongo.data.generator.type.Type;
 import com.lowereast.guiceymongo.data.generator.type.UserEnumType;
-import com.lowereast.guiceymongo.data.generator.type.UserType;
+import com.lowereast.guiceymongo.data.generator.type.UserDataType;
 
 public class MapPropertyGenerator extends PropertyGenerator<MapType, MapProperty> {
 	public MapPropertyGenerator(TypeRegistry typeRegistry) {
@@ -104,7 +104,7 @@ public class MapPropertyGenerator extends PropertyGenerator<MapType, MapProperty
 			s += 				"try {\n";
 			if (type.getValueType() instanceof UserEnumType)
 				s +=				"map.put($p.mapKeyType$.valueOf(com.lowereast.guiceymongo.util.DBObjectUtil.decodeKey(key)), $p.mapValueType$.valueOf((String)obj.get(key)));\n";
-			else if (type.getValueType() instanceof UserType)
+			else if (type.getValueType() instanceof UserDataType)
 				s +=				"map.put($p.mapKeyType$.valueOf(com.lowereast.guiceymongo.util.DBObjectUtil.decodeKey(key)), $p.mapValueType$.wrap((com.mongodb.DBObject)obj.get(key)));\n";
 			else
 				s +=				"map.put($p.mapKeyType$.valueOf(com.lowereast.guiceymongo.util.DBObjectUtil.decodeKey(key)), ($p.mapValueType$)obj.get(key));\n";
@@ -116,7 +116,7 @@ public class MapPropertyGenerator extends PropertyGenerator<MapType, MapProperty
 									"map.put(com.lowereast.guiceymongo.util.DBObjectUtil.decodeKey(key), $p.mapValueType$.valueOf((String)obj.get(key)));\n" +
 								"} catch (Exception e) {\n" +
 								"}\n";
-			} else if (type.getValueType() instanceof UserType)
+			} else if (type.getValueType() instanceof UserDataType)
 				s += 			"map.put(com.lowereast.guiceymongo.util.DBObjectUtil.decodeKey(key), $p.mapValueType$.wrap((com.mongodb.DBObject)obj.get(key)));\n";
 			else
 				s += 			"map.put(com.lowereast.guiceymongo.util.DBObjectUtil.decodeKey(key), ($p.mapValueType$)obj.get(key));\n";
@@ -199,7 +199,7 @@ public class MapPropertyGenerator extends PropertyGenerator<MapType, MapProperty
 				"}\n";
 
 //		// getOrCreate
-//		if (valueType instanceof UserType) {
+//		if (valueType instanceof UserDataType) {
 //			appendIndent(builder, indentCount).append("public ").append(valueType.getJavaType()).append(".Builder getOrCreate").append(property.getCamelCaseName()).append("(").append(keyType.getJavaType()).append(" key) {\n");
 //			appendIndent(builder, indentCount + 1).append("java.util.Map<").append(keyType.getJavaType()).append(", ").append(valueType.getJavaType()).append(".Builder> map = get").append(property.getCamelCaseName()).append("Map();\n");
 //			appendIndent(builder, indentCount + 1).append(valueType.getJavaType()).append(".Builder value = map.get(key);\n");
@@ -211,7 +211,7 @@ public class MapPropertyGenerator extends PropertyGenerator<MapType, MapProperty
 //			appendIndent(builder, indentCount).append("}\n");
 //		} else if (valueType instanceof SetType) {
 //			Type itemType = ((SetType)valueType).getItemType();
-//			if (itemType instanceof UserType) {
+//			if (itemType instanceof UserDataType) {
 //				
 //			} else {
 //				appendIndent(builder, indentCount).append("public ").append(valueType.getJavaType()).append(" getOrCreate").append(property.getCamelCaseName()).append("(").append(keyType.getJavaType()).append(" key) {\n");
@@ -257,7 +257,7 @@ public class MapPropertyGenerator extends PropertyGenerator<MapType, MapProperty
 			s +=
 					"dbObject.put($p.keyName$, map);\n" +
 				"}\n";
-		} else if (valueType instanceof UserType) {
+		} else if (valueType instanceof UserDataType) {
 			s =
 				"if ($p.memberVariableName$ != null) {\n" +
 					"java.util.Map<String, com.mongodb.DBObject> map = new java.util.HashMap<String, com.mongodb.DBObject>();\n" +
@@ -274,7 +274,7 @@ public class MapPropertyGenerator extends PropertyGenerator<MapType, MapProperty
 //			appendIndent(builder, indentCount).append("if (").append(property.getMemberVariableName()).append(" != null) {\n");
 //			if (itemType instanceof UserEnumType) {
 //				
-//			} else if (itemType instanceof UserType) {
+//			} else if (itemType instanceof UserDataType) {
 //
 //			} else {
 //				appendIndent(builder, indentCount + 1).append("java.util.Map<String, java.util.List<").append(itemType.getJavaType()).append(">> map = new java.util.HashMap<String, java.util.List<").append(itemType.getJavaType()).append(">>();\n");

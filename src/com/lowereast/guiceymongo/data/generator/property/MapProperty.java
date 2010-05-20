@@ -19,10 +19,10 @@ package com.lowereast.guiceymongo.data.generator.property;
 import com.lowereast.guiceymongo.data.generator.type.MapType;
 import com.lowereast.guiceymongo.data.generator.type.PrimitiveType;
 import com.lowereast.guiceymongo.data.generator.type.Type;
-import com.lowereast.guiceymongo.data.generator.type.UserType;
+import com.lowereast.guiceymongo.data.generator.type.UserDataType;
 
 public class MapProperty extends Property<MapType> {
-	public MapProperty(UserType enclosingType, String name, MapType type, boolean useCamelCaseKeys) {
+	public MapProperty(UserDataType enclosingType, String name, MapType type, boolean useCamelCaseKeys) {
 		super(enclosingType, name, type, useCamelCaseKeys);
 	}
 	
@@ -59,14 +59,14 @@ public class MapProperty extends Property<MapType> {
 	
 	public String getBuilderValueType() {
 		Type type = super.getType().getValueType();
-		if (type instanceof UserType)
+		if (type instanceof UserDataType)
 			return getValueType() + ".Builder";
 		return getValueType();
 	}
 	
 	public String getBuilderMapValueType() {
 		Type type = super.getType().getValueType();
-		if (type instanceof UserType)
+		if (type instanceof UserDataType)
 			return getMapValueType() + ".Builder";
 		return getMapValueType();
 	}

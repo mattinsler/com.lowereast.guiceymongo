@@ -19,10 +19,10 @@ package com.lowereast.guiceymongo.data.generator.property;
 import com.lowereast.guiceymongo.data.generator.type.ListType;
 import com.lowereast.guiceymongo.data.generator.type.PrimitiveType;
 import com.lowereast.guiceymongo.data.generator.type.Type;
-import com.lowereast.guiceymongo.data.generator.type.UserType;
+import com.lowereast.guiceymongo.data.generator.type.UserDataType;
 
 public class ListProperty extends Property<ListType> {
-	public ListProperty(UserType enclosingType, String name, ListType type, boolean useCamelCaseKeys) {
+	public ListProperty(UserDataType enclosingType, String name, ListType type, boolean useCamelCaseKeys) {
 		super(enclosingType, name, type, useCamelCaseKeys);
 	}
 
@@ -44,14 +44,14 @@ public class ListProperty extends Property<ListType> {
 	
 	public String getBuilderItemType() {
 		Type type = super.getType().getItemType();
-		if (type instanceof UserType)
+		if (type instanceof UserDataType)
 			return getItemType() + ".Builder";
 		return getItemType();
 	}
 	
 	public String getBuilderListItemType() {
 		Type type = super.getType().getItemType();
-		if (type instanceof UserType)
+		if (type instanceof UserDataType)
 			return getListItemType() + ".Builder";
 		return getListItemType();
 	}
