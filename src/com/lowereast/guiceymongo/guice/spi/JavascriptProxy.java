@@ -16,7 +16,6 @@
 
 package com.lowereast.guiceymongo.guice.spi;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -36,8 +35,7 @@ import com.lowereast.guiceymongo.GuiceyMongoEvalException;
 import com.lowereast.guiceymongo.annotation.ItemType;
 import com.lowereast.guiceymongo.data.DataWrapper;
 import com.lowereast.guiceymongo.data.IsData;
-import com.lowereast.guiceymongo.data.IsReadable;
-import com.lowereast.guiceymongo.data.IsWrapped;
+import com.lowereast.guiceymongo.data.IsWrapper;
 import com.lowereast.guiceymongo.guice.GuiceyMongo;
 import com.mongodb.DB;
 import com.mongodb.DBObject;
@@ -166,11 +164,11 @@ public class JavascriptProxy<T> implements Module, Provider<T> {
 			String argumentString = createArgumentString(argumentTypes.length);
 			_code = "function" + argumentString + "{return " + method.getName() + argumentString + "}";
 
-			if (IsData.class.isAssignableFrom(returnType) || IsWrapped.class.isAssignableFrom(returnType)) {
+			if (IsData.class.isAssignableFrom(returnType) || IsWrapper.class.isAssignableFrom(returnType)) {
 				_converter = new DBObjectToWrapperConverter(returnType);
 			} else if (List.class.isAssignableFrom(returnType)) {
 				ItemType itemType = method.getAnnotation(ItemType.class);
-				if (itemType != null && (IsData.class.isAssignableFrom(itemType.value()) || IsWrapped.class.isAssignableFrom(itemType.value())))
+				if (itemType != null && (IsData.class.isAssignableFrom(itemType.value()) || IsWrapper.class.isAssignableFrom(itemType.value())))
 					_converter = new ListDBObjectToWrapperConverter(itemType.value());
 			} else if (int.class.equals(returnType) || Integer.class.equals(returnType)) {
 				_converter = DoubleToIntConverter;

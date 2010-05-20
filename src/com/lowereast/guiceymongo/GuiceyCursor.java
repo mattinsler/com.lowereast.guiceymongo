@@ -21,6 +21,7 @@ import java.util.Iterator;
 import com.lowereast.guiceymongo.data.DataWrapper;
 import com.lowereast.guiceymongo.data.IsData;
 import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
 
 public class GuiceyCursor<Item extends IsData> implements Iterator<Item>, Iterable<Item> {
 	private final DBCursor _cursor;
@@ -35,6 +36,25 @@ public class GuiceyCursor<Item extends IsData> implements Iterator<Item>, Iterab
 		return _cursor;
 	}
 	
+	public int count() {
+		return _cursor.count();
+	}
+	
+	public GuiceyCursor<Item> limit(int number) {
+		_cursor.limit(number);
+		return this;
+	}
+	
+	public GuiceyCursor<Item> skip(int number) {
+		_cursor.skip(number);
+		return this;
+	}
+	
+	public GuiceyCursor<Item> sort(DBObject orderBy) {
+		_cursor.sort(orderBy);
+		return this;
+	}
+	
 	public Iterator<Item> iterator() {
 		return this;
 	}
@@ -43,17 +63,11 @@ public class GuiceyCursor<Item extends IsData> implements Iterator<Item>, Iterab
 		return _cursor.hasNext();
 	}
 
-	@SuppressWarnings("unchecked")
 	public Item next() {
-		return (Item) _wrapper.wrap(_cursor.next());
+		return _wrapper.wrap(_cursor.next());
 	}
 
 	public void remove() {
 		throw new UnsupportedOperationException("can't remove from a cursor");
 	}
-//	
-//	public GuiceyCursor<Item> sort() {
-//		_cursor = _cursor.sort();
-//		return this;
-//	}
 }

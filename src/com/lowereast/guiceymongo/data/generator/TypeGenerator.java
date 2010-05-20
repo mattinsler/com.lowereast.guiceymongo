@@ -172,7 +172,7 @@ public class TypeGenerator {
 	}
 	
 	private void createBuilder(Appendable builder, UserType type, int indentCount) throws IOException {
-		appendIndent(builder, indentCount).append("public static class Builder extends ").append(getSimpleName(type.getJavaType())).append(" implements com.lowereast.guiceymongo.data.IsBuildable<").append(getSimpleName(type.getJavaType())).append("> {\n");
+		appendIndent(builder, indentCount).append("public static class Builder extends ").append(getSimpleName(type.getJavaType())).append(" implements com.lowereast.guiceymongo.data.IsBuilder<").append(getSimpleName(type.getJavaType())).append("> {\n");
 		
 		// constructor
 		appendIndent(builder, indentCount + 1).append("private Builder() {}\n");
@@ -199,7 +199,7 @@ public class TypeGenerator {
 	}
 	
 	private void createWrapper(Appendable builder, UserType type, int indentCount) throws IOException {
-		appendIndent(builder, indentCount).append("public static class Wrapper extends ").append(getSimpleName(type.getJavaType())).append(" implements com.lowereast.guiceymongo.data.IsWrapped<").append(getSimpleName(type.getJavaType())).append("> {\n");
+		appendIndent(builder, indentCount).append("public static class Wrapper extends ").append(getSimpleName(type.getJavaType())).append(" implements com.lowereast.guiceymongo.data.IsWrapper<").append(getSimpleName(type.getJavaType())).append("> {\n");
 		
 		// member variable
 		appendIndent(builder, indentCount + 1).append("private com.mongodb.DBObject _backing;\n");
@@ -215,6 +215,10 @@ public class TypeGenerator {
 		appendIndent(builder, indentCount + 1).append("public com.mongodb.DBObject getDBObject() {\n");
 		appendIndent(builder, indentCount + 2).append("return _backing;\n");
 		appendIndent(builder, indentCount + 1).append("}\n");
+		
+//		appendIndent(builder, indentCount + 1).append("public ").append(getSimpleName(type.getJavaType())).append(" getWrapped() {\n");
+//		appendIndent(builder, indentCount + 2).append("return this;\n");
+//		appendIndent(builder, indentCount + 1).append("}\n");
 
 		appendIndent(builder, indentCount).append("}\n");
 		
@@ -230,16 +234,16 @@ public class TypeGenerator {
 		appendIndent(builder, indentCount + 1).append("return new ").append(type.getJavaType()).append(".Wrapper(backing);\n");
 		appendIndent(builder, indentCount).append("}\n");
 		
-		appendIndent(builder, indentCount).append("public static ").append(type.getJavaType()).append(".Wrapper convertFrom(com.lowereast.guiceymongo.data.IsWrapped<?> wrapped) {\n");
+		appendIndent(builder, indentCount).append("public static ").append(type.getJavaType()).append(".Wrapper convertFrom(com.lowereast.guiceymongo.data.IsWrapper<?> wrapped) {\n");
 		appendIndent(builder, indentCount + 1).append("if (wrapped == null)\n");
 		appendIndent(builder, indentCount + 2).append("return null;\n");
 		appendIndent(builder, indentCount + 1).append("return new ").append(type.getJavaType()).append(".Wrapper(wrapped.getDBObject());\n");
 		appendIndent(builder, indentCount).append("}\n");
 		
 		appendIndent(builder, indentCount).append("public static ").append(type.getJavaType()).append(".Wrapper convertFrom(com.lowereast.guiceymongo.data.IsData data) {\n");
-		appendIndent(builder, indentCount + 1).append("if (data == null || !(data instanceof com.lowereast.guiceymongo.data.IsWrapped<?>))\n");
+		appendIndent(builder, indentCount + 1).append("if (data == null || !(data instanceof com.lowereast.guiceymongo.data.IsWrapper<?>))\n");
 		appendIndent(builder, indentCount + 2).append("return null;\n");
-		appendIndent(builder, indentCount + 1).append("return new ").append(type.getJavaType()).append(".Wrapper(((com.lowereast.guiceymongo.data.IsWrapped<?>)data).getDBObject());\n");
+		appendIndent(builder, indentCount + 1).append("return new ").append(type.getJavaType()).append(".Wrapper(((com.lowereast.guiceymongo.data.IsWrapper<?>)data).getDBObject());\n");
 		appendIndent(builder, indentCount).append("}\n");
 	}
 	

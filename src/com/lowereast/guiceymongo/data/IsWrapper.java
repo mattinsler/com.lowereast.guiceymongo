@@ -16,12 +16,8 @@
 
 package com.lowereast.guiceymongo.data;
 
-public interface DocumentProperty<DataType extends IsData, PropertyType extends IsData> extends IsProperty {
-//	private DocumentProperty(String key) {
-//		super(key);
-//	}
-//	
-//	public static <D extends IsData, P extends IsData> DocumentProperty<D, P> create(String key) {
-//		return new DocumentProperty<D, P>(key);
-//	}
+import com.mongodb.DBObject;
+
+public interface IsWrapper<T extends IsData> {
+	DBObject getDBObject();
 }

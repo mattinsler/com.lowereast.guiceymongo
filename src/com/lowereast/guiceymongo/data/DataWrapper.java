@@ -19,5 +19,5 @@ package com.lowereast.guiceymongo.data;
 import com.mongodb.DBObject;
 
 public interface DataWrapper<T extends IsData> {
-	IsWrapped<T> wrap(DBObject backing);
+	T wrap(DBObject backing);
 }

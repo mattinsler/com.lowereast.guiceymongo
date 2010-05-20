@@ -16,7 +16,8 @@
 
 package com.lowereast.guiceymongo.data;
 
-public interface IsUpdatable<T extends IsData> {
-//	DBObject buildUpdate();
-	void update();
+import com.mongodb.DBObject;
+
+public interface IsBuilder<T extends IsData> {
+	DBObject build();
 }

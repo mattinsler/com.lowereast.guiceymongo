@@ -21,7 +21,6 @@ import com.google.inject.Module;
 import com.lowereast.guiceymongo.guice.spi.BuilderImpls;
 import com.lowereast.guiceymongo.guice.spi.Builders;
 import com.lowereast.guiceymongo.guice.spi.JavascriptProxy;
-import com.lowereast.guiceymongo.guice.spi.JsonConfigurationFileModule;
 
 public final class GuiceyMongo {
 	private GuiceyMongo() {}
@@ -34,21 +33,21 @@ public final class GuiceyMongo {
 		return new BuilderImpls.Connection(connectionName);
 	}
 	
-	public static Module configureFromFile(String filename) {
-		String extension = filename.substring(filename.lastIndexOf('.') + 1);
-		FileType type = FileType.byFileExtension(extension);
-		if (type == null)
-			throw new RuntimeException("Unknown file extension");
-		return configureFromFile(filename, type);
-	}
+//	public static Module configureFromFile(String filename) {
+//		String extension = filename.substring(filename.lastIndexOf('.') + 1);
+//		FileType type = FileType.byFileExtension(extension);
+//		if (type == null)
+//			throw new RuntimeException("Unknown file extension");
+//		return configureFromFile(filename, type);
+//	}
 	
-	public static Module configureFromFile(String filename, FileType fileType) {
-		switch (fileType) {
-		case JSON:
-			return new JsonConfigurationFileModule(filename);
-		}
-		throw new RuntimeException("Unknown FileType");
-	}
+//	public static Module configureFromFile(String filename, FileType fileType) {
+//		switch (fileType) {
+//		case JSON:
+//			return new JsonConfigurationFileModule(filename);
+//		}
+//		throw new RuntimeException("Unknown FileType");
+//	}
 	
 	public static Module chooseConfiguration(final String configurationName) {
 		return new Module() {
