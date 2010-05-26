@@ -21,15 +21,14 @@ import java.util.List;
 import com.google.inject.internal.Lists;
 import com.lowereast.guiceymongo.data.generator.property.Property;
 
-public class UserDataType extends Type {
+public class UserDataType extends UserType {
 	private final List<Property<?>> _properties = Lists.newArrayList();
-	private final List<Type> _childTypes = Lists.newArrayList();
+	private final List<UserType> _childTypes = Lists.newArrayList();
 	
-	private UserDataType _parentType;
 	private Property<?> _identityProperty;
 	
 	public UserDataType(String guiceyType) {
-		super(guiceyType, guiceyType);
+		super(guiceyType);
 	}
 
 	public List<Property<?>> getProperties() {
@@ -40,34 +39,14 @@ public class UserDataType extends Type {
 		_properties.add(property);
 	}
 	
-	public List<Type> getChildTypes() {
+	public List<UserType> getChildTypes() {
 		return _childTypes;
 	}
 	
-	public void addChildType(UserDataType childType) {
+	public void addChildType(UserType childType) {
 		if (_childTypes.indexOf(childType) == -1) {
 			_childTypes.add(childType);
 			childType.setParentType(this);
-		}
-	}
-	
-	public void addChildType(UserEnumType childType) {
-		if (_childTypes.indexOf(childType) == -1) {
-			_childTypes.add(childType);
-			childType.setParentType(this);
-		}
-	}
-	
-	public UserDataType getParentType() {
-		return _parentType;
-	}
-	
-	public void setParentType(UserDataType parentType) {
-		if (_parentType != parentType) {
-			_parentType = parentType;
-			_parentType.addChildType(this);
-			_javaType = (_parentType == null ? "" : _parentType.getJavaType() + ".") + super.getJavaType();
-			_guiceyType = (_parentType == null ? "" : _parentType.getGuiceyType() + ".") + super.getGuiceyType();
 		}
 	}
 	

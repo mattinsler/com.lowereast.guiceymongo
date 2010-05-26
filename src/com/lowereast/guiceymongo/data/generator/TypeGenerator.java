@@ -27,11 +27,12 @@ import com.lowereast.guiceymongo.data.generator.property.MapProperty;
 import com.lowereast.guiceymongo.data.generator.property.PrimitiveProperty;
 import com.lowereast.guiceymongo.data.generator.property.Property;
 import com.lowereast.guiceymongo.data.generator.property.SetProperty;
-import com.lowereast.guiceymongo.data.generator.property.UserEnumProperty;
 import com.lowereast.guiceymongo.data.generator.property.UserDataProperty;
+import com.lowereast.guiceymongo.data.generator.property.UserEnumProperty;
 import com.lowereast.guiceymongo.data.generator.type.Type;
-import com.lowereast.guiceymongo.data.generator.type.UserEnumType;
 import com.lowereast.guiceymongo.data.generator.type.UserDataType;
+import com.lowereast.guiceymongo.data.generator.type.UserEnumType;
+import com.lowereast.guiceymongo.data.generator.type.UserType;
 
 public class TypeGenerator {
 	private final PrimitivePropertyGenerator _primitivePropertyGenerator;
@@ -295,9 +296,12 @@ public class TypeGenerator {
 		appendIndent(builder, indentCount).append("}\n");
 	}
 	
-	public void generate(Appendable builder, UserDataType type) throws IOException {
+	public void generate(Appendable builder, UserType type) throws IOException {
 		builder.append("// Generated file!!!  DO NOT EDIT THIS!!!\n\n");
-
-		createUserType(builder, type, 0, false);
+		
+		if (type instanceof UserDataType)
+			createUserType(builder, (UserDataType)type, 0, false);
+		else if (type instanceof UserEnumType)
+			createEnumType(builder, (UserEnumType)type, 0, false);
 	}
 }
