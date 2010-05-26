@@ -20,13 +20,11 @@ import java.util.Set;
 
 import com.google.inject.internal.Sets;
 
-public class UserEnumType extends Type {	
+public class UserEnumType extends UserType {	
 	private final Set<String> _values = Sets.newHashSet();
 	
-	private UserDataType _parentType;
-	
 	public UserEnumType(String guiceyType) {
-		super(guiceyType, guiceyType);
+		super(guiceyType);
 	}
 	
 	public void addValue(String value) {
@@ -35,18 +33,5 @@ public class UserEnumType extends Type {
 	
 	public Set<String> getValues() {
 		return _values;
-	}
-	
-	public UserDataType getParentType() {
-		return _parentType;
-	}
-	
-	public void setParentType(UserDataType parentType) {
-		if (_parentType != parentType) {
-			_parentType = parentType;
-			_parentType.addChildType(this);
-			_javaType = (_parentType == null ? "" : _parentType.getJavaType() + ".") + super.getJavaType();
-			_guiceyType = (_parentType == null ? "" : _parentType.getGuiceyType() + ".") + super.getGuiceyType();
-		}
 	}
 }
