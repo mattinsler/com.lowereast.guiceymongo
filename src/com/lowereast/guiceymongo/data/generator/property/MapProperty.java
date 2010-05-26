@@ -16,8 +16,10 @@
 
 package com.lowereast.guiceymongo.data.generator.property;
 
+import com.lowereast.guiceymongo.data.generator.type.ListType;
 import com.lowereast.guiceymongo.data.generator.type.MapType;
 import com.lowereast.guiceymongo.data.generator.type.PrimitiveType;
+import com.lowereast.guiceymongo.data.generator.type.SetType;
 import com.lowereast.guiceymongo.data.generator.type.Type;
 import com.lowereast.guiceymongo.data.generator.type.UserDataType;
 
@@ -54,7 +56,25 @@ public class MapProperty extends Property<MapType> {
 		Type type = super.getType().getValueType();
 		if (type instanceof PrimitiveType)
 			return ((PrimitiveType)type).getJavaBoxedType();
+		if (type instanceof ListType) {
+			Type itemType = ((ListType)type).getItemType();
+			if (itemType instanceof PrimitiveType)
+				return "java.util.List<" + ((PrimitiveType)itemType).getJavaBoxedType() + ">";
+		}
 		return type.getJavaType();
+	}
+	
+	public String getNewMapValueType() {
+		Type type = super.getType().getValueType();
+		if (type instanceof ListType) {
+			Type itemType = ((ListType)type).getItemType();
+			if (itemType instanceof PrimitiveType)
+				return "java.util.ArrayList<" + ((PrimitiveType)itemType).getJavaBoxedType() + ">";
+			return "java.util.ArrayList<" + ((ListType)type).getItemType().getJavaType() + ">";
+		}
+		if (type instanceof SetType)
+			return "java.util.HashSet<" + getMapValueType() + ">";
+		return "";
 	}
 	
 	public String getBuilderValueType() {
@@ -68,6 +88,12 @@ public class MapProperty extends Property<MapType> {
 		Type type = super.getType().getValueType();
 		if (type instanceof UserDataType)
 			return getMapValueType() + ".Builder";
+		if (type instanceof ListType) {
+			Type itemType = ((ListType)type).getItemType();
+			if (itemType instanceof PrimitiveType)
+				return "java.util.List<" + ((PrimitiveType)itemType).getJavaBoxedType() + ">";
+		}
+			
 		return getMapValueType();
 	}
 	
