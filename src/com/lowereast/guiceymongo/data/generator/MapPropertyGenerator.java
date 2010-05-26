@@ -50,14 +50,34 @@ public class MapPropertyGenerator extends PropertyGenerator<MapType, MapProperty
 				PrimitiveType.FloatType.equals(valueType) ||
 				PrimitiveType.Int32Type.equals(valueType) ||
 				PrimitiveType.Int64Type.equals(valueType)) {
-			s +=
-				"if (this.get$p.camelCaseName$(key) != other.get$p.camelCaseName$(key))";
-		} else
-			s +=
-				"if (!this.get$p.camelCaseName$(key).equals(other.get$p.camelCaseName$(key)))";
-		s +=
+			s +=	"if (this.get$p.camelCaseName$(key) != other.get$p.camelCaseName$(key))\n" +
+						"return false;\n";
+		} else if (valueType instanceof ListType) {
+			Type itemType = ((ListType)valueType).getItemType();
+			
+			s +=	"$p.mapValueType$ thisList = this.get$p.camelCaseName$(key);\n" +
+					"$p.mapValueType$ otherList = other.get$p.camelCaseName$();\n" +
+					"if (thisList.size() != otherList.size())\n" +
 						"return false;\n" +
-				"}\n" +
+					"for (int index = 0; index < thisList.size(); ++index) {\n";
+			if (itemType instanceof PrimitiveType) {
+				if (PrimitiveType.BoolType.equals(itemType) ||
+						PrimitiveType.DoubleType.equals(itemType) ||
+						PrimitiveType.FloatType.equals(itemType) ||
+						PrimitiveType.Int32Type.equals(itemType) ||
+						PrimitiveType.Int64Type.equals(itemType))
+					s +=
+						"if (thisList.get(index) != otherList.get(index))\n";
+				else
+					s +=
+						"if (!thisList.get(index).equals(otherList.get(index)))\n";
+				s +=		"return false;\n";
+			}
+		} else if (valueType instanceof SetType) {
+		} else
+			s +=	"if (!this.get$p.camelCaseName$(key).equals(other.get$p.camelCaseName$(key)))\n" +
+						"return false;";
+		s +=	"}\n" +
 			"}\n";
 		
 		StringTemplate template = new StringTemplate(s);
@@ -79,7 +99,7 @@ public class MapPropertyGenerator extends PropertyGenerator<MapType, MapProperty
 		StringTemplate template = new StringTemplate(
 				"public abstract boolean contains$p.camelCaseName$($p.keyType$ key);\n" +
 				"public abstract int get$p.camelCaseName$Count();\n" +
-				"public abstract $p.valueType$ get$p.camelCaseName$($p.keyType$ key);\n" +
+				"public abstract $p.mapValueType$ get$p.camelCaseName$($p.keyType$ key);\n" +
 				"public abstract java.util.Set<$p.mapKeyType$> get$p.camelCaseName$Keys();\n"
 		);
 		template.setAttribute("p", property);
@@ -88,10 +108,15 @@ public class MapPropertyGenerator extends PropertyGenerator<MapType, MapProperty
 
 	@Override
 	public void createWrapperMethod(Appendable builder, MapProperty property, int indentCount) throws IOException {
-		MapType type = property.getType();
+		Type keyType = property.getType().getKeyType();
+		Type valueType = property.getType().getValueType();
+		
+		StringTemplate template = new StringTemplate();
 
 		String s =
+				// member variable
 				"protected $p.mapType$ $p.memberVariableName$ = null;\n" +
+				// getMap
 				"protected $p.mapType$ get$p.camelCaseName$Map() {\n" +
 					"if ($p.memberVariableName$ == null) {\n" +
 						"Object value = _backing.get($p.keyName$);\n" +
@@ -100,25 +125,55 @@ public class MapPropertyGenerator extends PropertyGenerator<MapType, MapProperty
 							"com.mongodb.DBObject obj = (com.mongodb.DBObject)value;\n" +
 							"for (String key : obj.keySet()) {\n";
 
-		if (type.getKeyType() instanceof UserEnumType) {
+		if (keyType instanceof UserEnumType) {
 			s += 				"try {\n";
-			if (type.getValueType() instanceof UserEnumType)
+			if (valueType instanceof UserEnumType)
 				s +=				"map.put($p.mapKeyType$.valueOf(com.lowereast.guiceymongo.util.DBObjectUtil.decodeKey(key)), $p.mapValueType$.valueOf((String)obj.get(key)));\n";
-			else if (type.getValueType() instanceof UserDataType)
+			else if (valueType instanceof UserDataType)
 				s +=				"map.put($p.mapKeyType$.valueOf(com.lowereast.guiceymongo.util.DBObjectUtil.decodeKey(key)), $p.mapValueType$.wrap((com.mongodb.DBObject)obj.get(key)));\n";
-			else
+			else if (valueType instanceof ListType) {
+				Type itemType = ((ListType)valueType).getItemType();
+				template.setAttribute("i", itemType);
+				if (itemType instanceof PrimitiveType) {
+					s +=
+										"Object l = obj.get(key);\n" +
+										"if (l != null && l instanceof java.util.List<?>) {\n" +
+											"$p.mapValueType$ list = new $p.newMapValueType$();\n" +
+											"for ($i.javaType$ listValue : (java.util.List<$i.javaBoxedType$>)l)\n" +
+												"list.add(listValue);\n" +
+											"map.put($p.mapKeyType$.valueOf(com.lowereast.guiceymongo.util.DBObjectUtil.decodeKey(key)), list);\n" +
+										"}";
+				}
+			} else if (valueType instanceof SetType) {
+				
+			} else
 				s +=				"map.put($p.mapKeyType$.valueOf(com.lowereast.guiceymongo.util.DBObjectUtil.decodeKey(key)), ($p.mapValueType$)obj.get(key));\n";
 			s +=				"} catch (Exception e) {\n" +
 								"}\n";
-		} else if (PrimitiveType.StringType.equals(type.getKeyType())) {
-			if (type.getValueType() instanceof UserEnumType) {
+		} else if (PrimitiveType.StringType.equals(keyType)) {
+			if (valueType instanceof UserEnumType) {
 				s += 			"try {\n" +
 									"map.put(com.lowereast.guiceymongo.util.DBObjectUtil.decodeKey(key), $p.mapValueType$.valueOf((String)obj.get(key)));\n" +
 								"} catch (Exception e) {\n" +
 								"}\n";
-			} else if (type.getValueType() instanceof UserDataType)
+			} else if (valueType instanceof UserDataType)
 				s += 			"map.put(com.lowereast.guiceymongo.util.DBObjectUtil.decodeKey(key), $p.mapValueType$.wrap((com.mongodb.DBObject)obj.get(key)));\n";
-			else
+			else if (valueType instanceof ListType) {
+				Type itemType = ((ListType)valueType).getItemType();
+				template.setAttribute("i", itemType);
+				if (itemType instanceof PrimitiveType) {
+					s +=
+								"Object l = obj.get(key);\n" +
+								"if (l != null && l instanceof java.util.List<?>) {\n" +
+									"$p.mapValueType$ list = new $p.newMapValueType$();\n" +
+									"for ($i.javaType$ listValue : (java.util.List<$i.javaBoxedType$>)l)\n" +
+										"list.add(listValue);\n" +
+									"map.put(com.lowereast.guiceymongo.util.DBObjectUtil.decodeKey(key), list);\n" +
+								"}\n";
+				}
+			} else if (valueType instanceof SetType) {
+				
+			} else
 				s += 			"map.put(com.lowereast.guiceymongo.util.DBObjectUtil.decodeKey(key), ($p.mapValueType$)obj.get(key));\n";
 		} else
 			throw new RuntimeException("Map types can only have a string or enum as a key");
@@ -130,28 +185,32 @@ public class MapPropertyGenerator extends PropertyGenerator<MapType, MapProperty
 					"}\n" +
 					"return $p.memberVariableName$;\n" +
 				"}\n" +
+				// contains
 				"@Override\n" +
 				"public boolean contains$p.camelCaseName$($p.keyType$ key) {\n" +
 					"$p.mapType$ map = get$p.camelCaseName$Map();\n" +
 					"return map == null ? false : map.containsKey(key);\n" +
 				"}\n" +
+				// getCount
 				"@Override\n" +
 				"public int get$p.camelCaseName$Count() {\n" +
 					"$p.mapType$ map = get$p.camelCaseName$Map();\n" +
 					"return map == null ? 0 : map.size();\n" +
 				"}\n" +
+				// get
 				"@Override\n" +
-				"public $p.valueType$ get$p.camelCaseName$($p.keyType$ key) {\n" +
+				"public $p.mapValueType$ get$p.camelCaseName$($p.keyType$ key) {\n" +
 					"$p.mapType$ map = get$p.camelCaseName$Map();\n" +
 					"return map == null ? null : map.get(key);\n" +
 				"}\n" +
+				// getKeys
 				"@Override\n" +
 				"public java.util.Set<$p.mapKeyType$> get$p.camelCaseName$Keys() {\n" +
 					"$p.mapType$ map = get$p.camelCaseName$Map();\n" +
 					"return map == null ? null : map.keySet();\n" +
 				"}\n";
-		
-		StringTemplate template = new StringTemplate(s);
+
+		template.setTemplate(s);
 		template.setAttribute("p", property);
 		builder.append(template.toString());
 	}
@@ -174,7 +233,7 @@ public class MapPropertyGenerator extends PropertyGenerator<MapType, MapProperty
 				"}\n" +
 				// get
 				"@Override\n" +
-				"public $p.builderValueType$ get$p.camelCaseName$($p.keyType$ key) {\n" +
+				"public $p.builderMapValueType$ get$p.camelCaseName$($p.keyType$ key) {\n" +
 					"return $p.memberVariableName$ == null ? null : ($p.builderMapValueType$)$p.memberVariableName$.get(key);\n" +
 				"}\n" +
 				// getCount
@@ -204,7 +263,7 @@ public class MapPropertyGenerator extends PropertyGenerator<MapType, MapProperty
 //			appendIndent(builder, indentCount + 1).append("java.util.Map<").append(keyType.getJavaType()).append(", ").append(valueType.getJavaType()).append(".Builder> map = get").append(property.getCamelCaseName()).append("Map();\n");
 //			appendIndent(builder, indentCount + 1).append(valueType.getJavaType()).append(".Builder value = map.get(key);\n");
 //			appendIndent(builder, indentCount + 1).append("if (value == null) {\n");
-//			appendIndent(builder, indentCount + 2).append("value = ").append(type.getValueType().getJavaType()).append(".newBuilder();\n");
+//			appendIndent(builder, indentCount + 2).append("value = ").append(valueType.getJavaType()).append(".newBuilder();\n");
 //			appendIndent(builder, indentCount + 2).append("map.put(key, value);\n");
 //			appendIndent(builder, indentCount + 1).append("}\n");
 //			appendIndent(builder, indentCount + 1).append("return value;\n");
