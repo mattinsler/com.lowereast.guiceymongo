@@ -37,7 +37,7 @@ public class PrimitiveType extends Type {
 //	public static PrimitiveType BytesType = new PrimitiveType("bytes", "", ""); // byte[]??
 	public static PrimitiveType DateType = new PrimitiveType("date", "java.util.Date", "java.util.Date");
 	
-	public static PrimitiveType ObjectIdType = new PrimitiveType("object_id", "com.mongodb.ObjectId", "com.mongodb.ObjectId");
+	public static PrimitiveType ObjectIdType = new PrimitiveType("object_id", "org.bson.types.ObjectId", "org.bson.types.ObjectId");
 	public static PrimitiveType DBObjectType = new PrimitiveType("db_object", "com.mongodb.DBObject", "com.mongodb.DBObject");
-	public static PrimitiveType DBTimestampType = new PrimitiveType("db_timestamp", "com.mongodb.DBTimestamp", "com.mongodb.DBTimestamp");
+	public static PrimitiveType DBTimestampType = new PrimitiveType("db_timestamp", "org.bson.types.BSONTimestamp", "org.bson.types.BSONTimestamp");
 }

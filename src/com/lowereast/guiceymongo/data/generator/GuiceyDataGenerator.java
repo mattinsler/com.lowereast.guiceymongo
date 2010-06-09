@@ -19,6 +19,7 @@ package com.lowereast.guiceymongo.data.generator;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.FilenameFilter;
+import java.io.StringWriter;
 import java.util.Arrays;
 import java.util.List;
 
@@ -35,7 +36,6 @@ import org.apache.log4j.Logger;
 import com.lowereast.guiceymongo.data.generator.parser.GuiceyDataLexer;
 import com.lowereast.guiceymongo.data.generator.parser.GuiceyDataParser;
 import com.lowereast.guiceymongo.data.generator.parser.TypeParser;
-import com.lowereast.guiceymongo.data.generator.type.Type;
 import com.lowereast.guiceymongo.data.generator.type.UserType;
 
 import de.hunsicker.jalopy.Jalopy;
@@ -127,19 +127,38 @@ public class GuiceyDataGenerator {
 		
 		for (UserType type : registry.getTypes(UserType.class)) {
 			if (type.getParentType() == null) {
+				File file = new File(outputDirFile, type.getJavaType() + ".java");
+				StringWriter stringWriter = new StringWriter();
+				
 				try {
-					File file = new File(outputDirFile, type.getJavaType() + ".java");
-					FileWriter writer = new FileWriter(file);
-					writer.append("package ").append(_outputPackage).append(";\n\n");
-					generator.generate(writer, type);
-					writer.close();
+					stringWriter.append("package ").append(_outputPackage).append(";\n\n");
+					generator.generate(stringWriter, type);
+					stringWriter.flush();
 
-					jalopy.setInput(file);
-					jalopy.setOutput(file);
-					jalopy.format();
+					StringBuffer buffer = new StringBuffer();
+					
+					jalopy.setInput(stringWriter.toString(), file.getPath());
+					jalopy.setOutput(buffer);
+					
+					FileWriter writer = new FileWriter(file);
+					if (jalopy.format() && Jalopy.State.PARSED == jalopy.getState()) {
+						writer.write(buffer.toString());
+					} else {
+						writer.write(stringWriter.toString());
+					}
+					writer.close();
 				} catch (Exception e) {
 					System.err.println("Error in writing type " + type.getGuiceyType());
 					System.err.println(e);
+					
+					try {
+						FileWriter writer = new FileWriter(file);
+						writer.write(stringWriter.toString());
+						writer.close();
+					} catch (Exception f) {
+						System.err.println("Yet another error in writing type " + type.getGuiceyType());
+						System.err.println(f);
+					}
 				}
 			}
 		}

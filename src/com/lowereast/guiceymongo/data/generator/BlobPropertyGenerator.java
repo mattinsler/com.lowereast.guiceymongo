@@ -65,7 +65,7 @@ public class BlobPropertyGenerator extends PropertyGenerator<BlobType, BlobPrope
 				// getBucket
 				"public abstract String get$p.camelCaseName$Bucket();\n" +
 				// getIdentity
-				"public abstract com.mongodb.ObjectId get$p.camelCaseName$Identity();\n"
+				"public abstract org.bson.types.ObjectId get$p.camelCaseName$Identity();\n"
 		);
 		template.setAttribute("p", property);
 		builder.append(template.toString());
@@ -101,7 +101,7 @@ public class BlobPropertyGenerator extends PropertyGenerator<BlobType, BlobPrope
 						"Object o = _backing.get($p.keyName$);\n" +
 						"if (o != null && o instanceof com.mongodb.DBObject) {\n" +
 							"String bucket = (String)((com.mongodb.DBObject)o).get(\"bucket\");\n" +
-							"com.mongodb.ObjectId identity = (com.mongodb.ObjectId)((com.mongodb.DBObject)o).get(\"identity\");\n" +
+							"org.bson.types.ObjectId identity = (org.bson.types.ObjectId)((com.mongodb.DBObject)o).get(\"identity\");\n" +
 							"if (bucket == null || identity == null)\n" +
 								"return null;" +
 							"com.lowereast.guiceymongo.GuiceyBucket guiceyBucket = com.lowereast.guiceymongo.guice.GuiceyMongoUtil.getGuiceyBucket(bucket);\n" +
@@ -119,8 +119,8 @@ public class BlobPropertyGenerator extends PropertyGenerator<BlobType, BlobPrope
 				"}\n" +
 				// getIdentity
 				"@Override\n" +
-				"public com.mongodb.ObjectId get$p.camelCaseName$Identity() {\n" +
-					"return !_backing.containsField($p.keyName$) ? null : (com.mongodb.ObjectId)((com.mongodb.DBObject)_backing.get($p.keyName$)).get(\"identity\");\n" +
+				"public org.bson.types.ObjectId get$p.camelCaseName$Identity() {\n" +
+					"return !_backing.containsField($p.keyName$) ? null : (org.bson.types.ObjectId)((com.mongodb.DBObject)_backing.get($p.keyName$)).get(\"identity\");\n" +
 				"}\n"
 		);
 		template.setAttribute("p", property);
@@ -133,7 +133,7 @@ public class BlobPropertyGenerator extends PropertyGenerator<BlobType, BlobPrope
 				// member variable
 				"protected java.io.ByteArrayOutputStream $p.memberVariableName$ = null;\n" +
 				"protected String $p.memberVariableName$Bucket = null;\n" +
-				"protected com.mongodb.ObjectId $p.memberVariableName$Identity = null;\n" +
+				"protected org.bson.types.ObjectId $p.memberVariableName$Identity = null;\n" +
 				// has
 				"@Override\n" +
 				"public boolean has$p.camelCaseName$() {\n" +
@@ -185,7 +185,7 @@ public class BlobPropertyGenerator extends PropertyGenerator<BlobType, BlobPrope
 				"}\n" +
 				// getIdentity
 				"@Override\n" +
-				"public com.mongodb.ObjectId get$p.camelCaseName$Identity() {\n" +
+				"public org.bson.types.ObjectId get$p.camelCaseName$Identity() {\n" +
 					"return $p.memberVariableName$Identity;\n" +
 				"}\n" +
 				// getOutputStream
@@ -236,7 +236,7 @@ public class BlobPropertyGenerator extends PropertyGenerator<BlobType, BlobPrope
 	                	"throw new RuntimeException(\"No bucket with key '\" + $p.memberVariableName$Bucket + \"' is defined\");\n" +
 					"com.mongodb.gridfs.GridFSInputFile file$p.camelCaseName$ = guicey$p.camelCaseName$Bucket.createFile(get$p.camelCaseName$InputStream());\n" +
 					"file$p.camelCaseName$.save();\n" +
-					"$p.memberVariableName$Identity = (com.mongodb.ObjectId)file$p.camelCaseName$.getId()\n;" +
+					"$p.memberVariableName$Identity = (org.bson.types.ObjectId)file$p.camelCaseName$.getId()\n;" +
 					"dbObject.put($p.keyName$, new com.mongodb.BasicDBObject(\"bucket\", $p.memberVariableName$Bucket).append(\"identity\", $p.memberVariableName$Identity));\n" +
 				"}\n"
 		);

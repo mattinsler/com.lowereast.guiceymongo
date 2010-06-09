@@ -1,6 +1,7 @@
-.classpath
-.project
 bin
 test
 build
+classes
+output
+.clover
 *.jar
