@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="GuiceyMongo" basedir="." default="compile">
 	<property name="version" value="0.1.2" />
-	<property name="mongo.driver.version" value="2.0-rc4" />
+	<property name="mongo.driver.version" value="2.0" />
 	
 	<property name="jar.name" value="guiceymongo-${version}.jar" />
 	<property name="jar-mongo.name" value="guiceymongo-${version}-mongo.jar" />
