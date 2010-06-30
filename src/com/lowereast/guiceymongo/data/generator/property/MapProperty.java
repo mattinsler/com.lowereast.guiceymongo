@@ -66,14 +66,21 @@ public class MapProperty extends Property<MapType> {
 	
 	public String getNewMapValueType() {
 		Type type = super.getType().getValueType();
+		if (type instanceof UserDataType) {
+			return type.getJavaType() + ".newBuilder";
+		}
 		if (type instanceof ListType) {
 			Type itemType = ((ListType)type).getItemType();
 			if (itemType instanceof PrimitiveType)
 				return "java.util.ArrayList<" + ((PrimitiveType)itemType).getJavaBoxedType() + ">";
 			return "java.util.ArrayList<" + ((ListType)type).getItemType().getJavaType() + ">";
 		}
-		if (type instanceof SetType)
-			return "java.util.HashSet<" + getMapValueType() + ">";
+		if (type instanceof SetType) {
+			Type itemType = ((SetType)type).getItemType();
+			if (itemType instanceof PrimitiveType)
+				return "java.util.HashSet<" + ((PrimitiveType)itemType).getJavaBoxedType() + ">";
+			return "java.util.HashSet<" + ((SetType)type).getItemType().getJavaType() + ">";
+		}
 		return "";
 	}
 	

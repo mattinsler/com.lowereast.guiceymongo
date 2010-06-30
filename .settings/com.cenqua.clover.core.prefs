@@ -1,0 +1,21 @@
+#Tue May 18 23:50:16 EDT 2010
+block_filters=SourceDirective
+eclipse.preferences.version=1
+exclude_filter=test/guiceydata/**, src//**, example//**
+flush_interval=1000
+flush_policy=0
+include_filter=test/guiceydata/data/**
+init_string=.clover/coverage.db
+init_string_default=true
+init_string_project_relative=true
+instrument_selected_source_folders=true
+instrumented_source_folder_patterns[0]=src\n**/*.java\n\ndisabled
+instrumented_source_folder_patterns[1]=example\n**/*.java\n\ndisabled
+instrumented_source_folder_patterns[2]=test\nguiceydata/data/*.java\n\nenabled
+output_root=.clover/bin
+output_root_same_as_project=true
+recreate_output_dirs=true
+selected_test_source_folders[0]=test
+should_qualify_java_lang=true
+test_include_filter=**/*Test.java,**/Test*.java
+test_source_folders=1

@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="GuiceyMongo" basedir="." default="compile">
-	<property name="jar.name" value="guiceymongo.jar" />
+	<property name="version" value="0.1.2" />
+	<property name="mongo.driver.version" value="2.0" />
+	
+	<property name="jar.name" value="guiceymongo-${version}.jar" />
+	<property name="jar-mongo.name" value="guiceymongo-${version}-mongo.jar" />
 
 	<property name="src.dir" value="src" />
 	<property name="lib.dir" value="lib" />
@@ -26,4 +30,11 @@
 		<mkdir dir="${target.dir}"/>
 		<jar destfile="${target.dir}/${jar.name}" basedir="${classes.dir}" />
 	</target>
+	
+	<target name="jar-mongo" depends="compile">
+			<mkdir dir="${target.dir}"/>
+			<jar destfile="${target.dir}/${jar-mongo.name}" basedir="${classes.dir}">
+				<zipfileset src="${lib.dir}/mongo-${mongo.driver.version}.jar" />
+			</jar>
+		</target>
 </project>

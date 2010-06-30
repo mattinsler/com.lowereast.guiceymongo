@@ -11,6 +11,7 @@ tokens {
 	TYPE_MAP='map';
 	TYPE_SET='set';
 	TYPE_LIST='list';
+	PARAMETERIZED_TYPE='parameterized-type';
 	// primitive can be a user-defined Data type
 	TYPE_PRIMITIVE='primitive';
 	PROPERTY='property';
@@ -93,6 +94,7 @@ type
 	|	'list<' type '>' -> TYPE_LIST type
 	|	TYPE -> TYPE_PRIMITIVE TYPE
 	|	ID -> TYPE_PRIMITIVE ID
+	|	ID '<' type (',' type)* '>' -> PARAMETERIZED_TYPE ID type+
 	;
 
 TYPE	:	ID ('.' ID)+

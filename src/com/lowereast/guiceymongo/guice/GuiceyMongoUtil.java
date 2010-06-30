@@ -49,7 +49,7 @@ public final class GuiceyMongoUtil {
 		return _injector.getInstance(Key.get(DB.class, GuiceyMongoDatabases.database(databaseKey)));
 	}
 	
-	public static DBCollection getGuiceyCollection(String collectionKey) {
+	public static DBCollection getCollection(String collectionKey) {
 		return _injector.getInstance(Key.get(DBCollection.class, GuiceyMongoCollections.collection(collectionKey)));
 	}
 	
