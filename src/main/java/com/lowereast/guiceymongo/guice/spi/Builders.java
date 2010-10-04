@@ -31,6 +31,7 @@ public interface Builders {
 	
 	public interface DatabaseConfiguration {
 		DatabaseOptionConfiguration to(String database);
+        DatabaseOptionConfiguration asTestDatabase();
 	}
 	public interface DatabaseOptionConfiguration extends FinishableConfiguration, Module {
 		FinishableConfiguration overConnection(String connectionKey);

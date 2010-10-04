@@ -19,11 +19,13 @@ package com.lowereast.guiceymongo;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 
+import java.util.Arrays;
+
 public class FieldSet {
 	private final DBObject _set = new BasicDBObject();
-	
+
 	private FieldSet() {}
-	
+
 	public FieldSet include(String... fields) {
 		if (fields != null) {
 			for (String field : fields)
@@ -31,7 +33,17 @@ public class FieldSet {
 		}
 		return this;
 	}
-	
+
+	public FieldSet slice(String field, int elements) {
+		_set.put(field, new BasicDBObject("$slice", elements));
+		return this;
+	}
+
+	public FieldSet slice(String field, int skip, int limit) {
+		_set.put(field, new BasicDBObject("$slice", Arrays.<Integer>asList(skip, limit)));
+		return this;
+	}
+
 	public FieldSet exclude(String... fields) {
 		if (fields != null) {
 			for (String field : fields)
@@ -39,18 +51,26 @@ public class FieldSet {
 		}
 		return this;
 	}
-	
+
 	public DBObject build() {
 		return _set;
 	}
-	
+
 	public static FieldSet with(String... fields) {
 		return new FieldSet().include(fields);
 	}
-	
+
+	public static FieldSet with(String field, int elements) {
+		return new FieldSet().slice(field, elements);
+	}
+
+	public static FieldSet with(String field, int skip, int limit) {
+		return new FieldSet().slice(field, skip, limit);
+	}
+
 	public static FieldSet without(String... fields) {
 		return new FieldSet().exclude(fields);
 	}
-	
+
 	public static final FieldSet Empty = FieldSet.with();
 }

@@ -16,16 +16,15 @@
 
 package com.lowereast.guiceymongo.guice.spi;
 
-import java.util.UUID;
-
-import com.google.inject.Binder;
-import com.google.inject.Inject;
-import com.google.inject.Injector;
-import com.google.inject.Key;
-import com.google.inject.Provider;
+import com.google.inject.*;
+import com.lowereast.guiceymongo.GuiceyMongoException;
 import com.lowereast.guiceymongo.guice.annotation.GuiceyMongoDatabase;
 import com.mongodb.DB;
 import com.mongodb.Mongo;
+import com.mongodb.MongoException;
+
+import java.net.UnknownHostException;
+import java.util.UUID;
 
 class DBProviderModule extends SingletonModule<Key<DB>> implements Provider<DB> {
 	private static class RemoveTemporaryDB extends Thread {
@@ -57,12 +56,12 @@ class DBProviderModule extends SingletonModule<Key<DB>> implements Provider<DB> 
 		_injector = injector;
 		_configuration = configuration;
 	}
- 
+
 	public void configure(Binder binder) {
 		binder.skipSources(DBProviderModule.class).bind(key).toProvider(this);
 	}
 	
-	private Mongo getConnection(String configuration, String databaseKey) throws Exception {
+	private Mongo getConnection(String configuration, String databaseKey) throws MongoException, UnknownHostException {
 		String connectionKey = getInstance(_injector, Key.get(String.class, AnnotationUtil.configuredDatabaseConnection(configuration, databaseKey)));
 		if (connectionKey != null) {
 			String hostname = getInstance(_injector, Key.get(String.class, AnnotationUtil.configuredConnectionHostname(connectionKey)));
@@ -77,7 +76,7 @@ class DBProviderModule extends SingletonModule<Key<DB>> implements Provider<DB> 
 		return new Mongo();
 	}
 
-	private void cacheDB() throws Exception {
+	private void cacheDB() throws MongoException, UnknownHostException {
 		String databaseKey = ((GuiceyMongoDatabase)key.getAnnotation()).value();
 		
 		String clonedConfiguration = getInstance(_injector, Key.get(String.class, AnnotationUtil.clonedConfiguration(_configuration)));
@@ -85,6 +84,8 @@ class DBProviderModule extends SingletonModule<Key<DB>> implements Provider<DB> 
 			String database = _injector.getInstance(Key.get(String.class, AnnotationUtil.configuredDatabase(_configuration, databaseKey)));
 			Mongo connection = getConnection(_configuration, databaseKey);
 			_cachedDB = connection.getDB(database);
+            // test connection
+            _cachedDB.getCollectionNames();
 		} else {
 			Mongo connection = getConnection(clonedConfiguration, databaseKey);
 			_cachedDB = connection.getDB(UUID.randomUUID().toString());
@@ -102,9 +103,10 @@ class DBProviderModule extends SingletonModule<Key<DB>> implements Provider<DB> 
 			if (_cachedDB == null)
 				cacheDB();
 			return _cachedDB;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
+		} catch (MongoException e) {
+			throw new GuiceyMongoException("Could not connect to an instance of MongoDB", e);
+		} catch (UnknownHostException e) {
+            throw new GuiceyMongoException("Could not connect to an instance of MongoDB", e);
+        }
 	}
 }

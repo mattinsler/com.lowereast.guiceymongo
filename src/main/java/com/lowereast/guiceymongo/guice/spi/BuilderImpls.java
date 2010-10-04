@@ -88,7 +88,10 @@ public final class BuilderImpls {
 		public BucketConfiguration mapBucket(String bucketKey) {
 			return _configuration.mapBucket(bucketKey);
 		}
-	}
+        public DatabaseOptionConfiguration asTestDatabase() {
+            return null;  //To change body of implemented methods use File | Settings | File Templates.
+        }
+    }
 	
 	private static class Collection implements Builders.CollectionConfiguration, Builders.CollectionConfigurationOnlyTo, Builders.CollectionOptionConfiguration {
 		private final Configuration _configuration;

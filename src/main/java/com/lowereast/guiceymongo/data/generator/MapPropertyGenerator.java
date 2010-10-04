@@ -16,18 +16,11 @@
 
 package com.lowereast.guiceymongo.data.generator;
 
-import java.io.IOException;
-
+import com.lowereast.guiceymongo.data.generator.property.MapProperty;
+import com.lowereast.guiceymongo.data.generator.type.*;
 import org.antlr.stringtemplate.StringTemplate;
 
-import com.lowereast.guiceymongo.data.generator.property.MapProperty;
-import com.lowereast.guiceymongo.data.generator.type.ListType;
-import com.lowereast.guiceymongo.data.generator.type.MapType;
-import com.lowereast.guiceymongo.data.generator.type.PrimitiveType;
-import com.lowereast.guiceymongo.data.generator.type.SetType;
-import com.lowereast.guiceymongo.data.generator.type.Type;
-import com.lowereast.guiceymongo.data.generator.type.UserDataType;
-import com.lowereast.guiceymongo.data.generator.type.UserEnumType;
+import java.io.IOException;
 
 public class MapPropertyGenerator extends PropertyGenerator<MapType, MapProperty> {
 	public MapPropertyGenerator(TypeRegistry typeRegistry) {
@@ -107,6 +100,7 @@ public class MapPropertyGenerator extends PropertyGenerator<MapType, MapProperty
 	@Override
 	public void createReadableMethod(Appendable builder, MapProperty property, int indentCount) throws IOException {
 		StringTemplate template = new StringTemplate(
+                "public abstract $p.mapType$ get$p.camelCaseName$Map();\n" +
 				"public abstract boolean contains$p.camelCaseName$($p.keyType$ key);\n" +
 				"public abstract int get$p.camelCaseName$Count();\n" +
 				"public abstract $p.mapValueType$ get$p.camelCaseName$($p.keyType$ key);\n" +
@@ -127,7 +121,7 @@ public class MapPropertyGenerator extends PropertyGenerator<MapType, MapProperty
 				// member variable
 				"protected $p.mapType$ $p.memberVariableName$ = null;\n" +
 				// getMap
-				"protected $p.mapType$ get$p.camelCaseName$Map() {\n" +
+				"public $p.mapType$ get$p.camelCaseName$Map() {\n" +
 					"if ($p.memberVariableName$ == null) {\n" +
 						"Object value = _backing.get($p.keyName$);\n" +
 						"if (value != null && value instanceof com.mongodb.DBObject) {\n" +
@@ -255,7 +249,7 @@ public class MapPropertyGenerator extends PropertyGenerator<MapType, MapProperty
 				// member variable
 				"protected $p.mapType$ $p.memberVariableName$ = null;\n" +
 				// getMap
-				"protected $p.mapType$ get$p.camelCaseName$Map() {\n" +
+				"public $p.mapType$ get$p.camelCaseName$Map() {\n" +
 					"if ($p.memberVariableName$ == null)\n" +
 						"$p.memberVariableName$ = new $p.newMapType$();\n" +
 					"return $p.memberVariableName$;\n" +

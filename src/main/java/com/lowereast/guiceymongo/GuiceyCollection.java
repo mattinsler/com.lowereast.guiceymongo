@@ -16,17 +16,12 @@
 
 package com.lowereast.guiceymongo;
 
-import java.util.List;
-
 import com.lowereast.guiceymongo.data.DataWrapper;
 import com.lowereast.guiceymongo.data.IsBuilder;
 import com.lowereast.guiceymongo.data.IsData;
-import com.mongodb.BasicDBObject;
-import com.mongodb.DB;
-import com.mongodb.DBCollection;
-import com.mongodb.DBCursor;
-import com.mongodb.DBObject;
-import com.mongodb.MongoException;
+import com.mongodb.*;
+
+import java.util.List;
 
 public class GuiceyCollection<Item extends IsData> {
 	private final DBCollection _collection;
@@ -107,18 +102,18 @@ public class GuiceyCollection<Item extends IsData> {
 	private static final DBObject EMPTY = new BasicDBObject();
 	
 	public Item findAndModify(DBObject query, DBObject update) {
-		return findAndModify(query, update, null, false);
+		return findAndModify(query, update, null, false, null, false);
 	}
 	
 	public Item findAndModify(DBObject query, DBObject update, DBObject sort) {
-		return findAndModify(query, update, sort, false);
+		return findAndModify(query, update, sort, false, null, false);
 	}
 	
 	public Item findAndModify(DBObject query, DBObject update, boolean returnNewValue) {
-		return findAndModify(query, update, null, returnNewValue);
+		return findAndModify(query, update, null, returnNewValue, null, false);
 	}
 	
-	public Item findAndModify(DBObject query, DBObject update, DBObject sort, boolean returnNewValue) {
+	public Item findAndModify(DBObject query, DBObject update, DBObject sort, boolean returnNewValue, FieldSet fields, boolean upsert) {
 		DBObject command = new BasicDBObject("findandmodify", _collection.getName())
 			.append("update", update);
 		if (query != null && !EMPTY.equals(query))
@@ -127,9 +122,13 @@ public class GuiceyCollection<Item extends IsData> {
 			command.put("sort", sort);
 		if (returnNewValue)
 			command.put("new", true);
+        if (fields != null)
+            command.put("fields", fields.build());
+        if (upsert)
+            command.put("upsert", upsert);
 		
 		DBObject result = _collection.getDB().command(command);
-		if (1 == (Integer)result.get("ok"))
+        if (result.containsField("ok"))
 			return _wrapper.wrap((DBObject)result.get("value"));
 		throw new MongoException((Integer)result.get("code"), (String)result.get("errmsg"));
 	}
