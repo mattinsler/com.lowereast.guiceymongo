@@ -5,6 +5,9 @@ bin
 test
 build
 classes
-output
 .clover
 *.jar
+target
+.project
+.classpath
+.settings
