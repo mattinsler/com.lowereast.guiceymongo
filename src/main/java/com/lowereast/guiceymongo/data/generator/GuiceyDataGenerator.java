@@ -18,7 +18,6 @@ package com.lowereast.guiceymongo.data.generator;
 
 import java.io.File;
 import java.io.FileWriter;
-import java.io.FilenameFilter;
 import java.io.StringWriter;
 import java.util.Arrays;
 import java.util.List;
@@ -42,45 +41,47 @@ import de.hunsicker.jalopy.Jalopy;
 
 public class GuiceyDataGenerator {
 	private void parseDirectory(File directory, TypeParser parser) {
-		for (File file : directory.listFiles(new FilenameFilter() {
-			public boolean accept(File dir, String name) {
-				for (String extension : _fileExtensions)
-					if (name.endsWith(extension))
-						return true;
-				return false;
+		for (File file : directory.listFiles()) {
+			if (file.isFile()) {
+				for (String extension : _fileExtensions) {
+					if (file.getName().endsWith(extension)) {
+						parseFile(file, parser);
+					}
+				}
+			} else {
+				parseDirectory(file, parser);
 			}
-		}))
-			parseFile(file, parser);
+		}
 	}
 	
 	private void parseFile(File file, TypeParser typeParser) {
-		if (!file.exists())
+		if (!file.exists()) {
 			System.err.println("File " + file.getPath() + " does not exist.");
-		if (!file.canRead())
+			return;
+		}
+		if (!file.canRead()) {
 			System.err.println("File " + file.getPath() + " cannot be read.");
-		if (file.isDirectory()) {
-			parseDirectory(file, typeParser);
-		} else {
-			try {
-				GuiceyDataLexer lexer = new GuiceyDataLexer(new ANTLRFileStream(file.getAbsolutePath()));
-			    CommonTokenStream tokens = new CommonTokenStream(lexer);
+			return;
+		}
+		
+		try {
+			GuiceyDataLexer lexer = new GuiceyDataLexer(new ANTLRFileStream(file.getAbsolutePath()));
+		    CommonTokenStream tokens = new CommonTokenStream(lexer);
 
-			    GuiceyDataParser parser = new GuiceyDataParser(tokens);
-			    GuiceyDataParser.start_return ret = parser.start();
-			    CommonTree tree = (CommonTree)ret.getTree();
-			    
-			    typeParser.parse(tree);
-			} catch (Exception e) {
-				System.err.println("File " + file.getPath() + " has errors:");
-				System.err.print(e);
-			}
+		    GuiceyDataParser parser = new GuiceyDataParser(tokens);
+		    GuiceyDataParser.start_return ret = parser.start();
+		    CommonTree tree = (CommonTree)ret.getTree();
+		    
+		    typeParser.parse(tree);
+		} catch (Exception e) {
+			System.err.println("File " + file.getPath() + " has errors:");
+			System.err.print(e);
 		}
 	}
 	
 	private String _outputPackage;
 	private String[] _fileExtensions;
 	private File _sourceDirectory;
-	private Jalopy _jalopy = new Jalopy();
 	
 	public void setSourceDirectory(String sourceDirectory) {
 		_sourceDirectory = new File(sourceDirectory);
@@ -106,7 +107,7 @@ public class GuiceyDataGenerator {
 		generate(useCamelCaseKeys, Arrays.asList(fileOrDirectoryNames));
 	}
 	
-	public void generate(boolean useCamelCaseKeys, List<String> fileOrDirectoryNames) {
+	public void generate(boolean useCamelCaseKeys, List<String> pathNames) {
 		// just in case ...
 		Logger rootLogger = Logger.getRootLogger();
 		if (!rootLogger.getAllAppenders().hasMoreElements())
@@ -116,8 +117,14 @@ public class GuiceyDataGenerator {
 		TypeParser parser = new TypeParser(registry, useCamelCaseKeys);
 		TypeGenerator generator = new TypeGenerator(registry);
 		
-		for (String fileOrDirectory : fileOrDirectoryNames)
-			parseFile(new File(fileOrDirectory), parser);
+		for (String pathName : pathNames) {
+			File path = new File(pathName);
+			if (path.isFile()) {
+				parseFile(path, parser);
+			} else {
+				parseDirectory(path, parser);
+			}
+		}
 		
 		File outputDirFile = new File(_sourceDirectory, _outputPackage.replace('.', '/'));
 		
