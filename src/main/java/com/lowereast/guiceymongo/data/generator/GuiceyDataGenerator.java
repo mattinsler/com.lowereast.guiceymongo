@@ -178,8 +178,8 @@ public class GuiceyDataGenerator {
 		OptionSpec<String> sourceDirectory = parser.acceptsAll(Arrays.asList("s", "src")).withRequiredArg().ofType(String.class).defaultsTo("src").describedAs("Output source directory");
 		OptionSpec<String> packageName = parser.acceptsAll(Arrays.asList("p", "package")).withRequiredArg().ofType(String.class).defaultsTo("data").describedAs("Package to put all generated classes into");
 		OptionSpec<Void> useCamelCase = parser.acceptsAll(Arrays.asList("c", "useCamelCase"), "Use camel case for mongo field names.  By convention field names are specified as field_name, which will generate an object as {'field_name': true}.  Using this option, {'fieldName': true} will be generated.");
-		parser.acceptsAll(Arrays.asList("h", "help"), "Show help");
 		OptionSpec<Void> isQuiet = parser.acceptsAll(Arrays.asList("q", "quiet"), "Do not print informational messages");
+		parser.acceptsAll(Arrays.asList("h", "help"), "Show help");
 		
 		OptionSet options = parser.parse(args);
 		
