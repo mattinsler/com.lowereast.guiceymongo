@@ -200,13 +200,15 @@ public class TypeParser {
 		}
 	}
 	
-	public void parse(CommonTree tree) {
+	public void parse(CommonTree tree, boolean isQuiet) {
 		if (tree == null)
 			return;
 			
 		registerAllUserTypes(tree, null);
-		for (UserDataType type : _typeRegistry.getTypes(UserDataType.class))
-			System.out.println(type.getJavaType());
+		if (!isQuiet) {
+			for (UserDataType type : _typeRegistry.getTypes(UserDataType.class))
+				System.out.println(type.getJavaType());
+		}
 		
 		for (CommonTree typeTree : (List<CommonTree>)tree.getChildren()) {
 			if (GuiceyDataParser.EOF != typeTree.getToken().getType()) {

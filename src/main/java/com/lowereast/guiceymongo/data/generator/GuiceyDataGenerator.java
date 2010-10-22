@@ -72,7 +72,7 @@ public class GuiceyDataGenerator {
 		    GuiceyDataParser.start_return ret = parser.start();
 		    CommonTree tree = (CommonTree)ret.getTree();
 		    
-		    typeParser.parse(tree);
+		    typeParser.parse(tree, this._isQuiet);
 		} catch (Exception e) {
 			System.err.println("File " + file.getPath() + " has errors:");
 			System.err.print(e);
@@ -82,6 +82,7 @@ public class GuiceyDataGenerator {
 	private String _outputPackage;
 	private String[] _fileExtensions;
 	private File _sourceDirectory;
+	private boolean _isQuiet;
 	
 	public void setSourceDirectory(String sourceDirectory) {
 		_sourceDirectory = new File(sourceDirectory);
@@ -93,6 +94,10 @@ public class GuiceyDataGenerator {
 	
 	public void setFileExtensions(String... fileExtensions) {
 		_fileExtensions = fileExtensions;
+	}
+	
+	public void setIsQuiet(boolean isQuiet) {
+		this._isQuiet = isQuiet;
 	}
 	
 	public void generate(String... fileOrDirectoryNames) {
@@ -177,6 +182,7 @@ public class GuiceyDataGenerator {
 		OptionSpec<String> packageName = parser.acceptsAll(Arrays.asList("p", "package")).withRequiredArg().ofType(String.class).defaultsTo("data").describedAs("Package to put all generated classes into");
 		OptionSpec<Void> useCamelCase = parser.acceptsAll(Arrays.asList("c", "useCamelCase"), "Use camel case for mongo field names.  By convention field names are specified as field_name, which will generate an object as {'field_name': true}.  Using this option, {'fieldName': true} will be generated.");
 		parser.acceptsAll(Arrays.asList("h", "help"), "Show help");
+		OptionSpec<Void> isQuiet = parser.acceptsAll(Arrays.asList("q", "quiet"), "Do not print informational messages");
 		
 		OptionSet options = parser.parse(args);
 		
@@ -193,6 +199,7 @@ public class GuiceyDataGenerator {
 		GuiceyDataGenerator generator = new GuiceyDataGenerator();
 		generator.setOutputPackage(packageName.value(options));
 		generator.setSourceDirectory(sourceDirectory.value(options));
+		generator.setIsQuiet(options.has(isQuiet));
 		
 		generator.generate(options.has(useCamelCase), options.nonOptionArguments());
 	}
