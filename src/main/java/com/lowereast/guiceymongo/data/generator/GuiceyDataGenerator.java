@@ -72,7 +72,7 @@ public class GuiceyDataGenerator {
 		    GuiceyDataParser.start_return ret = parser.start();
 		    CommonTree tree = (CommonTree)ret.getTree();
 		    
-		    typeParser.parse(tree, this._isQuiet);
+		    typeParser.parse(tree);
 		} catch (Exception e) {
 			System.err.println("File " + file.getPath() + " has errors:");
 			System.err.print(e);
@@ -119,7 +119,7 @@ public class GuiceyDataGenerator {
 			rootLogger.setLevel(Level.OFF);
 		
 		TypeRegistry registry = new TypeRegistry();
-		TypeParser parser = new TypeParser(registry, useCamelCaseKeys);
+		TypeParser parser = new TypeParser(registry, useCamelCaseKeys, _isQuiet);
 		TypeGenerator generator = new TypeGenerator(registry);
 		
 		for (String pathName : pathNames) {

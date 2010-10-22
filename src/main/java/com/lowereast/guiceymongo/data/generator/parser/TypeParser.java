@@ -43,10 +43,12 @@ import com.lowereast.guiceymongo.data.generator.type.UserDataType;
 public class TypeParser {
 	private final boolean _useCamelCaseKeys;
 	private final TypeRegistry _typeRegistry;
+	private final boolean _isQuiet;
 
-	public TypeParser(TypeRegistry typeRegistry, boolean useCamelCaseKeys) {
+	public TypeParser(TypeRegistry typeRegistry, boolean useCamelCaseKeys, boolean isQuiet) {
 		_useCamelCaseKeys = useCamelCaseKeys;
 		_typeRegistry = typeRegistry;
+		_isQuiet = isQuiet;
 	}
 	
 	private Object parseLiteral(Tree tree) {
@@ -200,12 +202,12 @@ public class TypeParser {
 		}
 	}
 	
-	public void parse(CommonTree tree, boolean isQuiet) {
+	public void parse(CommonTree tree) {
 		if (tree == null)
 			return;
 			
 		registerAllUserTypes(tree, null);
-		if (!isQuiet) {
+		if (!_isQuiet) {
 			for (UserDataType type : _typeRegistry.getTypes(UserDataType.class))
 				System.out.println(type.getJavaType());
 		}
