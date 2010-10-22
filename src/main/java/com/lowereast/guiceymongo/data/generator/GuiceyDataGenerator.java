@@ -83,6 +83,7 @@ public class GuiceyDataGenerator {
 	private String[] _fileExtensions;
 	private File _sourceDirectory;
 	private boolean _isQuiet;
+	private boolean _useCamelCaseKeys;
 	
 	public void setSourceDirectory(String sourceDirectory) {
 		_sourceDirectory = new File(sourceDirectory);
@@ -100,26 +101,22 @@ public class GuiceyDataGenerator {
 		this._isQuiet = isQuiet;
 	}
 	
+	public void setUseCamelCaseKeys(boolean useCamelCaseKeys) {
+		this._useCamelCaseKeys = useCamelCaseKeys;
+	}
+	
 	public void generate(String... fileOrDirectoryNames) {
-		generate(false, fileOrDirectoryNames);
+		generate(Arrays.asList(fileOrDirectoryNames));
 	}
 	
-	public void generate(List<String> fileOrDirectoryNames) {
-		generate(false, fileOrDirectoryNames);
-	}
-	
-	public void generate(boolean useCamelCaseKeys, String... fileOrDirectoryNames) {
-		generate(useCamelCaseKeys, Arrays.asList(fileOrDirectoryNames));
-	}
-	
-	public void generate(boolean useCamelCaseKeys, List<String> pathNames) {
+	public void generate(List<String> pathNames) {
 		// just in case ...
 		Logger rootLogger = Logger.getRootLogger();
 		if (!rootLogger.getAllAppenders().hasMoreElements())
 			rootLogger.setLevel(Level.OFF);
 		
 		TypeRegistry registry = new TypeRegistry();
-		TypeParser parser = new TypeParser(registry, useCamelCaseKeys, _isQuiet);
+		TypeParser parser = new TypeParser(registry, _useCamelCaseKeys, _isQuiet);
 		TypeGenerator generator = new TypeGenerator(registry);
 		
 		for (String pathName : pathNames) {
@@ -200,7 +197,8 @@ public class GuiceyDataGenerator {
 		generator.setOutputPackage(packageName.value(options));
 		generator.setSourceDirectory(sourceDirectory.value(options));
 		generator.setIsQuiet(options.has(isQuiet));
+		generator.setUseCamelCaseKeys(options.has(useCamelCase));
 		
-		generator.generate(options.has(useCamelCase), options.nonOptionArguments());
+		generator.generate(options.nonOptionArguments());
 	}
 }
