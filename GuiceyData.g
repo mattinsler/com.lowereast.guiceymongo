@@ -45,8 +45,13 @@ enumeration
 
 data_entry
 	:	entry
-	|	option* property -> ^(property option*)
+	|	comment? option* property -> ^(property option*)
 	;
+
+comment
+    :    '/*' ( options {greedy=false;} : . )* '*/'
+    |    '//' ~('\n'|'\r')* '\r'? '\n'
+    ;
 
 option
 	:	'[' ID ']' -> ^(OPTION ID)
