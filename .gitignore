@@ -1,12 +1,3 @@
-.clover
-classes
-output
-bin
-test
-build
-classes
-.clover
-*.jar
 target
 .project
 .classpath

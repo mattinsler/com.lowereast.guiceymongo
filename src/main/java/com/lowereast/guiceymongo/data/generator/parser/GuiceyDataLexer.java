@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 GuiceyData.g 2010-05-26 15:57:53
+// $ANTLR 3.2 Sep 23, 2009 14:05:07 com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g 2010-10-25 14:58:08
 
 package com.lowereast.guiceymongo.data.generator.parser;
 
@@ -9,42 +9,44 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class GuiceyDataLexer extends Lexer {
-    public static final int EXPONENT=19;
+    public static final int T__40=40;
+    public static final int EXPONENT=20;
     public static final int T__29=29;
-    public static final int OPTION=10;
+    public static final int OPTION=11;
     public static final int T__28=28;
     public static final int T__27=27;
     public static final int T__26=26;
     public static final int T__25=25;
-    public static final int T__24=24;
-    public static final int UNICODE_ESC=22;
-    public static final int OCTAL_ESC=23;
-    public static final int HEX_DIGIT=21;
-    public static final int FLOAT=15;
-    public static final int INT=14;
+    public static final int UNICODE_ESC=23;
+    public static final int OCTAL_ESC=24;
+    public static final int HEX_DIGIT=22;
+    public static final int FLOAT=16;
+    public static final int INT=15;
     public static final int TYPE_LIST=7;
-    public static final int ID=13;
+    public static final int ID=14;
     public static final int EOF=-1;
-    public static final int TYPE_PRIMITIVE=8;
-    public static final int TYPE=17;
+    public static final int TYPE_PRIMITIVE=9;
+    public static final int TYPE=18;
     public static final int T__30=30;
     public static final int T__31=31;
     public static final int T__32=32;
+    public static final int PARAMETERIZED_TYPE=8;
     public static final int T__33=33;
-    public static final int WS=18;
-    public static final int ESC_SEQ=20;
+    public static final int WS=19;
+    public static final int ESC_SEQ=21;
     public static final int T__34=34;
-    public static final int ENUM=12;
+    public static final int ENUM=13;
     public static final int T__35=35;
     public static final int TYPE_MAP=5;
     public static final int T__36=36;
     public static final int T__37=37;
-    public static final int PROPERTY=9;
+    public static final int PROPERTY=10;
     public static final int T__38=38;
+    public static final int T__39=39;
     public static final int TYPE_SET=6;
-    public static final int PAIR=11;
+    public static final int PAIR=12;
     public static final int DATA=4;
-    public static final int STRING=16;
+    public static final int STRING=17;
 
     // delegates
     // delegators
@@ -57,15 +59,15 @@ public class GuiceyDataLexer extends Lexer {
         super(input,state);
 
     }
-    public String getGrammarFileName() { return "GuiceyData.g"; }
+    public String getGrammarFileName() { return "com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g"; }
 
     // $ANTLR start "DATA"
     public final void mDATA() throws RecognitionException {
         try {
             int _type = DATA;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:11:6: ( 'data' )
-            // GuiceyData.g:11:8: 'data'
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:11:6: ( 'data' )
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:11:8: 'data'
             {
             match("data"); 
 
@@ -85,8 +87,8 @@ public class GuiceyDataLexer extends Lexer {
         try {
             int _type = TYPE_MAP;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:12:10: ( 'map' )
-            // GuiceyData.g:12:12: 'map'
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:12:10: ( 'map' )
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:12:12: 'map'
             {
             match("map"); 
 
@@ -106,8 +108,8 @@ public class GuiceyDataLexer extends Lexer {
         try {
             int _type = TYPE_SET;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:13:10: ( 'set' )
-            // GuiceyData.g:13:12: 'set'
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:13:10: ( 'set' )
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:13:12: 'set'
             {
             match("set"); 
 
@@ -127,8 +129,8 @@ public class GuiceyDataLexer extends Lexer {
         try {
             int _type = TYPE_LIST;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:14:11: ( 'list' )
-            // GuiceyData.g:14:13: 'list'
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:14:11: ( 'list' )
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:14:13: 'list'
             {
             match("list"); 
 
@@ -143,13 +145,34 @@ public class GuiceyDataLexer extends Lexer {
     }
     // $ANTLR end "TYPE_LIST"
 
+    // $ANTLR start "PARAMETERIZED_TYPE"
+    public final void mPARAMETERIZED_TYPE() throws RecognitionException {
+        try {
+            int _type = PARAMETERIZED_TYPE;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:15:20: ( 'parameterized-type' )
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:15:22: 'parameterized-type'
+            {
+            match("parameterized-type"); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "PARAMETERIZED_TYPE"
+
     // $ANTLR start "TYPE_PRIMITIVE"
     public final void mTYPE_PRIMITIVE() throws RecognitionException {
         try {
             int _type = TYPE_PRIMITIVE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:15:16: ( 'primitive' )
-            // GuiceyData.g:15:18: 'primitive'
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:16:16: ( 'primitive' )
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:16:18: 'primitive'
             {
             match("primitive"); 
 
@@ -169,8 +192,8 @@ public class GuiceyDataLexer extends Lexer {
         try {
             int _type = PROPERTY;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:16:10: ( 'property' )
-            // GuiceyData.g:16:12: 'property'
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:17:10: ( 'property' )
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:17:12: 'property'
             {
             match("property"); 
 
@@ -190,8 +213,8 @@ public class GuiceyDataLexer extends Lexer {
         try {
             int _type = OPTION;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:17:8: ( 'option' )
-            // GuiceyData.g:17:10: 'option'
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:18:8: ( 'option' )
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:18:10: 'option'
             {
             match("option"); 
 
@@ -211,8 +234,8 @@ public class GuiceyDataLexer extends Lexer {
         try {
             int _type = PAIR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:18:6: ( 'pair' )
-            // GuiceyData.g:18:8: 'pair'
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:19:6: ( 'pair' )
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:19:8: 'pair'
             {
             match("pair"); 
 
@@ -232,8 +255,8 @@ public class GuiceyDataLexer extends Lexer {
         try {
             int _type = ENUM;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:19:6: ( 'enum' )
-            // GuiceyData.g:19:8: 'enum'
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:20:6: ( 'enum' )
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:20:8: 'enum'
             {
             match("enum"); 
 
@@ -248,35 +271,15 @@ public class GuiceyDataLexer extends Lexer {
     }
     // $ANTLR end "ENUM"
 
-    // $ANTLR start "T__24"
-    public final void mT__24() throws RecognitionException {
-        try {
-            int _type = T__24;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:20:7: ( '{' )
-            // GuiceyData.g:20:9: '{'
-            {
-            match('{'); 
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "T__24"
-
     // $ANTLR start "T__25"
     public final void mT__25() throws RecognitionException {
         try {
             int _type = T__25;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:21:7: ( '}' )
-            // GuiceyData.g:21:9: '}'
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:21:7: ( '{' )
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:21:9: '{'
             {
-            match('}'); 
+            match('{'); 
 
             }
 
@@ -293,11 +296,10 @@ public class GuiceyDataLexer extends Lexer {
         try {
             int _type = T__26;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:22:7: ( '{}' )
-            // GuiceyData.g:22:9: '{}'
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:22:7: ( '}' )
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:22:9: '}'
             {
-            match("{}"); 
-
+            match('}'); 
 
             }
 
@@ -314,10 +316,11 @@ public class GuiceyDataLexer extends Lexer {
         try {
             int _type = T__27;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:23:7: ( ',' )
-            // GuiceyData.g:23:9: ','
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:23:7: ( '{}' )
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:23:9: '{}'
             {
-            match(','); 
+            match("{}"); 
+
 
             }
 
@@ -334,10 +337,10 @@ public class GuiceyDataLexer extends Lexer {
         try {
             int _type = T__28;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:24:7: ( '[' )
-            // GuiceyData.g:24:9: '['
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:24:7: ( ',' )
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:24:9: ','
             {
-            match('['); 
+            match(','); 
 
             }
 
@@ -354,10 +357,10 @@ public class GuiceyDataLexer extends Lexer {
         try {
             int _type = T__29;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:25:7: ( ']' )
-            // GuiceyData.g:25:9: ']'
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:25:7: ( '[' )
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:25:9: '['
             {
-            match(']'); 
+            match('['); 
 
             }
 
@@ -374,10 +377,10 @@ public class GuiceyDataLexer extends Lexer {
         try {
             int _type = T__30;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:26:7: ( '(' )
-            // GuiceyData.g:26:9: '('
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:26:7: ( ']' )
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:26:9: ']'
             {
-            match('('); 
+            match(']'); 
 
             }
 
@@ -394,11 +397,10 @@ public class GuiceyDataLexer extends Lexer {
         try {
             int _type = T__31;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:27:7: ( ')]' )
-            // GuiceyData.g:27:9: ')]'
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:27:7: ( '(' )
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:27:9: '('
             {
-            match(")]"); 
-
+            match('('); 
 
             }
 
@@ -415,10 +417,11 @@ public class GuiceyDataLexer extends Lexer {
         try {
             int _type = T__32;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:28:7: ( '=' )
-            // GuiceyData.g:28:9: '='
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:28:7: ( ')]' )
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:28:9: ')]'
             {
-            match('='); 
+            match(")]"); 
+
 
             }
 
@@ -435,11 +438,10 @@ public class GuiceyDataLexer extends Lexer {
         try {
             int _type = T__33;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:29:7: ( 'data;' )
-            // GuiceyData.g:29:9: 'data;'
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:29:7: ( '=' )
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:29:9: '='
             {
-            match("data;"); 
-
+            match('='); 
 
             }
 
@@ -456,10 +458,11 @@ public class GuiceyDataLexer extends Lexer {
         try {
             int _type = T__34;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:30:7: ( ';' )
-            // GuiceyData.g:30:9: ';'
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:30:7: ( 'data;' )
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:30:9: 'data;'
             {
-            match(';'); 
+            match("data;"); 
+
 
             }
 
@@ -476,11 +479,10 @@ public class GuiceyDataLexer extends Lexer {
         try {
             int _type = T__35;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:31:7: ( 'map<' )
-            // GuiceyData.g:31:9: 'map<'
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:31:7: ( ';' )
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:31:9: ';'
             {
-            match("map<"); 
-
+            match(';'); 
 
             }
 
@@ -497,10 +499,11 @@ public class GuiceyDataLexer extends Lexer {
         try {
             int _type = T__36;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:32:7: ( '>' )
-            // GuiceyData.g:32:9: '>'
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:32:7: ( 'map<' )
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:32:9: 'map<'
             {
-            match('>'); 
+            match("map<"); 
+
 
             }
 
@@ -517,11 +520,10 @@ public class GuiceyDataLexer extends Lexer {
         try {
             int _type = T__37;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:33:7: ( 'set<' )
-            // GuiceyData.g:33:9: 'set<'
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:33:7: ( '>' )
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:33:9: '>'
             {
-            match("set<"); 
-
+            match('>'); 
 
             }
 
@@ -538,10 +540,10 @@ public class GuiceyDataLexer extends Lexer {
         try {
             int _type = T__38;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:34:7: ( 'list<' )
-            // GuiceyData.g:34:9: 'list<'
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:34:7: ( 'set<' )
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:34:9: 'set<'
             {
-            match("list<"); 
+            match("set<"); 
 
 
             }
@@ -554,30 +556,73 @@ public class GuiceyDataLexer extends Lexer {
     }
     // $ANTLR end "T__38"
 
+    // $ANTLR start "T__39"
+    public final void mT__39() throws RecognitionException {
+        try {
+            int _type = T__39;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:35:7: ( 'list<' )
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:35:9: 'list<'
+            {
+            match("list<"); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__39"
+
+    // $ANTLR start "T__40"
+    public final void mT__40() throws RecognitionException {
+        try {
+            int _type = T__40;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:36:7: ( '<' )
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:36:9: '<'
+            {
+            match('<'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__40"
+
     // $ANTLR start "TYPE"
     public final void mTYPE() throws RecognitionException {
         try {
             int _type = TYPE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:98:6: ( ID ( '.' ID )+ )
-            // GuiceyData.g:98:8: ID ( '.' ID )+
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:100:6: ( ID ( '.' ID )+ )
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:100:8: ID ( '.' ID )+
             {
             mID(); 
-            // GuiceyData.g:98:11: ( '.' ID )+
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:100:11: ( '.' ID )+
             int cnt1=0;
             loop1:
             do {
                 int alt1=2;
-                int LA1_0 = input.LA(1);
-
-                if ( (LA1_0=='.') ) {
+                switch ( input.LA(1) ) {
+                case '.':
+                    {
                     alt1=1;
-                }
+                    }
+                    break;
 
+                }
 
                 switch (alt1) {
             	case 1 :
-            	    // GuiceyData.g:98:12: '.' ID
+            	    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:100:12: '.' ID
             	    {
             	    match('.'); 
             	    mID(); 
@@ -610,8 +655,8 @@ public class GuiceyDataLexer extends Lexer {
         try {
             int _type = ID;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:101:5: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
-            // GuiceyData.g:101:7: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:103:5: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:103:7: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||(input.LA(1)>='a' && input.LA(1)<='z') ) {
                 input.consume();
@@ -622,20 +667,84 @@ public class GuiceyDataLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // GuiceyData.g:101:27: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:103:27: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
             loop2:
             do {
                 int alt2=2;
-                int LA2_0 = input.LA(1);
-
-                if ( ((LA2_0>='0' && LA2_0<='9')||(LA2_0>='A' && LA2_0<='Z')||LA2_0=='_'||(LA2_0>='a' && LA2_0<='z')) ) {
+                switch ( input.LA(1) ) {
+                case '0':
+                case '1':
+                case '2':
+                case '3':
+                case '4':
+                case '5':
+                case '6':
+                case '7':
+                case '8':
+                case '9':
+                case 'A':
+                case 'B':
+                case 'C':
+                case 'D':
+                case 'E':
+                case 'F':
+                case 'G':
+                case 'H':
+                case 'I':
+                case 'J':
+                case 'K':
+                case 'L':
+                case 'M':
+                case 'N':
+                case 'O':
+                case 'P':
+                case 'Q':
+                case 'R':
+                case 'S':
+                case 'T':
+                case 'U':
+                case 'V':
+                case 'W':
+                case 'X':
+                case 'Y':
+                case 'Z':
+                case '_':
+                case 'a':
+                case 'b':
+                case 'c':
+                case 'd':
+                case 'e':
+                case 'f':
+                case 'g':
+                case 'h':
+                case 'i':
+                case 'j':
+                case 'k':
+                case 'l':
+                case 'm':
+                case 'n':
+                case 'o':
+                case 'p':
+                case 'q':
+                case 'r':
+                case 's':
+                case 't':
+                case 'u':
+                case 'v':
+                case 'w':
+                case 'x':
+                case 'y':
+                case 'z':
+                    {
                     alt2=1;
-                }
+                    }
+                    break;
 
+                }
 
                 switch (alt2) {
             	case 1 :
-            	    // GuiceyData.g:
+            	    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:
             	    {
             	    if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
             	        input.consume();
@@ -671,8 +780,8 @@ public class GuiceyDataLexer extends Lexer {
         try {
             int _type = WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:104:5: ( ( ' ' | '\\t' | '\\r' | '\\n' ) )
-            // GuiceyData.g:104:9: ( ' ' | '\\t' | '\\r' | '\\n' )
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:106:5: ( ( ' ' | '\\t' | '\\r' | '\\n' ) )
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:106:9: ( ' ' | '\\t' | '\\r' | '\\n' )
             {
             if ( (input.LA(1)>='\t' && input.LA(1)<='\n')||input.LA(1)=='\r'||input.LA(1)==' ' ) {
                 input.consume();
@@ -700,24 +809,35 @@ public class GuiceyDataLexer extends Lexer {
         try {
             int _type = INT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:111:5: ( ( '0' .. '9' )+ )
-            // GuiceyData.g:111:7: ( '0' .. '9' )+
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:113:5: ( ( '0' .. '9' )+ )
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:113:7: ( '0' .. '9' )+
             {
-            // GuiceyData.g:111:7: ( '0' .. '9' )+
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:113:7: ( '0' .. '9' )+
             int cnt3=0;
             loop3:
             do {
                 int alt3=2;
-                int LA3_0 = input.LA(1);
-
-                if ( ((LA3_0>='0' && LA3_0<='9')) ) {
+                switch ( input.LA(1) ) {
+                case '0':
+                case '1':
+                case '2':
+                case '3':
+                case '4':
+                case '5':
+                case '6':
+                case '7':
+                case '8':
+                case '9':
+                    {
                     alt3=1;
-                }
+                    }
+                    break;
 
+                }
 
                 switch (alt3) {
             	case 1 :
-            	    // GuiceyData.g:111:7: '0' .. '9'
+            	    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:113:7: '0' .. '9'
             	    {
             	    matchRange('0','9'); 
 
@@ -749,28 +869,39 @@ public class GuiceyDataLexer extends Lexer {
         try {
             int _type = FLOAT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:115:5: ( ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )? | '.' ( '0' .. '9' )+ ( EXPONENT )? | ( '0' .. '9' )+ EXPONENT )
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:117:5: ( ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )? | '.' ( '0' .. '9' )+ ( EXPONENT )? | ( '0' .. '9' )+ EXPONENT )
             int alt10=3;
             alt10 = dfa10.predict(input);
             switch (alt10) {
                 case 1 :
-                    // GuiceyData.g:115:9: ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )?
+                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:117:9: ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )?
                     {
-                    // GuiceyData.g:115:9: ( '0' .. '9' )+
+                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:117:9: ( '0' .. '9' )+
                     int cnt4=0;
                     loop4:
                     do {
                         int alt4=2;
-                        int LA4_0 = input.LA(1);
-
-                        if ( ((LA4_0>='0' && LA4_0<='9')) ) {
+                        switch ( input.LA(1) ) {
+                        case '0':
+                        case '1':
+                        case '2':
+                        case '3':
+                        case '4':
+                        case '5':
+                        case '6':
+                        case '7':
+                        case '8':
+                        case '9':
+                            {
                             alt4=1;
-                        }
+                            }
+                            break;
 
+                        }
 
                         switch (alt4) {
                     	case 1 :
-                    	    // GuiceyData.g:115:10: '0' .. '9'
+                    	    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:117:10: '0' .. '9'
                     	    {
                     	    matchRange('0','9'); 
 
@@ -787,20 +918,31 @@ public class GuiceyDataLexer extends Lexer {
                     } while (true);
 
                     match('.'); 
-                    // GuiceyData.g:115:25: ( '0' .. '9' )*
+                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:117:25: ( '0' .. '9' )*
                     loop5:
                     do {
                         int alt5=2;
-                        int LA5_0 = input.LA(1);
-
-                        if ( ((LA5_0>='0' && LA5_0<='9')) ) {
+                        switch ( input.LA(1) ) {
+                        case '0':
+                        case '1':
+                        case '2':
+                        case '3':
+                        case '4':
+                        case '5':
+                        case '6':
+                        case '7':
+                        case '8':
+                        case '9':
+                            {
                             alt5=1;
-                        }
+                            }
+                            break;
 
+                        }
 
                         switch (alt5) {
                     	case 1 :
-                    	    // GuiceyData.g:115:26: '0' .. '9'
+                    	    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:117:26: '0' .. '9'
                     	    {
                     	    matchRange('0','9'); 
 
@@ -812,16 +954,20 @@ public class GuiceyDataLexer extends Lexer {
                         }
                     } while (true);
 
-                    // GuiceyData.g:115:37: ( EXPONENT )?
+                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:117:37: ( EXPONENT )?
                     int alt6=2;
-                    int LA6_0 = input.LA(1);
-
-                    if ( (LA6_0=='E'||LA6_0=='e') ) {
-                        alt6=1;
+                    switch ( input.LA(1) ) {
+                        case 'E':
+                        case 'e':
+                            {
+                            alt6=1;
+                            }
+                            break;
                     }
+
                     switch (alt6) {
                         case 1 :
-                            // GuiceyData.g:115:37: EXPONENT
+                            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:117:37: EXPONENT
                             {
                             mEXPONENT(); 
 
@@ -834,24 +980,35 @@ public class GuiceyDataLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // GuiceyData.g:116:9: '.' ( '0' .. '9' )+ ( EXPONENT )?
+                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:118:9: '.' ( '0' .. '9' )+ ( EXPONENT )?
                     {
                     match('.'); 
-                    // GuiceyData.g:116:13: ( '0' .. '9' )+
+                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:118:13: ( '0' .. '9' )+
                     int cnt7=0;
                     loop7:
                     do {
                         int alt7=2;
-                        int LA7_0 = input.LA(1);
-
-                        if ( ((LA7_0>='0' && LA7_0<='9')) ) {
+                        switch ( input.LA(1) ) {
+                        case '0':
+                        case '1':
+                        case '2':
+                        case '3':
+                        case '4':
+                        case '5':
+                        case '6':
+                        case '7':
+                        case '8':
+                        case '9':
+                            {
                             alt7=1;
-                        }
+                            }
+                            break;
 
+                        }
 
                         switch (alt7) {
                     	case 1 :
-                    	    // GuiceyData.g:116:14: '0' .. '9'
+                    	    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:118:14: '0' .. '9'
                     	    {
                     	    matchRange('0','9'); 
 
@@ -867,16 +1024,20 @@ public class GuiceyDataLexer extends Lexer {
                         cnt7++;
                     } while (true);
 
-                    // GuiceyData.g:116:25: ( EXPONENT )?
+                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:118:25: ( EXPONENT )?
                     int alt8=2;
-                    int LA8_0 = input.LA(1);
-
-                    if ( (LA8_0=='E'||LA8_0=='e') ) {
-                        alt8=1;
+                    switch ( input.LA(1) ) {
+                        case 'E':
+                        case 'e':
+                            {
+                            alt8=1;
+                            }
+                            break;
                     }
+
                     switch (alt8) {
                         case 1 :
-                            // GuiceyData.g:116:25: EXPONENT
+                            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:118:25: EXPONENT
                             {
                             mEXPONENT(); 
 
@@ -889,23 +1050,34 @@ public class GuiceyDataLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // GuiceyData.g:117:9: ( '0' .. '9' )+ EXPONENT
+                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:119:9: ( '0' .. '9' )+ EXPONENT
                     {
-                    // GuiceyData.g:117:9: ( '0' .. '9' )+
+                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:119:9: ( '0' .. '9' )+
                     int cnt9=0;
                     loop9:
                     do {
                         int alt9=2;
-                        int LA9_0 = input.LA(1);
-
-                        if ( ((LA9_0>='0' && LA9_0<='9')) ) {
+                        switch ( input.LA(1) ) {
+                        case '0':
+                        case '1':
+                        case '2':
+                        case '3':
+                        case '4':
+                        case '5':
+                        case '6':
+                        case '7':
+                        case '8':
+                        case '9':
+                            {
                             alt9=1;
-                        }
+                            }
+                            break;
 
+                        }
 
                         switch (alt9) {
                     	case 1 :
-                    	    // GuiceyData.g:117:10: '0' .. '9'
+                    	    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:119:10: '0' .. '9'
                     	    {
                     	    matchRange('0','9'); 
 
@@ -940,11 +1112,11 @@ public class GuiceyDataLexer extends Lexer {
         try {
             int _type = STRING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:126:5: ( '\\'' ( ESC_SEQ | ~ ( '\\\\' | '\\'' ) )* '\\'' )
-            // GuiceyData.g:126:8: '\\'' ( ESC_SEQ | ~ ( '\\\\' | '\\'' ) )* '\\''
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:128:5: ( '\\'' ( ESC_SEQ | ~ ( '\\\\' | '\\'' ) )* '\\'' )
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:128:8: '\\'' ( ESC_SEQ | ~ ( '\\\\' | '\\'' ) )* '\\''
             {
             match('\''); 
-            // GuiceyData.g:126:13: ( ESC_SEQ | ~ ( '\\\\' | '\\'' ) )*
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:128:13: ( ESC_SEQ | ~ ( '\\\\' | '\\'' ) )*
             loop11:
             do {
                 int alt11=3;
@@ -960,14 +1132,14 @@ public class GuiceyDataLexer extends Lexer {
 
                 switch (alt11) {
             	case 1 :
-            	    // GuiceyData.g:126:15: ESC_SEQ
+            	    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:128:15: ESC_SEQ
             	    {
             	    mESC_SEQ(); 
 
             	    }
             	    break;
             	case 2 :
-            	    // GuiceyData.g:126:25: ~ ( '\\\\' | '\\'' )
+            	    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:128:25: ~ ( '\\\\' | '\\'' )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -1002,8 +1174,8 @@ public class GuiceyDataLexer extends Lexer {
     // $ANTLR start "EXPONENT"
     public final void mEXPONENT() throws RecognitionException {
         try {
-            // GuiceyData.g:130:10: ( ( 'e' | 'E' ) ( '+' | '-' )? ( '0' .. '9' )+ )
-            // GuiceyData.g:130:12: ( 'e' | 'E' ) ( '+' | '-' )? ( '0' .. '9' )+
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:132:10: ( ( 'e' | 'E' ) ( '+' | '-' )? ( '0' .. '9' )+ )
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:132:12: ( 'e' | 'E' ) ( '+' | '-' )? ( '0' .. '9' )+
             {
             if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                 input.consume();
@@ -1014,16 +1186,20 @@ public class GuiceyDataLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // GuiceyData.g:130:22: ( '+' | '-' )?
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:132:22: ( '+' | '-' )?
             int alt12=2;
-            int LA12_0 = input.LA(1);
-
-            if ( (LA12_0=='+'||LA12_0=='-') ) {
-                alt12=1;
+            switch ( input.LA(1) ) {
+                case '+':
+                case '-':
+                    {
+                    alt12=1;
+                    }
+                    break;
             }
+
             switch (alt12) {
                 case 1 :
-                    // GuiceyData.g:
+                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:
                     {
                     if ( input.LA(1)=='+'||input.LA(1)=='-' ) {
                         input.consume();
@@ -1040,21 +1216,32 @@ public class GuiceyDataLexer extends Lexer {
 
             }
 
-            // GuiceyData.g:130:33: ( '0' .. '9' )+
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:132:33: ( '0' .. '9' )+
             int cnt13=0;
             loop13:
             do {
                 int alt13=2;
-                int LA13_0 = input.LA(1);
-
-                if ( ((LA13_0>='0' && LA13_0<='9')) ) {
+                switch ( input.LA(1) ) {
+                case '0':
+                case '1':
+                case '2':
+                case '3':
+                case '4':
+                case '5':
+                case '6':
+                case '7':
+                case '8':
+                case '9':
+                    {
                     alt13=1;
-                }
+                    }
+                    break;
 
+                }
 
                 switch (alt13) {
             	case 1 :
-            	    // GuiceyData.g:130:34: '0' .. '9'
+            	    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:132:34: '0' .. '9'
             	    {
             	    matchRange('0','9'); 
 
@@ -1082,8 +1269,8 @@ public class GuiceyDataLexer extends Lexer {
     // $ANTLR start "HEX_DIGIT"
     public final void mHEX_DIGIT() throws RecognitionException {
         try {
-            // GuiceyData.g:133:11: ( ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) )
-            // GuiceyData.g:133:13: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:135:11: ( ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) )
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:135:13: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )
             {
             if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='F')||(input.LA(1)>='a' && input.LA(1)<='f') ) {
                 input.consume();
@@ -1106,11 +1293,11 @@ public class GuiceyDataLexer extends Lexer {
     // $ANTLR start "ESC_SEQ"
     public final void mESC_SEQ() throws RecognitionException {
         try {
-            // GuiceyData.g:137:5: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' ) | UNICODE_ESC | OCTAL_ESC )
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:139:5: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' ) | UNICODE_ESC | OCTAL_ESC )
             int alt14=3;
-            int LA14_0 = input.LA(1);
-
-            if ( (LA14_0=='\\') ) {
+            switch ( input.LA(1) ) {
+            case '\\':
+                {
                 switch ( input.LA(2) ) {
                 case '\"':
                 case '\'':
@@ -1148,16 +1335,18 @@ public class GuiceyDataLexer extends Lexer {
                     throw nvae;
                 }
 
-            }
-            else {
+                }
+                break;
+            default:
                 NoViableAltException nvae =
                     new NoViableAltException("", 14, 0, input);
 
                 throw nvae;
             }
+
             switch (alt14) {
                 case 1 :
-                    // GuiceyData.g:137:9: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' )
+                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:139:9: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' )
                     {
                     match('\\'); 
                     if ( input.LA(1)=='\"'||input.LA(1)=='\''||input.LA(1)=='\\'||input.LA(1)=='b'||input.LA(1)=='f'||input.LA(1)=='n'||input.LA(1)=='r'||input.LA(1)=='t' ) {
@@ -1173,14 +1362,14 @@ public class GuiceyDataLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // GuiceyData.g:138:9: UNICODE_ESC
+                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:140:9: UNICODE_ESC
                     {
                     mUNICODE_ESC(); 
 
                     }
                     break;
                 case 3 :
-                    // GuiceyData.g:139:9: OCTAL_ESC
+                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:141:9: OCTAL_ESC
                     {
                     mOCTAL_ESC(); 
 
@@ -1197,71 +1386,110 @@ public class GuiceyDataLexer extends Lexer {
     // $ANTLR start "OCTAL_ESC"
     public final void mOCTAL_ESC() throws RecognitionException {
         try {
-            // GuiceyData.g:144:5: ( '\\\\' ( '0' .. '3' ) ( '0' .. '7' ) ( '0' .. '7' ) | '\\\\' ( '0' .. '7' ) ( '0' .. '7' ) | '\\\\' ( '0' .. '7' ) )
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:146:5: ( '\\\\' ( '0' .. '3' ) ( '0' .. '7' ) ( '0' .. '7' ) | '\\\\' ( '0' .. '7' ) ( '0' .. '7' ) | '\\\\' ( '0' .. '7' ) )
             int alt15=3;
-            int LA15_0 = input.LA(1);
-
-            if ( (LA15_0=='\\') ) {
-                int LA15_1 = input.LA(2);
-
-                if ( ((LA15_1>='0' && LA15_1<='3')) ) {
-                    int LA15_2 = input.LA(3);
-
-                    if ( ((LA15_2>='0' && LA15_2<='7')) ) {
-                        int LA15_5 = input.LA(4);
-
-                        if ( ((LA15_5>='0' && LA15_5<='7')) ) {
+            switch ( input.LA(1) ) {
+            case '\\':
+                {
+                switch ( input.LA(2) ) {
+                case '0':
+                case '1':
+                case '2':
+                case '3':
+                    {
+                    switch ( input.LA(3) ) {
+                    case '0':
+                    case '1':
+                    case '2':
+                    case '3':
+                    case '4':
+                    case '5':
+                    case '6':
+                    case '7':
+                        {
+                        switch ( input.LA(4) ) {
+                        case '0':
+                        case '1':
+                        case '2':
+                        case '3':
+                        case '4':
+                        case '5':
+                        case '6':
+                        case '7':
+                            {
                             alt15=1;
-                        }
-                        else {
+                            }
+                            break;
+                        default:
                             alt15=2;}
-                    }
-                    else {
-                        alt15=3;}
-                }
-                else if ( ((LA15_1>='4' && LA15_1<='7')) ) {
-                    int LA15_3 = input.LA(3);
 
-                    if ( ((LA15_3>='0' && LA15_3<='7')) ) {
-                        alt15=2;
-                    }
-                    else {
+                        }
+                        break;
+                    default:
                         alt15=3;}
-                }
-                else {
+
+                    }
+                    break;
+                case '4':
+                case '5':
+                case '6':
+                case '7':
+                    {
+                    switch ( input.LA(3) ) {
+                    case '0':
+                    case '1':
+                    case '2':
+                    case '3':
+                    case '4':
+                    case '5':
+                    case '6':
+                    case '7':
+                        {
+                        alt15=2;
+                        }
+                        break;
+                    default:
+                        alt15=3;}
+
+                    }
+                    break;
+                default:
                     NoViableAltException nvae =
                         new NoViableAltException("", 15, 1, input);
 
                     throw nvae;
                 }
-            }
-            else {
+
+                }
+                break;
+            default:
                 NoViableAltException nvae =
                     new NoViableAltException("", 15, 0, input);
 
                 throw nvae;
             }
+
             switch (alt15) {
                 case 1 :
-                    // GuiceyData.g:144:9: '\\\\' ( '0' .. '3' ) ( '0' .. '7' ) ( '0' .. '7' )
+                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:146:9: '\\\\' ( '0' .. '3' ) ( '0' .. '7' ) ( '0' .. '7' )
                     {
                     match('\\'); 
-                    // GuiceyData.g:144:14: ( '0' .. '3' )
-                    // GuiceyData.g:144:15: '0' .. '3'
+                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:146:14: ( '0' .. '3' )
+                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:146:15: '0' .. '3'
                     {
                     matchRange('0','3'); 
 
                     }
 
-                    // GuiceyData.g:144:25: ( '0' .. '7' )
-                    // GuiceyData.g:144:26: '0' .. '7'
+                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:146:25: ( '0' .. '7' )
+                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:146:26: '0' .. '7'
                     {
                     matchRange('0','7'); 
 
                     }
 
-                    // GuiceyData.g:144:36: ( '0' .. '7' )
-                    // GuiceyData.g:144:37: '0' .. '7'
+                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:146:36: ( '0' .. '7' )
+                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:146:37: '0' .. '7'
                     {
                     matchRange('0','7'); 
 
@@ -1271,18 +1499,18 @@ public class GuiceyDataLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // GuiceyData.g:145:9: '\\\\' ( '0' .. '7' ) ( '0' .. '7' )
+                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:147:9: '\\\\' ( '0' .. '7' ) ( '0' .. '7' )
                     {
                     match('\\'); 
-                    // GuiceyData.g:145:14: ( '0' .. '7' )
-                    // GuiceyData.g:145:15: '0' .. '7'
+                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:147:14: ( '0' .. '7' )
+                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:147:15: '0' .. '7'
                     {
                     matchRange('0','7'); 
 
                     }
 
-                    // GuiceyData.g:145:25: ( '0' .. '7' )
-                    // GuiceyData.g:145:26: '0' .. '7'
+                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:147:25: ( '0' .. '7' )
+                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:147:26: '0' .. '7'
                     {
                     matchRange('0','7'); 
 
@@ -1292,11 +1520,11 @@ public class GuiceyDataLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // GuiceyData.g:146:9: '\\\\' ( '0' .. '7' )
+                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:148:9: '\\\\' ( '0' .. '7' )
                     {
                     match('\\'); 
-                    // GuiceyData.g:146:14: ( '0' .. '7' )
-                    // GuiceyData.g:146:15: '0' .. '7'
+                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:148:14: ( '0' .. '7' )
+                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:148:15: '0' .. '7'
                     {
                     matchRange('0','7'); 
 
@@ -1316,8 +1544,8 @@ public class GuiceyDataLexer extends Lexer {
     // $ANTLR start "UNICODE_ESC"
     public final void mUNICODE_ESC() throws RecognitionException {
         try {
-            // GuiceyData.g:151:5: ( '\\\\' 'u' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT )
-            // GuiceyData.g:151:9: '\\\\' 'u' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:153:5: ( '\\\\' 'u' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT )
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:153:9: '\\\\' 'u' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT
             {
             match('\\'); 
             match('u'); 
@@ -1335,215 +1563,229 @@ public class GuiceyDataLexer extends Lexer {
     // $ANTLR end "UNICODE_ESC"
 
     public void mTokens() throws RecognitionException {
-        // GuiceyData.g:1:8: ( DATA | TYPE_MAP | TYPE_SET | TYPE_LIST | TYPE_PRIMITIVE | PROPERTY | OPTION | PAIR | ENUM | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | TYPE | ID | WS | INT | FLOAT | STRING )
-        int alt16=30;
+        // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:1:8: ( DATA | TYPE_MAP | TYPE_SET | TYPE_LIST | PARAMETERIZED_TYPE | TYPE_PRIMITIVE | PROPERTY | OPTION | PAIR | ENUM | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | TYPE | ID | WS | INT | FLOAT | STRING )
+        int alt16=32;
         alt16 = dfa16.predict(input);
         switch (alt16) {
             case 1 :
-                // GuiceyData.g:1:10: DATA
+                // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:1:10: DATA
                 {
                 mDATA(); 
 
                 }
                 break;
             case 2 :
-                // GuiceyData.g:1:15: TYPE_MAP
+                // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:1:15: TYPE_MAP
                 {
                 mTYPE_MAP(); 
 
                 }
                 break;
             case 3 :
-                // GuiceyData.g:1:24: TYPE_SET
+                // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:1:24: TYPE_SET
                 {
                 mTYPE_SET(); 
 
                 }
                 break;
             case 4 :
-                // GuiceyData.g:1:33: TYPE_LIST
+                // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:1:33: TYPE_LIST
                 {
                 mTYPE_LIST(); 
 
                 }
                 break;
             case 5 :
-                // GuiceyData.g:1:43: TYPE_PRIMITIVE
+                // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:1:43: PARAMETERIZED_TYPE
+                {
+                mPARAMETERIZED_TYPE(); 
+
+                }
+                break;
+            case 6 :
+                // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:1:62: TYPE_PRIMITIVE
                 {
                 mTYPE_PRIMITIVE(); 
 
                 }
                 break;
-            case 6 :
-                // GuiceyData.g:1:58: PROPERTY
+            case 7 :
+                // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:1:77: PROPERTY
                 {
                 mPROPERTY(); 
 
                 }
                 break;
-            case 7 :
-                // GuiceyData.g:1:67: OPTION
+            case 8 :
+                // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:1:86: OPTION
                 {
                 mOPTION(); 
 
                 }
                 break;
-            case 8 :
-                // GuiceyData.g:1:74: PAIR
+            case 9 :
+                // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:1:93: PAIR
                 {
                 mPAIR(); 
 
                 }
                 break;
-            case 9 :
-                // GuiceyData.g:1:79: ENUM
+            case 10 :
+                // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:1:98: ENUM
                 {
                 mENUM(); 
 
                 }
                 break;
-            case 10 :
-                // GuiceyData.g:1:84: T__24
-                {
-                mT__24(); 
-
-                }
-                break;
             case 11 :
-                // GuiceyData.g:1:90: T__25
+                // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:1:103: T__25
                 {
                 mT__25(); 
 
                 }
                 break;
             case 12 :
-                // GuiceyData.g:1:96: T__26
+                // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:1:109: T__26
                 {
                 mT__26(); 
 
                 }
                 break;
             case 13 :
-                // GuiceyData.g:1:102: T__27
+                // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:1:115: T__27
                 {
                 mT__27(); 
 
                 }
                 break;
             case 14 :
-                // GuiceyData.g:1:108: T__28
+                // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:1:121: T__28
                 {
                 mT__28(); 
 
                 }
                 break;
             case 15 :
-                // GuiceyData.g:1:114: T__29
+                // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:1:127: T__29
                 {
                 mT__29(); 
 
                 }
                 break;
             case 16 :
-                // GuiceyData.g:1:120: T__30
+                // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:1:133: T__30
                 {
                 mT__30(); 
 
                 }
                 break;
             case 17 :
-                // GuiceyData.g:1:126: T__31
+                // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:1:139: T__31
                 {
                 mT__31(); 
 
                 }
                 break;
             case 18 :
-                // GuiceyData.g:1:132: T__32
+                // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:1:145: T__32
                 {
                 mT__32(); 
 
                 }
                 break;
             case 19 :
-                // GuiceyData.g:1:138: T__33
+                // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:1:151: T__33
                 {
                 mT__33(); 
 
                 }
                 break;
             case 20 :
-                // GuiceyData.g:1:144: T__34
+                // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:1:157: T__34
                 {
                 mT__34(); 
 
                 }
                 break;
             case 21 :
-                // GuiceyData.g:1:150: T__35
+                // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:1:163: T__35
                 {
                 mT__35(); 
 
                 }
                 break;
             case 22 :
-                // GuiceyData.g:1:156: T__36
+                // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:1:169: T__36
                 {
                 mT__36(); 
 
                 }
                 break;
             case 23 :
-                // GuiceyData.g:1:162: T__37
+                // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:1:175: T__37
                 {
                 mT__37(); 
 
                 }
                 break;
             case 24 :
-                // GuiceyData.g:1:168: T__38
+                // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:1:181: T__38
                 {
                 mT__38(); 
 
                 }
                 break;
             case 25 :
-                // GuiceyData.g:1:174: TYPE
+                // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:1:187: T__39
+                {
+                mT__39(); 
+
+                }
+                break;
+            case 26 :
+                // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:1:193: T__40
+                {
+                mT__40(); 
+
+                }
+                break;
+            case 27 :
+                // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:1:199: TYPE
                 {
                 mTYPE(); 
 
                 }
                 break;
-            case 26 :
-                // GuiceyData.g:1:179: ID
+            case 28 :
+                // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:1:204: ID
                 {
                 mID(); 
 
                 }
                 break;
-            case 27 :
-                // GuiceyData.g:1:182: WS
+            case 29 :
+                // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:1:207: WS
                 {
                 mWS(); 
 
                 }
                 break;
-            case 28 :
-                // GuiceyData.g:1:185: INT
+            case 30 :
+                // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:1:210: INT
                 {
                 mINT(); 
 
                 }
                 break;
-            case 29 :
-                // GuiceyData.g:1:189: FLOAT
+            case 31 :
+                // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:1:214: FLOAT
                 {
                 mFLOAT(); 
 
                 }
                 break;
-            case 30 :
-                // GuiceyData.g:1:195: STRING
+            case 32 :
+                // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:1:220: STRING
                 {
                 mSTRING(); 
 
@@ -1566,12 +1808,12 @@ public class GuiceyDataLexer extends Lexer {
     static final String DFA10_maxS =
         "\1\71\1\145\3\uffff";
     static final String DFA10_acceptS =
-        "\2\uffff\1\2\1\3\1\1";
+        "\2\uffff\1\2\1\1\1\3";
     static final String DFA10_specialS =
         "\5\uffff}>";
     static final String[] DFA10_transitionS = {
             "\1\2\1\uffff\12\1",
-            "\1\4\1\uffff\12\1\13\uffff\1\3\37\uffff\1\3",
+            "\1\3\1\uffff\12\1\13\uffff\1\4\37\uffff\1\4",
             "",
             "",
             ""
@@ -1607,51 +1849,53 @@ public class GuiceyDataLexer extends Lexer {
             this.transition = DFA10_transition;
         }
         public String getDescription() {
-            return "114:1: FLOAT : ( ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )? | '.' ( '0' .. '9' )+ ( EXPONENT )? | ( '0' .. '9' )+ EXPONENT );";
+            return "116:1: FLOAT : ( ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )? | '.' ( '0' .. '9' )+ ( EXPONENT )? | ( '0' .. '9' )+ EXPONENT );";
         }
     }
     static final String DFA16_eotS =
-        "\1\uffff\7\31\1\43\11\uffff\1\31\1\uffff\1\44\2\uffff\2\31\2\uffff"+
-        "\7\31\3\uffff\1\31\1\60\1\62\6\31\1\72\4\uffff\1\74\2\31\1\77\1"+
-        "\31\1\101\4\uffff\2\31\1\uffff\1\31\1\uffff\2\31\1\107\2\31\1\uffff"+
-        "\1\31\1\113\1\114\2\uffff";
+        "\1\uffff\7\32\1\44\12\uffff\1\32\1\uffff\1\45\2\uffff\2\32\2\uffff"+
+        "\7\32\3\uffff\1\32\1\62\1\64\7\32\1\75\4\uffff\1\77\1\32\1\101\3"+
+        "\32\1\105\4\uffff\1\32\1\uffff\3\32\1\uffff\3\32\1\115\3\32\1\uffff"+
+        "\2\32\1\123\1\32\1\125\1\uffff\1\32\1\uffff\3\32\1\uffff";
     static final String DFA16_eofS =
-        "\115\uffff";
+        "\132\uffff";
     static final String DFA16_minS =
-        "\1\11\7\56\1\175\11\uffff\1\56\1\uffff\1\56\2\uffff\2\56\2\uffff"+
-        "\7\56\3\uffff\12\56\4\uffff\6\56\4\uffff\2\56\1\uffff\1\56\1\uffff"+
-        "\5\56\1\uffff\3\56\2\uffff";
+        "\1\11\7\56\1\175\12\uffff\1\56\1\uffff\1\56\2\uffff\2\56\2\uffff"+
+        "\7\56\3\uffff\13\56\4\uffff\7\56\4\uffff\1\56\1\uffff\3\56\1\uffff"+
+        "\7\56\1\uffff\5\56\1\uffff\1\56\1\uffff\2\56\1\55\1\uffff";
     static final String DFA16_maxS =
-        "\1\175\7\172\1\175\11\uffff\1\172\1\uffff\1\145\2\uffff\2\172\2"+
-        "\uffff\7\172\3\uffff\12\172\4\uffff\6\172\4\uffff\2\172\1\uffff"+
-        "\1\172\1\uffff\5\172\1\uffff\3\172\2\uffff";
+        "\1\175\7\172\1\175\12\uffff\1\172\1\uffff\1\145\2\uffff\2\172\2"+
+        "\uffff\7\172\3\uffff\13\172\4\uffff\7\172\4\uffff\1\172\1\uffff"+
+        "\3\172\1\uffff\7\172\1\uffff\5\172\1\uffff\1\172\1\uffff\3\172\1"+
+        "\uffff";
     static final String DFA16_acceptS =
-        "\11\uffff\1\13\1\15\1\16\1\17\1\20\1\21\1\22\1\24\1\26\1\uffff\1"+
-        "\33\1\uffff\1\35\1\36\2\uffff\1\32\1\31\7\uffff\1\14\1\12\1\34\12"+
-        "\uffff\1\25\1\2\1\27\1\3\6\uffff\1\23\1\1\1\30\1\4\2\uffff\1\10"+
-        "\1\uffff\1\11\5\uffff\1\7\3\uffff\1\6\1\5";
+        "\11\uffff\1\14\1\16\1\17\1\20\1\21\1\22\1\23\1\25\1\27\1\32\1\uffff"+
+        "\1\35\1\uffff\1\37\1\40\2\uffff\1\34\1\33\7\uffff\1\15\1\13\1\36"+
+        "\13\uffff\1\26\1\2\1\30\1\3\7\uffff\1\24\1\1\1\31\1\4\1\uffff\1"+
+        "\11\3\uffff\1\12\7\uffff\1\10\5\uffff\1\7\1\uffff\1\6\3\uffff\1"+
+        "\5";
     static final String DFA16_specialS =
-        "\115\uffff}>";
+        "\132\uffff}>";
     static final String[] DFA16_transitionS = {
-            "\2\23\2\uffff\1\23\22\uffff\1\23\6\uffff\1\26\1\15\1\16\2\uffff"+
-            "\1\12\1\uffff\1\25\1\uffff\12\24\1\uffff\1\20\1\uffff\1\17\1"+
-            "\21\2\uffff\32\22\1\13\1\uffff\1\14\3\uffff\3\22\1\1\1\7\6\22"+
-            "\1\4\1\2\1\22\1\6\1\5\2\22\1\3\7\22\1\10\1\uffff\1\11",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\1\27"+
-            "\31\30",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\1\33"+
-            "\31\30",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\4\30"+
-            "\1\34\25\30",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\10\30"+
-            "\1\35\21\30",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\1\37"+
-            "\20\30\1\36\10\30",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\17\30"+
-            "\1\40\12\30",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\15\30"+
-            "\1\41\14\30",
-            "\1\42",
+            "\2\24\2\uffff\1\24\22\uffff\1\24\6\uffff\1\27\1\15\1\16\2\uffff"+
+            "\1\12\1\uffff\1\26\1\uffff\12\25\1\uffff\1\20\1\22\1\17\1\21"+
+            "\2\uffff\32\23\1\13\1\uffff\1\14\3\uffff\3\23\1\1\1\7\6\23\1"+
+            "\4\1\2\1\23\1\6\1\5\2\23\1\3\7\23\1\10\1\uffff\1\11",
+            "\1\33\1\uffff\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\1\30"+
+            "\31\31",
+            "\1\33\1\uffff\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\1\34"+
+            "\31\31",
+            "\1\33\1\uffff\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\4\31"+
+            "\1\35\25\31",
+            "\1\33\1\uffff\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\10"+
+            "\31\1\36\21\31",
+            "\1\33\1\uffff\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\1\37"+
+            "\20\31\1\40\10\31",
+            "\1\33\1\uffff\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\17"+
+            "\31\1\41\12\31",
+            "\1\33\1\uffff\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\15"+
+            "\31\1\42\14\31",
+            "\1\43",
             "",
             "",
             "",
@@ -1661,94 +1905,125 @@ public class GuiceyDataLexer extends Lexer {
             "",
             "",
             "",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
             "",
-            "\1\25\1\uffff\12\24\13\uffff\1\25\37\uffff\1\25",
+            "\1\33\1\uffff\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32"+
+            "\31",
             "",
-            "",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\23\30"+
-            "\1\45\6\30",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
+            "\1\26\1\uffff\12\25\13\uffff\1\26\37\uffff\1\26",
             "",
             "",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\17\30"+
-            "\1\46\12\30",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\23\30"+
-            "\1\47\6\30",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\22\30"+
-            "\1\50\7\30",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\10\30"+
-            "\1\51\5\30\1\52\13\30",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\10\30"+
-            "\1\53\21\30",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\23\30"+
-            "\1\54\6\30",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\24\30"+
-            "\1\55\5\30",
+            "\1\33\1\uffff\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\23"+
+            "\31\1\46\6\31",
+            "\1\33\1\uffff\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32"+
+            "\31",
             "",
             "",
-            "",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\1\56"+
-            "\31\30",
-            "\1\32\1\uffff\12\30\2\uffff\1\57\4\uffff\32\30\4\uffff\1\30"+
-            "\1\uffff\32\30",
-            "\1\32\1\uffff\12\30\2\uffff\1\61\4\uffff\32\30\4\uffff\1\30"+
-            "\1\uffff\32\30",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\23\30"+
-            "\1\63\6\30",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\14\30"+
-            "\1\64\15\30",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\17\30"+
-            "\1\65\12\30",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\21\30"+
-            "\1\66\10\30",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\10\30"+
-            "\1\67\21\30",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\14\30"+
-            "\1\70\15\30",
-            "\1\32\1\uffff\12\30\1\uffff\1\71\5\uffff\32\30\4\uffff\1\30"+
-            "\1\uffff\32\30",
+            "\1\33\1\uffff\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\17"+
+            "\31\1\47\12\31",
+            "\1\33\1\uffff\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\23"+
+            "\31\1\50\6\31",
+            "\1\33\1\uffff\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\22"+
+            "\31\1\51\7\31",
+            "\1\33\1\uffff\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\10"+
+            "\31\1\53\10\31\1\52\10\31",
+            "\1\33\1\uffff\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\10"+
+            "\31\1\54\5\31\1\55\13\31",
+            "\1\33\1\uffff\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\23"+
+            "\31\1\56\6\31",
+            "\1\33\1\uffff\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\24"+
+            "\31\1\57\5\31",
             "",
             "",
             "",
-            "",
-            "\1\32\1\uffff\12\30\2\uffff\1\73\4\uffff\32\30\4\uffff\1\30"+
-            "\1\uffff\32\30",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\10\30"+
-            "\1\75\21\30",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\4\30"+
-            "\1\76\25\30",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\16\30"+
-            "\1\100\13\30",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
+            "\1\33\1\uffff\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\1\60"+
+            "\31\31",
+            "\1\33\1\uffff\12\31\2\uffff\1\61\4\uffff\32\31\4\uffff\1\31"+
+            "\1\uffff\32\31",
+            "\1\33\1\uffff\12\31\2\uffff\1\63\4\uffff\32\31\4\uffff\1\31"+
+            "\1\uffff\32\31",
+            "\1\33\1\uffff\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\23"+
+            "\31\1\65\6\31",
+            "\1\33\1\uffff\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\1\66"+
+            "\31\31",
+            "\1\33\1\uffff\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\21"+
+            "\31\1\67\10\31",
+            "\1\33\1\uffff\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\14"+
+            "\31\1\70\15\31",
+            "\1\33\1\uffff\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\17"+
+            "\31\1\71\12\31",
+            "\1\33\1\uffff\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\10"+
+            "\31\1\72\21\31",
+            "\1\33\1\uffff\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\14"+
+            "\31\1\73\15\31",
+            "\1\33\1\uffff\12\31\1\uffff\1\74\5\uffff\32\31\4\uffff\1\31"+
+            "\1\uffff\32\31",
             "",
             "",
             "",
             "",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\23\30"+
-            "\1\102\6\30",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\21\30"+
-            "\1\103\10\30",
+            "\1\33\1\uffff\12\31\2\uffff\1\76\4\uffff\32\31\4\uffff\1\31"+
+            "\1\uffff\32\31",
+            "\1\33\1\uffff\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\14"+
+            "\31\1\100\15\31",
+            "\1\33\1\uffff\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32"+
+            "\31",
+            "\1\33\1\uffff\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\10"+
+            "\31\1\102\21\31",
+            "\1\33\1\uffff\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\4\31"+
+            "\1\103\25\31",
+            "\1\33\1\uffff\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\16"+
+            "\31\1\104\13\31",
+            "\1\33\1\uffff\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32"+
+            "\31",
             "",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\15\30"+
-            "\1\104\14\30",
             "",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\10\30"+
-            "\1\105\21\30",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\23\30"+
-            "\1\106\6\30",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\25\30"+
-            "\1\110\4\30",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\30\30"+
-            "\1\111\1\30",
             "",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\4\30"+
-            "\1\112\25\30",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
             "",
+            "\1\33\1\uffff\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\4\31"+
+            "\1\106\25\31",
+            "",
+            "\1\33\1\uffff\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\23"+
+            "\31\1\107\6\31",
+            "\1\33\1\uffff\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\21"+
+            "\31\1\110\10\31",
+            "\1\33\1\uffff\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\15"+
+            "\31\1\111\14\31",
+            "",
+            "\1\33\1\uffff\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\23"+
+            "\31\1\112\6\31",
+            "\1\33\1\uffff\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\10"+
+            "\31\1\113\21\31",
+            "\1\33\1\uffff\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\23"+
+            "\31\1\114\6\31",
+            "\1\33\1\uffff\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32"+
+            "\31",
+            "\1\33\1\uffff\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\4\31"+
+            "\1\116\25\31",
+            "\1\33\1\uffff\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\25"+
+            "\31\1\117\4\31",
+            "\1\33\1\uffff\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\30"+
+            "\31\1\120\1\31",
+            "",
+            "\1\33\1\uffff\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\21"+
+            "\31\1\121\10\31",
+            "\1\33\1\uffff\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\4\31"+
+            "\1\122\25\31",
+            "\1\33\1\uffff\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32"+
+            "\31",
+            "\1\33\1\uffff\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\10"+
+            "\31\1\124\21\31",
+            "\1\33\1\uffff\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32"+
+            "\31",
+            "",
+            "\1\33\1\uffff\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\31"+
+            "\31\1\126",
+            "",
+            "\1\33\1\uffff\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\4\31"+
+            "\1\127\25\31",
+            "\1\33\1\uffff\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\3\31"+
+            "\1\130\26\31",
+            "\1\131\1\33\1\uffff\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff"+
+            "\32\31",
             ""
     };
 
@@ -1782,7 +2057,7 @@ public class GuiceyDataLexer extends Lexer {
             this.transition = DFA16_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( DATA | TYPE_MAP | TYPE_SET | TYPE_LIST | TYPE_PRIMITIVE | PROPERTY | OPTION | PAIR | ENUM | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | TYPE | ID | WS | INT | FLOAT | STRING );";
+            return "1:1: Tokens : ( DATA | TYPE_MAP | TYPE_SET | TYPE_LIST | PARAMETERIZED_TYPE | TYPE_PRIMITIVE | PROPERTY | OPTION | PAIR | ENUM | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | TYPE | ID | WS | INT | FLOAT | STRING );";
         }
     }
  
