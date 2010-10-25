@@ -45,13 +45,17 @@ enumeration
 
 data_entry
 	:	entry
-	|	comment? option* property -> ^(property option*)
+	|	javadoc? option* property -> ^(property javadoc? option*)
 	;
 
-comment
-    :    '/*' ( options {greedy=false;} : . )* '*/'
-    |    '//' ~('\n'|'\r')* '\r'? '\n'
-    ;
+javadoc
+	:	'/*' COMMENT '*/' -> ^(COMMENT)
+	;
+
+COMMENT
+	:	'a'..'z'+
+//(options{greedy=false;}: .)*
+	;
 
 option
 	:	'[' ID ']' -> ^(OPTION ID)

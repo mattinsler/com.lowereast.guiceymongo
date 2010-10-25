@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 GuiceyData.g 2010-05-26 15:57:53
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 GuiceyData.g 2010-10-24 17:42:22
 
 package com.lowereast.guiceymongo.data.generator.parser;
 
@@ -9,42 +9,47 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class GuiceyDataLexer extends Lexer {
-    public static final int EXPONENT=19;
+    public static final int EXPONENT=21;
     public static final int T__29=29;
-    public static final int OPTION=10;
+    public static final int OPTION=11;
     public static final int T__28=28;
     public static final int T__27=27;
     public static final int T__26=26;
-    public static final int T__25=25;
-    public static final int T__24=24;
-    public static final int UNICODE_ESC=22;
-    public static final int OCTAL_ESC=23;
-    public static final int HEX_DIGIT=21;
-    public static final int FLOAT=15;
-    public static final int INT=14;
+    public static final int OCTAL_ESC=25;
+    public static final int FLOAT=17;
     public static final int TYPE_LIST=7;
-    public static final int ID=13;
+    public static final int ID=14;
     public static final int EOF=-1;
-    public static final int TYPE_PRIMITIVE=8;
-    public static final int TYPE=17;
+    public static final int TYPE_PRIMITIVE=9;
+    public static final int TYPE=19;
+    public static final int ESC_SEQ=22;
+    public static final int TYPE_MAP=5;
+    public static final int PAIR=12;
+    public static final int COMMENT=15;
+    public static final int T__42=42;
+    public static final int T__43=43;
+    public static final int T__40=40;
+    public static final int T__41=41;
+    public static final int UNICODE_ESC=24;
+    public static final int HEX_DIGIT=23;
+    public static final int INT=16;
     public static final int T__30=30;
     public static final int T__31=31;
     public static final int T__32=32;
+    public static final int PARAMETERIZED_TYPE=8;
     public static final int T__33=33;
-    public static final int WS=18;
-    public static final int ESC_SEQ=20;
+    public static final int WS=20;
     public static final int T__34=34;
-    public static final int ENUM=12;
+    public static final int ENUM=13;
     public static final int T__35=35;
-    public static final int TYPE_MAP=5;
     public static final int T__36=36;
     public static final int T__37=37;
-    public static final int PROPERTY=9;
+    public static final int PROPERTY=10;
     public static final int T__38=38;
+    public static final int T__39=39;
     public static final int TYPE_SET=6;
-    public static final int PAIR=11;
     public static final int DATA=4;
-    public static final int STRING=16;
+    public static final int STRING=18;
 
     // delegates
     // delegators
@@ -143,13 +148,34 @@ public class GuiceyDataLexer extends Lexer {
     }
     // $ANTLR end "TYPE_LIST"
 
+    // $ANTLR start "PARAMETERIZED_TYPE"
+    public final void mPARAMETERIZED_TYPE() throws RecognitionException {
+        try {
+            int _type = PARAMETERIZED_TYPE;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // GuiceyData.g:15:20: ( 'parameterized-type' )
+            // GuiceyData.g:15:22: 'parameterized-type'
+            {
+            match("parameterized-type"); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "PARAMETERIZED_TYPE"
+
     // $ANTLR start "TYPE_PRIMITIVE"
     public final void mTYPE_PRIMITIVE() throws RecognitionException {
         try {
             int _type = TYPE_PRIMITIVE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:15:16: ( 'primitive' )
-            // GuiceyData.g:15:18: 'primitive'
+            // GuiceyData.g:16:16: ( 'primitive' )
+            // GuiceyData.g:16:18: 'primitive'
             {
             match("primitive"); 
 
@@ -169,8 +195,8 @@ public class GuiceyDataLexer extends Lexer {
         try {
             int _type = PROPERTY;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:16:10: ( 'property' )
-            // GuiceyData.g:16:12: 'property'
+            // GuiceyData.g:17:10: ( 'property' )
+            // GuiceyData.g:17:12: 'property'
             {
             match("property"); 
 
@@ -190,8 +216,8 @@ public class GuiceyDataLexer extends Lexer {
         try {
             int _type = OPTION;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:17:8: ( 'option' )
-            // GuiceyData.g:17:10: 'option'
+            // GuiceyData.g:18:8: ( 'option' )
+            // GuiceyData.g:18:10: 'option'
             {
             match("option"); 
 
@@ -211,8 +237,8 @@ public class GuiceyDataLexer extends Lexer {
         try {
             int _type = PAIR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:18:6: ( 'pair' )
-            // GuiceyData.g:18:8: 'pair'
+            // GuiceyData.g:19:6: ( 'pair' )
+            // GuiceyData.g:19:8: 'pair'
             {
             match("pair"); 
 
@@ -232,8 +258,8 @@ public class GuiceyDataLexer extends Lexer {
         try {
             int _type = ENUM;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:19:6: ( 'enum' )
-            // GuiceyData.g:19:8: 'enum'
+            // GuiceyData.g:20:6: ( 'enum' )
+            // GuiceyData.g:20:8: 'enum'
             {
             match("enum"); 
 
@@ -248,56 +274,15 @@ public class GuiceyDataLexer extends Lexer {
     }
     // $ANTLR end "ENUM"
 
-    // $ANTLR start "T__24"
-    public final void mT__24() throws RecognitionException {
-        try {
-            int _type = T__24;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:20:7: ( '{' )
-            // GuiceyData.g:20:9: '{'
-            {
-            match('{'); 
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "T__24"
-
-    // $ANTLR start "T__25"
-    public final void mT__25() throws RecognitionException {
-        try {
-            int _type = T__25;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:21:7: ( '}' )
-            // GuiceyData.g:21:9: '}'
-            {
-            match('}'); 
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "T__25"
-
     // $ANTLR start "T__26"
     public final void mT__26() throws RecognitionException {
         try {
             int _type = T__26;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:22:7: ( '{}' )
-            // GuiceyData.g:22:9: '{}'
+            // GuiceyData.g:21:7: ( '{' )
+            // GuiceyData.g:21:9: '{'
             {
-            match("{}"); 
-
+            match('{'); 
 
             }
 
@@ -314,10 +299,10 @@ public class GuiceyDataLexer extends Lexer {
         try {
             int _type = T__27;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:23:7: ( ',' )
-            // GuiceyData.g:23:9: ','
+            // GuiceyData.g:22:7: ( '}' )
+            // GuiceyData.g:22:9: '}'
             {
-            match(','); 
+            match('}'); 
 
             }
 
@@ -334,10 +319,11 @@ public class GuiceyDataLexer extends Lexer {
         try {
             int _type = T__28;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:24:7: ( '[' )
-            // GuiceyData.g:24:9: '['
+            // GuiceyData.g:23:7: ( '{}' )
+            // GuiceyData.g:23:9: '{}'
             {
-            match('['); 
+            match("{}"); 
+
 
             }
 
@@ -354,10 +340,10 @@ public class GuiceyDataLexer extends Lexer {
         try {
             int _type = T__29;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:25:7: ( ']' )
-            // GuiceyData.g:25:9: ']'
+            // GuiceyData.g:24:7: ( ',' )
+            // GuiceyData.g:24:9: ','
             {
-            match(']'); 
+            match(','); 
 
             }
 
@@ -374,10 +360,11 @@ public class GuiceyDataLexer extends Lexer {
         try {
             int _type = T__30;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:26:7: ( '(' )
-            // GuiceyData.g:26:9: '('
+            // GuiceyData.g:25:7: ( '/*' )
+            // GuiceyData.g:25:9: '/*'
             {
-            match('('); 
+            match("/*"); 
+
 
             }
 
@@ -394,10 +381,10 @@ public class GuiceyDataLexer extends Lexer {
         try {
             int _type = T__31;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:27:7: ( ')]' )
-            // GuiceyData.g:27:9: ')]'
+            // GuiceyData.g:26:7: ( '*/' )
+            // GuiceyData.g:26:9: '*/'
             {
-            match(")]"); 
+            match("*/"); 
 
 
             }
@@ -415,10 +402,10 @@ public class GuiceyDataLexer extends Lexer {
         try {
             int _type = T__32;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:28:7: ( '=' )
-            // GuiceyData.g:28:9: '='
+            // GuiceyData.g:27:7: ( '[' )
+            // GuiceyData.g:27:9: '['
             {
-            match('='); 
+            match('['); 
 
             }
 
@@ -435,11 +422,10 @@ public class GuiceyDataLexer extends Lexer {
         try {
             int _type = T__33;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:29:7: ( 'data;' )
-            // GuiceyData.g:29:9: 'data;'
+            // GuiceyData.g:28:7: ( ']' )
+            // GuiceyData.g:28:9: ']'
             {
-            match("data;"); 
-
+            match(']'); 
 
             }
 
@@ -456,10 +442,10 @@ public class GuiceyDataLexer extends Lexer {
         try {
             int _type = T__34;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:30:7: ( ';' )
-            // GuiceyData.g:30:9: ';'
+            // GuiceyData.g:29:7: ( '(' )
+            // GuiceyData.g:29:9: '('
             {
-            match(';'); 
+            match('('); 
 
             }
 
@@ -476,10 +462,10 @@ public class GuiceyDataLexer extends Lexer {
         try {
             int _type = T__35;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:31:7: ( 'map<' )
-            // GuiceyData.g:31:9: 'map<'
+            // GuiceyData.g:30:7: ( ')]' )
+            // GuiceyData.g:30:9: ')]'
             {
-            match("map<"); 
+            match(")]"); 
 
 
             }
@@ -497,10 +483,10 @@ public class GuiceyDataLexer extends Lexer {
         try {
             int _type = T__36;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:32:7: ( '>' )
-            // GuiceyData.g:32:9: '>'
+            // GuiceyData.g:31:7: ( '=' )
+            // GuiceyData.g:31:9: '='
             {
-            match('>'); 
+            match('='); 
 
             }
 
@@ -517,10 +503,10 @@ public class GuiceyDataLexer extends Lexer {
         try {
             int _type = T__37;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:33:7: ( 'set<' )
-            // GuiceyData.g:33:9: 'set<'
+            // GuiceyData.g:32:7: ( 'data;' )
+            // GuiceyData.g:32:9: 'data;'
             {
-            match("set<"); 
+            match("data;"); 
 
 
             }
@@ -538,8 +524,90 @@ public class GuiceyDataLexer extends Lexer {
         try {
             int _type = T__38;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:34:7: ( 'list<' )
-            // GuiceyData.g:34:9: 'list<'
+            // GuiceyData.g:33:7: ( ';' )
+            // GuiceyData.g:33:9: ';'
+            {
+            match(';'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__38"
+
+    // $ANTLR start "T__39"
+    public final void mT__39() throws RecognitionException {
+        try {
+            int _type = T__39;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // GuiceyData.g:34:7: ( 'map<' )
+            // GuiceyData.g:34:9: 'map<'
+            {
+            match("map<"); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__39"
+
+    // $ANTLR start "T__40"
+    public final void mT__40() throws RecognitionException {
+        try {
+            int _type = T__40;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // GuiceyData.g:35:7: ( '>' )
+            // GuiceyData.g:35:9: '>'
+            {
+            match('>'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__40"
+
+    // $ANTLR start "T__41"
+    public final void mT__41() throws RecognitionException {
+        try {
+            int _type = T__41;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // GuiceyData.g:36:7: ( 'set<' )
+            // GuiceyData.g:36:9: 'set<'
+            {
+            match("set<"); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__41"
+
+    // $ANTLR start "T__42"
+    public final void mT__42() throws RecognitionException {
+        try {
+            int _type = T__42;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // GuiceyData.g:37:7: ( 'list<' )
+            // GuiceyData.g:37:9: 'list<'
             {
             match("list<"); 
 
@@ -552,35 +620,53 @@ public class GuiceyDataLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "T__38"
+    // $ANTLR end "T__42"
 
-    // $ANTLR start "TYPE"
-    public final void mTYPE() throws RecognitionException {
+    // $ANTLR start "T__43"
+    public final void mT__43() throws RecognitionException {
         try {
-            int _type = TYPE;
+            int _type = T__43;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:98:6: ( ID ( '.' ID )+ )
-            // GuiceyData.g:98:8: ID ( '.' ID )+
+            // GuiceyData.g:38:7: ( '<' )
+            // GuiceyData.g:38:9: '<'
             {
-            mID(); 
-            // GuiceyData.g:98:11: ( '.' ID )+
+            match('<'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__43"
+
+    // $ANTLR start "COMMENT"
+    public final void mCOMMENT() throws RecognitionException {
+        try {
+            int _type = COMMENT;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // GuiceyData.g:56:2: ( ( 'a' .. 'z' )+ )
+            // GuiceyData.g:56:4: ( 'a' .. 'z' )+
+            {
+            // GuiceyData.g:56:4: ( 'a' .. 'z' )+
             int cnt1=0;
             loop1:
             do {
                 int alt1=2;
                 int LA1_0 = input.LA(1);
 
-                if ( (LA1_0=='.') ) {
+                if ( ((LA1_0>='a' && LA1_0<='z')) ) {
                     alt1=1;
                 }
 
 
                 switch (alt1) {
             	case 1 :
-            	    // GuiceyData.g:98:12: '.' ID
+            	    // GuiceyData.g:56:4: 'a' .. 'z'
             	    {
-            	    match('.'); 
-            	    mID(); 
+            	    matchRange('a','z'); 
 
             	    }
             	    break;
@@ -603,6 +689,57 @@ public class GuiceyDataLexer extends Lexer {
         finally {
         }
     }
+    // $ANTLR end "COMMENT"
+
+    // $ANTLR start "TYPE"
+    public final void mTYPE() throws RecognitionException {
+        try {
+            int _type = TYPE;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // GuiceyData.g:109:6: ( ID ( '.' ID )+ )
+            // GuiceyData.g:109:8: ID ( '.' ID )+
+            {
+            mID(); 
+            // GuiceyData.g:109:11: ( '.' ID )+
+            int cnt2=0;
+            loop2:
+            do {
+                int alt2=2;
+                int LA2_0 = input.LA(1);
+
+                if ( (LA2_0=='.') ) {
+                    alt2=1;
+                }
+
+
+                switch (alt2) {
+            	case 1 :
+            	    // GuiceyData.g:109:12: '.' ID
+            	    {
+            	    match('.'); 
+            	    mID(); 
+
+            	    }
+            	    break;
+
+            	default :
+            	    if ( cnt2 >= 1 ) break loop2;
+                        EarlyExitException eee =
+                            new EarlyExitException(2, input);
+                        throw eee;
+                }
+                cnt2++;
+            } while (true);
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
     // $ANTLR end "TYPE"
 
     // $ANTLR start "ID"
@@ -610,8 +747,8 @@ public class GuiceyDataLexer extends Lexer {
         try {
             int _type = ID;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:101:5: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
-            // GuiceyData.g:101:7: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+            // GuiceyData.g:112:5: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
+            // GuiceyData.g:112:7: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||(input.LA(1)>='a' && input.LA(1)<='z') ) {
                 input.consume();
@@ -622,18 +759,18 @@ public class GuiceyDataLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // GuiceyData.g:101:27: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
-            loop2:
+            // GuiceyData.g:112:27: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+            loop3:
             do {
-                int alt2=2;
-                int LA2_0 = input.LA(1);
+                int alt3=2;
+                int LA3_0 = input.LA(1);
 
-                if ( ((LA2_0>='0' && LA2_0<='9')||(LA2_0>='A' && LA2_0<='Z')||LA2_0=='_'||(LA2_0>='a' && LA2_0<='z')) ) {
-                    alt2=1;
+                if ( ((LA3_0>='0' && LA3_0<='9')||(LA3_0>='A' && LA3_0<='Z')||LA3_0=='_'||(LA3_0>='a' && LA3_0<='z')) ) {
+                    alt3=1;
                 }
 
 
-                switch (alt2) {
+                switch (alt3) {
             	case 1 :
             	    // GuiceyData.g:
             	    {
@@ -651,7 +788,7 @@ public class GuiceyDataLexer extends Lexer {
             	    break;
 
             	default :
-            	    break loop2;
+            	    break loop3;
                 }
             } while (true);
 
@@ -671,8 +808,8 @@ public class GuiceyDataLexer extends Lexer {
         try {
             int _type = WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:104:5: ( ( ' ' | '\\t' | '\\r' | '\\n' ) )
-            // GuiceyData.g:104:9: ( ' ' | '\\t' | '\\r' | '\\n' )
+            // GuiceyData.g:115:5: ( ( ' ' | '\\t' | '\\r' | '\\n' ) )
+            // GuiceyData.g:115:9: ( ' ' | '\\t' | '\\r' | '\\n' )
             {
             if ( (input.LA(1)>='\t' && input.LA(1)<='\n')||input.LA(1)=='\r'||input.LA(1)==' ' ) {
                 input.consume();
@@ -700,24 +837,24 @@ public class GuiceyDataLexer extends Lexer {
         try {
             int _type = INT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:111:5: ( ( '0' .. '9' )+ )
-            // GuiceyData.g:111:7: ( '0' .. '9' )+
+            // GuiceyData.g:122:5: ( ( '0' .. '9' )+ )
+            // GuiceyData.g:122:7: ( '0' .. '9' )+
             {
-            // GuiceyData.g:111:7: ( '0' .. '9' )+
-            int cnt3=0;
-            loop3:
+            // GuiceyData.g:122:7: ( '0' .. '9' )+
+            int cnt4=0;
+            loop4:
             do {
-                int alt3=2;
-                int LA3_0 = input.LA(1);
+                int alt4=2;
+                int LA4_0 = input.LA(1);
 
-                if ( ((LA3_0>='0' && LA3_0<='9')) ) {
-                    alt3=1;
+                if ( ((LA4_0>='0' && LA4_0<='9')) ) {
+                    alt4=1;
                 }
 
 
-                switch (alt3) {
+                switch (alt4) {
             	case 1 :
-            	    // GuiceyData.g:111:7: '0' .. '9'
+            	    // GuiceyData.g:122:7: '0' .. '9'
             	    {
             	    matchRange('0','9'); 
 
@@ -725,12 +862,12 @@ public class GuiceyDataLexer extends Lexer {
             	    break;
 
             	default :
-            	    if ( cnt3 >= 1 ) break loop3;
+            	    if ( cnt4 >= 1 ) break loop4;
                         EarlyExitException eee =
-                            new EarlyExitException(3, input);
+                            new EarlyExitException(4, input);
                         throw eee;
                 }
-                cnt3++;
+                cnt4++;
             } while (true);
 
 
@@ -749,45 +886,15 @@ public class GuiceyDataLexer extends Lexer {
         try {
             int _type = FLOAT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:115:5: ( ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )? | '.' ( '0' .. '9' )+ ( EXPONENT )? | ( '0' .. '9' )+ EXPONENT )
-            int alt10=3;
-            alt10 = dfa10.predict(input);
-            switch (alt10) {
+            // GuiceyData.g:126:5: ( ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )? | '.' ( '0' .. '9' )+ ( EXPONENT )? | ( '0' .. '9' )+ EXPONENT )
+            int alt11=3;
+            alt11 = dfa11.predict(input);
+            switch (alt11) {
                 case 1 :
-                    // GuiceyData.g:115:9: ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )?
+                    // GuiceyData.g:126:9: ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )?
                     {
-                    // GuiceyData.g:115:9: ( '0' .. '9' )+
-                    int cnt4=0;
-                    loop4:
-                    do {
-                        int alt4=2;
-                        int LA4_0 = input.LA(1);
-
-                        if ( ((LA4_0>='0' && LA4_0<='9')) ) {
-                            alt4=1;
-                        }
-
-
-                        switch (alt4) {
-                    	case 1 :
-                    	    // GuiceyData.g:115:10: '0' .. '9'
-                    	    {
-                    	    matchRange('0','9'); 
-
-                    	    }
-                    	    break;
-
-                    	default :
-                    	    if ( cnt4 >= 1 ) break loop4;
-                                EarlyExitException eee =
-                                    new EarlyExitException(4, input);
-                                throw eee;
-                        }
-                        cnt4++;
-                    } while (true);
-
-                    match('.'); 
-                    // GuiceyData.g:115:25: ( '0' .. '9' )*
+                    // GuiceyData.g:126:9: ( '0' .. '9' )+
+                    int cnt5=0;
                     loop5:
                     do {
                         int alt5=2;
@@ -800,7 +907,7 @@ public class GuiceyDataLexer extends Lexer {
 
                         switch (alt5) {
                     	case 1 :
-                    	    // GuiceyData.g:115:26: '0' .. '9'
+                    	    // GuiceyData.g:126:10: '0' .. '9'
                     	    {
                     	    matchRange('0','9'); 
 
@@ -808,20 +915,50 @@ public class GuiceyDataLexer extends Lexer {
                     	    break;
 
                     	default :
-                    	    break loop5;
+                    	    if ( cnt5 >= 1 ) break loop5;
+                                EarlyExitException eee =
+                                    new EarlyExitException(5, input);
+                                throw eee;
+                        }
+                        cnt5++;
+                    } while (true);
+
+                    match('.'); 
+                    // GuiceyData.g:126:25: ( '0' .. '9' )*
+                    loop6:
+                    do {
+                        int alt6=2;
+                        int LA6_0 = input.LA(1);
+
+                        if ( ((LA6_0>='0' && LA6_0<='9')) ) {
+                            alt6=1;
+                        }
+
+
+                        switch (alt6) {
+                    	case 1 :
+                    	    // GuiceyData.g:126:26: '0' .. '9'
+                    	    {
+                    	    matchRange('0','9'); 
+
+                    	    }
+                    	    break;
+
+                    	default :
+                    	    break loop6;
                         }
                     } while (true);
 
-                    // GuiceyData.g:115:37: ( EXPONENT )?
-                    int alt6=2;
-                    int LA6_0 = input.LA(1);
+                    // GuiceyData.g:126:37: ( EXPONENT )?
+                    int alt7=2;
+                    int LA7_0 = input.LA(1);
 
-                    if ( (LA6_0=='E'||LA6_0=='e') ) {
-                        alt6=1;
+                    if ( (LA7_0=='E'||LA7_0=='e') ) {
+                        alt7=1;
                     }
-                    switch (alt6) {
+                    switch (alt7) {
                         case 1 :
-                            // GuiceyData.g:115:37: EXPONENT
+                            // GuiceyData.g:126:37: EXPONENT
                             {
                             mEXPONENT(); 
 
@@ -834,24 +971,24 @@ public class GuiceyDataLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // GuiceyData.g:116:9: '.' ( '0' .. '9' )+ ( EXPONENT )?
+                    // GuiceyData.g:127:9: '.' ( '0' .. '9' )+ ( EXPONENT )?
                     {
                     match('.'); 
-                    // GuiceyData.g:116:13: ( '0' .. '9' )+
-                    int cnt7=0;
-                    loop7:
+                    // GuiceyData.g:127:13: ( '0' .. '9' )+
+                    int cnt8=0;
+                    loop8:
                     do {
-                        int alt7=2;
-                        int LA7_0 = input.LA(1);
+                        int alt8=2;
+                        int LA8_0 = input.LA(1);
 
-                        if ( ((LA7_0>='0' && LA7_0<='9')) ) {
-                            alt7=1;
+                        if ( ((LA8_0>='0' && LA8_0<='9')) ) {
+                            alt8=1;
                         }
 
 
-                        switch (alt7) {
+                        switch (alt8) {
                     	case 1 :
-                    	    // GuiceyData.g:116:14: '0' .. '9'
+                    	    // GuiceyData.g:127:14: '0' .. '9'
                     	    {
                     	    matchRange('0','9'); 
 
@@ -859,24 +996,24 @@ public class GuiceyDataLexer extends Lexer {
                     	    break;
 
                     	default :
-                    	    if ( cnt7 >= 1 ) break loop7;
+                    	    if ( cnt8 >= 1 ) break loop8;
                                 EarlyExitException eee =
-                                    new EarlyExitException(7, input);
+                                    new EarlyExitException(8, input);
                                 throw eee;
                         }
-                        cnt7++;
+                        cnt8++;
                     } while (true);
 
-                    // GuiceyData.g:116:25: ( EXPONENT )?
-                    int alt8=2;
-                    int LA8_0 = input.LA(1);
+                    // GuiceyData.g:127:25: ( EXPONENT )?
+                    int alt9=2;
+                    int LA9_0 = input.LA(1);
 
-                    if ( (LA8_0=='E'||LA8_0=='e') ) {
-                        alt8=1;
+                    if ( (LA9_0=='E'||LA9_0=='e') ) {
+                        alt9=1;
                     }
-                    switch (alt8) {
+                    switch (alt9) {
                         case 1 :
-                            // GuiceyData.g:116:25: EXPONENT
+                            // GuiceyData.g:127:25: EXPONENT
                             {
                             mEXPONENT(); 
 
@@ -889,23 +1026,23 @@ public class GuiceyDataLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // GuiceyData.g:117:9: ( '0' .. '9' )+ EXPONENT
+                    // GuiceyData.g:128:9: ( '0' .. '9' )+ EXPONENT
                     {
-                    // GuiceyData.g:117:9: ( '0' .. '9' )+
-                    int cnt9=0;
-                    loop9:
+                    // GuiceyData.g:128:9: ( '0' .. '9' )+
+                    int cnt10=0;
+                    loop10:
                     do {
-                        int alt9=2;
-                        int LA9_0 = input.LA(1);
+                        int alt10=2;
+                        int LA10_0 = input.LA(1);
 
-                        if ( ((LA9_0>='0' && LA9_0<='9')) ) {
-                            alt9=1;
+                        if ( ((LA10_0>='0' && LA10_0<='9')) ) {
+                            alt10=1;
                         }
 
 
-                        switch (alt9) {
+                        switch (alt10) {
                     	case 1 :
-                    	    // GuiceyData.g:117:10: '0' .. '9'
+                    	    // GuiceyData.g:128:10: '0' .. '9'
                     	    {
                     	    matchRange('0','9'); 
 
@@ -913,12 +1050,12 @@ public class GuiceyDataLexer extends Lexer {
                     	    break;
 
                     	default :
-                    	    if ( cnt9 >= 1 ) break loop9;
+                    	    if ( cnt10 >= 1 ) break loop10;
                                 EarlyExitException eee =
-                                    new EarlyExitException(9, input);
+                                    new EarlyExitException(10, input);
                                 throw eee;
                         }
-                        cnt9++;
+                        cnt10++;
                     } while (true);
 
                     mEXPONENT(); 
@@ -940,34 +1077,34 @@ public class GuiceyDataLexer extends Lexer {
         try {
             int _type = STRING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // GuiceyData.g:126:5: ( '\\'' ( ESC_SEQ | ~ ( '\\\\' | '\\'' ) )* '\\'' )
-            // GuiceyData.g:126:8: '\\'' ( ESC_SEQ | ~ ( '\\\\' | '\\'' ) )* '\\''
+            // GuiceyData.g:137:5: ( '\\'' ( ESC_SEQ | ~ ( '\\\\' | '\\'' ) )* '\\'' )
+            // GuiceyData.g:137:8: '\\'' ( ESC_SEQ | ~ ( '\\\\' | '\\'' ) )* '\\''
             {
             match('\''); 
-            // GuiceyData.g:126:13: ( ESC_SEQ | ~ ( '\\\\' | '\\'' ) )*
-            loop11:
+            // GuiceyData.g:137:13: ( ESC_SEQ | ~ ( '\\\\' | '\\'' ) )*
+            loop12:
             do {
-                int alt11=3;
-                int LA11_0 = input.LA(1);
+                int alt12=3;
+                int LA12_0 = input.LA(1);
 
-                if ( (LA11_0=='\\') ) {
-                    alt11=1;
+                if ( (LA12_0=='\\') ) {
+                    alt12=1;
                 }
-                else if ( ((LA11_0>='\u0000' && LA11_0<='&')||(LA11_0>='(' && LA11_0<='[')||(LA11_0>=']' && LA11_0<='\uFFFF')) ) {
-                    alt11=2;
+                else if ( ((LA12_0>='\u0000' && LA12_0<='&')||(LA12_0>='(' && LA12_0<='[')||(LA12_0>=']' && LA12_0<='\uFFFF')) ) {
+                    alt12=2;
                 }
 
 
-                switch (alt11) {
+                switch (alt12) {
             	case 1 :
-            	    // GuiceyData.g:126:15: ESC_SEQ
+            	    // GuiceyData.g:137:15: ESC_SEQ
             	    {
             	    mESC_SEQ(); 
 
             	    }
             	    break;
             	case 2 :
-            	    // GuiceyData.g:126:25: ~ ( '\\\\' | '\\'' )
+            	    // GuiceyData.g:137:25: ~ ( '\\\\' | '\\'' )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -983,7 +1120,7 @@ public class GuiceyDataLexer extends Lexer {
             	    break;
 
             	default :
-            	    break loop11;
+            	    break loop12;
                 }
             } while (true);
 
@@ -1002,8 +1139,8 @@ public class GuiceyDataLexer extends Lexer {
     // $ANTLR start "EXPONENT"
     public final void mEXPONENT() throws RecognitionException {
         try {
-            // GuiceyData.g:130:10: ( ( 'e' | 'E' ) ( '+' | '-' )? ( '0' .. '9' )+ )
-            // GuiceyData.g:130:12: ( 'e' | 'E' ) ( '+' | '-' )? ( '0' .. '9' )+
+            // GuiceyData.g:141:10: ( ( 'e' | 'E' ) ( '+' | '-' )? ( '0' .. '9' )+ )
+            // GuiceyData.g:141:12: ( 'e' | 'E' ) ( '+' | '-' )? ( '0' .. '9' )+
             {
             if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                 input.consume();
@@ -1014,14 +1151,14 @@ public class GuiceyDataLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // GuiceyData.g:130:22: ( '+' | '-' )?
-            int alt12=2;
-            int LA12_0 = input.LA(1);
+            // GuiceyData.g:141:22: ( '+' | '-' )?
+            int alt13=2;
+            int LA13_0 = input.LA(1);
 
-            if ( (LA12_0=='+'||LA12_0=='-') ) {
-                alt12=1;
+            if ( (LA13_0=='+'||LA13_0=='-') ) {
+                alt13=1;
             }
-            switch (alt12) {
+            switch (alt13) {
                 case 1 :
                     // GuiceyData.g:
                     {
@@ -1040,21 +1177,21 @@ public class GuiceyDataLexer extends Lexer {
 
             }
 
-            // GuiceyData.g:130:33: ( '0' .. '9' )+
-            int cnt13=0;
-            loop13:
+            // GuiceyData.g:141:33: ( '0' .. '9' )+
+            int cnt14=0;
+            loop14:
             do {
-                int alt13=2;
-                int LA13_0 = input.LA(1);
+                int alt14=2;
+                int LA14_0 = input.LA(1);
 
-                if ( ((LA13_0>='0' && LA13_0<='9')) ) {
-                    alt13=1;
+                if ( ((LA14_0>='0' && LA14_0<='9')) ) {
+                    alt14=1;
                 }
 
 
-                switch (alt13) {
+                switch (alt14) {
             	case 1 :
-            	    // GuiceyData.g:130:34: '0' .. '9'
+            	    // GuiceyData.g:141:34: '0' .. '9'
             	    {
             	    matchRange('0','9'); 
 
@@ -1062,12 +1199,12 @@ public class GuiceyDataLexer extends Lexer {
             	    break;
 
             	default :
-            	    if ( cnt13 >= 1 ) break loop13;
+            	    if ( cnt14 >= 1 ) break loop14;
                         EarlyExitException eee =
-                            new EarlyExitException(13, input);
+                            new EarlyExitException(14, input);
                         throw eee;
                 }
-                cnt13++;
+                cnt14++;
             } while (true);
 
 
@@ -1082,8 +1219,8 @@ public class GuiceyDataLexer extends Lexer {
     // $ANTLR start "HEX_DIGIT"
     public final void mHEX_DIGIT() throws RecognitionException {
         try {
-            // GuiceyData.g:133:11: ( ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) )
-            // GuiceyData.g:133:13: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )
+            // GuiceyData.g:144:11: ( ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) )
+            // GuiceyData.g:144:13: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )
             {
             if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='F')||(input.LA(1)>='a' && input.LA(1)<='f') ) {
                 input.consume();
@@ -1106,11 +1243,11 @@ public class GuiceyDataLexer extends Lexer {
     // $ANTLR start "ESC_SEQ"
     public final void mESC_SEQ() throws RecognitionException {
         try {
-            // GuiceyData.g:137:5: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' ) | UNICODE_ESC | OCTAL_ESC )
-            int alt14=3;
-            int LA14_0 = input.LA(1);
+            // GuiceyData.g:148:5: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' ) | UNICODE_ESC | OCTAL_ESC )
+            int alt15=3;
+            int LA15_0 = input.LA(1);
 
-            if ( (LA14_0=='\\') ) {
+            if ( (LA15_0=='\\') ) {
                 switch ( input.LA(2) ) {
                 case '\"':
                 case '\'':
@@ -1121,12 +1258,12 @@ public class GuiceyDataLexer extends Lexer {
                 case 'r':
                 case 't':
                     {
-                    alt14=1;
+                    alt15=1;
                     }
                     break;
                 case 'u':
                     {
-                    alt14=2;
+                    alt15=2;
                     }
                     break;
                 case '0':
@@ -1138,12 +1275,12 @@ public class GuiceyDataLexer extends Lexer {
                 case '6':
                 case '7':
                     {
-                    alt14=3;
+                    alt15=3;
                     }
                     break;
                 default:
                     NoViableAltException nvae =
-                        new NoViableAltException("", 14, 1, input);
+                        new NoViableAltException("", 15, 1, input);
 
                     throw nvae;
                 }
@@ -1151,13 +1288,13 @@ public class GuiceyDataLexer extends Lexer {
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 14, 0, input);
+                    new NoViableAltException("", 15, 0, input);
 
                 throw nvae;
             }
-            switch (alt14) {
+            switch (alt15) {
                 case 1 :
-                    // GuiceyData.g:137:9: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' )
+                    // GuiceyData.g:148:9: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' )
                     {
                     match('\\'); 
                     if ( input.LA(1)=='\"'||input.LA(1)=='\''||input.LA(1)=='\\'||input.LA(1)=='b'||input.LA(1)=='f'||input.LA(1)=='n'||input.LA(1)=='r'||input.LA(1)=='t' ) {
@@ -1173,14 +1310,14 @@ public class GuiceyDataLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // GuiceyData.g:138:9: UNICODE_ESC
+                    // GuiceyData.g:149:9: UNICODE_ESC
                     {
                     mUNICODE_ESC(); 
 
                     }
                     break;
                 case 3 :
-                    // GuiceyData.g:139:9: OCTAL_ESC
+                    // GuiceyData.g:150:9: OCTAL_ESC
                     {
                     mOCTAL_ESC(); 
 
@@ -1197,71 +1334,71 @@ public class GuiceyDataLexer extends Lexer {
     // $ANTLR start "OCTAL_ESC"
     public final void mOCTAL_ESC() throws RecognitionException {
         try {
-            // GuiceyData.g:144:5: ( '\\\\' ( '0' .. '3' ) ( '0' .. '7' ) ( '0' .. '7' ) | '\\\\' ( '0' .. '7' ) ( '0' .. '7' ) | '\\\\' ( '0' .. '7' ) )
-            int alt15=3;
-            int LA15_0 = input.LA(1);
+            // GuiceyData.g:155:5: ( '\\\\' ( '0' .. '3' ) ( '0' .. '7' ) ( '0' .. '7' ) | '\\\\' ( '0' .. '7' ) ( '0' .. '7' ) | '\\\\' ( '0' .. '7' ) )
+            int alt16=3;
+            int LA16_0 = input.LA(1);
 
-            if ( (LA15_0=='\\') ) {
-                int LA15_1 = input.LA(2);
+            if ( (LA16_0=='\\') ) {
+                int LA16_1 = input.LA(2);
 
-                if ( ((LA15_1>='0' && LA15_1<='3')) ) {
-                    int LA15_2 = input.LA(3);
+                if ( ((LA16_1>='0' && LA16_1<='3')) ) {
+                    int LA16_2 = input.LA(3);
 
-                    if ( ((LA15_2>='0' && LA15_2<='7')) ) {
-                        int LA15_5 = input.LA(4);
+                    if ( ((LA16_2>='0' && LA16_2<='7')) ) {
+                        int LA16_4 = input.LA(4);
 
-                        if ( ((LA15_5>='0' && LA15_5<='7')) ) {
-                            alt15=1;
+                        if ( ((LA16_4>='0' && LA16_4<='7')) ) {
+                            alt16=1;
                         }
                         else {
-                            alt15=2;}
+                            alt16=2;}
                     }
                     else {
-                        alt15=3;}
+                        alt16=3;}
                 }
-                else if ( ((LA15_1>='4' && LA15_1<='7')) ) {
-                    int LA15_3 = input.LA(3);
+                else if ( ((LA16_1>='4' && LA16_1<='7')) ) {
+                    int LA16_3 = input.LA(3);
 
-                    if ( ((LA15_3>='0' && LA15_3<='7')) ) {
-                        alt15=2;
+                    if ( ((LA16_3>='0' && LA16_3<='7')) ) {
+                        alt16=2;
                     }
                     else {
-                        alt15=3;}
+                        alt16=3;}
                 }
                 else {
                     NoViableAltException nvae =
-                        new NoViableAltException("", 15, 1, input);
+                        new NoViableAltException("", 16, 1, input);
 
                     throw nvae;
                 }
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 15, 0, input);
+                    new NoViableAltException("", 16, 0, input);
 
                 throw nvae;
             }
-            switch (alt15) {
+            switch (alt16) {
                 case 1 :
-                    // GuiceyData.g:144:9: '\\\\' ( '0' .. '3' ) ( '0' .. '7' ) ( '0' .. '7' )
+                    // GuiceyData.g:155:9: '\\\\' ( '0' .. '3' ) ( '0' .. '7' ) ( '0' .. '7' )
                     {
                     match('\\'); 
-                    // GuiceyData.g:144:14: ( '0' .. '3' )
-                    // GuiceyData.g:144:15: '0' .. '3'
+                    // GuiceyData.g:155:14: ( '0' .. '3' )
+                    // GuiceyData.g:155:15: '0' .. '3'
                     {
                     matchRange('0','3'); 
 
                     }
 
-                    // GuiceyData.g:144:25: ( '0' .. '7' )
-                    // GuiceyData.g:144:26: '0' .. '7'
+                    // GuiceyData.g:155:25: ( '0' .. '7' )
+                    // GuiceyData.g:155:26: '0' .. '7'
                     {
                     matchRange('0','7'); 
 
                     }
 
-                    // GuiceyData.g:144:36: ( '0' .. '7' )
-                    // GuiceyData.g:144:37: '0' .. '7'
+                    // GuiceyData.g:155:36: ( '0' .. '7' )
+                    // GuiceyData.g:155:37: '0' .. '7'
                     {
                     matchRange('0','7'); 
 
@@ -1271,18 +1408,18 @@ public class GuiceyDataLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // GuiceyData.g:145:9: '\\\\' ( '0' .. '7' ) ( '0' .. '7' )
+                    // GuiceyData.g:156:9: '\\\\' ( '0' .. '7' ) ( '0' .. '7' )
                     {
                     match('\\'); 
-                    // GuiceyData.g:145:14: ( '0' .. '7' )
-                    // GuiceyData.g:145:15: '0' .. '7'
+                    // GuiceyData.g:156:14: ( '0' .. '7' )
+                    // GuiceyData.g:156:15: '0' .. '7'
                     {
                     matchRange('0','7'); 
 
                     }
 
-                    // GuiceyData.g:145:25: ( '0' .. '7' )
-                    // GuiceyData.g:145:26: '0' .. '7'
+                    // GuiceyData.g:156:25: ( '0' .. '7' )
+                    // GuiceyData.g:156:26: '0' .. '7'
                     {
                     matchRange('0','7'); 
 
@@ -1292,11 +1429,11 @@ public class GuiceyDataLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // GuiceyData.g:146:9: '\\\\' ( '0' .. '7' )
+                    // GuiceyData.g:157:9: '\\\\' ( '0' .. '7' )
                     {
                     match('\\'); 
-                    // GuiceyData.g:146:14: ( '0' .. '7' )
-                    // GuiceyData.g:146:15: '0' .. '7'
+                    // GuiceyData.g:157:14: ( '0' .. '7' )
+                    // GuiceyData.g:157:15: '0' .. '7'
                     {
                     matchRange('0','7'); 
 
@@ -1316,8 +1453,8 @@ public class GuiceyDataLexer extends Lexer {
     // $ANTLR start "UNICODE_ESC"
     public final void mUNICODE_ESC() throws RecognitionException {
         try {
-            // GuiceyData.g:151:5: ( '\\\\' 'u' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT )
-            // GuiceyData.g:151:9: '\\\\' 'u' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT
+            // GuiceyData.g:162:5: ( '\\\\' 'u' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT )
+            // GuiceyData.g:162:9: '\\\\' 'u' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT
             {
             match('\\'); 
             match('u'); 
@@ -1335,10 +1472,10 @@ public class GuiceyDataLexer extends Lexer {
     // $ANTLR end "UNICODE_ESC"
 
     public void mTokens() throws RecognitionException {
-        // GuiceyData.g:1:8: ( DATA | TYPE_MAP | TYPE_SET | TYPE_LIST | TYPE_PRIMITIVE | PROPERTY | OPTION | PAIR | ENUM | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | TYPE | ID | WS | INT | FLOAT | STRING )
-        int alt16=30;
-        alt16 = dfa16.predict(input);
-        switch (alt16) {
+        // GuiceyData.g:1:8: ( DATA | TYPE_MAP | TYPE_SET | TYPE_LIST | PARAMETERIZED_TYPE | TYPE_PRIMITIVE | PROPERTY | OPTION | PAIR | ENUM | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | COMMENT | TYPE | ID | WS | INT | FLOAT | STRING )
+        int alt17=35;
+        alt17 = dfa17.predict(input);
+        switch (alt17) {
             case 1 :
                 // GuiceyData.g:1:10: DATA
                 {
@@ -1368,182 +1505,217 @@ public class GuiceyDataLexer extends Lexer {
                 }
                 break;
             case 5 :
-                // GuiceyData.g:1:43: TYPE_PRIMITIVE
+                // GuiceyData.g:1:43: PARAMETERIZED_TYPE
+                {
+                mPARAMETERIZED_TYPE(); 
+
+                }
+                break;
+            case 6 :
+                // GuiceyData.g:1:62: TYPE_PRIMITIVE
                 {
                 mTYPE_PRIMITIVE(); 
 
                 }
                 break;
-            case 6 :
-                // GuiceyData.g:1:58: PROPERTY
+            case 7 :
+                // GuiceyData.g:1:77: PROPERTY
                 {
                 mPROPERTY(); 
 
                 }
                 break;
-            case 7 :
-                // GuiceyData.g:1:67: OPTION
+            case 8 :
+                // GuiceyData.g:1:86: OPTION
                 {
                 mOPTION(); 
 
                 }
                 break;
-            case 8 :
-                // GuiceyData.g:1:74: PAIR
+            case 9 :
+                // GuiceyData.g:1:93: PAIR
                 {
                 mPAIR(); 
 
                 }
                 break;
-            case 9 :
-                // GuiceyData.g:1:79: ENUM
+            case 10 :
+                // GuiceyData.g:1:98: ENUM
                 {
                 mENUM(); 
 
                 }
                 break;
-            case 10 :
-                // GuiceyData.g:1:84: T__24
-                {
-                mT__24(); 
-
-                }
-                break;
             case 11 :
-                // GuiceyData.g:1:90: T__25
-                {
-                mT__25(); 
-
-                }
-                break;
-            case 12 :
-                // GuiceyData.g:1:96: T__26
+                // GuiceyData.g:1:103: T__26
                 {
                 mT__26(); 
 
                 }
                 break;
-            case 13 :
-                // GuiceyData.g:1:102: T__27
+            case 12 :
+                // GuiceyData.g:1:109: T__27
                 {
                 mT__27(); 
 
                 }
                 break;
-            case 14 :
-                // GuiceyData.g:1:108: T__28
+            case 13 :
+                // GuiceyData.g:1:115: T__28
                 {
                 mT__28(); 
 
                 }
                 break;
-            case 15 :
-                // GuiceyData.g:1:114: T__29
+            case 14 :
+                // GuiceyData.g:1:121: T__29
                 {
                 mT__29(); 
 
                 }
                 break;
-            case 16 :
-                // GuiceyData.g:1:120: T__30
+            case 15 :
+                // GuiceyData.g:1:127: T__30
                 {
                 mT__30(); 
 
                 }
                 break;
-            case 17 :
-                // GuiceyData.g:1:126: T__31
+            case 16 :
+                // GuiceyData.g:1:133: T__31
                 {
                 mT__31(); 
 
                 }
                 break;
-            case 18 :
-                // GuiceyData.g:1:132: T__32
+            case 17 :
+                // GuiceyData.g:1:139: T__32
                 {
                 mT__32(); 
 
                 }
                 break;
-            case 19 :
-                // GuiceyData.g:1:138: T__33
+            case 18 :
+                // GuiceyData.g:1:145: T__33
                 {
                 mT__33(); 
 
                 }
                 break;
-            case 20 :
-                // GuiceyData.g:1:144: T__34
+            case 19 :
+                // GuiceyData.g:1:151: T__34
                 {
                 mT__34(); 
 
                 }
                 break;
-            case 21 :
-                // GuiceyData.g:1:150: T__35
+            case 20 :
+                // GuiceyData.g:1:157: T__35
                 {
                 mT__35(); 
 
                 }
                 break;
-            case 22 :
-                // GuiceyData.g:1:156: T__36
+            case 21 :
+                // GuiceyData.g:1:163: T__36
                 {
                 mT__36(); 
 
                 }
                 break;
-            case 23 :
-                // GuiceyData.g:1:162: T__37
+            case 22 :
+                // GuiceyData.g:1:169: T__37
                 {
                 mT__37(); 
 
                 }
                 break;
-            case 24 :
-                // GuiceyData.g:1:168: T__38
+            case 23 :
+                // GuiceyData.g:1:175: T__38
                 {
                 mT__38(); 
 
                 }
                 break;
+            case 24 :
+                // GuiceyData.g:1:181: T__39
+                {
+                mT__39(); 
+
+                }
+                break;
             case 25 :
-                // GuiceyData.g:1:174: TYPE
+                // GuiceyData.g:1:187: T__40
+                {
+                mT__40(); 
+
+                }
+                break;
+            case 26 :
+                // GuiceyData.g:1:193: T__41
+                {
+                mT__41(); 
+
+                }
+                break;
+            case 27 :
+                // GuiceyData.g:1:199: T__42
+                {
+                mT__42(); 
+
+                }
+                break;
+            case 28 :
+                // GuiceyData.g:1:205: T__43
+                {
+                mT__43(); 
+
+                }
+                break;
+            case 29 :
+                // GuiceyData.g:1:211: COMMENT
+                {
+                mCOMMENT(); 
+
+                }
+                break;
+            case 30 :
+                // GuiceyData.g:1:219: TYPE
                 {
                 mTYPE(); 
 
                 }
                 break;
-            case 26 :
-                // GuiceyData.g:1:179: ID
+            case 31 :
+                // GuiceyData.g:1:224: ID
                 {
                 mID(); 
 
                 }
                 break;
-            case 27 :
-                // GuiceyData.g:1:182: WS
+            case 32 :
+                // GuiceyData.g:1:227: WS
                 {
                 mWS(); 
 
                 }
                 break;
-            case 28 :
-                // GuiceyData.g:1:185: INT
+            case 33 :
+                // GuiceyData.g:1:230: INT
                 {
                 mINT(); 
 
                 }
                 break;
-            case 29 :
-                // GuiceyData.g:1:189: FLOAT
+            case 34 :
+                // GuiceyData.g:1:234: FLOAT
                 {
                 mFLOAT(); 
 
                 }
                 break;
-            case 30 :
-                // GuiceyData.g:1:195: STRING
+            case 35 :
+                // GuiceyData.g:1:240: STRING
                 {
                 mSTRING(); 
 
@@ -1555,103 +1727,106 @@ public class GuiceyDataLexer extends Lexer {
     }
 
 
-    protected DFA10 dfa10 = new DFA10(this);
-    protected DFA16 dfa16 = new DFA16(this);
-    static final String DFA10_eotS =
+    protected DFA11 dfa11 = new DFA11(this);
+    protected DFA17 dfa17 = new DFA17(this);
+    static final String DFA11_eotS =
         "\5\uffff";
-    static final String DFA10_eofS =
+    static final String DFA11_eofS =
         "\5\uffff";
-    static final String DFA10_minS =
+    static final String DFA11_minS =
         "\2\56\3\uffff";
-    static final String DFA10_maxS =
+    static final String DFA11_maxS =
         "\1\71\1\145\3\uffff";
-    static final String DFA10_acceptS =
-        "\2\uffff\1\2\1\3\1\1";
-    static final String DFA10_specialS =
+    static final String DFA11_acceptS =
+        "\2\uffff\1\2\1\1\1\3";
+    static final String DFA11_specialS =
         "\5\uffff}>";
-    static final String[] DFA10_transitionS = {
+    static final String[] DFA11_transitionS = {
             "\1\2\1\uffff\12\1",
-            "\1\4\1\uffff\12\1\13\uffff\1\3\37\uffff\1\3",
+            "\1\3\1\uffff\12\1\13\uffff\1\4\37\uffff\1\4",
             "",
             "",
             ""
     };
 
-    static final short[] DFA10_eot = DFA.unpackEncodedString(DFA10_eotS);
-    static final short[] DFA10_eof = DFA.unpackEncodedString(DFA10_eofS);
-    static final char[] DFA10_min = DFA.unpackEncodedStringToUnsignedChars(DFA10_minS);
-    static final char[] DFA10_max = DFA.unpackEncodedStringToUnsignedChars(DFA10_maxS);
-    static final short[] DFA10_accept = DFA.unpackEncodedString(DFA10_acceptS);
-    static final short[] DFA10_special = DFA.unpackEncodedString(DFA10_specialS);
-    static final short[][] DFA10_transition;
+    static final short[] DFA11_eot = DFA.unpackEncodedString(DFA11_eotS);
+    static final short[] DFA11_eof = DFA.unpackEncodedString(DFA11_eofS);
+    static final char[] DFA11_min = DFA.unpackEncodedStringToUnsignedChars(DFA11_minS);
+    static final char[] DFA11_max = DFA.unpackEncodedStringToUnsignedChars(DFA11_maxS);
+    static final short[] DFA11_accept = DFA.unpackEncodedString(DFA11_acceptS);
+    static final short[] DFA11_special = DFA.unpackEncodedString(DFA11_specialS);
+    static final short[][] DFA11_transition;
 
     static {
-        int numStates = DFA10_transitionS.length;
-        DFA10_transition = new short[numStates][];
+        int numStates = DFA11_transitionS.length;
+        DFA11_transition = new short[numStates][];
         for (int i=0; i<numStates; i++) {
-            DFA10_transition[i] = DFA.unpackEncodedString(DFA10_transitionS[i]);
+            DFA11_transition[i] = DFA.unpackEncodedString(DFA11_transitionS[i]);
         }
     }
 
-    class DFA10 extends DFA {
+    class DFA11 extends DFA {
 
-        public DFA10(BaseRecognizer recognizer) {
+        public DFA11(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 10;
-            this.eot = DFA10_eot;
-            this.eof = DFA10_eof;
-            this.min = DFA10_min;
-            this.max = DFA10_max;
-            this.accept = DFA10_accept;
-            this.special = DFA10_special;
-            this.transition = DFA10_transition;
+            this.decisionNumber = 11;
+            this.eot = DFA11_eot;
+            this.eof = DFA11_eof;
+            this.min = DFA11_min;
+            this.max = DFA11_max;
+            this.accept = DFA11_accept;
+            this.special = DFA11_special;
+            this.transition = DFA11_transition;
         }
         public String getDescription() {
-            return "114:1: FLOAT : ( ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )? | '.' ( '0' .. '9' )+ ( EXPONENT )? | ( '0' .. '9' )+ EXPONENT );";
+            return "125:1: FLOAT : ( ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )? | '.' ( '0' .. '9' )+ ( EXPONENT )? | ( '0' .. '9' )+ EXPONENT );";
         }
     }
-    static final String DFA16_eotS =
-        "\1\uffff\7\31\1\43\11\uffff\1\31\1\uffff\1\44\2\uffff\2\31\2\uffff"+
-        "\7\31\3\uffff\1\31\1\60\1\62\6\31\1\72\4\uffff\1\74\2\31\1\77\1"+
-        "\31\1\101\4\uffff\2\31\1\uffff\1\31\1\uffff\2\31\1\107\2\31\1\uffff"+
-        "\1\31\1\113\1\114\2\uffff";
-    static final String DFA16_eofS =
-        "\115\uffff";
-    static final String DFA16_minS =
-        "\1\11\7\56\1\175\11\uffff\1\56\1\uffff\1\56\2\uffff\2\56\2\uffff"+
-        "\7\56\3\uffff\12\56\4\uffff\6\56\4\uffff\2\56\1\uffff\1\56\1\uffff"+
-        "\5\56\1\uffff\3\56\2\uffff";
-    static final String DFA16_maxS =
-        "\1\175\7\172\1\175\11\uffff\1\172\1\uffff\1\145\2\uffff\2\172\2"+
-        "\uffff\7\172\3\uffff\12\172\4\uffff\6\172\4\uffff\2\172\1\uffff"+
-        "\1\172\1\uffff\5\172\1\uffff\3\172\2\uffff";
-    static final String DFA16_acceptS =
-        "\11\uffff\1\13\1\15\1\16\1\17\1\20\1\21\1\22\1\24\1\26\1\uffff\1"+
-        "\33\1\uffff\1\35\1\36\2\uffff\1\32\1\31\7\uffff\1\14\1\12\1\34\12"+
-        "\uffff\1\25\1\2\1\27\1\3\6\uffff\1\23\1\1\1\30\1\4\2\uffff\1\10"+
-        "\1\uffff\1\11\5\uffff\1\7\3\uffff\1\6\1\5";
-    static final String DFA16_specialS =
-        "\115\uffff}>";
-    static final String[] DFA16_transitionS = {
-            "\2\23\2\uffff\1\23\22\uffff\1\23\6\uffff\1\26\1\15\1\16\2\uffff"+
-            "\1\12\1\uffff\1\25\1\uffff\12\24\1\uffff\1\20\1\uffff\1\17\1"+
-            "\21\2\uffff\32\22\1\13\1\uffff\1\14\3\uffff\3\22\1\1\1\7\6\22"+
-            "\1\4\1\2\1\22\1\6\1\5\2\22\1\3\7\22\1\10\1\uffff\1\11",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\1\27"+
-            "\31\30",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\1\33"+
-            "\31\30",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\4\30"+
-            "\1\34\25\30",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\10\30"+
-            "\1\35\21\30",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\1\37"+
-            "\20\30\1\36\10\30",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\17\30"+
-            "\1\40\12\30",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\15\30"+
-            "\1\41\14\30",
-            "\1\42",
+    static final String DFA17_eotS =
+        "\1\uffff\7\35\1\50\14\uffff\1\35\1\51\1\uffff\1\52\2\uffff\2\35"+
+        "\2\uffff\1\51\7\35\4\uffff\1\35\1\67\1\71\7\35\1\102\4\uffff\1\104"+
+        "\1\35\1\106\3\35\1\112\4\uffff\1\35\1\uffff\3\35\1\uffff\3\35\1"+
+        "\122\3\35\1\uffff\2\35\1\130\1\35\1\132\1\uffff\1\35\1\uffff\3\35"+
+        "\1\uffff";
+    static final String DFA17_eofS =
+        "\137\uffff";
+    static final String DFA17_minS =
+        "\1\11\7\56\1\175\14\uffff\2\56\1\uffff\1\56\2\uffff\2\56\2\uffff"+
+        "\10\56\4\uffff\13\56\4\uffff\7\56\4\uffff\1\56\1\uffff\3\56\1\uffff"+
+        "\7\56\1\uffff\5\56\1\uffff\1\56\1\uffff\2\56\1\55\1\uffff";
+    static final String DFA17_maxS =
+        "\1\175\7\172\1\175\14\uffff\2\172\1\uffff\1\145\2\uffff\2\172\2"+
+        "\uffff\10\172\4\uffff\13\172\4\uffff\7\172\4\uffff\1\172\1\uffff"+
+        "\3\172\1\uffff\7\172\1\uffff\5\172\1\uffff\1\172\1\uffff\3\172\1"+
+        "\uffff";
+    static final String DFA17_acceptS =
+        "\11\uffff\1\14\1\16\1\17\1\20\1\21\1\22\1\23\1\24\1\25\1\27\1\31"+
+        "\1\34\2\uffff\1\40\1\uffff\1\42\1\43\2\uffff\1\35\1\36\10\uffff"+
+        "\1\15\1\13\1\37\1\41\13\uffff\1\30\1\2\1\32\1\3\7\uffff\1\26\1\1"+
+        "\1\33\1\4\1\uffff\1\11\3\uffff\1\12\7\uffff\1\10\5\uffff\1\7\1\uffff"+
+        "\1\6\3\uffff\1\5";
+    static final String DFA17_specialS =
+        "\137\uffff}>";
+    static final String[] DFA17_transitionS = {
+            "\2\27\2\uffff\1\27\22\uffff\1\27\6\uffff\1\32\1\17\1\20\1\14"+
+            "\1\uffff\1\12\1\uffff\1\31\1\13\12\30\1\uffff\1\22\1\24\1\21"+
+            "\1\23\2\uffff\32\26\1\15\1\uffff\1\16\3\uffff\3\25\1\1\1\7\6"+
+            "\25\1\4\1\2\1\25\1\6\1\5\2\25\1\3\7\25\1\10\1\uffff\1\11",
+            "\1\36\1\uffff\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff\1\33"+
+            "\31\34",
+            "\1\36\1\uffff\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff\1\40"+
+            "\31\34",
+            "\1\36\1\uffff\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff\4\34"+
+            "\1\41\25\34",
+            "\1\36\1\uffff\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff\10\34"+
+            "\1\42\21\34",
+            "\1\36\1\uffff\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff\1\43"+
+            "\20\34\1\44\10\34",
+            "\1\36\1\uffff\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff\17\34"+
+            "\1\45\12\34",
+            "\1\36\1\uffff\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff\15\34"+
+            "\1\46\14\34",
+            "\1\47",
             "",
             "",
             "",
@@ -1661,128 +1836,157 @@ public class GuiceyDataLexer extends Lexer {
             "",
             "",
             "",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
-            "",
-            "\1\25\1\uffff\12\24\13\uffff\1\25\37\uffff\1\25",
-            "",
-            "",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\23\30"+
-            "\1\45\6\30",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
-            "",
-            "",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\17\30"+
-            "\1\46\12\30",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\23\30"+
-            "\1\47\6\30",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\22\30"+
-            "\1\50\7\30",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\10\30"+
-            "\1\51\5\30\1\52\13\30",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\10\30"+
-            "\1\53\21\30",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\23\30"+
-            "\1\54\6\30",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\24\30"+
-            "\1\55\5\30",
             "",
             "",
             "",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\1\56"+
-            "\31\30",
-            "\1\32\1\uffff\12\30\2\uffff\1\57\4\uffff\32\30\4\uffff\1\30"+
-            "\1\uffff\32\30",
-            "\1\32\1\uffff\12\30\2\uffff\1\61\4\uffff\32\30\4\uffff\1\30"+
-            "\1\uffff\32\30",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\23\30"+
-            "\1\63\6\30",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\14\30"+
-            "\1\64\15\30",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\17\30"+
-            "\1\65\12\30",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\21\30"+
-            "\1\66\10\30",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\10\30"+
-            "\1\67\21\30",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\14\30"+
-            "\1\70\15\30",
-            "\1\32\1\uffff\12\30\1\uffff\1\71\5\uffff\32\30\4\uffff\1\30"+
-            "\1\uffff\32\30",
+            "\1\36\1\uffff\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff\32\34",
+            "\1\36\1\uffff\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff\32\37",
+            "",
+            "\1\31\1\uffff\12\30\13\uffff\1\31\37\uffff\1\31",
+            "",
+            "",
+            "\1\36\1\uffff\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff\23\34"+
+            "\1\53\6\34",
+            "\1\36\1\uffff\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff\32\34",
+            "",
+            "",
+            "\1\36\1\uffff\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff\32\37",
+            "\1\36\1\uffff\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff\17\34"+
+            "\1\54\12\34",
+            "\1\36\1\uffff\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff\23\34"+
+            "\1\55\6\34",
+            "\1\36\1\uffff\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff\22\34"+
+            "\1\56\7\34",
+            "\1\36\1\uffff\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff\10\34"+
+            "\1\60\10\34\1\57\10\34",
+            "\1\36\1\uffff\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff\10\34"+
+            "\1\61\5\34\1\62\13\34",
+            "\1\36\1\uffff\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff\23\34"+
+            "\1\63\6\34",
+            "\1\36\1\uffff\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff\24\34"+
+            "\1\64\5\34",
             "",
             "",
             "",
             "",
-            "\1\32\1\uffff\12\30\2\uffff\1\73\4\uffff\32\30\4\uffff\1\30"+
-            "\1\uffff\32\30",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\10\30"+
-            "\1\75\21\30",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\4\30"+
-            "\1\76\25\30",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\16\30"+
-            "\1\100\13\30",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
+            "\1\36\1\uffff\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff\1\65"+
+            "\31\34",
+            "\1\36\1\uffff\12\37\2\uffff\1\66\4\uffff\32\37\4\uffff\1\37"+
+            "\1\uffff\32\34",
+            "\1\36\1\uffff\12\37\2\uffff\1\70\4\uffff\32\37\4\uffff\1\37"+
+            "\1\uffff\32\34",
+            "\1\36\1\uffff\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff\23\34"+
+            "\1\72\6\34",
+            "\1\36\1\uffff\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff\1\73"+
+            "\31\34",
+            "\1\36\1\uffff\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff\21\34"+
+            "\1\74\10\34",
+            "\1\36\1\uffff\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff\14\34"+
+            "\1\75\15\34",
+            "\1\36\1\uffff\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff\17\34"+
+            "\1\76\12\34",
+            "\1\36\1\uffff\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff\10\34"+
+            "\1\77\21\34",
+            "\1\36\1\uffff\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff\14\34"+
+            "\1\100\15\34",
+            "\1\36\1\uffff\12\37\1\uffff\1\101\5\uffff\32\37\4\uffff\1\37"+
+            "\1\uffff\32\34",
             "",
             "",
             "",
             "",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\23\30"+
-            "\1\102\6\30",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\21\30"+
-            "\1\103\10\30",
+            "\1\36\1\uffff\12\37\2\uffff\1\103\4\uffff\32\37\4\uffff\1\37"+
+            "\1\uffff\32\34",
+            "\1\36\1\uffff\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff\14\34"+
+            "\1\105\15\34",
+            "\1\36\1\uffff\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff\32\34",
+            "\1\36\1\uffff\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff\10\34"+
+            "\1\107\21\34",
+            "\1\36\1\uffff\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff\4\34"+
+            "\1\110\25\34",
+            "\1\36\1\uffff\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff\16\34"+
+            "\1\111\13\34",
+            "\1\36\1\uffff\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff\32\34",
             "",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\15\30"+
-            "\1\104\14\30",
             "",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\10\30"+
-            "\1\105\21\30",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\23\30"+
-            "\1\106\6\30",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\25\30"+
-            "\1\110\4\30",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\30\30"+
-            "\1\111\1\30",
             "",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\4\30"+
-            "\1\112\25\30",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
-            "\1\32\1\uffff\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
             "",
+            "\1\36\1\uffff\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff\4\34"+
+            "\1\113\25\34",
+            "",
+            "\1\36\1\uffff\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff\23\34"+
+            "\1\114\6\34",
+            "\1\36\1\uffff\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff\21\34"+
+            "\1\115\10\34",
+            "\1\36\1\uffff\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff\15\34"+
+            "\1\116\14\34",
+            "",
+            "\1\36\1\uffff\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff\23\34"+
+            "\1\117\6\34",
+            "\1\36\1\uffff\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff\10\34"+
+            "\1\120\21\34",
+            "\1\36\1\uffff\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff\23\34"+
+            "\1\121\6\34",
+            "\1\36\1\uffff\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff\32\34",
+            "\1\36\1\uffff\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff\4\34"+
+            "\1\123\25\34",
+            "\1\36\1\uffff\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff\25\34"+
+            "\1\124\4\34",
+            "\1\36\1\uffff\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff\30\34"+
+            "\1\125\1\34",
+            "",
+            "\1\36\1\uffff\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff\21\34"+
+            "\1\126\10\34",
+            "\1\36\1\uffff\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff\4\34"+
+            "\1\127\25\34",
+            "\1\36\1\uffff\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff\32\34",
+            "\1\36\1\uffff\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff\10\34"+
+            "\1\131\21\34",
+            "\1\36\1\uffff\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff\32\34",
+            "",
+            "\1\36\1\uffff\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff\31\34"+
+            "\1\133",
+            "",
+            "\1\36\1\uffff\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff\4\34"+
+            "\1\134\25\34",
+            "\1\36\1\uffff\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff\3\34"+
+            "\1\135\26\34",
+            "\1\136\1\36\1\uffff\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff"+
+            "\32\34",
             ""
     };
 
-    static final short[] DFA16_eot = DFA.unpackEncodedString(DFA16_eotS);
-    static final short[] DFA16_eof = DFA.unpackEncodedString(DFA16_eofS);
-    static final char[] DFA16_min = DFA.unpackEncodedStringToUnsignedChars(DFA16_minS);
-    static final char[] DFA16_max = DFA.unpackEncodedStringToUnsignedChars(DFA16_maxS);
-    static final short[] DFA16_accept = DFA.unpackEncodedString(DFA16_acceptS);
-    static final short[] DFA16_special = DFA.unpackEncodedString(DFA16_specialS);
-    static final short[][] DFA16_transition;
+    static final short[] DFA17_eot = DFA.unpackEncodedString(DFA17_eotS);
+    static final short[] DFA17_eof = DFA.unpackEncodedString(DFA17_eofS);
+    static final char[] DFA17_min = DFA.unpackEncodedStringToUnsignedChars(DFA17_minS);
+    static final char[] DFA17_max = DFA.unpackEncodedStringToUnsignedChars(DFA17_maxS);
+    static final short[] DFA17_accept = DFA.unpackEncodedString(DFA17_acceptS);
+    static final short[] DFA17_special = DFA.unpackEncodedString(DFA17_specialS);
+    static final short[][] DFA17_transition;
 
     static {
-        int numStates = DFA16_transitionS.length;
-        DFA16_transition = new short[numStates][];
+        int numStates = DFA17_transitionS.length;
+        DFA17_transition = new short[numStates][];
         for (int i=0; i<numStates; i++) {
-            DFA16_transition[i] = DFA.unpackEncodedString(DFA16_transitionS[i]);
+            DFA17_transition[i] = DFA.unpackEncodedString(DFA17_transitionS[i]);
         }
     }
 
-    class DFA16 extends DFA {
+    class DFA17 extends DFA {
 
-        public DFA16(BaseRecognizer recognizer) {
+        public DFA17(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 16;
-            this.eot = DFA16_eot;
-            this.eof = DFA16_eof;
-            this.min = DFA16_min;
-            this.max = DFA16_max;
-            this.accept = DFA16_accept;
-            this.special = DFA16_special;
-            this.transition = DFA16_transition;
+            this.decisionNumber = 17;
+            this.eot = DFA17_eot;
+            this.eof = DFA17_eof;
+            this.min = DFA17_min;
+            this.max = DFA17_max;
+            this.accept = DFA17_accept;
+            this.special = DFA17_special;
+            this.transition = DFA17_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( DATA | TYPE_MAP | TYPE_SET | TYPE_LIST | TYPE_PRIMITIVE | PROPERTY | OPTION | PAIR | ENUM | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | TYPE | ID | WS | INT | FLOAT | STRING );";
+            return "1:1: Tokens : ( DATA | TYPE_MAP | TYPE_SET | TYPE_LIST | PARAMETERIZED_TYPE | TYPE_PRIMITIVE | PROPERTY | OPTION | PAIR | ENUM | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | COMMENT | TYPE | ID | WS | INT | FLOAT | STRING );";
         }
     }
  

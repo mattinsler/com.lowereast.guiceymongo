@@ -37,10 +37,11 @@ public class Property<T extends Type> {
 	
 	private final String _keyValue;
 	
+	private final String _comment;
 	private final T _type;
 	private final Map<String, Option> _options = Maps.newHashMap();
 	
-	public Property(UserDataType enclosingType, String name, T type, boolean useCamelCaseKeys) {
+	public Property(UserDataType enclosingType, String name, T type, String comment, boolean useCamelCaseKeys) {
 		_enclosingType = enclosingType;
 		_name = name;
 		_camelCaseName = GeneratorUtil.toCamelCase(name);
@@ -48,6 +49,7 @@ public class Property<T extends Type> {
 		_keyName = _camelCaseName + "Key";
 		_keyValue = useCamelCaseKeys ? GeneratorUtil.toLowerCamelCase(name) : name;
 		_type = type;
+		_comment = comment;
 	}
 	
 	public UserDataType getEnclosingType() {
@@ -76,6 +78,14 @@ public class Property<T extends Type> {
 	
 	public T getType() {
 		return _type;
+	}
+	
+	public boolean hasComment() {
+		return (_comment != null) && !_comment.isEmpty();
+	}
+	
+	public String getComment() {
+		return _comment;
 	}
 	
 	public void addOption(Option option) {

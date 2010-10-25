@@ -23,8 +23,8 @@ import com.lowereast.guiceymongo.data.generator.type.PrimitiveType;
 import com.lowereast.guiceymongo.data.generator.type.UserDataType;
 
 public class PrimitiveProperty extends Property<PrimitiveType> {
-	public PrimitiveProperty(UserDataType enclosingType, String name, PrimitiveType type, boolean useCamelCaseKeys) {
-		super(enclosingType, name, type, useCamelCaseKeys);
+	public PrimitiveProperty(UserDataType enclosingType, String name, PrimitiveType type, String comment, boolean useCamelCaseKeys) {
+		super(enclosingType, name, type, comment, useCamelCaseKeys);
 	}
 	
 	@Override

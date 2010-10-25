@@ -160,22 +160,42 @@ public class PrimitivePropertyGenerator extends PropertyGenerator<PrimitiveType,
 		PrimitiveType type = property.getType();
 		
 		// has
+		if (property.hasComment()) {
+			appendIndent(builder, indentCount).append("/**");
+			appendIndent(builder, indentCount).append(" * ").append(property.getComment());
+			appendIndent(builder, indentCount).append(" */");
+		}
 		appendIndent(builder, indentCount).append("@Override public boolean has").append(property.getCamelCaseName()).append("() {\n");
 		appendIndent(builder, indentCount + 1).append("return _wrapper.has").append(property.getCamelCaseName()).append("() || _builder.has").append(property.getCamelCaseName()).append("();\n");
 		appendIndent(builder, indentCount).append("}\n");
 		
 		// get
+		if (property.hasComment()) {
+			appendIndent(builder, indentCount).append("/**");
+			appendIndent(builder, indentCount).append(" * ").append(property.getComment());
+			appendIndent(builder, indentCount).append(" */");
+		}
 		appendIndent(builder, indentCount).append("@Override public ").append(type.getJavaType()).append(" get").append(property.getCamelCaseName()).append("() {\n");
 		appendIndent(builder, indentCount + 1).append("return _builder.has").append(property.getCamelCaseName()).append("() ? _builder.get").append(property.getCamelCaseName()).append("() : _wrapper.get").append(property.getCamelCaseName()).append("();\n");
 		appendIndent(builder, indentCount).append("}\n");
 		
 		// set
+		if (property.hasComment()) {
+			appendIndent(builder, indentCount).append("/**");
+			appendIndent(builder, indentCount).append(" * ").append(property.getComment());
+			appendIndent(builder, indentCount).append(" */");
+		}
 		appendIndent(builder, indentCount).append("public Updater set").append(property.getCamelCaseName()).append("(").append(type.getJavaType()).append(" value) {\n");
 		appendIndent(builder, indentCount + 1).append("_builder.set").append(property.getCamelCaseName()).append("(value);\n");
 		appendIndent(builder, indentCount + 1).append("return this;\n");
 		appendIndent(builder, indentCount).append("}\n");
 		
 		// clear
+		if (property.hasComment()) {
+			appendIndent(builder, indentCount).append("/**");
+			appendIndent(builder, indentCount).append(" * ").append(property.getComment());
+			appendIndent(builder, indentCount).append(" */");
+		}
 		appendIndent(builder, indentCount).append("public Updater clear").append(property.getCamelCaseName()).append("() {\n");
 		appendIndent(builder, indentCount + 1).append("_builder.clear").append(property.getCamelCaseName()).append("();\n");
 		appendIndent(builder, indentCount + 1).append("return this;\n");

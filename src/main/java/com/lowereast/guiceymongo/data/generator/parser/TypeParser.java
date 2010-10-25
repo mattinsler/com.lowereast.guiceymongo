@@ -106,24 +106,28 @@ public class TypeParser {
 		List<CommonTree> children = tree.getChildren();
 		String propertyName = children.get(0).getText();
 		
-		children = children.subList(1, children.size());
+		//CommonTree commentNode = children.get(1);
+		//String comment = (commentNode == null) ? null : commentNode.getText();
+		String comment = "testing";
+		
+		children = children.subList(2, children.size());
 		Type propertyType = parseType(type, children);
 		
 		Property<?> property;
 		if (propertyType instanceof PrimitiveType) {
-			property = new PrimitiveProperty(type, propertyName, (PrimitiveType)propertyType, _useCamelCaseKeys);
+			property = new PrimitiveProperty(type, propertyName, (PrimitiveType)propertyType, comment, _useCamelCaseKeys);
 		} else if (propertyType instanceof BlobType) {
-			property = new BlobProperty(type, propertyName, (BlobType)propertyType, _useCamelCaseKeys);
+			property = new BlobProperty(type, propertyName, (BlobType)propertyType, comment, _useCamelCaseKeys);
 		} else if (propertyType instanceof UserEnumType) {
-			property = new UserEnumProperty(type, propertyName, (UserEnumType)propertyType, _useCamelCaseKeys);
+			property = new UserEnumProperty(type, propertyName, (UserEnumType)propertyType, comment, _useCamelCaseKeys);
 		} else if (propertyType instanceof UserDataType) {
-			property = new UserDataProperty(type, propertyName, (UserDataType)propertyType, _useCamelCaseKeys);
+			property = new UserDataProperty(type, propertyName, (UserDataType)propertyType, comment, _useCamelCaseKeys);
 		} else if (propertyType instanceof ListType) {
-			property = new ListProperty(type, propertyName, (ListType)propertyType, _useCamelCaseKeys);
+			property = new ListProperty(type, propertyName, (ListType)propertyType, comment, _useCamelCaseKeys);
 		} else if (propertyType instanceof SetType) {
-			property = new SetProperty(type, propertyName, (SetType)propertyType, _useCamelCaseKeys);
+			property = new SetProperty(type, propertyName, (SetType)propertyType, comment, _useCamelCaseKeys);
 		} else if (propertyType instanceof MapType) {
-			property = new MapProperty(type, propertyName, (MapType)propertyType, _useCamelCaseKeys);
+			property = new MapProperty(type, propertyName, (MapType)propertyType, comment, _useCamelCaseKeys);
 		} else {
 			throw new RuntimeException("Shouldn't happen");
 		}

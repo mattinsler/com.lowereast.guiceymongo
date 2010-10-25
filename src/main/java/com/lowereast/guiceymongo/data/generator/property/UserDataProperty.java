@@ -19,8 +19,8 @@ package com.lowereast.guiceymongo.data.generator.property;
 import com.lowereast.guiceymongo.data.generator.type.UserDataType;
 
 public class UserDataProperty extends Property<UserDataType> {
-	public UserDataProperty(UserDataType enclosingType, String name, UserDataType type, boolean useCamelCaseKeys) {
-		super(enclosingType, name, type, useCamelCaseKeys);
+	public UserDataProperty(UserDataType enclosingType, String name, UserDataType type, String comment, boolean useCamelCaseKeys) {
+		super(enclosingType, name, type, comment, useCamelCaseKeys);
 	}
 	
 	public String getUserType() {
