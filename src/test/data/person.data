@@ -1,0 +1,12 @@
+data Person {
+	enum EyeColor {
+		Blue,
+		Brown,
+		Green,
+		Hazel
+	}
+	
+	string name;
+	date birth_date;
+	EyeColor eye_color;
+}
