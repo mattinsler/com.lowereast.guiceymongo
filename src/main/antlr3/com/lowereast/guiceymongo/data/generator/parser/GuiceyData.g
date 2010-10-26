@@ -49,12 +49,11 @@ data_entry
 	;
 
 javadoc
-	:	'/*' COMMENT '*/' -> ^(COMMENT)
+	:	'#' COMMENT -> ^(COMMENT)
 	;
 
 COMMENT
-	:	'a'..'z'+
-//(options{greedy=false;}: .)*
+	:	~( '\r' | '\n' )* ( '\r'? '\n' | '\r' )
 	;
 
 option
