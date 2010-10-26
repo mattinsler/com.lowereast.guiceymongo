@@ -142,7 +142,7 @@ public class GeneratorTest extends TestCase {
         
         try {
 			final String contents = FileUtils.readFileToString(person);
-			Assert.assertTrue(GeneratorTest.REGEX_JAVADOC_PROPERTY.matcher(contents).find());
+			Assert.assertTrue(REGEX_JAVADOC_PROPERTY.matcher(contents).find());
 		} catch (IOException e) {
 			e.printStackTrace();
 			Assert.fail("Could not read generated file.");
@@ -162,7 +162,7 @@ public class GeneratorTest extends TestCase {
         
         try {
 			final String contents = FileUtils.readFileToString(person);
-			Assert.assertTrue(GeneratorTest.REGEX_JAVADOC_DATA.matcher(contents).find());
+			Assert.assertTrue(REGEX_JAVADOC_DATA.matcher(contents).find());
 		} catch (IOException e) {
 			e.printStackTrace();
 			Assert.fail("Could not read generated file.");
@@ -182,7 +182,7 @@ public class GeneratorTest extends TestCase {
         
         try {
 			final String contents = FileUtils.readFileToString(person);
-			Assert.assertTrue(GeneratorTest.REGEX_JAVADOC_ENUM.matcher(contents).find());
+			Assert.assertTrue(REGEX_JAVADOC_ENUM.matcher(contents).find());
 		} catch (IOException e) {
 			e.printStackTrace();
 			Assert.fail("Could not read generated file.");
