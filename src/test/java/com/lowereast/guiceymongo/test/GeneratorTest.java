@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.regex.Pattern;
 import org.apache.commons.io.FileUtils;
 import com.lowereast.guiceymongo.data.generator.GuiceyDataGenerator;
 import junit.framework.Assert;
@@ -25,6 +26,7 @@ public class GeneratorTest extends TestCase {
 	private static final String SCHEMA_VEHICLE = String.format("%s/subfolder/vehicle.data", SCHEMA);
 	private static final String OUTPUT_PERSON = String.format("%s/%s/Person.java", OUTPUT, PACKAGE_FOLDER);
 	private static final String OUTPUT_VEHICLE = String.format("%s/%s/Vehicle.java", OUTPUT, PACKAGE_FOLDER);
+	private static final Pattern REGEX_JAVADOC_NAME = Pattern.compile("/\\*\\*\\s+\\* Full name\\s+ \\*/\\s+@Override\\s+public String getName()");
 	
 	
 	static {
@@ -121,5 +123,25 @@ public class GeneratorTest extends TestCase {
         
         //Restore System.out
         System.setOut(oldSystemOut);
+    }
+    
+    /**
+     * Make sure that the JavaDocs are being properly generated.
+     */
+    public void testJavaDoc() {
+        //Generate source files
+        GENERATOR.generate(SCHEMA_PERSON);
+        
+        //Test for class in root of directory
+    	final File person = new File(OUTPUT_PERSON);
+        Assert.assertTrue(person.exists());
+        
+        try {
+			final String contents = FileUtils.readFileToString(person);
+			Assert.assertTrue(GeneratorTest.REGEX_JAVADOC_NAME.matcher(contents).find());
+		} catch (IOException e) {
+			e.printStackTrace();
+			Assert.fail("Could not read generated file.");
+		}
     }
 }

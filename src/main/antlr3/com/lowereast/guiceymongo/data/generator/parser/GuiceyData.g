@@ -16,6 +16,7 @@ tokens {
 	TYPE_PRIMITIVE='primitive';
 	PROPERTY='property';
 	OPTION='option';
+	COMMENT='comment';
 	PAIR='pair';
 	ENUM='enum';
 }
@@ -49,11 +50,11 @@ data_entry
 	;
 
 javadoc
-	:	'#' COMMENT -> ^(COMMENT)
+	:	'/*' comment '*/' -> ^(COMMENT comment)
 	;
 
-COMMENT
-	:	~( '\r' | '\n' )* ( '\r'? '\n' | '\r' )
+comment
+	:	~( '*/' )*
 	;
 
 option

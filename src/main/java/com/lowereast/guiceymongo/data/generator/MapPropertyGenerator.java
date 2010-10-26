@@ -100,10 +100,25 @@ public class MapPropertyGenerator extends PropertyGenerator<MapType, MapProperty
 	@Override
 	public void createReadableMethod(Appendable builder, MapProperty property, int indentCount) throws IOException {
 		StringTemplate template = new StringTemplate(
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
                 "public abstract $p.mapType$ get$p.camelCaseName$Map();\n" +
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"public abstract boolean contains$p.camelCaseName$($p.keyType$ key);\n" +
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"public abstract int get$p.camelCaseName$Count();\n" +
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"public abstract $p.mapValueType$ get$p.camelCaseName$($p.keyType$ key);\n" +
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"public abstract java.util.Set<$p.mapKeyType$> get$p.camelCaseName$Keys();\n"
 		);
 		template.setAttribute("p", property);
@@ -119,8 +134,14 @@ public class MapPropertyGenerator extends PropertyGenerator<MapType, MapProperty
 
 		String s =
 				// member variable
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"protected $p.mapType$ $p.memberVariableName$ = null;\n" +
 				// getMap
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"public $p.mapType$ get$p.camelCaseName$Map() {\n" +
 					"if ($p.memberVariableName$ == null) {\n" +
 						"Object value = _backing.get($p.keyName$);\n" +
@@ -212,24 +233,36 @@ public class MapPropertyGenerator extends PropertyGenerator<MapType, MapProperty
 					"return $p.memberVariableName$;\n" +
 				"}\n" +
 				// contains
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"@Override\n" +
 				"public boolean contains$p.camelCaseName$($p.keyType$ key) {\n" +
 					"$p.mapType$ map = get$p.camelCaseName$Map();\n" +
 					"return map == null ? false : map.containsKey(key);\n" +
 				"}\n" +
 				// getCount
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"@Override\n" +
 				"public int get$p.camelCaseName$Count() {\n" +
 					"$p.mapType$ map = get$p.camelCaseName$Map();\n" +
 					"return map == null ? 0 : map.size();\n" +
 				"}\n" +
 				// get
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"@Override\n" +
 				"public $p.mapValueType$ get$p.camelCaseName$($p.keyType$ key) {\n" +
 					"$p.mapType$ map = get$p.camelCaseName$Map();\n" +
 					"return map == null ? null : map.get(key);\n" +
 				"}\n" +
 				// getKeys
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"@Override\n" +
 				"public java.util.Set<$p.mapKeyType$> get$p.camelCaseName$Keys() {\n" +
 					"$p.mapType$ map = get$p.camelCaseName$Map();\n" +
@@ -247,45 +280,73 @@ public class MapPropertyGenerator extends PropertyGenerator<MapType, MapProperty
 		
 		String s =
 				// member variable
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"protected $p.mapType$ $p.memberVariableName$ = null;\n" +
 				// getMap
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"public $p.mapType$ get$p.camelCaseName$Map() {\n" +
 					"if ($p.memberVariableName$ == null)\n" +
 						"$p.memberVariableName$ = new $p.newMapType$();\n" +
 					"return $p.memberVariableName$;\n" +
 				"}\n" +
 				// contains
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"@Override\n" +
 				"public boolean contains$p.camelCaseName$($p.keyType$ key) {\n" +
 					"return $p.memberVariableName$ == null ? false : $p.memberVariableName$.containsKey(key);\n" +
 				"}\n" +
 				// get
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"@Override\n" +
 				"public $p.builderMapValueType$ get$p.camelCaseName$($p.keyType$ key) {\n" +
 					"return $p.memberVariableName$ == null ? null : ($p.builderMapValueType$)$p.memberVariableName$.get(key);\n" +
 				"}\n" +
 				// getCount
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"@Override\n" +
 				"public int get$p.camelCaseName$Count() {\n" +
 					"return $p.memberVariableName$ == null ? 0 : $p.memberVariableName$.size();\n" +
 				"}\n" +
 				// keys
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"@Override\n" +
 				"public java.util.Set<$p.mapKeyType$> get$p.camelCaseName$Keys() {\n" +
 					"return $p.memberVariableName$ == null ? null : $p.memberVariableName$.keySet();\n" +
 				"}\n" +
 				// put
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"public Builder put$p.camelCaseName$($p.keyType$ key, $p.builderValueType$ value) {\n" +
 					"get$p.camelCaseName$Map().put(key, value);\n" +
 					"return this;\n" +
 				"}\n" +
 				// clear
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"public Builder clear$p.camelCaseName$() {\n" +
 					"$p.memberVariableName$ = null;\n" +
 					"return this;\n" +
 				"}\n";
 
 		// getOrCreate
+		s +=
+			"/**\n" +
+			" * $p.comment$\n" +
+			" */\n";
 		if (valueType instanceof UserDataType) {
 			s +=
 				"public $p.builderValueType$ getOrCreate$p.camelCaseName$($p.builderKeyType$ key) {\n" +

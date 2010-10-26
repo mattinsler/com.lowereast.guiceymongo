@@ -61,7 +61,13 @@ public class PrimitivePropertyGenerator extends PropertyGenerator<PrimitiveType,
 	@Override
 	public void createReadableMethod(Appendable builder, PrimitiveProperty property, int indentCount) throws IOException {
 		StringTemplate template = new StringTemplate(
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"public abstract boolean has$p.camelCaseName$();\n" +
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"public abstract $p.primitiveType$ get$p.camelCaseName$();\n"
 		);
 		template.setAttribute("p", property);
@@ -73,10 +79,16 @@ public class PrimitivePropertyGenerator extends PropertyGenerator<PrimitiveType,
 		PrimitiveType type = property.getType();
 
 		String s =
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"@Override\n" +
 				"public boolean has$p.camelCaseName$() {\n" +
 					"return _backing.containsField($p.keyName$);\n" +
 				"}\n" +
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"@Override\n" +
 				"public $p.primitiveType$ get$p.camelCaseName$() {\n";
 		
@@ -109,23 +121,38 @@ public class PrimitivePropertyGenerator extends PropertyGenerator<PrimitiveType,
 	public void createBuilderMethod(Appendable builder, PrimitiveProperty property, int indentCount) throws IOException {
 		StringTemplate template = new StringTemplate(
 				// member variable
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"protected $p.primitiveBoxedType$ $p.memberVariableName$ = null;\n" +
 				// has
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"@Override\n" +
 				"public boolean has$p.camelCaseName$() {\n" +
 					"return $p.memberVariableName$ != null;\n" +
 				"}\n" +
 				// get
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"@Override\n" +
 				"public $p.primitiveType$ get$p.camelCaseName$() {\n" +
 					"return $p.memberVariableName$;\n" +
 				"}\n" +
 				// set
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"public Builder set$p.camelCaseName$($p.primitiveType$ value) {\n" +
 					"$p.memberVariableName$ = value;\n" +
 					"return this;\n" +
 				"}\n" +
 				// clear
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"public Builder clear$p.camelCaseName$() {\n" +
 					"$p.memberVariableName$ = null;\n" +
 					"return this;\n" +
@@ -160,42 +187,22 @@ public class PrimitivePropertyGenerator extends PropertyGenerator<PrimitiveType,
 		PrimitiveType type = property.getType();
 		
 		// has
-		if (property.hasComment()) {
-			appendIndent(builder, indentCount).append("/**");
-			appendIndent(builder, indentCount).append(" * ").append(property.getComment());
-			appendIndent(builder, indentCount).append(" */");
-		}
 		appendIndent(builder, indentCount).append("@Override public boolean has").append(property.getCamelCaseName()).append("() {\n");
 		appendIndent(builder, indentCount + 1).append("return _wrapper.has").append(property.getCamelCaseName()).append("() || _builder.has").append(property.getCamelCaseName()).append("();\n");
 		appendIndent(builder, indentCount).append("}\n");
 		
 		// get
-		if (property.hasComment()) {
-			appendIndent(builder, indentCount).append("/**");
-			appendIndent(builder, indentCount).append(" * ").append(property.getComment());
-			appendIndent(builder, indentCount).append(" */");
-		}
 		appendIndent(builder, indentCount).append("@Override public ").append(type.getJavaType()).append(" get").append(property.getCamelCaseName()).append("() {\n");
 		appendIndent(builder, indentCount + 1).append("return _builder.has").append(property.getCamelCaseName()).append("() ? _builder.get").append(property.getCamelCaseName()).append("() : _wrapper.get").append(property.getCamelCaseName()).append("();\n");
 		appendIndent(builder, indentCount).append("}\n");
 		
 		// set
-		if (property.hasComment()) {
-			appendIndent(builder, indentCount).append("/**");
-			appendIndent(builder, indentCount).append(" * ").append(property.getComment());
-			appendIndent(builder, indentCount).append(" */");
-		}
 		appendIndent(builder, indentCount).append("public Updater set").append(property.getCamelCaseName()).append("(").append(type.getJavaType()).append(" value) {\n");
 		appendIndent(builder, indentCount + 1).append("_builder.set").append(property.getCamelCaseName()).append("(value);\n");
 		appendIndent(builder, indentCount + 1).append("return this;\n");
 		appendIndent(builder, indentCount).append("}\n");
 		
 		// clear
-		if (property.hasComment()) {
-			appendIndent(builder, indentCount).append("/**");
-			appendIndent(builder, indentCount).append(" * ").append(property.getComment());
-			appendIndent(builder, indentCount).append(" */");
-		}
 		appendIndent(builder, indentCount).append("public Updater clear").append(property.getCamelCaseName()).append("() {\n");
 		appendIndent(builder, indentCount + 1).append("_builder.clear").append(property.getCamelCaseName()).append("();\n");
 		appendIndent(builder, indentCount + 1).append("return this;\n");

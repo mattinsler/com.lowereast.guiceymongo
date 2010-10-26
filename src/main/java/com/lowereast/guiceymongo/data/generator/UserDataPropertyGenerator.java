@@ -52,7 +52,13 @@ public class UserDataPropertyGenerator extends PropertyGenerator<UserDataType, U
 	@Override
 	public void createReadableMethod(Appendable builder, UserDataProperty property, int indentCount) throws IOException {
 		StringTemplate template = new StringTemplate(
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"public abstract boolean has$p.camelCaseName$();\n" +
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"public abstract $p.userType$ get$p.camelCaseName$();\n"
 		);
 		template.setAttribute("p", property);
@@ -62,11 +68,20 @@ public class UserDataPropertyGenerator extends PropertyGenerator<UserDataType, U
 	@Override
 	public void createWrapperMethod(Appendable builder, UserDataProperty property, int indentCount) throws IOException {
 		StringTemplate template = new StringTemplate(
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"protected $p.userType$.Wrapper $p.memberVariableName$ = null;\n" +
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"@Override\n" +
 				"public boolean has$p.camelCaseName$() {\n" +
 					"return _backing.containsField($p.keyName$);\n" +
 				"}\n" +
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"@Override\n" +
 				"public $p.userType$.Wrapper get$p.camelCaseName$() {\n" +
 					"if ($p.memberVariableName$ == null) {\n" +
@@ -85,29 +100,47 @@ public class UserDataPropertyGenerator extends PropertyGenerator<UserDataType, U
 	public void createBuilderMethod(Appendable builder, UserDataProperty property, int indentCount) throws IOException {
 		StringTemplate template = new StringTemplate(
 				// member variable
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"protected $p.builderUserType$ $p.memberVariableName$ = null;\n" +
 				// has
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"@Override\n" +
 				"public boolean has$p.camelCaseName$() {\n" +
 					"return $p.memberVariableName$ != null;\n" +
 				"}\n" +
 				// get
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"@Override\n" +
 				"public $p.builderUserType$ get$p.camelCaseName$() {\n" +
 					"return $p.memberVariableName$;\n" +
 				"}\n" +
 				// getOrCreate
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"public $p.builderUserType$ getOrCreate$p.camelCaseName$() {\n" +
 					"if ($p.memberVariableName$ == null)\n" +
 						"$p.memberVariableName$ = $p.userType$.newBuilder();\n" +
 					"return $p.memberVariableName$;\n" +
 				"}\n" +
 				// set
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"public Builder set$p.camelCaseName$($p.builderUserType$ value) {\n" +
 					"$p.memberVariableName$ = value;\n" +
 					"return this;\n" +
 				"}\n" +
 				// clear
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"public Builder clear$p.camelCaseName$() {\n" +
 					"$p.memberVariableName$ = null;\n" +
 					"return this;\n" +

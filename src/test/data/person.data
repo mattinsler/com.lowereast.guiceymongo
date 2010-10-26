@@ -6,7 +6,11 @@ data Person {
 		Hazel
 	}
 	
+	/* Full name */
 	string name;
+	
 	date birth_date;
+	
+	/* testing */
 	EyeColor eye_color;
 }

@@ -16,6 +16,7 @@
 
 package com.lowereast.guiceymongo.data.generator.parser;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import org.antlr.runtime.tree.CommonTree;
@@ -41,6 +42,8 @@ import com.lowereast.guiceymongo.data.generator.type.UserEnumType;
 import com.lowereast.guiceymongo.data.generator.type.UserDataType;
 
 public class TypeParser {
+	private static final String OPTION_IDENTITY = "identity";
+	
 	private final boolean _useCamelCaseKeys;
 	private final TypeRegistry _typeRegistry;
 	private final boolean _isQuiet;
@@ -79,6 +82,17 @@ public class TypeParser {
 		}
 		return option;
 	}
+	
+	private String parseCommentTree(CommonTree tree) {
+		assert GuiceyDataParser.COMMENT == tree.getToken().getType();
+		
+		List<CommonTree> children = tree.getChildren();
+		StringBuilder commentBuilder = new StringBuilder();
+		for (CommonTree child : children) {
+			commentBuilder.append(child.getText()).append(' ');
+		}
+		return commentBuilder.toString();
+	}
 
 	private Type parseType(UserDataType scopingType, List<CommonTree> typeArguments) {
 		switch (typeArguments.remove(0).getToken().getType()) {
@@ -106,12 +120,22 @@ public class TypeParser {
 		List<CommonTree> children = tree.getChildren();
 		String propertyName = children.get(0).getText();
 		
-		//CommonTree commentNode = children.get(1);
-		//String comment = (commentNode == null) ? null : commentNode.getText();
-		String comment = "testing";
-		
-		children = children.subList(2, children.size());
+		children = children.subList(1, children.size());
 		Type propertyType = parseType(type, children);
+		
+		List<Option> options = new LinkedList<Option>();
+		String comment = null;
+		
+		for (CommonTree child : children) {
+			switch (child.getToken().getType()) {
+				case GuiceyDataParser.COMMENT:
+					comment = parseCommentTree(child);
+					break;
+				case GuiceyDataParser.OPTION:
+					options.add(parseOptionTree(child));
+					break;
+			}
+		}
 		
 		Property<?> property;
 		if (propertyType instanceof PrimitiveType) {
@@ -134,14 +158,10 @@ public class TypeParser {
 
 		type.addProperty(property);
 		
-		for (CommonTree child : children) {
-			if (GuiceyDataParser.OPTION == child.getToken().getType()) {
-				Option option = parseOptionTree(child);
-				property.addOption(option);
-				if ("identity".equals(option.getName())) {
-					// validation possibly...
-					type.setIdentityProperty(property);
-				}
+		for (Option option : options) {
+			if (option.getName().equals(TypeParser.OPTION_IDENTITY)) {
+				// TODO validation...?
+				type.setIdentityProperty(property);
 			}
 		}
 	}
