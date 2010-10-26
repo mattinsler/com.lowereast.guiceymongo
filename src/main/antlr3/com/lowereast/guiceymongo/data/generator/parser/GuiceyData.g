@@ -28,14 +28,16 @@ package com.lowereast.guiceymongo.data.generator.parser;
 package com.lowereast.guiceymongo.data.generator.parser;
 }
 
-start	:	entry+ EOF
+start
+	:	entry+ EOF
 	;
 
 entry	:	data
 	|	enumeration
 	;
 
-data	:	DATA ID '{' data_entry* '}' -> ^(DATA ID data_entry*)
+data
+	:	DATA ID '{' data_entry* '}' -> ^(DATA ID data_entry*)
 	|	DATA ID '{}' -> ^(DATA ID)
 	;
 
@@ -130,7 +132,6 @@ FLOAT
 
 //COMMENT
 //    :   '//' ~('\n'|'\r')* '\r'? '\n' {$channel=HIDDEN;}
-//    |   '/*' ( options {greedy=false;} : . )* '*/' {$channel=HIDDEN;}
 //    ;
 
 STRING
