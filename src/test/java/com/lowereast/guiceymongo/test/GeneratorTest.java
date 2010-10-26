@@ -125,6 +125,8 @@ public class GeneratorTest extends TestCase {
         
         //Restore System.out
         System.setOut(oldSystemOut);
+        GENERATOR.setIsQuiet(false);
+        
     }
     
     /**
