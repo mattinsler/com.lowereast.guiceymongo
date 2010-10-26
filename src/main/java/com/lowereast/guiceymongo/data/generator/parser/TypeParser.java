@@ -168,21 +168,24 @@ public class TypeParser {
 	
 	private void parseDataTree(CommonTree tree, UserDataType parentType) {
 		assert GuiceyDataParser.DATA == tree.getToken().getType();
-
-		UserDataType type = _typeRegistry.getGuiceyType((parentType == null ? "" : parentType.getGuiceyType() + ".") + tree.getChild(0).getText());
 		
 		List<CommonTree> children = tree.getChildren();
-		for (CommonTree child : children.subList(1, children.size())) {
+		UserDataType type = _typeRegistry.getGuiceyType((parentType == null ? "" : parentType.getGuiceyType() + ".") + children.remove(0).getText());
+		
+		for (CommonTree child : children) {
 			switch (child.getToken().getType()) {
-			case GuiceyDataParser.DATA:
-				parseDataTree(child, type);
-				break;
-			case GuiceyDataParser.ENUM:
-				parseEnumTree(child, type);
-				break;
-			case GuiceyDataParser.PROPERTY:
-				parsePropertyTree(child, type);
-				break;
+				case GuiceyDataParser.DATA:
+					parseDataTree(child, type);
+					break;
+				case GuiceyDataParser.ENUM:
+					parseEnumTree(child, type);
+					break;
+				case GuiceyDataParser.PROPERTY:
+					parsePropertyTree(child, type);
+					break;
+				case GuiceyDataParser.COMMENT:
+					type.setComment(parseCommentTree(child));
+					break;
 			}
 		}
 	}
@@ -238,10 +241,14 @@ public class TypeParser {
 		
 		for (CommonTree typeTree : (List<CommonTree>)tree.getChildren()) {
 			if (GuiceyDataParser.EOF != typeTree.getToken().getType()) {
-				if (GuiceyDataParser.DATA == typeTree.getToken().getType())
-					parseDataTree(typeTree, null);
-				else if (GuiceyDataParser.ENUM == typeTree.getToken().getType())
-					parseEnumTree(typeTree, null);
+				switch (typeTree.getToken().getType()) {
+					case GuiceyDataParser.DATA:
+						parseDataTree(typeTree, null);
+						break;
+					case GuiceyDataParser.ENUM:
+						parseEnumTree(typeTree, null);
+						break;
+				}
 			}
 		}
 	}

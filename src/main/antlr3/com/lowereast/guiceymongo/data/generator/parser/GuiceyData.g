@@ -32,13 +32,14 @@ start
 	:	entry+ EOF
 	;
 
-entry	:	data
+entry
+	:	data
 	|	enumeration
 	;
 
 data
-	:	DATA ID '{' data_entry* '}' -> ^(DATA ID data_entry*)
-	|	DATA ID '{}' -> ^(DATA ID)
+	:	javadoc? DATA ID '{' data_entry* '}' -> ^(DATA ID javadoc? data_entry*)
+	|	javadoc? DATA ID '{}' -> ^(DATA ID javadoc?)
 	;
 
 enumeration

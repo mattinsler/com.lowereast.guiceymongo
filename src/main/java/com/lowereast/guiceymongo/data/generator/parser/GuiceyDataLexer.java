@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 14:05:07 com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g 2010-10-26 09:34:13
+// $ANTLR 3.2 Sep 23, 2009 14:05:07 com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g 2010-10-26 13:54:02
 
 package com.lowereast.guiceymongo.data.generator.parser;
 
@@ -668,11 +668,11 @@ public class GuiceyDataLexer extends Lexer {
         try {
             int _type = TYPE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:109:6: ( ID ( '.' ID )+ )
-            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:109:8: ID ( '.' ID )+
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:112:6: ( ID ( '.' ID )+ )
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:112:8: ID ( '.' ID )+
             {
             mID(); 
-            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:109:11: ( '.' ID )+
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:112:11: ( '.' ID )+
             int cnt1=0;
             loop1:
             do {
@@ -688,7 +688,7 @@ public class GuiceyDataLexer extends Lexer {
 
                 switch (alt1) {
             	case 1 :
-            	    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:109:12: '.' ID
+            	    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:112:12: '.' ID
             	    {
             	    match('.'); 
             	    mID(); 
@@ -721,8 +721,8 @@ public class GuiceyDataLexer extends Lexer {
         try {
             int _type = ID;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:112:5: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
-            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:112:7: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:115:5: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:115:7: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||(input.LA(1)>='a' && input.LA(1)<='z') ) {
                 input.consume();
@@ -733,7 +733,7 @@ public class GuiceyDataLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:112:27: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:115:27: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
             loop2:
             do {
                 int alt2=2;
@@ -846,8 +846,8 @@ public class GuiceyDataLexer extends Lexer {
         try {
             int _type = WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:115:5: ( ( ' ' | '\\t' | '\\r' | '\\n' ) )
-            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:115:9: ( ' ' | '\\t' | '\\r' | '\\n' )
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:118:5: ( ( ' ' | '\\t' | '\\r' | '\\n' ) )
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:118:9: ( ' ' | '\\t' | '\\r' | '\\n' )
             {
             if ( (input.LA(1)>='\t' && input.LA(1)<='\n')||input.LA(1)=='\r'||input.LA(1)==' ' ) {
                 input.consume();
@@ -875,10 +875,10 @@ public class GuiceyDataLexer extends Lexer {
         try {
             int _type = INT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:122:5: ( ( '0' .. '9' )+ )
-            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:122:7: ( '0' .. '9' )+
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:125:5: ( ( '0' .. '9' )+ )
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:125:7: ( '0' .. '9' )+
             {
-            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:122:7: ( '0' .. '9' )+
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:125:7: ( '0' .. '9' )+
             int cnt3=0;
             loop3:
             do {
@@ -903,7 +903,7 @@ public class GuiceyDataLexer extends Lexer {
 
                 switch (alt3) {
             	case 1 :
-            	    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:122:7: '0' .. '9'
+            	    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:125:7: '0' .. '9'
             	    {
             	    matchRange('0','9'); 
 
@@ -935,14 +935,14 @@ public class GuiceyDataLexer extends Lexer {
         try {
             int _type = FLOAT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:126:5: ( ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )? | '.' ( '0' .. '9' )+ ( EXPONENT )? | ( '0' .. '9' )+ EXPONENT )
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:129:5: ( ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )? | '.' ( '0' .. '9' )+ ( EXPONENT )? | ( '0' .. '9' )+ EXPONENT )
             int alt10=3;
             alt10 = dfa10.predict(input);
             switch (alt10) {
                 case 1 :
-                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:126:9: ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )?
+                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:129:9: ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )?
                     {
-                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:126:9: ( '0' .. '9' )+
+                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:129:9: ( '0' .. '9' )+
                     int cnt4=0;
                     loop4:
                     do {
@@ -967,7 +967,7 @@ public class GuiceyDataLexer extends Lexer {
 
                         switch (alt4) {
                     	case 1 :
-                    	    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:126:10: '0' .. '9'
+                    	    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:129:10: '0' .. '9'
                     	    {
                     	    matchRange('0','9'); 
 
@@ -984,7 +984,7 @@ public class GuiceyDataLexer extends Lexer {
                     } while (true);
 
                     match('.'); 
-                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:126:25: ( '0' .. '9' )*
+                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:129:25: ( '0' .. '9' )*
                     loop5:
                     do {
                         int alt5=2;
@@ -1008,7 +1008,7 @@ public class GuiceyDataLexer extends Lexer {
 
                         switch (alt5) {
                     	case 1 :
-                    	    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:126:26: '0' .. '9'
+                    	    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:129:26: '0' .. '9'
                     	    {
                     	    matchRange('0','9'); 
 
@@ -1020,7 +1020,7 @@ public class GuiceyDataLexer extends Lexer {
                         }
                     } while (true);
 
-                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:126:37: ( EXPONENT )?
+                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:129:37: ( EXPONENT )?
                     int alt6=2;
                     switch ( input.LA(1) ) {
                         case 'E':
@@ -1033,7 +1033,7 @@ public class GuiceyDataLexer extends Lexer {
 
                     switch (alt6) {
                         case 1 :
-                            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:126:37: EXPONENT
+                            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:129:37: EXPONENT
                             {
                             mEXPONENT(); 
 
@@ -1046,10 +1046,10 @@ public class GuiceyDataLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:127:9: '.' ( '0' .. '9' )+ ( EXPONENT )?
+                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:130:9: '.' ( '0' .. '9' )+ ( EXPONENT )?
                     {
                     match('.'); 
-                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:127:13: ( '0' .. '9' )+
+                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:130:13: ( '0' .. '9' )+
                     int cnt7=0;
                     loop7:
                     do {
@@ -1074,7 +1074,7 @@ public class GuiceyDataLexer extends Lexer {
 
                         switch (alt7) {
                     	case 1 :
-                    	    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:127:14: '0' .. '9'
+                    	    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:130:14: '0' .. '9'
                     	    {
                     	    matchRange('0','9'); 
 
@@ -1090,7 +1090,7 @@ public class GuiceyDataLexer extends Lexer {
                         cnt7++;
                     } while (true);
 
-                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:127:25: ( EXPONENT )?
+                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:130:25: ( EXPONENT )?
                     int alt8=2;
                     switch ( input.LA(1) ) {
                         case 'E':
@@ -1103,7 +1103,7 @@ public class GuiceyDataLexer extends Lexer {
 
                     switch (alt8) {
                         case 1 :
-                            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:127:25: EXPONENT
+                            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:130:25: EXPONENT
                             {
                             mEXPONENT(); 
 
@@ -1116,9 +1116,9 @@ public class GuiceyDataLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:128:9: ( '0' .. '9' )+ EXPONENT
+                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:131:9: ( '0' .. '9' )+ EXPONENT
                     {
-                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:128:9: ( '0' .. '9' )+
+                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:131:9: ( '0' .. '9' )+
                     int cnt9=0;
                     loop9:
                     do {
@@ -1143,7 +1143,7 @@ public class GuiceyDataLexer extends Lexer {
 
                         switch (alt9) {
                     	case 1 :
-                    	    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:128:10: '0' .. '9'
+                    	    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:131:10: '0' .. '9'
                     	    {
                     	    matchRange('0','9'); 
 
@@ -1178,11 +1178,11 @@ public class GuiceyDataLexer extends Lexer {
         try {
             int _type = STRING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:137:5: ( '\\'' ( ESC_SEQ | ~ ( '\\\\' | '\\'' ) )* '\\'' )
-            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:137:8: '\\'' ( ESC_SEQ | ~ ( '\\\\' | '\\'' ) )* '\\''
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:139:5: ( '\\'' ( ESC_SEQ | ~ ( '\\\\' | '\\'' ) )* '\\'' )
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:139:8: '\\'' ( ESC_SEQ | ~ ( '\\\\' | '\\'' ) )* '\\''
             {
             match('\''); 
-            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:137:13: ( ESC_SEQ | ~ ( '\\\\' | '\\'' ) )*
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:139:13: ( ESC_SEQ | ~ ( '\\\\' | '\\'' ) )*
             loop11:
             do {
                 int alt11=3;
@@ -1198,14 +1198,14 @@ public class GuiceyDataLexer extends Lexer {
 
                 switch (alt11) {
             	case 1 :
-            	    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:137:15: ESC_SEQ
+            	    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:139:15: ESC_SEQ
             	    {
             	    mESC_SEQ(); 
 
             	    }
             	    break;
             	case 2 :
-            	    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:137:25: ~ ( '\\\\' | '\\'' )
+            	    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:139:25: ~ ( '\\\\' | '\\'' )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -1240,8 +1240,8 @@ public class GuiceyDataLexer extends Lexer {
     // $ANTLR start "EXPONENT"
     public final void mEXPONENT() throws RecognitionException {
         try {
-            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:141:10: ( ( 'e' | 'E' ) ( '+' | '-' )? ( '0' .. '9' )+ )
-            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:141:12: ( 'e' | 'E' ) ( '+' | '-' )? ( '0' .. '9' )+
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:143:10: ( ( 'e' | 'E' ) ( '+' | '-' )? ( '0' .. '9' )+ )
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:143:12: ( 'e' | 'E' ) ( '+' | '-' )? ( '0' .. '9' )+
             {
             if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                 input.consume();
@@ -1252,7 +1252,7 @@ public class GuiceyDataLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:141:22: ( '+' | '-' )?
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:143:22: ( '+' | '-' )?
             int alt12=2;
             switch ( input.LA(1) ) {
                 case '+':
@@ -1282,7 +1282,7 @@ public class GuiceyDataLexer extends Lexer {
 
             }
 
-            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:141:33: ( '0' .. '9' )+
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:143:33: ( '0' .. '9' )+
             int cnt13=0;
             loop13:
             do {
@@ -1307,7 +1307,7 @@ public class GuiceyDataLexer extends Lexer {
 
                 switch (alt13) {
             	case 1 :
-            	    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:141:34: '0' .. '9'
+            	    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:143:34: '0' .. '9'
             	    {
             	    matchRange('0','9'); 
 
@@ -1335,8 +1335,8 @@ public class GuiceyDataLexer extends Lexer {
     // $ANTLR start "HEX_DIGIT"
     public final void mHEX_DIGIT() throws RecognitionException {
         try {
-            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:144:11: ( ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) )
-            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:144:13: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:146:11: ( ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) )
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:146:13: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )
             {
             if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='F')||(input.LA(1)>='a' && input.LA(1)<='f') ) {
                 input.consume();
@@ -1359,7 +1359,7 @@ public class GuiceyDataLexer extends Lexer {
     // $ANTLR start "ESC_SEQ"
     public final void mESC_SEQ() throws RecognitionException {
         try {
-            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:148:5: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' ) | UNICODE_ESC | OCTAL_ESC )
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:150:5: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' ) | UNICODE_ESC | OCTAL_ESC )
             int alt14=3;
             switch ( input.LA(1) ) {
             case '\\':
@@ -1412,7 +1412,7 @@ public class GuiceyDataLexer extends Lexer {
 
             switch (alt14) {
                 case 1 :
-                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:148:9: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' )
+                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:150:9: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' )
                     {
                     match('\\'); 
                     if ( input.LA(1)=='\"'||input.LA(1)=='\''||input.LA(1)=='\\'||input.LA(1)=='b'||input.LA(1)=='f'||input.LA(1)=='n'||input.LA(1)=='r'||input.LA(1)=='t' ) {
@@ -1428,14 +1428,14 @@ public class GuiceyDataLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:149:9: UNICODE_ESC
+                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:151:9: UNICODE_ESC
                     {
                     mUNICODE_ESC(); 
 
                     }
                     break;
                 case 3 :
-                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:150:9: OCTAL_ESC
+                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:152:9: OCTAL_ESC
                     {
                     mOCTAL_ESC(); 
 
@@ -1452,7 +1452,7 @@ public class GuiceyDataLexer extends Lexer {
     // $ANTLR start "OCTAL_ESC"
     public final void mOCTAL_ESC() throws RecognitionException {
         try {
-            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:155:5: ( '\\\\' ( '0' .. '3' ) ( '0' .. '7' ) ( '0' .. '7' ) | '\\\\' ( '0' .. '7' ) ( '0' .. '7' ) | '\\\\' ( '0' .. '7' ) )
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:157:5: ( '\\\\' ( '0' .. '3' ) ( '0' .. '7' ) ( '0' .. '7' ) | '\\\\' ( '0' .. '7' ) ( '0' .. '7' ) | '\\\\' ( '0' .. '7' ) )
             int alt15=3;
             switch ( input.LA(1) ) {
             case '\\':
@@ -1537,25 +1537,25 @@ public class GuiceyDataLexer extends Lexer {
 
             switch (alt15) {
                 case 1 :
-                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:155:9: '\\\\' ( '0' .. '3' ) ( '0' .. '7' ) ( '0' .. '7' )
+                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:157:9: '\\\\' ( '0' .. '3' ) ( '0' .. '7' ) ( '0' .. '7' )
                     {
                     match('\\'); 
-                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:155:14: ( '0' .. '3' )
-                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:155:15: '0' .. '3'
+                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:157:14: ( '0' .. '3' )
+                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:157:15: '0' .. '3'
                     {
                     matchRange('0','3'); 
 
                     }
 
-                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:155:25: ( '0' .. '7' )
-                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:155:26: '0' .. '7'
+                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:157:25: ( '0' .. '7' )
+                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:157:26: '0' .. '7'
                     {
                     matchRange('0','7'); 
 
                     }
 
-                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:155:36: ( '0' .. '7' )
-                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:155:37: '0' .. '7'
+                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:157:36: ( '0' .. '7' )
+                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:157:37: '0' .. '7'
                     {
                     matchRange('0','7'); 
 
@@ -1565,18 +1565,18 @@ public class GuiceyDataLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:156:9: '\\\\' ( '0' .. '7' ) ( '0' .. '7' )
+                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:158:9: '\\\\' ( '0' .. '7' ) ( '0' .. '7' )
                     {
                     match('\\'); 
-                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:156:14: ( '0' .. '7' )
-                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:156:15: '0' .. '7'
+                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:158:14: ( '0' .. '7' )
+                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:158:15: '0' .. '7'
                     {
                     matchRange('0','7'); 
 
                     }
 
-                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:156:25: ( '0' .. '7' )
-                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:156:26: '0' .. '7'
+                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:158:25: ( '0' .. '7' )
+                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:158:26: '0' .. '7'
                     {
                     matchRange('0','7'); 
 
@@ -1586,11 +1586,11 @@ public class GuiceyDataLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:157:9: '\\\\' ( '0' .. '7' )
+                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:159:9: '\\\\' ( '0' .. '7' )
                     {
                     match('\\'); 
-                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:157:14: ( '0' .. '7' )
-                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:157:15: '0' .. '7'
+                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:159:14: ( '0' .. '7' )
+                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:159:15: '0' .. '7'
                     {
                     matchRange('0','7'); 
 
@@ -1610,8 +1610,8 @@ public class GuiceyDataLexer extends Lexer {
     // $ANTLR start "UNICODE_ESC"
     public final void mUNICODE_ESC() throws RecognitionException {
         try {
-            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:162:5: ( '\\\\' 'u' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT )
-            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:162:9: '\\\\' 'u' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:164:5: ( '\\\\' 'u' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT )
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:164:9: '\\\\' 'u' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT
             {
             match('\\'); 
             match('u'); 
@@ -1936,7 +1936,7 @@ public class GuiceyDataLexer extends Lexer {
             this.transition = DFA10_transition;
         }
         public String getDescription() {
-            return "125:1: FLOAT : ( ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )? | '.' ( '0' .. '9' )+ ( EXPONENT )? | ( '0' .. '9' )+ EXPONENT );";
+            return "128:1: FLOAT : ( ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )? | '.' ( '0' .. '9' )+ ( EXPONENT )? | ( '0' .. '9' )+ EXPONENT );";
         }
     }
     static final String DFA16_eotS =

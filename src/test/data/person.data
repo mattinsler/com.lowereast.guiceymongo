@@ -1,3 +1,4 @@
+/* Represents a single person */
 data Person {
 	enum EyeColor {
 		Blue,

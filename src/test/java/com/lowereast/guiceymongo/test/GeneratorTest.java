@@ -26,7 +26,8 @@ public class GeneratorTest extends TestCase {
 	private static final String SCHEMA_VEHICLE = String.format("%s/subfolder/vehicle.data", SCHEMA);
 	private static final String OUTPUT_PERSON = String.format("%s/%s/Person.java", OUTPUT, PACKAGE_FOLDER);
 	private static final String OUTPUT_VEHICLE = String.format("%s/%s/Vehicle.java", OUTPUT, PACKAGE_FOLDER);
-	private static final Pattern REGEX_JAVADOC_NAME = Pattern.compile("/\\*\\*\\s+\\* Full name\\s+ \\*/\\s+@Override\\s+public String getName()");
+	private static final Pattern REGEX_JAVADOC_PROPERTY = Pattern.compile("/\\*\\*\\s+ \\* Full name\\s+ \\*/\\s+@Override\\s+public String getName()");
+	private static final Pattern REGEX_JAVADOC_DATA = Pattern.compile("/\\*\\*\\s+ \\* Represents a single person\\s+ \\*/\\s+public abstract class Person");
 	
 	
 	static {
@@ -126,9 +127,9 @@ public class GeneratorTest extends TestCase {
     }
     
     /**
-     * Make sure that the JavaDocs are being properly generated.
+     * Make sure that the property JavaDocs are being properly generated.
      */
-    public void testJavaDoc() {
+    public void testPropertyJavaDoc() {
         //Generate source files
         GENERATOR.generate(SCHEMA_PERSON);
         
@@ -138,7 +139,27 @@ public class GeneratorTest extends TestCase {
         
         try {
 			final String contents = FileUtils.readFileToString(person);
-			Assert.assertTrue(GeneratorTest.REGEX_JAVADOC_NAME.matcher(contents).find());
+			Assert.assertTrue(GeneratorTest.REGEX_JAVADOC_PROPERTY.matcher(contents).find());
+		} catch (IOException e) {
+			e.printStackTrace();
+			Assert.fail("Could not read generated file.");
+		}
+    }
+    
+    /**
+     * Make sure that the data JavaDocs are being properly generated.
+     */
+    public void testDataJavaDoc() {
+        //Generate source files
+        GENERATOR.generate(SCHEMA_PERSON);
+        
+        //Test for class in root of directory
+    	final File person = new File(OUTPUT_PERSON);
+        Assert.assertTrue(person.exists());
+        
+        try {
+			final String contents = FileUtils.readFileToString(person);
+			Assert.assertTrue(GeneratorTest.REGEX_JAVADOC_DATA.matcher(contents).find());
 		} catch (IOException e) {
 			e.printStackTrace();
 			Assert.fail("Could not read generated file.");

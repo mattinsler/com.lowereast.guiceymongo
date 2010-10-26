@@ -263,6 +263,9 @@ public class TypeGenerator {
 	}
 
 	private void createUserType(Appendable builder, UserDataType type, int indentCount, boolean innerClass) throws IOException {
+		appendIndent(builder, indentCount).append("/**\n");
+		appendIndent(builder, indentCount).append(" * ").append(type.getComment()).append('\n');
+		appendIndent(builder, indentCount).append(" */\n");
 		appendIndent(builder, indentCount).append("public " + (innerClass ? "static " : "") + "abstract class ").append(getSimpleName(type.getJavaType())).append(" implements com.lowereast.guiceymongo.data.IsData {\n");
 		
 		create("Key", builder, type, indentCount + 1);
