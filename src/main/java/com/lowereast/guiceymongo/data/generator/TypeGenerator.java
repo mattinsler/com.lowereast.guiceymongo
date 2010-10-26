@@ -249,6 +249,9 @@ public class TypeGenerator {
 	}
 	
 	private void createEnumType(Appendable builder, UserEnumType type, int indentCount, boolean innerClass) throws IOException {
+		appendIndent(builder, indentCount).append("/**\n");
+		appendIndent(builder, indentCount).append(" * ").append(type.getComment()).append('\n');
+		appendIndent(builder, indentCount).append(" */\n");
 		appendIndent(builder, indentCount).append("public " + (innerClass ? "static " : "") + "enum ").append(getSimpleName(type.getJavaType())).append(" {\n");
 		
 		List<String> values = new ArrayList<String>(type.getValues());

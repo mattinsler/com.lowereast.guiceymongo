@@ -28,6 +28,7 @@ public class GeneratorTest extends TestCase {
 	private static final String OUTPUT_VEHICLE = String.format("%s/%s/Vehicle.java", OUTPUT, PACKAGE_FOLDER);
 	private static final Pattern REGEX_JAVADOC_PROPERTY = Pattern.compile("/\\*\\*\\s+ \\* Full name\\s+ \\*/\\s+@Override\\s+public String getName()");
 	private static final Pattern REGEX_JAVADOC_DATA = Pattern.compile("/\\*\\*\\s+ \\* Represents a single person\\s+ \\*/\\s+public abstract class Person");
+	private static final Pattern REGEX_JAVADOC_ENUM = Pattern.compile("/\\*\\*\\s+ \\* Color of eye\\s+ \\*/\\s+public static enum EyeColor");
 	
 	
 	static {
@@ -160,6 +161,26 @@ public class GeneratorTest extends TestCase {
         try {
 			final String contents = FileUtils.readFileToString(person);
 			Assert.assertTrue(GeneratorTest.REGEX_JAVADOC_DATA.matcher(contents).find());
+		} catch (IOException e) {
+			e.printStackTrace();
+			Assert.fail("Could not read generated file.");
+		}
+    }
+    
+    /**
+     * Make sure that the enum JavaDocs are being properly generated.
+     */
+    public void testEnumJavaDoc() {
+        //Generate source files
+        GENERATOR.generate(SCHEMA_PERSON);
+        
+        //Test for class in root of directory
+    	final File person = new File(OUTPUT_PERSON);
+        Assert.assertTrue(person.exists());
+        
+        try {
+			final String contents = FileUtils.readFileToString(person);
+			Assert.assertTrue(GeneratorTest.REGEX_JAVADOC_ENUM.matcher(contents).find());
 		} catch (IOException e) {
 			e.printStackTrace();
 			Assert.fail("Could not read generated file.");

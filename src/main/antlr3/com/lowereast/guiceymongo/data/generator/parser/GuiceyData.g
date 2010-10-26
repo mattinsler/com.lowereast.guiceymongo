@@ -43,8 +43,8 @@ data
 	;
 
 enumeration
-	:	ENUM ID '{}' -> ^(ENUM ID)
-	|	ENUM ID '{' (ID ',')* ID '}' -> ^(ENUM ID+)
+	:	javadoc? ENUM ID '{}' -> ^(ENUM ID javadoc?)
+	|	javadoc? ENUM ID '{' (ID ',')* ID '}' -> ^(ENUM ID+ javadoc?)
 	;
 
 data_entry

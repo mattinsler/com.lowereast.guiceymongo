@@ -192,12 +192,20 @@ public class TypeParser {
 	
 	private void parseEnumTree(CommonTree tree, UserDataType parentType) {
 		assert GuiceyDataParser.ENUM == tree.getToken().getType();
-		
-		UserEnumType type = _typeRegistry.getGuiceyType((parentType == null ? "" : parentType.getGuiceyType() + ".") + tree.getChild(0).getText());
-		
+
 		List<CommonTree> children = tree.getChildren();
-		for (int x = 1; x < children.size(); ++x)
-			type.addValue(children.get(x).getText());
+		UserEnumType type = _typeRegistry.getGuiceyType((parentType == null ? "" : parentType.getGuiceyType() + ".") + children.remove(0).getText());
+		
+		for (CommonTree child : children) {
+			switch (child.getToken().getType()) {
+				case GuiceyDataParser.COMMENT:
+					type.setComment(parseCommentTree(child));
+					break;
+				default:
+					type.addValue(child.getText());
+					break;
+			}
+		}
 	}
 	
 	private void registerAllUserTypes(CommonTree tree, UserDataType parentType) {

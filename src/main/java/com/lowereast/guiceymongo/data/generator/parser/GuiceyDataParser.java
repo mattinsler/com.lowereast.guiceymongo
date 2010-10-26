@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 14:05:07 com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g 2010-10-26 13:54:02
+// $ANTLR 3.2 Sep 23, 2009 14:05:07 com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g 2010-10-26 15:02:48
 
 package com.lowereast.guiceymongo.data.generator.parser;
 
@@ -198,26 +198,7 @@ public class GuiceyDataParser extends Parser {
         try {
             // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:36:2: ( data | enumeration )
             int alt2=2;
-            switch ( input.LA(1) ) {
-            case DATA:
-            case 30:
-                {
-                alt2=1;
-                }
-                break;
-            case ENUM:
-                {
-                alt2=2;
-                }
-                break;
-            default:
-                if (state.backtracking>0) {state.failed=true; return retval;}
-                NoViableAltException nvae =
-                    new NoViableAltException("", 2, 0, input);
-
-                throw nvae;
-            }
-
+            alt2 = dfa2.predict(input);
             switch (alt2) {
                 case 1 :
                     // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:36:4: data
@@ -399,7 +380,7 @@ public class GuiceyDataParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: ID, DATA, data_entry, javadoc
+                    // elements: ID, data_entry, javadoc, DATA
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -542,106 +523,92 @@ public class GuiceyDataParser extends Parser {
     };
 
     // $ANTLR start "enumeration"
-    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:45:1: enumeration : ( ENUM ID '{}' -> ^( ENUM ID ) | ENUM ID '{' ( ID ',' )* ID '}' -> ^( ENUM ( ID )+ ) );
+    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:45:1: enumeration : ( ( javadoc )? ENUM ID '{}' -> ^( ENUM ID ( javadoc )? ) | ( javadoc )? ENUM ID '{' ( ID ',' )* ID '}' -> ^( ENUM ( ID )+ ( javadoc )? ) );
     public final GuiceyDataParser.enumeration_return enumeration() throws RecognitionException {
         GuiceyDataParser.enumeration_return retval = new GuiceyDataParser.enumeration_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        Token ENUM15=null;
-        Token ID16=null;
-        Token string_literal17=null;
-        Token ENUM18=null;
-        Token ID19=null;
-        Token char_literal20=null;
+        Token ENUM16=null;
+        Token ID17=null;
+        Token string_literal18=null;
+        Token ENUM20=null;
         Token ID21=null;
         Token char_literal22=null;
         Token ID23=null;
         Token char_literal24=null;
+        Token ID25=null;
+        Token char_literal26=null;
+        GuiceyDataParser.javadoc_return javadoc15 = null;
 
-        Object ENUM15_tree=null;
-        Object ID16_tree=null;
-        Object string_literal17_tree=null;
-        Object ENUM18_tree=null;
-        Object ID19_tree=null;
-        Object char_literal20_tree=null;
+        GuiceyDataParser.javadoc_return javadoc19 = null;
+
+
+        Object ENUM16_tree=null;
+        Object ID17_tree=null;
+        Object string_literal18_tree=null;
+        Object ENUM20_tree=null;
         Object ID21_tree=null;
         Object char_literal22_tree=null;
         Object ID23_tree=null;
         Object char_literal24_tree=null;
+        Object ID25_tree=null;
+        Object char_literal26_tree=null;
         RewriteRuleTokenStream stream_ENUM=new RewriteRuleTokenStream(adaptor,"token ENUM");
         RewriteRuleTokenStream stream_ID=new RewriteRuleTokenStream(adaptor,"token ID");
         RewriteRuleTokenStream stream_26=new RewriteRuleTokenStream(adaptor,"token 26");
         RewriteRuleTokenStream stream_27=new RewriteRuleTokenStream(adaptor,"token 27");
         RewriteRuleTokenStream stream_28=new RewriteRuleTokenStream(adaptor,"token 28");
         RewriteRuleTokenStream stream_29=new RewriteRuleTokenStream(adaptor,"token 29");
-
+        RewriteRuleSubtreeStream stream_javadoc=new RewriteRuleSubtreeStream(adaptor,"rule javadoc");
         try {
-            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:46:2: ( ENUM ID '{}' -> ^( ENUM ID ) | ENUM ID '{' ( ID ',' )* ID '}' -> ^( ENUM ( ID )+ ) )
-            int alt8=2;
-            switch ( input.LA(1) ) {
-            case ENUM:
-                {
-                switch ( input.LA(2) ) {
-                case ID:
-                    {
-                    switch ( input.LA(3) ) {
-                    case 28:
-                        {
-                        alt8=1;
-                        }
-                        break;
-                    case 26:
-                        {
-                        alt8=2;
-                        }
-                        break;
-                    default:
-                        if (state.backtracking>0) {state.failed=true; return retval;}
-                        NoViableAltException nvae =
-                            new NoViableAltException("", 8, 2, input);
-
-                        throw nvae;
-                    }
-
-                    }
-                    break;
-                default:
-                    if (state.backtracking>0) {state.failed=true; return retval;}
-                    NoViableAltException nvae =
-                        new NoViableAltException("", 8, 1, input);
-
-                    throw nvae;
-                }
-
-                }
-                break;
-            default:
-                if (state.backtracking>0) {state.failed=true; return retval;}
-                NoViableAltException nvae =
-                    new NoViableAltException("", 8, 0, input);
-
-                throw nvae;
-            }
-
-            switch (alt8) {
+            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:46:2: ( ( javadoc )? ENUM ID '{}' -> ^( ENUM ID ( javadoc )? ) | ( javadoc )? ENUM ID '{' ( ID ',' )* ID '}' -> ^( ENUM ( ID )+ ( javadoc )? ) )
+            int alt10=2;
+            alt10 = dfa10.predict(input);
+            switch (alt10) {
                 case 1 :
-                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:46:4: ENUM ID '{}'
+                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:46:4: ( javadoc )? ENUM ID '{}'
                     {
-                    ENUM15=(Token)match(input,ENUM,FOLLOW_ENUM_in_enumeration211); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_ENUM.add(ENUM15);
+                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:46:4: ( javadoc )?
+                    int alt7=2;
+                    switch ( input.LA(1) ) {
+                        case 30:
+                            {
+                            alt7=1;
+                            }
+                            break;
+                    }
 
-                    ID16=(Token)match(input,ID,FOLLOW_ID_in_enumeration213); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_ID.add(ID16);
+                    switch (alt7) {
+                        case 1 :
+                            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:0:0: javadoc
+                            {
+                            pushFollow(FOLLOW_javadoc_in_enumeration211);
+                            javadoc15=javadoc();
 
-                    string_literal17=(Token)match(input,28,FOLLOW_28_in_enumeration215); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_28.add(string_literal17);
+                            state._fsp--;
+                            if (state.failed) return retval;
+                            if ( state.backtracking==0 ) stream_javadoc.add(javadoc15.getTree());
+
+                            }
+                            break;
+
+                    }
+
+                    ENUM16=(Token)match(input,ENUM,FOLLOW_ENUM_in_enumeration214); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_ENUM.add(ENUM16);
+
+                    ID17=(Token)match(input,ID,FOLLOW_ID_in_enumeration216); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_ID.add(ID17);
+
+                    string_literal18=(Token)match(input,28,FOLLOW_28_in_enumeration218); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_28.add(string_literal18);
 
 
 
                     // AST REWRITE
-                    // elements: ID, ENUM
+                    // elements: ID, ENUM, javadoc
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -652,14 +619,20 @@ public class GuiceyDataParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 46:17: -> ^( ENUM ID )
+                    // 46:26: -> ^( ENUM ID ( javadoc )? )
                     {
-                        // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:46:20: ^( ENUM ID )
+                        // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:46:29: ^( ENUM ID ( javadoc )? )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot(stream_ENUM.nextNode(), root_1);
 
                         adaptor.addChild(root_1, stream_ID.nextNode());
+                        // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:46:39: ( javadoc )?
+                        if ( stream_javadoc.hasNext() ) {
+                            adaptor.addChild(root_1, stream_javadoc.nextTree());
+
+                        }
+                        stream_javadoc.reset();
 
                         adaptor.addChild(root_0, root_1);
                         }
@@ -670,28 +643,54 @@ public class GuiceyDataParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:47:4: ENUM ID '{' ( ID ',' )* ID '}'
+                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:47:4: ( javadoc )? ENUM ID '{' ( ID ',' )* ID '}'
                     {
-                    ENUM18=(Token)match(input,ENUM,FOLLOW_ENUM_in_enumeration228); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_ENUM.add(ENUM18);
+                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:47:4: ( javadoc )?
+                    int alt8=2;
+                    switch ( input.LA(1) ) {
+                        case 30:
+                            {
+                            alt8=1;
+                            }
+                            break;
+                    }
 
-                    ID19=(Token)match(input,ID,FOLLOW_ID_in_enumeration230); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_ID.add(ID19);
+                    switch (alt8) {
+                        case 1 :
+                            // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:0:0: javadoc
+                            {
+                            pushFollow(FOLLOW_javadoc_in_enumeration234);
+                            javadoc19=javadoc();
 
-                    char_literal20=(Token)match(input,26,FOLLOW_26_in_enumeration232); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_26.add(char_literal20);
+                            state._fsp--;
+                            if (state.failed) return retval;
+                            if ( state.backtracking==0 ) stream_javadoc.add(javadoc19.getTree());
 
-                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:47:16: ( ID ',' )*
-                    loop7:
+                            }
+                            break;
+
+                    }
+
+                    ENUM20=(Token)match(input,ENUM,FOLLOW_ENUM_in_enumeration237); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_ENUM.add(ENUM20);
+
+                    ID21=(Token)match(input,ID,FOLLOW_ID_in_enumeration239); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_ID.add(ID21);
+
+                    char_literal22=(Token)match(input,26,FOLLOW_26_in_enumeration241); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_26.add(char_literal22);
+
+                    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:47:25: ( ID ',' )*
+                    loop9:
                     do {
-                        int alt7=2;
+                        int alt9=2;
                         switch ( input.LA(1) ) {
                         case ID:
                             {
                             switch ( input.LA(2) ) {
                             case 29:
                                 {
-                                alt7=1;
+                                alt9=1;
                                 }
                                 break;
 
@@ -702,35 +701,35 @@ public class GuiceyDataParser extends Parser {
 
                         }
 
-                        switch (alt7) {
+                        switch (alt9) {
                     	case 1 :
-                    	    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:47:17: ID ','
+                    	    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:47:26: ID ','
                     	    {
-                    	    ID21=(Token)match(input,ID,FOLLOW_ID_in_enumeration235); if (state.failed) return retval; 
-                    	    if ( state.backtracking==0 ) stream_ID.add(ID21);
+                    	    ID23=(Token)match(input,ID,FOLLOW_ID_in_enumeration244); if (state.failed) return retval; 
+                    	    if ( state.backtracking==0 ) stream_ID.add(ID23);
 
-                    	    char_literal22=(Token)match(input,29,FOLLOW_29_in_enumeration237); if (state.failed) return retval; 
-                    	    if ( state.backtracking==0 ) stream_29.add(char_literal22);
+                    	    char_literal24=(Token)match(input,29,FOLLOW_29_in_enumeration246); if (state.failed) return retval; 
+                    	    if ( state.backtracking==0 ) stream_29.add(char_literal24);
 
 
                     	    }
                     	    break;
 
                     	default :
-                    	    break loop7;
+                    	    break loop9;
                         }
                     } while (true);
 
-                    ID23=(Token)match(input,ID,FOLLOW_ID_in_enumeration241); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_ID.add(ID23);
+                    ID25=(Token)match(input,ID,FOLLOW_ID_in_enumeration250); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_ID.add(ID25);
 
-                    char_literal24=(Token)match(input,27,FOLLOW_27_in_enumeration243); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_27.add(char_literal24);
+                    char_literal26=(Token)match(input,27,FOLLOW_27_in_enumeration252); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_27.add(char_literal26);
 
 
 
                     // AST REWRITE
-                    // elements: ID, ENUM
+                    // elements: ID, ENUM, javadoc
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -741,9 +740,9 @@ public class GuiceyDataParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 47:33: -> ^( ENUM ( ID )+ )
+                    // 47:42: -> ^( ENUM ( ID )+ ( javadoc )? )
                     {
-                        // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:47:36: ^( ENUM ( ID )+ )
+                        // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:47:45: ^( ENUM ( ID )+ ( javadoc )? )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot(stream_ENUM.nextNode(), root_1);
@@ -756,6 +755,12 @@ public class GuiceyDataParser extends Parser {
 
                         }
                         stream_ID.reset();
+                        // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:47:56: ( javadoc )?
+                        if ( stream_javadoc.hasNext() ) {
+                            adaptor.addChild(root_1, stream_javadoc.nextTree());
+
+                        }
+                        stream_javadoc.reset();
 
                         adaptor.addChild(root_0, root_1);
                         }
@@ -800,13 +805,13 @@ public class GuiceyDataParser extends Parser {
 
         Object root_0 = null;
 
-        GuiceyDataParser.entry_return entry25 = null;
+        GuiceyDataParser.entry_return entry27 = null;
 
-        GuiceyDataParser.javadoc_return javadoc26 = null;
+        GuiceyDataParser.javadoc_return javadoc28 = null;
 
-        GuiceyDataParser.option_return option27 = null;
+        GuiceyDataParser.option_return option29 = null;
 
-        GuiceyDataParser.property_return property28 = null;
+        GuiceyDataParser.property_return property30 = null;
 
 
         RewriteRuleSubtreeStream stream_javadoc=new RewriteRuleSubtreeStream(adaptor,"rule javadoc");
@@ -814,20 +819,20 @@ public class GuiceyDataParser extends Parser {
         RewriteRuleSubtreeStream stream_option=new RewriteRuleSubtreeStream(adaptor,"rule option");
         try {
             // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:51:2: ( entry | ( javadoc )? ( option )* property -> ^( property ( javadoc )? ( option )* ) )
-            int alt11=2;
-            alt11 = dfa11.predict(input);
-            switch (alt11) {
+            int alt13=2;
+            alt13 = dfa13.predict(input);
+            switch (alt13) {
                 case 1 :
                     // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:51:4: entry
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_entry_in_data_entry263);
-                    entry25=entry();
+                    pushFollow(FOLLOW_entry_in_data_entry275);
+                    entry27=entry();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, entry25.getTree());
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, entry27.getTree());
 
                     }
                     break;
@@ -835,25 +840,25 @@ public class GuiceyDataParser extends Parser {
                     // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:52:4: ( javadoc )? ( option )* property
                     {
                     // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:52:4: ( javadoc )?
-                    int alt9=2;
+                    int alt11=2;
                     switch ( input.LA(1) ) {
                         case 30:
                             {
-                            alt9=1;
+                            alt11=1;
                             }
                             break;
                     }
 
-                    switch (alt9) {
+                    switch (alt11) {
                         case 1 :
                             // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:0:0: javadoc
                             {
-                            pushFollow(FOLLOW_javadoc_in_data_entry268);
-                            javadoc26=javadoc();
+                            pushFollow(FOLLOW_javadoc_in_data_entry280);
+                            javadoc28=javadoc();
 
                             state._fsp--;
                             if (state.failed) return retval;
-                            if ( state.backtracking==0 ) stream_javadoc.add(javadoc26.getTree());
+                            if ( state.backtracking==0 ) stream_javadoc.add(javadoc28.getTree());
 
                             }
                             break;
@@ -861,43 +866,43 @@ public class GuiceyDataParser extends Parser {
                     }
 
                     // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:52:13: ( option )*
-                    loop10:
+                    loop12:
                     do {
-                        int alt10=2;
+                        int alt12=2;
                         switch ( input.LA(1) ) {
                         case 32:
                             {
-                            alt10=1;
+                            alt12=1;
                             }
                             break;
 
                         }
 
-                        switch (alt10) {
+                        switch (alt12) {
                     	case 1 :
                     	    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:0:0: option
                     	    {
-                    	    pushFollow(FOLLOW_option_in_data_entry271);
-                    	    option27=option();
+                    	    pushFollow(FOLLOW_option_in_data_entry283);
+                    	    option29=option();
 
                     	    state._fsp--;
                     	    if (state.failed) return retval;
-                    	    if ( state.backtracking==0 ) stream_option.add(option27.getTree());
+                    	    if ( state.backtracking==0 ) stream_option.add(option29.getTree());
 
                     	    }
                     	    break;
 
                     	default :
-                    	    break loop10;
+                    	    break loop12;
                         }
                     } while (true);
 
-                    pushFollow(FOLLOW_property_in_data_entry274);
-                    property28=property();
+                    pushFollow(FOLLOW_property_in_data_entry286);
+                    property30=property();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) stream_property.add(property28.getTree());
+                    if ( state.backtracking==0 ) stream_property.add(property30.getTree());
 
 
                     // AST REWRITE
@@ -975,13 +980,13 @@ public class GuiceyDataParser extends Parser {
 
         Object root_0 = null;
 
-        Token string_literal29=null;
         Token string_literal31=null;
-        GuiceyDataParser.comment_return comment30 = null;
+        Token string_literal33=null;
+        GuiceyDataParser.comment_return comment32 = null;
 
 
-        Object string_literal29_tree=null;
         Object string_literal31_tree=null;
+        Object string_literal33_tree=null;
         RewriteRuleTokenStream stream_30=new RewriteRuleTokenStream(adaptor,"token 30");
         RewriteRuleTokenStream stream_31=new RewriteRuleTokenStream(adaptor,"token 31");
         RewriteRuleSubtreeStream stream_comment=new RewriteRuleSubtreeStream(adaptor,"rule comment");
@@ -989,17 +994,17 @@ public class GuiceyDataParser extends Parser {
             // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:56:2: ( '/*' comment '*/' -> ^( COMMENT comment ) )
             // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:56:4: '/*' comment '*/'
             {
-            string_literal29=(Token)match(input,30,FOLLOW_30_in_javadoc297); if (state.failed) return retval; 
-            if ( state.backtracking==0 ) stream_30.add(string_literal29);
+            string_literal31=(Token)match(input,30,FOLLOW_30_in_javadoc309); if (state.failed) return retval; 
+            if ( state.backtracking==0 ) stream_30.add(string_literal31);
 
-            pushFollow(FOLLOW_comment_in_javadoc299);
-            comment30=comment();
+            pushFollow(FOLLOW_comment_in_javadoc311);
+            comment32=comment();
 
             state._fsp--;
             if (state.failed) return retval;
-            if ( state.backtracking==0 ) stream_comment.add(comment30.getTree());
-            string_literal31=(Token)match(input,31,FOLLOW_31_in_javadoc301); if (state.failed) return retval; 
-            if ( state.backtracking==0 ) stream_31.add(string_literal31);
+            if ( state.backtracking==0 ) stream_comment.add(comment32.getTree());
+            string_literal33=(Token)match(input,31,FOLLOW_31_in_javadoc313); if (state.failed) return retval; 
+            if ( state.backtracking==0 ) stream_31.add(string_literal33);
 
 
 
@@ -1065,9 +1070,9 @@ public class GuiceyDataParser extends Parser {
 
         Object root_0 = null;
 
-        Token set32=null;
+        Token set34=null;
 
-        Object set32_tree=null;
+        Object set34_tree=null;
 
         try {
             // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:60:2: ( (~ ( '*/' ) )* )
@@ -1076,9 +1081,9 @@ public class GuiceyDataParser extends Parser {
             root_0 = (Object)adaptor.nil();
 
             // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:60:4: (~ ( '*/' ) )*
-            loop12:
+            loop14:
             do {
-                int alt12=2;
+                int alt14=2;
                 switch ( input.LA(1) ) {
                 case DATA:
                 case TYPE_MAP:
@@ -1120,20 +1125,20 @@ public class GuiceyDataParser extends Parser {
                 case 42:
                 case 43:
                     {
-                    alt12=1;
+                    alt14=1;
                     }
                     break;
 
                 }
 
-                switch (alt12) {
+                switch (alt14) {
             	case 1 :
             	    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:0:0: ~ ( '*/' )
             	    {
-            	    set32=(Token)input.LT(1);
+            	    set34=(Token)input.LT(1);
             	    if ( (input.LA(1)>=DATA && input.LA(1)<=30)||(input.LA(1)>=32 && input.LA(1)<=43) ) {
             	        input.consume();
-            	        if ( state.backtracking==0 ) adaptor.addChild(root_0, (Object)adaptor.create(set32));
+            	        if ( state.backtracking==0 ) adaptor.addChild(root_0, (Object)adaptor.create(set34));
             	        state.errorRecovery=false;state.failed=false;
             	    }
             	    else {
@@ -1147,7 +1152,7 @@ public class GuiceyDataParser extends Parser {
             	    break;
 
             	default :
-            	    break loop12;
+            	    break loop14;
                 }
             } while (true);
 
@@ -1187,37 +1192,37 @@ public class GuiceyDataParser extends Parser {
 
         Object root_0 = null;
 
-        Token char_literal33=null;
-        Token ID34=null;
         Token char_literal35=null;
-        Token char_literal36=null;
-        Token ID37=null;
+        Token ID36=null;
+        Token char_literal37=null;
         Token char_literal38=null;
-        Token string_literal40=null;
-        Token char_literal41=null;
-        Token ID42=null;
+        Token ID39=null;
+        Token char_literal40=null;
+        Token string_literal42=null;
         Token char_literal43=null;
+        Token ID44=null;
         Token char_literal45=null;
-        Token string_literal47=null;
-        GuiceyDataParser.value_return value39 = null;
-
-        GuiceyDataParser.pair_return pair44 = null;
+        Token char_literal47=null;
+        Token string_literal49=null;
+        GuiceyDataParser.value_return value41 = null;
 
         GuiceyDataParser.pair_return pair46 = null;
 
+        GuiceyDataParser.pair_return pair48 = null;
 
-        Object char_literal33_tree=null;
-        Object ID34_tree=null;
+
         Object char_literal35_tree=null;
-        Object char_literal36_tree=null;
-        Object ID37_tree=null;
+        Object ID36_tree=null;
+        Object char_literal37_tree=null;
         Object char_literal38_tree=null;
-        Object string_literal40_tree=null;
-        Object char_literal41_tree=null;
-        Object ID42_tree=null;
+        Object ID39_tree=null;
+        Object char_literal40_tree=null;
+        Object string_literal42_tree=null;
         Object char_literal43_tree=null;
+        Object ID44_tree=null;
         Object char_literal45_tree=null;
-        Object string_literal47_tree=null;
+        Object char_literal47_tree=null;
+        Object string_literal49_tree=null;
         RewriteRuleTokenStream stream_32=new RewriteRuleTokenStream(adaptor,"token 32");
         RewriteRuleTokenStream stream_35=new RewriteRuleTokenStream(adaptor,"token 35");
         RewriteRuleTokenStream stream_ID=new RewriteRuleTokenStream(adaptor,"token ID");
@@ -1228,7 +1233,7 @@ public class GuiceyDataParser extends Parser {
         RewriteRuleSubtreeStream stream_value=new RewriteRuleSubtreeStream(adaptor,"rule value");
         try {
             // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:64:2: ( '[' ID ']' -> ^( OPTION ID ) | '[' ID '(' value ')]' -> ^( OPTION ID value ) | '[' ID '(' ( pair ',' )* pair ')]' -> ^( OPTION ID ( pair )+ ) )
-            int alt14=3;
+            int alt16=3;
             switch ( input.LA(1) ) {
             case 32:
                 {
@@ -1238,7 +1243,7 @@ public class GuiceyDataParser extends Parser {
                     switch ( input.LA(3) ) {
                     case 33:
                         {
-                        alt14=1;
+                        alt16=1;
                         }
                         break;
                     case 34:
@@ -1248,18 +1253,18 @@ public class GuiceyDataParser extends Parser {
                         case FLOAT:
                         case STRING:
                             {
-                            alt14=2;
+                            alt16=2;
                             }
                             break;
                         case ID:
                             {
-                            alt14=3;
+                            alt16=3;
                             }
                             break;
                         default:
                             if (state.backtracking>0) {state.failed=true; return retval;}
                             NoViableAltException nvae =
-                                new NoViableAltException("", 14, 4, input);
+                                new NoViableAltException("", 16, 4, input);
 
                             throw nvae;
                         }
@@ -1269,7 +1274,7 @@ public class GuiceyDataParser extends Parser {
                     default:
                         if (state.backtracking>0) {state.failed=true; return retval;}
                         NoViableAltException nvae =
-                            new NoViableAltException("", 14, 2, input);
+                            new NoViableAltException("", 16, 2, input);
 
                         throw nvae;
                     }
@@ -1279,7 +1284,7 @@ public class GuiceyDataParser extends Parser {
                 default:
                     if (state.backtracking>0) {state.failed=true; return retval;}
                     NoViableAltException nvae =
-                        new NoViableAltException("", 14, 1, input);
+                        new NoViableAltException("", 16, 1, input);
 
                     throw nvae;
                 }
@@ -1289,23 +1294,23 @@ public class GuiceyDataParser extends Parser {
             default:
                 if (state.backtracking>0) {state.failed=true; return retval;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 14, 0, input);
+                    new NoViableAltException("", 16, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt14) {
+            switch (alt16) {
                 case 1 :
                     // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:64:4: '[' ID ']'
                     {
-                    char_literal33=(Token)match(input,32,FOLLOW_32_in_option337); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_32.add(char_literal33);
+                    char_literal35=(Token)match(input,32,FOLLOW_32_in_option349); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_32.add(char_literal35);
 
-                    ID34=(Token)match(input,ID,FOLLOW_ID_in_option339); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_ID.add(ID34);
+                    ID36=(Token)match(input,ID,FOLLOW_ID_in_option351); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_ID.add(ID36);
 
-                    char_literal35=(Token)match(input,33,FOLLOW_33_in_option341); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_33.add(char_literal35);
+                    char_literal37=(Token)match(input,33,FOLLOW_33_in_option353); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_33.add(char_literal37);
 
 
 
@@ -1341,23 +1346,23 @@ public class GuiceyDataParser extends Parser {
                 case 2 :
                     // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:65:4: '[' ID '(' value ')]'
                     {
-                    char_literal36=(Token)match(input,32,FOLLOW_32_in_option354); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_32.add(char_literal36);
+                    char_literal38=(Token)match(input,32,FOLLOW_32_in_option366); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_32.add(char_literal38);
 
-                    ID37=(Token)match(input,ID,FOLLOW_ID_in_option356); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_ID.add(ID37);
+                    ID39=(Token)match(input,ID,FOLLOW_ID_in_option368); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_ID.add(ID39);
 
-                    char_literal38=(Token)match(input,34,FOLLOW_34_in_option358); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_34.add(char_literal38);
+                    char_literal40=(Token)match(input,34,FOLLOW_34_in_option370); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_34.add(char_literal40);
 
-                    pushFollow(FOLLOW_value_in_option360);
-                    value39=value();
+                    pushFollow(FOLLOW_value_in_option372);
+                    value41=value();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) stream_value.add(value39.getTree());
-                    string_literal40=(Token)match(input,35,FOLLOW_35_in_option362); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_35.add(string_literal40);
+                    if ( state.backtracking==0 ) stream_value.add(value41.getTree());
+                    string_literal42=(Token)match(input,35,FOLLOW_35_in_option374); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_35.add(string_literal42);
 
 
 
@@ -1394,19 +1399,19 @@ public class GuiceyDataParser extends Parser {
                 case 3 :
                     // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:67:4: '[' ID '(' ( pair ',' )* pair ')]'
                     {
-                    char_literal41=(Token)match(input,32,FOLLOW_32_in_option378); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_32.add(char_literal41);
+                    char_literal43=(Token)match(input,32,FOLLOW_32_in_option390); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_32.add(char_literal43);
 
-                    ID42=(Token)match(input,ID,FOLLOW_ID_in_option380); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_ID.add(ID42);
+                    ID44=(Token)match(input,ID,FOLLOW_ID_in_option392); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_ID.add(ID44);
 
-                    char_literal43=(Token)match(input,34,FOLLOW_34_in_option382); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_34.add(char_literal43);
+                    char_literal45=(Token)match(input,34,FOLLOW_34_in_option394); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_34.add(char_literal45);
 
                     // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:67:15: ( pair ',' )*
-                    loop13:
+                    loop15:
                     do {
-                        int alt13=2;
+                        int alt15=2;
                         switch ( input.LA(1) ) {
                         case ID:
                             {
@@ -1421,7 +1426,7 @@ public class GuiceyDataParser extends Parser {
                                     switch ( input.LA(4) ) {
                                     case 29:
                                         {
-                                        alt13=1;
+                                        alt15=1;
                                         }
                                         break;
 
@@ -1442,36 +1447,36 @@ public class GuiceyDataParser extends Parser {
 
                         }
 
-                        switch (alt13) {
+                        switch (alt15) {
                     	case 1 :
                     	    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:67:16: pair ','
                     	    {
-                    	    pushFollow(FOLLOW_pair_in_option385);
-                    	    pair44=pair();
+                    	    pushFollow(FOLLOW_pair_in_option397);
+                    	    pair46=pair();
 
                     	    state._fsp--;
                     	    if (state.failed) return retval;
-                    	    if ( state.backtracking==0 ) stream_pair.add(pair44.getTree());
-                    	    char_literal45=(Token)match(input,29,FOLLOW_29_in_option387); if (state.failed) return retval; 
-                    	    if ( state.backtracking==0 ) stream_29.add(char_literal45);
+                    	    if ( state.backtracking==0 ) stream_pair.add(pair46.getTree());
+                    	    char_literal47=(Token)match(input,29,FOLLOW_29_in_option399); if (state.failed) return retval; 
+                    	    if ( state.backtracking==0 ) stream_29.add(char_literal47);
 
 
                     	    }
                     	    break;
 
                     	default :
-                    	    break loop13;
+                    	    break loop15;
                         }
                     } while (true);
 
-                    pushFollow(FOLLOW_pair_in_option391);
-                    pair46=pair();
+                    pushFollow(FOLLOW_pair_in_option403);
+                    pair48=pair();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) stream_pair.add(pair46.getTree());
-                    string_literal47=(Token)match(input,35,FOLLOW_35_in_option393); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_35.add(string_literal47);
+                    if ( state.backtracking==0 ) stream_pair.add(pair48.getTree());
+                    string_literal49=(Token)match(input,35,FOLLOW_35_in_option405); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_35.add(string_literal49);
 
 
 
@@ -1547,13 +1552,13 @@ public class GuiceyDataParser extends Parser {
 
         Object root_0 = null;
 
-        Token char_literal49=null;
-        GuiceyDataParser.key_return key48 = null;
+        Token char_literal51=null;
+        GuiceyDataParser.key_return key50 = null;
 
-        GuiceyDataParser.value_return value50 = null;
+        GuiceyDataParser.value_return value52 = null;
 
 
-        Object char_literal49_tree=null;
+        Object char_literal51_tree=null;
         RewriteRuleTokenStream stream_36=new RewriteRuleTokenStream(adaptor,"token 36");
         RewriteRuleSubtreeStream stream_value=new RewriteRuleSubtreeStream(adaptor,"rule value");
         RewriteRuleSubtreeStream stream_key=new RewriteRuleSubtreeStream(adaptor,"rule key");
@@ -1561,25 +1566,25 @@ public class GuiceyDataParser extends Parser {
             // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:71:2: ( key '=' value -> ^( PAIR key value ) )
             // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:71:4: key '=' value
             {
-            pushFollow(FOLLOW_key_in_pair416);
-            key48=key();
+            pushFollow(FOLLOW_key_in_pair428);
+            key50=key();
 
             state._fsp--;
             if (state.failed) return retval;
-            if ( state.backtracking==0 ) stream_key.add(key48.getTree());
-            char_literal49=(Token)match(input,36,FOLLOW_36_in_pair418); if (state.failed) return retval; 
-            if ( state.backtracking==0 ) stream_36.add(char_literal49);
+            if ( state.backtracking==0 ) stream_key.add(key50.getTree());
+            char_literal51=(Token)match(input,36,FOLLOW_36_in_pair430); if (state.failed) return retval; 
+            if ( state.backtracking==0 ) stream_36.add(char_literal51);
 
-            pushFollow(FOLLOW_value_in_pair420);
-            value50=value();
+            pushFollow(FOLLOW_value_in_pair432);
+            value52=value();
 
             state._fsp--;
             if (state.failed) return retval;
-            if ( state.backtracking==0 ) stream_value.add(value50.getTree());
+            if ( state.backtracking==0 ) stream_value.add(value52.getTree());
 
 
             // AST REWRITE
-            // elements: key, value
+            // elements: value, key
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -1641,9 +1646,9 @@ public class GuiceyDataParser extends Parser {
 
         Object root_0 = null;
 
-        Token ID51=null;
+        Token ID53=null;
 
-        Object ID51_tree=null;
+        Object ID53_tree=null;
 
         try {
             // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:75:2: ( ID )
@@ -1651,10 +1656,10 @@ public class GuiceyDataParser extends Parser {
             {
             root_0 = (Object)adaptor.nil();
 
-            ID51=(Token)match(input,ID,FOLLOW_ID_in_key442); if (state.failed) return retval;
+            ID53=(Token)match(input,ID,FOLLOW_ID_in_key454); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            ID51_tree = (Object)adaptor.create(ID51);
-            adaptor.addChild(root_0, ID51_tree);
+            ID53_tree = (Object)adaptor.create(ID53);
+            adaptor.addChild(root_0, ID53_tree);
             }
 
             }
@@ -1692,9 +1697,9 @@ public class GuiceyDataParser extends Parser {
 
         Object root_0 = null;
 
-        Token set52=null;
+        Token set54=null;
 
-        Object set52_tree=null;
+        Object set54_tree=null;
 
         try {
             // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:78:2: ( INT | FLOAT | STRING )
@@ -1702,10 +1707,10 @@ public class GuiceyDataParser extends Parser {
             {
             root_0 = (Object)adaptor.nil();
 
-            set52=(Token)input.LT(1);
+            set54=(Token)input.LT(1);
             if ( (input.LA(1)>=INT && input.LA(1)<=STRING) ) {
                 input.consume();
-                if ( state.backtracking==0 ) adaptor.addChild(root_0, (Object)adaptor.create(set52));
+                if ( state.backtracking==0 ) adaptor.addChild(root_0, (Object)adaptor.create(set54));
                 state.errorRecovery=false;state.failed=false;
             }
             else {
@@ -1750,39 +1755,39 @@ public class GuiceyDataParser extends Parser {
 
         Object root_0 = null;
 
-        Token string_literal54=null;
-        Token ID56=null;
-        Token char_literal57=null;
-        GuiceyDataParser.type_return type53 = null;
-
+        Token string_literal56=null;
+        Token ID58=null;
+        Token char_literal59=null;
         GuiceyDataParser.type_return type55 = null;
 
+        GuiceyDataParser.type_return type57 = null;
 
-        Object string_literal54_tree=null;
-        Object ID56_tree=null;
-        Object char_literal57_tree=null;
+
+        Object string_literal56_tree=null;
+        Object ID58_tree=null;
+        Object char_literal59_tree=null;
         RewriteRuleTokenStream stream_ID=new RewriteRuleTokenStream(adaptor,"token ID");
         RewriteRuleTokenStream stream_37=new RewriteRuleTokenStream(adaptor,"token 37");
         RewriteRuleTokenStream stream_38=new RewriteRuleTokenStream(adaptor,"token 38");
         RewriteRuleSubtreeStream stream_type=new RewriteRuleSubtreeStream(adaptor,"rule type");
         try {
             // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:91:2: ( type 'data;' -> ^( PROPERTY 'data' type ) | type ID ';' -> ^( PROPERTY ID type ) )
-            int alt15=2;
+            int alt17=2;
             switch ( input.LA(1) ) {
             case 39:
                 {
-                int LA15_1 = input.LA(2);
+                int LA17_1 = input.LA(2);
 
-                if ( (synpred19_GuiceyData()) ) {
-                    alt15=1;
+                if ( (synpred21_GuiceyData()) ) {
+                    alt17=1;
                 }
                 else if ( (true) ) {
-                    alt15=2;
+                    alt17=2;
                 }
                 else {
                     if (state.backtracking>0) {state.failed=true; return retval;}
                     NoViableAltException nvae =
-                        new NoViableAltException("", 15, 1, input);
+                        new NoViableAltException("", 17, 1, input);
 
                     throw nvae;
                 }
@@ -1790,18 +1795,18 @@ public class GuiceyDataParser extends Parser {
                 break;
             case 41:
                 {
-                int LA15_2 = input.LA(2);
+                int LA17_2 = input.LA(2);
 
-                if ( (synpred19_GuiceyData()) ) {
-                    alt15=1;
+                if ( (synpred21_GuiceyData()) ) {
+                    alt17=1;
                 }
                 else if ( (true) ) {
-                    alt15=2;
+                    alt17=2;
                 }
                 else {
                     if (state.backtracking>0) {state.failed=true; return retval;}
                     NoViableAltException nvae =
-                        new NoViableAltException("", 15, 2, input);
+                        new NoViableAltException("", 17, 2, input);
 
                     throw nvae;
                 }
@@ -1809,18 +1814,18 @@ public class GuiceyDataParser extends Parser {
                 break;
             case 42:
                 {
-                int LA15_3 = input.LA(2);
+                int LA17_3 = input.LA(2);
 
-                if ( (synpred19_GuiceyData()) ) {
-                    alt15=1;
+                if ( (synpred21_GuiceyData()) ) {
+                    alt17=1;
                 }
                 else if ( (true) ) {
-                    alt15=2;
+                    alt17=2;
                 }
                 else {
                     if (state.backtracking>0) {state.failed=true; return retval;}
                     NoViableAltException nvae =
-                        new NoViableAltException("", 15, 3, input);
+                        new NoViableAltException("", 17, 3, input);
 
                     throw nvae;
                 }
@@ -1828,18 +1833,18 @@ public class GuiceyDataParser extends Parser {
                 break;
             case TYPE:
                 {
-                int LA15_4 = input.LA(2);
+                int LA17_4 = input.LA(2);
 
-                if ( (synpred19_GuiceyData()) ) {
-                    alt15=1;
+                if ( (synpred21_GuiceyData()) ) {
+                    alt17=1;
                 }
                 else if ( (true) ) {
-                    alt15=2;
+                    alt17=2;
                 }
                 else {
                     if (state.backtracking>0) {state.failed=true; return retval;}
                     NoViableAltException nvae =
-                        new NoViableAltException("", 15, 4, input);
+                        new NoViableAltException("", 17, 4, input);
 
                     throw nvae;
                 }
@@ -1847,18 +1852,18 @@ public class GuiceyDataParser extends Parser {
                 break;
             case ID:
                 {
-                int LA15_5 = input.LA(2);
+                int LA17_5 = input.LA(2);
 
-                if ( (synpred19_GuiceyData()) ) {
-                    alt15=1;
+                if ( (synpred21_GuiceyData()) ) {
+                    alt17=1;
                 }
                 else if ( (true) ) {
-                    alt15=2;
+                    alt17=2;
                 }
                 else {
                     if (state.backtracking>0) {state.failed=true; return retval;}
                     NoViableAltException nvae =
-                        new NoViableAltException("", 15, 5, input);
+                        new NoViableAltException("", 17, 5, input);
 
                     throw nvae;
                 }
@@ -1867,23 +1872,23 @@ public class GuiceyDataParser extends Parser {
             default:
                 if (state.backtracking>0) {state.failed=true; return retval;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 15, 0, input);
+                    new NoViableAltException("", 17, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt15) {
+            switch (alt17) {
                 case 1 :
                     // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:91:4: type 'data;'
                     {
-                    pushFollow(FOLLOW_type_in_property476);
-                    type53=type();
+                    pushFollow(FOLLOW_type_in_property488);
+                    type55=type();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) stream_type.add(type53.getTree());
-                    string_literal54=(Token)match(input,37,FOLLOW_37_in_property478); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_37.add(string_literal54);
+                    if ( state.backtracking==0 ) stream_type.add(type55.getTree());
+                    string_literal56=(Token)match(input,37,FOLLOW_37_in_property490); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_37.add(string_literal56);
 
 
 
@@ -1920,22 +1925,22 @@ public class GuiceyDataParser extends Parser {
                 case 2 :
                     // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:92:4: type ID ';'
                     {
-                    pushFollow(FOLLOW_type_in_property493);
-                    type55=type();
+                    pushFollow(FOLLOW_type_in_property505);
+                    type57=type();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) stream_type.add(type55.getTree());
-                    ID56=(Token)match(input,ID,FOLLOW_ID_in_property495); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_ID.add(ID56);
+                    if ( state.backtracking==0 ) stream_type.add(type57.getTree());
+                    ID58=(Token)match(input,ID,FOLLOW_ID_in_property507); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_ID.add(ID58);
 
-                    char_literal57=(Token)match(input,38,FOLLOW_38_in_property497); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_38.add(char_literal57);
+                    char_literal59=(Token)match(input,38,FOLLOW_38_in_property509); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_38.add(char_literal59);
 
 
 
                     // AST REWRITE
-                    // elements: ID, type
+                    // elements: type, ID
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1999,7 +2004,7 @@ public class GuiceyDataParser extends Parser {
 
         Object root_0 = null;
 
-        GuiceyDataParser.type_return type58 = null;
+        GuiceyDataParser.type_return type60 = null;
 
 
 
@@ -2009,12 +2014,12 @@ public class GuiceyDataParser extends Parser {
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_type_in_key_type518);
-            type58=type();
+            pushFollow(FOLLOW_type_in_key_type530);
+            type60=type();
 
             state._fsp--;
             if (state.failed) return retval;
-            if ( state.backtracking==0 ) adaptor.addChild(root_0, type58.getTree());
+            if ( state.backtracking==0 ) adaptor.addChild(root_0, type60.getTree());
 
             }
 
@@ -2051,7 +2056,7 @@ public class GuiceyDataParser extends Parser {
 
         Object root_0 = null;
 
-        GuiceyDataParser.type_return type59 = null;
+        GuiceyDataParser.type_return type61 = null;
 
 
 
@@ -2061,12 +2066,12 @@ public class GuiceyDataParser extends Parser {
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_type_in_value_type529);
-            type59=type();
+            pushFollow(FOLLOW_type_in_value_type541);
+            type61=type();
 
             state._fsp--;
             if (state.failed) return retval;
-            if ( state.backtracking==0 ) adaptor.addChild(root_0, type59.getTree());
+            if ( state.backtracking==0 ) adaptor.addChild(root_0, type61.getTree());
 
             }
 
@@ -2103,45 +2108,45 @@ public class GuiceyDataParser extends Parser {
 
         Object root_0 = null;
 
-        Token string_literal60=null;
-        Token char_literal62=null;
+        Token string_literal62=null;
         Token char_literal64=null;
-        Token string_literal65=null;
-        Token char_literal67=null;
-        Token string_literal68=null;
-        Token char_literal70=null;
-        Token TYPE71=null;
-        Token ID72=null;
-        Token ID73=null;
-        Token char_literal74=null;
+        Token char_literal66=null;
+        Token string_literal67=null;
+        Token char_literal69=null;
+        Token string_literal70=null;
+        Token char_literal72=null;
+        Token TYPE73=null;
+        Token ID74=null;
+        Token ID75=null;
         Token char_literal76=null;
         Token char_literal78=null;
-        GuiceyDataParser.type_return type61 = null;
-
+        Token char_literal80=null;
         GuiceyDataParser.type_return type63 = null;
 
-        GuiceyDataParser.type_return type66 = null;
+        GuiceyDataParser.type_return type65 = null;
 
-        GuiceyDataParser.type_return type69 = null;
+        GuiceyDataParser.type_return type68 = null;
 
-        GuiceyDataParser.type_return type75 = null;
+        GuiceyDataParser.type_return type71 = null;
 
         GuiceyDataParser.type_return type77 = null;
 
+        GuiceyDataParser.type_return type79 = null;
 
-        Object string_literal60_tree=null;
-        Object char_literal62_tree=null;
+
+        Object string_literal62_tree=null;
         Object char_literal64_tree=null;
-        Object string_literal65_tree=null;
-        Object char_literal67_tree=null;
-        Object string_literal68_tree=null;
-        Object char_literal70_tree=null;
-        Object TYPE71_tree=null;
-        Object ID72_tree=null;
-        Object ID73_tree=null;
-        Object char_literal74_tree=null;
+        Object char_literal66_tree=null;
+        Object string_literal67_tree=null;
+        Object char_literal69_tree=null;
+        Object string_literal70_tree=null;
+        Object char_literal72_tree=null;
+        Object TYPE73_tree=null;
+        Object ID74_tree=null;
+        Object ID75_tree=null;
         Object char_literal76_tree=null;
         Object char_literal78_tree=null;
+        Object char_literal80_tree=null;
         RewriteRuleTokenStream stream_43=new RewriteRuleTokenStream(adaptor,"token 43");
         RewriteRuleTokenStream stream_42=new RewriteRuleTokenStream(adaptor,"token 42");
         RewriteRuleTokenStream stream_41=new RewriteRuleTokenStream(adaptor,"token 41");
@@ -2153,26 +2158,26 @@ public class GuiceyDataParser extends Parser {
         RewriteRuleSubtreeStream stream_type=new RewriteRuleSubtreeStream(adaptor,"rule type");
         try {
             // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:104:2: ( 'map<' type ',' type '>' -> TYPE_MAP ( type )+ | 'set<' type '>' -> TYPE_SET type | 'list<' type '>' -> TYPE_LIST type | TYPE -> TYPE_PRIMITIVE TYPE | ID -> TYPE_PRIMITIVE ID | ID '<' type ( ',' type )* '>' -> PARAMETERIZED_TYPE ID ( type )+ )
-            int alt17=6;
+            int alt19=6;
             switch ( input.LA(1) ) {
             case 39:
                 {
-                alt17=1;
+                alt19=1;
                 }
                 break;
             case 41:
                 {
-                alt17=2;
+                alt19=2;
                 }
                 break;
             case 42:
                 {
-                alt17=3;
+                alt19=3;
                 }
                 break;
             case TYPE:
                 {
-                alt17=4;
+                alt19=4;
                 }
                 break;
             case ID:
@@ -2180,7 +2185,7 @@ public class GuiceyDataParser extends Parser {
                 switch ( input.LA(2) ) {
                 case 43:
                     {
-                    alt17=6;
+                    alt19=6;
                     }
                     break;
                 case EOF:
@@ -2189,13 +2194,13 @@ public class GuiceyDataParser extends Parser {
                 case 37:
                 case 40:
                     {
-                    alt17=5;
+                    alt19=5;
                     }
                     break;
                 default:
                     if (state.backtracking>0) {state.failed=true; return retval;}
                     NoViableAltException nvae =
-                        new NoViableAltException("", 17, 5, input);
+                        new NoViableAltException("", 19, 5, input);
 
                     throw nvae;
                 }
@@ -2205,35 +2210,35 @@ public class GuiceyDataParser extends Parser {
             default:
                 if (state.backtracking>0) {state.failed=true; return retval;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 17, 0, input);
+                    new NoViableAltException("", 19, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt17) {
+            switch (alt19) {
                 case 1 :
                     // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:104:4: 'map<' type ',' type '>'
                     {
-                    string_literal60=(Token)match(input,39,FOLLOW_39_in_type540); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_39.add(string_literal60);
+                    string_literal62=(Token)match(input,39,FOLLOW_39_in_type552); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_39.add(string_literal62);
 
-                    pushFollow(FOLLOW_type_in_type542);
-                    type61=type();
-
-                    state._fsp--;
-                    if (state.failed) return retval;
-                    if ( state.backtracking==0 ) stream_type.add(type61.getTree());
-                    char_literal62=(Token)match(input,29,FOLLOW_29_in_type544); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_29.add(char_literal62);
-
-                    pushFollow(FOLLOW_type_in_type546);
+                    pushFollow(FOLLOW_type_in_type554);
                     type63=type();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_type.add(type63.getTree());
-                    char_literal64=(Token)match(input,40,FOLLOW_40_in_type548); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_40.add(char_literal64);
+                    char_literal64=(Token)match(input,29,FOLLOW_29_in_type556); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_29.add(char_literal64);
+
+                    pushFollow(FOLLOW_type_in_type558);
+                    type65=type();
+
+                    state._fsp--;
+                    if (state.failed) return retval;
+                    if ( state.backtracking==0 ) stream_type.add(type65.getTree());
+                    char_literal66=(Token)match(input,40,FOLLOW_40_in_type560); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_40.add(char_literal66);
 
 
 
@@ -2269,17 +2274,17 @@ public class GuiceyDataParser extends Parser {
                 case 2 :
                     // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:105:4: 'set<' type '>'
                     {
-                    string_literal65=(Token)match(input,41,FOLLOW_41_in_type560); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_41.add(string_literal65);
+                    string_literal67=(Token)match(input,41,FOLLOW_41_in_type572); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_41.add(string_literal67);
 
-                    pushFollow(FOLLOW_type_in_type562);
-                    type66=type();
+                    pushFollow(FOLLOW_type_in_type574);
+                    type68=type();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) stream_type.add(type66.getTree());
-                    char_literal67=(Token)match(input,40,FOLLOW_40_in_type564); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_40.add(char_literal67);
+                    if ( state.backtracking==0 ) stream_type.add(type68.getTree());
+                    char_literal69=(Token)match(input,40,FOLLOW_40_in_type576); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_40.add(char_literal69);
 
 
 
@@ -2308,17 +2313,17 @@ public class GuiceyDataParser extends Parser {
                 case 3 :
                     // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:106:4: 'list<' type '>'
                     {
-                    string_literal68=(Token)match(input,42,FOLLOW_42_in_type575); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_42.add(string_literal68);
+                    string_literal70=(Token)match(input,42,FOLLOW_42_in_type587); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_42.add(string_literal70);
 
-                    pushFollow(FOLLOW_type_in_type577);
-                    type69=type();
+                    pushFollow(FOLLOW_type_in_type589);
+                    type71=type();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) stream_type.add(type69.getTree());
-                    char_literal70=(Token)match(input,40,FOLLOW_40_in_type579); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_40.add(char_literal70);
+                    if ( state.backtracking==0 ) stream_type.add(type71.getTree());
+                    char_literal72=(Token)match(input,40,FOLLOW_40_in_type591); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_40.add(char_literal72);
 
 
 
@@ -2347,8 +2352,8 @@ public class GuiceyDataParser extends Parser {
                 case 4 :
                     // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:107:4: TYPE
                     {
-                    TYPE71=(Token)match(input,TYPE,FOLLOW_TYPE_in_type590); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_TYPE.add(TYPE71);
+                    TYPE73=(Token)match(input,TYPE,FOLLOW_TYPE_in_type602); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_TYPE.add(TYPE73);
 
 
 
@@ -2377,8 +2382,8 @@ public class GuiceyDataParser extends Parser {
                 case 5 :
                     // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:108:4: ID
                     {
-                    ID72=(Token)match(input,ID,FOLLOW_ID_in_type601); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_ID.add(ID72);
+                    ID74=(Token)match(input,ID,FOLLOW_ID_in_type613); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_ID.add(ID74);
 
 
 
@@ -2407,55 +2412,55 @@ public class GuiceyDataParser extends Parser {
                 case 6 :
                     // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:109:4: ID '<' type ( ',' type )* '>'
                     {
-                    ID73=(Token)match(input,ID,FOLLOW_ID_in_type612); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_ID.add(ID73);
+                    ID75=(Token)match(input,ID,FOLLOW_ID_in_type624); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_ID.add(ID75);
 
-                    char_literal74=(Token)match(input,43,FOLLOW_43_in_type614); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_43.add(char_literal74);
+                    char_literal76=(Token)match(input,43,FOLLOW_43_in_type626); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_43.add(char_literal76);
 
-                    pushFollow(FOLLOW_type_in_type616);
-                    type75=type();
+                    pushFollow(FOLLOW_type_in_type628);
+                    type77=type();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) stream_type.add(type75.getTree());
+                    if ( state.backtracking==0 ) stream_type.add(type77.getTree());
                     // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:109:16: ( ',' type )*
-                    loop16:
+                    loop18:
                     do {
-                        int alt16=2;
+                        int alt18=2;
                         switch ( input.LA(1) ) {
                         case 29:
                             {
-                            alt16=1;
+                            alt18=1;
                             }
                             break;
 
                         }
 
-                        switch (alt16) {
+                        switch (alt18) {
                     	case 1 :
                     	    // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:109:17: ',' type
                     	    {
-                    	    char_literal76=(Token)match(input,29,FOLLOW_29_in_type619); if (state.failed) return retval; 
-                    	    if ( state.backtracking==0 ) stream_29.add(char_literal76);
+                    	    char_literal78=(Token)match(input,29,FOLLOW_29_in_type631); if (state.failed) return retval; 
+                    	    if ( state.backtracking==0 ) stream_29.add(char_literal78);
 
-                    	    pushFollow(FOLLOW_type_in_type621);
-                    	    type77=type();
+                    	    pushFollow(FOLLOW_type_in_type633);
+                    	    type79=type();
 
                     	    state._fsp--;
                     	    if (state.failed) return retval;
-                    	    if ( state.backtracking==0 ) stream_type.add(type77.getTree());
+                    	    if ( state.backtracking==0 ) stream_type.add(type79.getTree());
 
                     	    }
                     	    break;
 
                     	default :
-                    	    break loop16;
+                    	    break loop18;
                         }
                     } while (true);
 
-                    char_literal78=(Token)match(input,40,FOLLOW_40_in_type625); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_40.add(char_literal78);
+                    char_literal80=(Token)match(input,40,FOLLOW_40_in_type637); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_40.add(char_literal80);
 
 
 
@@ -2511,29 +2516,29 @@ public class GuiceyDataParser extends Parser {
     }
     // $ANTLR end "type"
 
-    // $ANTLR start synpred19_GuiceyData
-    public final void synpred19_GuiceyData_fragment() throws RecognitionException {   
+    // $ANTLR start synpred21_GuiceyData
+    public final void synpred21_GuiceyData_fragment() throws RecognitionException {   
         // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:91:4: ( type 'data;' )
         // com\\lowereast\\guiceymongo\\data\\generator\\parser\\GuiceyData.g:91:4: type 'data;'
         {
-        pushFollow(FOLLOW_type_in_synpred19_GuiceyData476);
+        pushFollow(FOLLOW_type_in_synpred21_GuiceyData488);
         type();
 
         state._fsp--;
         if (state.failed) return ;
-        match(input,37,FOLLOW_37_in_synpred19_GuiceyData478); if (state.failed) return ;
+        match(input,37,FOLLOW_37_in_synpred21_GuiceyData490); if (state.failed) return ;
 
         }
     }
-    // $ANTLR end synpred19_GuiceyData
+    // $ANTLR end synpred21_GuiceyData
 
     // Delegated rules
 
-    public final boolean synpred19_GuiceyData() {
+    public final boolean synpred21_GuiceyData() {
         state.backtracking++;
         int start = input.mark();
         try {
-            synpred19_GuiceyData_fragment(); // can never throw exception
+            synpred21_GuiceyData_fragment(); // can never throw exception
         } catch (RecognitionException re) {
             System.err.println("impossible: "+re);
         }
@@ -2545,8 +2550,64 @@ public class GuiceyDataParser extends Parser {
     }
 
 
+    protected DFA2 dfa2 = new DFA2(this);
     protected DFA6 dfa6 = new DFA6(this);
-    protected DFA11 dfa11 = new DFA11(this);
+    protected DFA10 dfa10 = new DFA10(this);
+    protected DFA13 dfa13 = new DFA13(this);
+    static final String DFA2_eotS =
+        "\6\uffff";
+    static final String DFA2_eofS =
+        "\6\uffff";
+    static final String DFA2_minS =
+        "\2\4\2\uffff\2\4";
+    static final String DFA2_maxS =
+        "\1\36\1\53\2\uffff\1\53\1\16";
+    static final String DFA2_acceptS =
+        "\2\uffff\1\1\1\2\2\uffff";
+    static final String DFA2_specialS =
+        "\6\uffff}>";
+    static final String[] DFA2_transitionS = {
+            "\1\2\11\uffff\1\3\17\uffff\1\1",
+            "\33\4\1\5\14\4",
+            "",
+            "",
+            "\33\4\1\5\14\4",
+            "\1\2\11\uffff\1\3"
+    };
+
+    static final short[] DFA2_eot = DFA.unpackEncodedString(DFA2_eotS);
+    static final short[] DFA2_eof = DFA.unpackEncodedString(DFA2_eofS);
+    static final char[] DFA2_min = DFA.unpackEncodedStringToUnsignedChars(DFA2_minS);
+    static final char[] DFA2_max = DFA.unpackEncodedStringToUnsignedChars(DFA2_maxS);
+    static final short[] DFA2_accept = DFA.unpackEncodedString(DFA2_acceptS);
+    static final short[] DFA2_special = DFA.unpackEncodedString(DFA2_specialS);
+    static final short[][] DFA2_transition;
+
+    static {
+        int numStates = DFA2_transitionS.length;
+        DFA2_transition = new short[numStates][];
+        for (int i=0; i<numStates; i++) {
+            DFA2_transition[i] = DFA.unpackEncodedString(DFA2_transitionS[i]);
+        }
+    }
+
+    class DFA2 extends DFA {
+
+        public DFA2(BaseRecognizer recognizer) {
+            this.recognizer = recognizer;
+            this.decisionNumber = 2;
+            this.eot = DFA2_eot;
+            this.eof = DFA2_eof;
+            this.min = DFA2_min;
+            this.max = DFA2_max;
+            this.accept = DFA2_accept;
+            this.special = DFA2_special;
+            this.transition = DFA2_transition;
+        }
+        public String getDescription() {
+            return "35:1: entry : ( data | enumeration );";
+        }
+    }
     static final String DFA6_eotS =
         "\10\uffff";
     static final String DFA6_eofS =
@@ -2603,57 +2664,113 @@ public class GuiceyDataParser extends Parser {
             return "40:1: data : ( ( javadoc )? DATA ID '{' ( data_entry )* '}' -> ^( DATA ID ( javadoc )? ( data_entry )* ) | ( javadoc )? DATA ID '{}' -> ^( DATA ID ( javadoc )? ) );";
         }
     }
-    static final String DFA11_eotS =
+    static final String DFA10_eotS =
+        "\10\uffff";
+    static final String DFA10_eofS =
+        "\10\uffff";
+    static final String DFA10_minS =
+        "\1\16\1\4\1\17\1\4\1\16\1\32\2\uffff";
+    static final String DFA10_maxS =
+        "\1\36\1\53\1\17\1\53\1\16\1\34\2\uffff";
+    static final String DFA10_acceptS =
+        "\6\uffff\1\1\1\2";
+    static final String DFA10_specialS =
+        "\10\uffff}>";
+    static final String[] DFA10_transitionS = {
+            "\1\2\17\uffff\1\1",
+            "\33\3\1\4\14\3",
+            "\1\5",
+            "\33\3\1\4\14\3",
+            "\1\2",
+            "\1\7\1\uffff\1\6",
+            "",
+            ""
+    };
+
+    static final short[] DFA10_eot = DFA.unpackEncodedString(DFA10_eotS);
+    static final short[] DFA10_eof = DFA.unpackEncodedString(DFA10_eofS);
+    static final char[] DFA10_min = DFA.unpackEncodedStringToUnsignedChars(DFA10_minS);
+    static final char[] DFA10_max = DFA.unpackEncodedStringToUnsignedChars(DFA10_maxS);
+    static final short[] DFA10_accept = DFA.unpackEncodedString(DFA10_acceptS);
+    static final short[] DFA10_special = DFA.unpackEncodedString(DFA10_specialS);
+    static final short[][] DFA10_transition;
+
+    static {
+        int numStates = DFA10_transitionS.length;
+        DFA10_transition = new short[numStates][];
+        for (int i=0; i<numStates; i++) {
+            DFA10_transition[i] = DFA.unpackEncodedString(DFA10_transitionS[i]);
+        }
+    }
+
+    class DFA10 extends DFA {
+
+        public DFA10(BaseRecognizer recognizer) {
+            this.recognizer = recognizer;
+            this.decisionNumber = 10;
+            this.eot = DFA10_eot;
+            this.eof = DFA10_eof;
+            this.min = DFA10_min;
+            this.max = DFA10_max;
+            this.accept = DFA10_accept;
+            this.special = DFA10_special;
+            this.transition = DFA10_transition;
+        }
+        public String getDescription() {
+            return "45:1: enumeration : ( ( javadoc )? ENUM ID '{}' -> ^( ENUM ID ( javadoc )? ) | ( javadoc )? ENUM ID '{' ( ID ',' )* ID '}' -> ^( ENUM ( ID )+ ( javadoc )? ) );";
+        }
+    }
+    static final String DFA13_eotS =
         "\6\uffff";
-    static final String DFA11_eofS =
+    static final String DFA13_eofS =
         "\6\uffff";
-    static final String DFA11_minS =
+    static final String DFA13_minS =
         "\2\4\2\uffff\2\4";
-    static final String DFA11_maxS =
+    static final String DFA13_maxS =
         "\1\52\1\53\2\uffff\1\53\1\52";
-    static final String DFA11_acceptS =
+    static final String DFA13_acceptS =
         "\2\uffff\1\1\1\2\2\uffff";
-    static final String DFA11_specialS =
+    static final String DFA13_specialS =
         "\6\uffff}>";
-    static final String[] DFA11_transitionS = {
+    static final String[] DFA13_transitionS = {
             "\1\2\11\uffff\1\2\1\3\3\uffff\1\3\12\uffff\1\1\1\uffff\1\3"+
             "\6\uffff\1\3\1\uffff\2\3",
             "\33\4\1\5\14\4",
             "",
             "",
             "\33\4\1\5\14\4",
-            "\1\2\12\uffff\1\3\3\uffff\1\3\14\uffff\1\3\6\uffff\1\3\1\uffff"+
-            "\2\3"
+            "\1\2\11\uffff\1\2\1\3\3\uffff\1\3\14\uffff\1\3\6\uffff\1\3"+
+            "\1\uffff\2\3"
     };
 
-    static final short[] DFA11_eot = DFA.unpackEncodedString(DFA11_eotS);
-    static final short[] DFA11_eof = DFA.unpackEncodedString(DFA11_eofS);
-    static final char[] DFA11_min = DFA.unpackEncodedStringToUnsignedChars(DFA11_minS);
-    static final char[] DFA11_max = DFA.unpackEncodedStringToUnsignedChars(DFA11_maxS);
-    static final short[] DFA11_accept = DFA.unpackEncodedString(DFA11_acceptS);
-    static final short[] DFA11_special = DFA.unpackEncodedString(DFA11_specialS);
-    static final short[][] DFA11_transition;
+    static final short[] DFA13_eot = DFA.unpackEncodedString(DFA13_eotS);
+    static final short[] DFA13_eof = DFA.unpackEncodedString(DFA13_eofS);
+    static final char[] DFA13_min = DFA.unpackEncodedStringToUnsignedChars(DFA13_minS);
+    static final char[] DFA13_max = DFA.unpackEncodedStringToUnsignedChars(DFA13_maxS);
+    static final short[] DFA13_accept = DFA.unpackEncodedString(DFA13_acceptS);
+    static final short[] DFA13_special = DFA.unpackEncodedString(DFA13_specialS);
+    static final short[][] DFA13_transition;
 
     static {
-        int numStates = DFA11_transitionS.length;
-        DFA11_transition = new short[numStates][];
+        int numStates = DFA13_transitionS.length;
+        DFA13_transition = new short[numStates][];
         for (int i=0; i<numStates; i++) {
-            DFA11_transition[i] = DFA.unpackEncodedString(DFA11_transitionS[i]);
+            DFA13_transition[i] = DFA.unpackEncodedString(DFA13_transitionS[i]);
         }
     }
 
-    class DFA11 extends DFA {
+    class DFA13 extends DFA {
 
-        public DFA11(BaseRecognizer recognizer) {
+        public DFA13(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 11;
-            this.eot = DFA11_eot;
-            this.eof = DFA11_eof;
-            this.min = DFA11_min;
-            this.max = DFA11_max;
-            this.accept = DFA11_accept;
-            this.special = DFA11_special;
-            this.transition = DFA11_transition;
+            this.decisionNumber = 13;
+            this.eot = DFA13_eot;
+            this.eof = DFA13_eof;
+            this.min = DFA13_min;
+            this.max = DFA13_max;
+            this.accept = DFA13_accept;
+            this.special = DFA13_special;
+            this.transition = DFA13_transition;
         }
         public String getDescription() {
             return "50:1: data_entry : ( entry | ( javadoc )? ( option )* property -> ^( property ( javadoc )? ( option )* ) );";
@@ -2675,71 +2792,73 @@ public class GuiceyDataParser extends Parser {
     public static final BitSet FOLLOW_DATA_in_data185 = new BitSet(new long[]{0x0000000000008000L});
     public static final BitSet FOLLOW_ID_in_data187 = new BitSet(new long[]{0x0000000010000000L});
     public static final BitSet FOLLOW_28_in_data189 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ENUM_in_enumeration211 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_ID_in_enumeration213 = new BitSet(new long[]{0x0000000010000000L});
-    public static final BitSet FOLLOW_28_in_enumeration215 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ENUM_in_enumeration228 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_ID_in_enumeration230 = new BitSet(new long[]{0x0000000004000000L});
-    public static final BitSet FOLLOW_26_in_enumeration232 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_ID_in_enumeration235 = new BitSet(new long[]{0x0000000020000000L});
-    public static final BitSet FOLLOW_29_in_enumeration237 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_ID_in_enumeration241 = new BitSet(new long[]{0x0000000008000000L});
-    public static final BitSet FOLLOW_27_in_enumeration243 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_entry_in_data_entry263 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_javadoc_in_data_entry268 = new BitSet(new long[]{0x000006814008C010L});
-    public static final BitSet FOLLOW_option_in_data_entry271 = new BitSet(new long[]{0x000006814008C010L});
-    public static final BitSet FOLLOW_property_in_data_entry274 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_30_in_javadoc297 = new BitSet(new long[]{0x00000FFFFFFFFFF0L});
-    public static final BitSet FOLLOW_comment_in_javadoc299 = new BitSet(new long[]{0x0000000080000000L});
-    public static final BitSet FOLLOW_31_in_javadoc301 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_set_in_comment320 = new BitSet(new long[]{0x00000FFF7FFFFFF2L});
-    public static final BitSet FOLLOW_32_in_option337 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_ID_in_option339 = new BitSet(new long[]{0x0000000200000000L});
-    public static final BitSet FOLLOW_33_in_option341 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_32_in_option354 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_ID_in_option356 = new BitSet(new long[]{0x0000000400000000L});
-    public static final BitSet FOLLOW_34_in_option358 = new BitSet(new long[]{0x0000000000070000L});
-    public static final BitSet FOLLOW_value_in_option360 = new BitSet(new long[]{0x0000000800000000L});
-    public static final BitSet FOLLOW_35_in_option362 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_32_in_option378 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_ID_in_option380 = new BitSet(new long[]{0x0000000400000000L});
-    public static final BitSet FOLLOW_34_in_option382 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_pair_in_option385 = new BitSet(new long[]{0x0000000020000000L});
-    public static final BitSet FOLLOW_29_in_option387 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_pair_in_option391 = new BitSet(new long[]{0x0000000800000000L});
-    public static final BitSet FOLLOW_35_in_option393 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_key_in_pair416 = new BitSet(new long[]{0x0000001000000000L});
-    public static final BitSet FOLLOW_36_in_pair418 = new BitSet(new long[]{0x0000000000070000L});
-    public static final BitSet FOLLOW_value_in_pair420 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ID_in_key442 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_javadoc_in_enumeration211 = new BitSet(new long[]{0x0000000000004000L});
+    public static final BitSet FOLLOW_ENUM_in_enumeration214 = new BitSet(new long[]{0x0000000000008000L});
+    public static final BitSet FOLLOW_ID_in_enumeration216 = new BitSet(new long[]{0x0000000010000000L});
+    public static final BitSet FOLLOW_28_in_enumeration218 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_javadoc_in_enumeration234 = new BitSet(new long[]{0x0000000000004000L});
+    public static final BitSet FOLLOW_ENUM_in_enumeration237 = new BitSet(new long[]{0x0000000000008000L});
+    public static final BitSet FOLLOW_ID_in_enumeration239 = new BitSet(new long[]{0x0000000004000000L});
+    public static final BitSet FOLLOW_26_in_enumeration241 = new BitSet(new long[]{0x0000000000008000L});
+    public static final BitSet FOLLOW_ID_in_enumeration244 = new BitSet(new long[]{0x0000000020000000L});
+    public static final BitSet FOLLOW_29_in_enumeration246 = new BitSet(new long[]{0x0000000000008000L});
+    public static final BitSet FOLLOW_ID_in_enumeration250 = new BitSet(new long[]{0x0000000008000000L});
+    public static final BitSet FOLLOW_27_in_enumeration252 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_entry_in_data_entry275 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_javadoc_in_data_entry280 = new BitSet(new long[]{0x000006814008C010L});
+    public static final BitSet FOLLOW_option_in_data_entry283 = new BitSet(new long[]{0x000006814008C010L});
+    public static final BitSet FOLLOW_property_in_data_entry286 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_30_in_javadoc309 = new BitSet(new long[]{0x00000FFFFFFFFFF0L});
+    public static final BitSet FOLLOW_comment_in_javadoc311 = new BitSet(new long[]{0x0000000080000000L});
+    public static final BitSet FOLLOW_31_in_javadoc313 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_set_in_comment332 = new BitSet(new long[]{0x00000FFF7FFFFFF2L});
+    public static final BitSet FOLLOW_32_in_option349 = new BitSet(new long[]{0x0000000000008000L});
+    public static final BitSet FOLLOW_ID_in_option351 = new BitSet(new long[]{0x0000000200000000L});
+    public static final BitSet FOLLOW_33_in_option353 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_32_in_option366 = new BitSet(new long[]{0x0000000000008000L});
+    public static final BitSet FOLLOW_ID_in_option368 = new BitSet(new long[]{0x0000000400000000L});
+    public static final BitSet FOLLOW_34_in_option370 = new BitSet(new long[]{0x0000000000070000L});
+    public static final BitSet FOLLOW_value_in_option372 = new BitSet(new long[]{0x0000000800000000L});
+    public static final BitSet FOLLOW_35_in_option374 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_32_in_option390 = new BitSet(new long[]{0x0000000000008000L});
+    public static final BitSet FOLLOW_ID_in_option392 = new BitSet(new long[]{0x0000000400000000L});
+    public static final BitSet FOLLOW_34_in_option394 = new BitSet(new long[]{0x0000000000008000L});
+    public static final BitSet FOLLOW_pair_in_option397 = new BitSet(new long[]{0x0000000020000000L});
+    public static final BitSet FOLLOW_29_in_option399 = new BitSet(new long[]{0x0000000000008000L});
+    public static final BitSet FOLLOW_pair_in_option403 = new BitSet(new long[]{0x0000000800000000L});
+    public static final BitSet FOLLOW_35_in_option405 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_key_in_pair428 = new BitSet(new long[]{0x0000001000000000L});
+    public static final BitSet FOLLOW_36_in_pair430 = new BitSet(new long[]{0x0000000000070000L});
+    public static final BitSet FOLLOW_value_in_pair432 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ID_in_key454 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_set_in_value0 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_type_in_property476 = new BitSet(new long[]{0x0000002000000000L});
-    public static final BitSet FOLLOW_37_in_property478 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_type_in_property493 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_ID_in_property495 = new BitSet(new long[]{0x0000004000000000L});
-    public static final BitSet FOLLOW_38_in_property497 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_type_in_key_type518 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_type_in_value_type529 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_39_in_type540 = new BitSet(new long[]{0x0000068000088000L});
-    public static final BitSet FOLLOW_type_in_type542 = new BitSet(new long[]{0x0000000020000000L});
-    public static final BitSet FOLLOW_29_in_type544 = new BitSet(new long[]{0x0000068000088000L});
-    public static final BitSet FOLLOW_type_in_type546 = new BitSet(new long[]{0x0000010000000000L});
-    public static final BitSet FOLLOW_40_in_type548 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_41_in_type560 = new BitSet(new long[]{0x0000068000088000L});
-    public static final BitSet FOLLOW_type_in_type562 = new BitSet(new long[]{0x0000010000000000L});
-    public static final BitSet FOLLOW_40_in_type564 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_42_in_type575 = new BitSet(new long[]{0x0000068000088000L});
-    public static final BitSet FOLLOW_type_in_type577 = new BitSet(new long[]{0x0000010000000000L});
-    public static final BitSet FOLLOW_40_in_type579 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_TYPE_in_type590 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ID_in_type601 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ID_in_type612 = new BitSet(new long[]{0x0000080000000000L});
-    public static final BitSet FOLLOW_43_in_type614 = new BitSet(new long[]{0x0000068000088000L});
-    public static final BitSet FOLLOW_type_in_type616 = new BitSet(new long[]{0x0000010020000000L});
-    public static final BitSet FOLLOW_29_in_type619 = new BitSet(new long[]{0x0000068000088000L});
-    public static final BitSet FOLLOW_type_in_type621 = new BitSet(new long[]{0x0000010020000000L});
-    public static final BitSet FOLLOW_40_in_type625 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_type_in_synpred19_GuiceyData476 = new BitSet(new long[]{0x0000002000000000L});
-    public static final BitSet FOLLOW_37_in_synpred19_GuiceyData478 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_type_in_property488 = new BitSet(new long[]{0x0000002000000000L});
+    public static final BitSet FOLLOW_37_in_property490 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_type_in_property505 = new BitSet(new long[]{0x0000000000008000L});
+    public static final BitSet FOLLOW_ID_in_property507 = new BitSet(new long[]{0x0000004000000000L});
+    public static final BitSet FOLLOW_38_in_property509 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_type_in_key_type530 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_type_in_value_type541 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_39_in_type552 = new BitSet(new long[]{0x0000068000088000L});
+    public static final BitSet FOLLOW_type_in_type554 = new BitSet(new long[]{0x0000000020000000L});
+    public static final BitSet FOLLOW_29_in_type556 = new BitSet(new long[]{0x0000068000088000L});
+    public static final BitSet FOLLOW_type_in_type558 = new BitSet(new long[]{0x0000010000000000L});
+    public static final BitSet FOLLOW_40_in_type560 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_41_in_type572 = new BitSet(new long[]{0x0000068000088000L});
+    public static final BitSet FOLLOW_type_in_type574 = new BitSet(new long[]{0x0000010000000000L});
+    public static final BitSet FOLLOW_40_in_type576 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_42_in_type587 = new BitSet(new long[]{0x0000068000088000L});
+    public static final BitSet FOLLOW_type_in_type589 = new BitSet(new long[]{0x0000010000000000L});
+    public static final BitSet FOLLOW_40_in_type591 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_TYPE_in_type602 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ID_in_type613 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ID_in_type624 = new BitSet(new long[]{0x0000080000000000L});
+    public static final BitSet FOLLOW_43_in_type626 = new BitSet(new long[]{0x0000068000088000L});
+    public static final BitSet FOLLOW_type_in_type628 = new BitSet(new long[]{0x0000010020000000L});
+    public static final BitSet FOLLOW_29_in_type631 = new BitSet(new long[]{0x0000068000088000L});
+    public static final BitSet FOLLOW_type_in_type633 = new BitSet(new long[]{0x0000010020000000L});
+    public static final BitSet FOLLOW_40_in_type637 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_type_in_synpred21_GuiceyData488 = new BitSet(new long[]{0x0000002000000000L});
+    public static final BitSet FOLLOW_37_in_synpred21_GuiceyData490 = new BitSet(new long[]{0x0000000000000002L});
 
 }

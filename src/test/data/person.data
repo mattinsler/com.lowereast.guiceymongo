@@ -1,5 +1,7 @@
 /* Represents a single person */
 data Person {
+
+	/* Color of eye */
 	enum EyeColor {
 		Blue,
 		Brown,

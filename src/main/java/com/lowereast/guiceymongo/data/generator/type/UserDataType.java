@@ -24,7 +24,6 @@ import com.lowereast.guiceymongo.data.generator.property.Property;
 public class UserDataType extends UserType {
 	private final List<Property<?>> _properties = Lists.newArrayList();
 	private final List<UserType> _childTypes = Lists.newArrayList();
-	private String _comment;
 	
 	private Property<?> _identityProperty;
 	
@@ -57,13 +56,5 @@ public class UserDataType extends UserType {
 	
 	public void setIdentityProperty(Property<?> identityProperty) {
 		_identityProperty = identityProperty;
-	}
-
-	public void setComment(String comment) {
-		_comment = comment;
-	}
-
-	public String getComment() {
-		return (_comment == null) ? "" : _comment;
 	}
 }
