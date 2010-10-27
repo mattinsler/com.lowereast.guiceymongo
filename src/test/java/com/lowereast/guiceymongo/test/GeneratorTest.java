@@ -6,16 +6,15 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.util.regex.Pattern;
 import org.apache.commons.io.FileUtils;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 import com.lowereast.guiceymongo.data.generator.GuiceyDataGenerator;
-import junit.framework.Assert;
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
 
 /**
  * Unit tests for the generator.
  */
-public class GeneratorTest extends TestCase {
+public class GeneratorTest {
 	private static final GuiceyDataGenerator GENERATOR = new GuiceyDataGenerator();
 	private static final String SCHEMA = "src/test/data";
 	private static final String OUTPUT = "src/test/generated";
@@ -31,44 +30,31 @@ public class GeneratorTest extends TestCase {
 	private static final Pattern REGEX_JAVADOC_ENUM = Pattern.compile("/\\*\\*\\s+ \\* Color of eye\\s+ \\*/\\s+public static enum EyeColor");
 	
 	
-	static {
+	/**
+	 * Perform necessary set up tasks before each test runs.
+	 */
+	@Before
+	public void setUp() {
     	//Configure generator
         GENERATOR.setSourceDirectory(OUTPUT);
         GENERATOR.setOutputPackage(PACKAGE);
         GENERATOR.setFileExtensions(FILE_EXTENSION);
-	}
-
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite() {
-        return new TestSuite(GeneratorTest.class);
-    }
-	
-    
-    /**
-     * Create the test case
-     *
-     * @param testName name of the test case
-     */
-    public GeneratorTest(String testName) {
-        super(testName);
         
         try {
         	//Delete anything in the output directory
 			FileUtils.deleteDirectory(new File(OUTPUT));
 		} catch (IOException e) {
 			e.printStackTrace();
-			Assert.fail(String.format("Could not clear output directory for test %s.", testName));
+			Assert.fail("Could not clear output directory for test.");
 		}
-    }
-
+	}
     
     /**
      * Test file generation properly recurses into subdirectories to look for
      * schema definition files.
      */
-    public void testDirectoryRecursion() {
+    @Test
+    public void directoryRecursion() {
         //Generate source files
         GENERATOR.generate(SCHEMA);
         
@@ -84,7 +70,8 @@ public class GeneratorTest extends TestCase {
     /**
      * Ensure every path to generate is being generated.
      */
-    public void testMultiplePaths() {
+    @Test
+    public void multiplePaths() {
         //Generate source files
         GENERATOR.generate(SCHEMA_PERSON, SCHEMA_VEHICLE);
         
@@ -101,7 +88,8 @@ public class GeneratorTest extends TestCase {
      * Test that nothing is written to System.out when the isQuiet option is
      * specified.
      */
-    public void testIsQuiet() {
+    @Test
+    public void isQuiet() {
     	//Keep the original System.out
     	final PrintStream oldSystemOut = System.out;
     	
@@ -132,7 +120,8 @@ public class GeneratorTest extends TestCase {
     /**
      * Make sure that the property JavaDocs are being properly generated.
      */
-    public void testPropertyJavaDoc() {
+    @Test
+    public void propertyJavaDoc() {
         //Generate source files
         GENERATOR.generate(SCHEMA_PERSON);
         
@@ -152,7 +141,8 @@ public class GeneratorTest extends TestCase {
     /**
      * Make sure that the data JavaDocs are being properly generated.
      */
-    public void testDataJavaDoc() {
+    @Test
+    public void dataJavaDoc() {
         //Generate source files
         GENERATOR.generate(SCHEMA_PERSON);
         
@@ -172,7 +162,8 @@ public class GeneratorTest extends TestCase {
     /**
      * Make sure that the enum JavaDocs are being properly generated.
      */
-    public void testEnumJavaDoc() {
+    @Test
+    public void enumJavaDoc() {
         //Generate source files
         GENERATOR.generate(SCHEMA_PERSON);
         
