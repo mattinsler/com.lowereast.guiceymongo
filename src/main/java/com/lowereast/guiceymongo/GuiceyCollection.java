@@ -39,6 +39,14 @@ public class GuiceyCollection<Item extends IsData> {
 	public DB getDB() {
 		return _collection.getDB();
 	}
+
+    public long count() {
+        return _collection.count();
+    }
+
+    public long count(DBObject query) {
+        return _collection.count(query);
+    }
 	
 	@SuppressWarnings("unchecked")
 	public List<String> distinct(String key) {
