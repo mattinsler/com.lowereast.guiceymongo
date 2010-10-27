@@ -80,12 +80,8 @@ public class Property<T extends Type> {
 		return _type;
 	}
 	
-	public boolean hasComment() {
-		return (_comment != null) && !_comment.isEmpty();
-	}
-	
 	public String getComment() {
-		return _comment;
+		return (_comment == null) ? "" : _comment;
 	}
 	
 	public void addOption(Option option) {
