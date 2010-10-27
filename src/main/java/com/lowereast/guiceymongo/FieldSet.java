@@ -26,7 +26,7 @@ public class FieldSet {
 
 	private FieldSet() {}
 
-	public FieldSet include(String... fields) {
+	public FieldSet and(String... fields) {
 		if (fields != null) {
 			for (String field : fields)
 				_set.put(field, 1);
@@ -34,17 +34,25 @@ public class FieldSet {
 		return this;
 	}
 
-	public FieldSet slice(String field, int elements) {
-		_set.put(field, new BasicDBObject("$slice", elements));
+	public FieldSet and(String field, int limit) {
+        if (limit == 0) {
+            _set.put(field, 1);
+        } else {
+		    _set.put(field, new BasicDBObject("$slice", limit));
+        }
 		return this;
 	}
 
-	public FieldSet slice(String field, int skip, int limit) {
-		_set.put(field, new BasicDBObject("$slice", Arrays.<Integer>asList(skip, limit)));
+	public FieldSet and(String field, int skip, int limit) {
+        if (skip == 0) {
+            return and(field, limit);
+        } else if (limit != 0) {
+		    _set.put(field, new BasicDBObject("$slice", Arrays.<Integer>asList(skip, limit)));
+        }
 		return this;
 	}
 
-	public FieldSet exclude(String... fields) {
+	public FieldSet not(String... fields) {
 		if (fields != null) {
 			for (String field : fields)
 				_set.put(field, 0);
@@ -57,19 +65,19 @@ public class FieldSet {
 	}
 
 	public static FieldSet with(String... fields) {
-		return new FieldSet().include(fields);
+		return new FieldSet().and(fields);
 	}
 
 	public static FieldSet with(String field, int elements) {
-		return new FieldSet().slice(field, elements);
+		return new FieldSet().and(field, elements);
 	}
 
 	public static FieldSet with(String field, int skip, int limit) {
-		return new FieldSet().slice(field, skip, limit);
+		return new FieldSet().and(field, skip, limit);
 	}
 
 	public static FieldSet without(String... fields) {
-		return new FieldSet().exclude(fields);
+		return new FieldSet().and(fields);
 	}
 
 	public static final FieldSet Empty = FieldSet.with();
