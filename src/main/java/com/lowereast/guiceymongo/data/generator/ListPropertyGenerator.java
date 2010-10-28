@@ -71,8 +71,17 @@ public class ListPropertyGenerator extends PropertyGenerator<ListType, ListPrope
 	@Override
 	public void createReadableMethod(Appendable builder, ListProperty property, int indentCount) throws IOException {
 		StringTemplate template = new StringTemplate(
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"public abstract int get$p.camelCaseName$Count();\n" +
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"public abstract $p.listType$ get$p.camelCaseName$List();\n" +
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"public abstract $p.itemType$ get$p.camelCaseName$(int index);\n"
 		);
 		template.setAttribute("p", property);
@@ -84,12 +93,21 @@ public class ListPropertyGenerator extends PropertyGenerator<ListType, ListPrope
 		ListType type = property.getType();
 
 		String s =
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"protected $p.listType$ $p.memberVariableName$ = null;\n" +
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"@Override\n" +
 				"public int get$p.camelCaseName$Count() {\n" +
 					"$p.listType$ list = get$p.camelCaseName$List();\n" +
 					"return list == null ? 0 : list.size();\n" +
 				"}\n" +
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"@SuppressWarnings(\"unchecked\")\n" +
 				"@Override\n" +
 				"public $p.listType$ get$p.camelCaseName$List() {\n" +
@@ -121,6 +139,9 @@ public class ListPropertyGenerator extends PropertyGenerator<ListType, ListPrope
 					"}\n" +
 					"return $p.memberVariableName$;\n" +
 				"}\n" +
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"@Override\n" +
 				"public $p.itemType$ get$p.camelCaseName$(int index) {\n" +
 					"$p.listType$ list = get$p.camelCaseName$List();\n" +
@@ -140,17 +161,29 @@ public class ListPropertyGenerator extends PropertyGenerator<ListType, ListPrope
 		
 		String s =
 				// member variable
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"protected $p.listType$ $p.memberVariableName$ = null;\n" +
 				// getCount
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"@Override\n" +
 				"public int get$p.camelCaseName$Count() {\n" +
 					"return $p.memberVariableName$ == null ? 0 : $p.memberVariableName$.size();\n" +
 				"}\n" +
 				// getList
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"@Override\n" +
 				"public $p.listType$ get$p.camelCaseName$List() {\n" +
 					"return java.util.Collections.unmodifiableList($p.memberVariableName$);\n" +
 				"}\n" +
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"@Override\n" +
 				// get
 				"public $p.builderItemType$ get$p.camelCaseName$(int index) {\n";
@@ -161,6 +194,9 @@ public class ListPropertyGenerator extends PropertyGenerator<ListType, ListPrope
 		s +=
 				"}\n" +
 				// add
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"public Builder add$p.camelCaseName$($p.builderItemType$ value) {\n" +
 					"if ($p.memberVariableName$ == null)\n" +
 						"$p.memberVariableName$ = new $p.newListType$();\n" +
@@ -168,6 +204,9 @@ public class ListPropertyGenerator extends PropertyGenerator<ListType, ListPrope
 					"return this;\n" +
 				"}\n" +
 				// addAll
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"public Builder addAll$p.camelCaseName$(Iterable<? extends $p.builderListItemType$> value) {\n" +
 					"if ($p.memberVariableName$ == null)\n" +
 						"$p.memberVariableName$ = new $p.newListType$();\n" +
@@ -176,6 +215,9 @@ public class ListPropertyGenerator extends PropertyGenerator<ListType, ListPrope
 					"return this;\n" +
 				"}\n" +
 				// clear
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"public Builder clear$p.camelCaseName$() {\n" +
 					"$p.memberVariableName$ = null;\n" +
 					"return this;\n" +

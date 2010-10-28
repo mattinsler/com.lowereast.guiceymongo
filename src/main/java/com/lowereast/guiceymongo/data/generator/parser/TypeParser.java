@@ -16,6 +16,7 @@
 
 package com.lowereast.guiceymongo.data.generator.parser;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import org.antlr.runtime.tree.CommonTree;
@@ -41,6 +42,8 @@ import com.lowereast.guiceymongo.data.generator.type.UserEnumType;
 import com.lowereast.guiceymongo.data.generator.type.UserDataType;
 
 public class TypeParser {
+	private static final String OPTION_IDENTITY = "identity";
+	
 	private final boolean _useCamelCaseKeys;
 	private final TypeRegistry _typeRegistry;
 	private final boolean _isQuiet;
@@ -79,6 +82,17 @@ public class TypeParser {
 		}
 		return option;
 	}
+	
+	private String parseCommentTree(CommonTree tree) {
+		assert GuiceyDataParser.COMMENT == tree.getToken().getType();
+		
+		List<CommonTree> children = tree.getChildren();
+		StringBuilder commentBuilder = new StringBuilder();
+		for (CommonTree child : children) {
+			commentBuilder.append(child.getText()).append(' ');
+		}
+		return commentBuilder.toString();
+	}
 
 	private Type parseType(UserDataType scopingType, List<CommonTree> typeArguments) {
 		switch (typeArguments.remove(0).getToken().getType()) {
@@ -109,68 +123,89 @@ public class TypeParser {
 		children = children.subList(1, children.size());
 		Type propertyType = parseType(type, children);
 		
+		List<Option> options = new LinkedList<Option>();
+		String comment = null;
+		
+		for (CommonTree child : children) {
+			switch (child.getToken().getType()) {
+				case GuiceyDataParser.COMMENT:
+					comment = parseCommentTree(child);
+					break;
+				case GuiceyDataParser.OPTION:
+					options.add(parseOptionTree(child));
+					break;
+			}
+		}
+		
 		Property<?> property;
 		if (propertyType instanceof PrimitiveType) {
-			property = new PrimitiveProperty(type, propertyName, (PrimitiveType)propertyType, _useCamelCaseKeys);
+			property = new PrimitiveProperty(type, propertyName, (PrimitiveType)propertyType, comment, _useCamelCaseKeys);
 		} else if (propertyType instanceof BlobType) {
-			property = new BlobProperty(type, propertyName, (BlobType)propertyType, _useCamelCaseKeys);
+			property = new BlobProperty(type, propertyName, (BlobType)propertyType, comment, _useCamelCaseKeys);
 		} else if (propertyType instanceof UserEnumType) {
-			property = new UserEnumProperty(type, propertyName, (UserEnumType)propertyType, _useCamelCaseKeys);
+			property = new UserEnumProperty(type, propertyName, (UserEnumType)propertyType, comment, _useCamelCaseKeys);
 		} else if (propertyType instanceof UserDataType) {
-			property = new UserDataProperty(type, propertyName, (UserDataType)propertyType, _useCamelCaseKeys);
+			property = new UserDataProperty(type, propertyName, (UserDataType)propertyType, comment, _useCamelCaseKeys);
 		} else if (propertyType instanceof ListType) {
-			property = new ListProperty(type, propertyName, (ListType)propertyType, _useCamelCaseKeys);
+			property = new ListProperty(type, propertyName, (ListType)propertyType, comment, _useCamelCaseKeys);
 		} else if (propertyType instanceof SetType) {
-			property = new SetProperty(type, propertyName, (SetType)propertyType, _useCamelCaseKeys);
+			property = new SetProperty(type, propertyName, (SetType)propertyType, comment, _useCamelCaseKeys);
 		} else if (propertyType instanceof MapType) {
-			property = new MapProperty(type, propertyName, (MapType)propertyType, _useCamelCaseKeys);
+			property = new MapProperty(type, propertyName, (MapType)propertyType, comment, _useCamelCaseKeys);
 		} else {
 			throw new RuntimeException("Shouldn't happen");
 		}
 
 		type.addProperty(property);
 		
-		for (CommonTree child : children) {
-			if (GuiceyDataParser.OPTION == child.getToken().getType()) {
-				Option option = parseOptionTree(child);
-				property.addOption(option);
-				if ("identity".equals(option.getName())) {
-					// validation possibly...
-					type.setIdentityProperty(property);
-				}
+		for (Option option : options) {
+			if (option.getName().equals(TypeParser.OPTION_IDENTITY)) {
+				// TODO validation...?
+				type.setIdentityProperty(property);
 			}
 		}
 	}
 	
 	private void parseDataTree(CommonTree tree, UserDataType parentType) {
 		assert GuiceyDataParser.DATA == tree.getToken().getType();
-
-		UserDataType type = _typeRegistry.getGuiceyType((parentType == null ? "" : parentType.getGuiceyType() + ".") + tree.getChild(0).getText());
 		
 		List<CommonTree> children = tree.getChildren();
-		for (CommonTree child : children.subList(1, children.size())) {
+		UserDataType type = _typeRegistry.getGuiceyType((parentType == null ? "" : parentType.getGuiceyType() + ".") + children.remove(0).getText());
+		
+		for (CommonTree child : children) {
 			switch (child.getToken().getType()) {
-			case GuiceyDataParser.DATA:
-				parseDataTree(child, type);
-				break;
-			case GuiceyDataParser.ENUM:
-				parseEnumTree(child, type);
-				break;
-			case GuiceyDataParser.PROPERTY:
-				parsePropertyTree(child, type);
-				break;
+				case GuiceyDataParser.DATA:
+					parseDataTree(child, type);
+					break;
+				case GuiceyDataParser.ENUM:
+					parseEnumTree(child, type);
+					break;
+				case GuiceyDataParser.PROPERTY:
+					parsePropertyTree(child, type);
+					break;
+				case GuiceyDataParser.COMMENT:
+					type.setComment(parseCommentTree(child));
+					break;
 			}
 		}
 	}
 	
 	private void parseEnumTree(CommonTree tree, UserDataType parentType) {
 		assert GuiceyDataParser.ENUM == tree.getToken().getType();
-		
-		UserEnumType type = _typeRegistry.getGuiceyType((parentType == null ? "" : parentType.getGuiceyType() + ".") + tree.getChild(0).getText());
-		
+
 		List<CommonTree> children = tree.getChildren();
-		for (int x = 1; x < children.size(); ++x)
-			type.addValue(children.get(x).getText());
+		UserEnumType type = _typeRegistry.getGuiceyType((parentType == null ? "" : parentType.getGuiceyType() + ".") + children.remove(0).getText());
+		
+		for (CommonTree child : children) {
+			switch (child.getToken().getType()) {
+				case GuiceyDataParser.COMMENT:
+					type.setComment(parseCommentTree(child));
+					break;
+				default:
+					type.addValue(child.getText());
+					break;
+			}
+		}
 	}
 	
 	private void registerAllUserTypes(CommonTree tree, UserDataType parentType) {
@@ -214,10 +249,14 @@ public class TypeParser {
 		
 		for (CommonTree typeTree : (List<CommonTree>)tree.getChildren()) {
 			if (GuiceyDataParser.EOF != typeTree.getToken().getType()) {
-				if (GuiceyDataParser.DATA == typeTree.getToken().getType())
-					parseDataTree(typeTree, null);
-				else if (GuiceyDataParser.ENUM == typeTree.getToken().getType())
-					parseEnumTree(typeTree, null);
+				switch (typeTree.getToken().getType()) {
+					case GuiceyDataParser.DATA:
+						parseDataTree(typeTree, null);
+						break;
+					case GuiceyDataParser.ENUM:
+						parseEnumTree(typeTree, null);
+						break;
+				}
 			}
 		}
 	}

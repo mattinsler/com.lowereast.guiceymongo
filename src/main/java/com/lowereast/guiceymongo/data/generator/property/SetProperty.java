@@ -22,8 +22,8 @@ import com.lowereast.guiceymongo.data.generator.type.Type;
 import com.lowereast.guiceymongo.data.generator.type.UserDataType;
 
 public class SetProperty extends Property<SetType> {
-	public SetProperty(UserDataType enclosingType, String name, SetType type, boolean useCamelCaseKeys) {
-		super(enclosingType, name, type, useCamelCaseKeys);
+	public SetProperty(UserDataType enclosingType, String name, SetType type, String comment, boolean useCamelCaseKeys) {
+		super(enclosingType, name, type, comment, useCamelCaseKeys);
 	}
 	
 	@Override

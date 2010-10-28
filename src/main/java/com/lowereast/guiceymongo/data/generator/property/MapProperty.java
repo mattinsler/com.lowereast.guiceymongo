@@ -24,8 +24,8 @@ import com.lowereast.guiceymongo.data.generator.type.Type;
 import com.lowereast.guiceymongo.data.generator.type.UserDataType;
 
 public class MapProperty extends Property<MapType> {
-	public MapProperty(UserDataType enclosingType, String name, MapType type, boolean useCamelCaseKeys) {
-		super(enclosingType, name, type, useCamelCaseKeys);
+	public MapProperty(UserDataType enclosingType, String name, MapType type, String comment, boolean useCamelCaseKeys) {
+		super(enclosingType, name, type, comment, useCamelCaseKeys);
 	}
 	
 	@Override

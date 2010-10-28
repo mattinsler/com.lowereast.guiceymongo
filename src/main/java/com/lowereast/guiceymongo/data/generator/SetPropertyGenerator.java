@@ -59,8 +59,17 @@ public class SetPropertyGenerator extends PropertyGenerator<SetType, SetProperty
 	@Override
 	public void createReadableMethod(Appendable builder, SetProperty property, int indentCount) throws IOException {
 		StringTemplate template = new StringTemplate(
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"public abstract int get$p.camelCaseName$Count();\n" +
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"public abstract $p.setType$ get$p.camelCaseName$Set();\n" +
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"public abstract boolean contains$p.camelCaseName$($p.itemType$ value);\n"
 		);
 		template.setAttribute("p", property);
@@ -72,12 +81,21 @@ public class SetPropertyGenerator extends PropertyGenerator<SetType, SetProperty
 		Type itemType = property.getType().getItemType();
 
 		String s =
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"protected $p.setType$ $p.memberVariableName$ = null;\n" +
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"@Override\n" +
 				"public int get$p.camelCaseName$Count() {\n" +
 					"$p.setType$ set = get$p.camelCaseName$Set();\n" +
 					"return set == null ? 0 : set.size();\n" +
 				"}\n" +
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"@Override\n" +
 				"@SuppressWarnings(\"unchecked\")" +
 				"public $p.setType$ get$p.camelCaseName$Set() {\n" +
@@ -109,6 +127,9 @@ public class SetPropertyGenerator extends PropertyGenerator<SetType, SetProperty
 					"}\n" +
 					"return $p.memberVariableName$;\n" +
 				"}\n" +
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"@Override\n" +
 				"public boolean contains$p.camelCaseName$($p.itemType$ value) {\n" +
 					"$p.setType$ set = get$p.camelCaseName$Set();\n" +
@@ -124,23 +145,38 @@ public class SetPropertyGenerator extends PropertyGenerator<SetType, SetProperty
 	public void createBuilderMethod(Appendable builder, SetProperty property, int indentCount) throws IOException {
 		String s =
 				// member variable
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"protected $p.setType$ $p.memberVariableName$ = null;\n" +
 				// getCount
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"@Override\n" +
 				"public int get$p.camelCaseName$Count() {\n" +
 					"return $p.memberVariableName$ == null ? 0 : $p.memberVariableName$.size();\n" +
 				"}\n" +
 				// getSet
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"@Override\n" +
 				"public $p.setType$ get$p.camelCaseName$Set() {\n" +
 					"return java.util.Collections.unmodifiableSet($p.memberVariableName$);\n" +
 				"}\n" +
 				// contains
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"@Override\n" +
 				"public boolean contains$p.camelCaseName$($p.itemType$ value) {\n" +
 					"return $p.memberVariableName$ == null ? false : $p.memberVariableName$.contains(value);\n" +
 				"}\n" +
 				// add
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"public Builder add$p.camelCaseName$($p.builderItemType$ value) {\n" +
 					"if ($p.memberVariableName$ == null)\n" +
 						"$p.memberVariableName$ = new $p.newSetType$();\n" +
@@ -148,6 +184,9 @@ public class SetPropertyGenerator extends PropertyGenerator<SetType, SetProperty
 					"return this;" +
 				"}\n" +
 				// addAll
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"public Builder addAll$p.camelCaseName$(Iterable<? extends $p.builderSetItemType$> value) {\n" +
 					"if ($p.memberVariableName$ == null)\n" +
 						"$p.memberVariableName$ = new $p.newSetType$();\n" +
@@ -155,6 +194,10 @@ public class SetPropertyGenerator extends PropertyGenerator<SetType, SetProperty
 						"$p.memberVariableName$.add(item);\n" +
 					"return this;\n" +
 				"}\n" +
+				// clear
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"public Builder clear$p.camelCaseName$() {\n" +
 					"$p.memberVariableName$ = null;\n" +
 					"return this;\n" +

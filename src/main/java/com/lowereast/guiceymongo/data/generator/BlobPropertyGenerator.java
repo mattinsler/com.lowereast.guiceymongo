@@ -45,6 +45,9 @@ public class BlobPropertyGenerator extends PropertyGenerator<BlobType, BlobPrope
 //		appendIndent(builder, indentCount).append("public static final com.lowereast.guiceymongo.data.BlobProperty<").append(property.getEnclosingType().getCanonicalJavaType()).append(", ").append(property.getType().getCanonicalJavaType()).append("> ").append(property.getKeyName()).append(" = com.lowereast.guiceymongo.data.BlobProperty.create(\"").append(keyValue).append("\");\n");
 		
 		StringTemplate template = new StringTemplate(
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"public static final String $p.keyName$ = \"$p.keyValue$\";\n"
 		);
 		template.setAttribute("p", property);
@@ -55,16 +58,34 @@ public class BlobPropertyGenerator extends PropertyGenerator<BlobType, BlobPrope
 	public void createReadableMethod(Appendable builder, BlobProperty property, int indentCount) throws IOException {
 		StringTemplate template = new StringTemplate(
 				// has
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"public abstract boolean has$p.camelCaseName$();\n" +
 				// hasBucket
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"public abstract boolean has$p.camelCaseName$Bucket();\n" +
 				// hasIdentity
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"public abstract boolean has$p.camelCaseName$Identity();\n" +
 				// getInputStream
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"public abstract java.io.InputStream get$p.camelCaseName$InputStream();\n" +
 				// getBucket
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"public abstract String get$p.camelCaseName$Bucket();\n" +
 				// getIdentity
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"public abstract org.bson.types.ObjectId get$p.camelCaseName$Identity();\n"
 		);
 		template.setAttribute("p", property);
@@ -75,8 +96,14 @@ public class BlobPropertyGenerator extends PropertyGenerator<BlobType, BlobPrope
 	public void createWrapperMethod(Appendable builder, BlobProperty property, int indentCount) throws IOException {
 		StringTemplate template = new StringTemplate(
 				// member variable
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"protected com.mongodb.gridfs.GridFSDBFile $p.memberVariableName$ = null;\n" +
 				// has
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"@Override\n" +
 				"public boolean has$p.camelCaseName$() {\n" +
 					"Object o = _backing.containsField($p.keyName$);" +
@@ -85,16 +112,25 @@ public class BlobPropertyGenerator extends PropertyGenerator<BlobType, BlobPrope
 					"return ((com.mongodb.DBObject)o).containsField(\"bucket\") && ((com.mongodb.DBObject)o).containsField(\"identity\");" +
 				"}\n" +
 				// hasBucket
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"@Override\n" +
 				"public boolean has$p.camelCaseName$Bucket() {\n" +
 					"return _backing.containsField($p.keyName$) && ((com.mongodb.DBObject)_backing.get($p.keyName$)).containsField(\"bucket\");\n" +
 				"}\n" +
 				// hasIdentity
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"@Override\n" +
 				"public boolean has$p.camelCaseName$Identity() {\n" +
 					"return _backing.containsField($p.keyName$) && ((com.mongodb.DBObject)_backing.get($p.keyName$)).containsField(\"identity\");\n" +
 				"}\n" +
 				// getInputStream
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"@Override\n" +
 				"public java.io.InputStream get$p.camelCaseName$InputStream() {\n" +
 					"if ($p.memberVariableName$ == null) {\n" +
@@ -113,11 +149,17 @@ public class BlobPropertyGenerator extends PropertyGenerator<BlobType, BlobPrope
 					"return $p.memberVariableName$ == null ? null : $p.memberVariableName$.getInputStream();\n" +
 				"}\n" +
 				// getBucket
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"@Override\n" +
 				"public String get$p.camelCaseName$Bucket() {\n" +
 					"return !_backing.containsField($p.keyName$) ? null : (String)((com.mongodb.DBObject)_backing.get($p.keyName$)).get(\"bucket\");\n" +
 				"}\n" +
 				// getIdentity
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"@Override\n" +
 				"public org.bson.types.ObjectId get$p.camelCaseName$Identity() {\n" +
 					"return !_backing.containsField($p.keyName$) ? null : (org.bson.types.ObjectId)((com.mongodb.DBObject)_backing.get($p.keyName$)).get(\"identity\");\n" +
@@ -135,21 +177,33 @@ public class BlobPropertyGenerator extends PropertyGenerator<BlobType, BlobPrope
 				"protected String $p.memberVariableName$Bucket = null;\n" +
 				"protected org.bson.types.ObjectId $p.memberVariableName$Identity = null;\n" +
 				// has
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"@Override\n" +
 				"public boolean has$p.camelCaseName$() {\n" +
 					"return $p.memberVariableName$ != null || ($p.memberVariableName$Bucket != null && $p.memberVariableName$Identity != null);" +
 				"}\n" +
 				// hasBucket
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"@Override\n" +
 				"public boolean has$p.camelCaseName$Bucket() {\n" +
 					"return $p.memberVariableName$Bucket != null;\n" +
 				"}\n" +
 				// hasIdentity
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"@Override\n" +
 				"public boolean has$p.camelCaseName$Identity() {\n" +
 					"return $p.memberVariableName$Identity != null;\n" +
 				"}\n" +
 				// load
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"private boolean load$p.camelCaseName$() {\n" +
 					"if ($p.memberVariableName$ == null && $p.memberVariableName$Bucket != null && $p.memberVariableName$Identity != null) {\n" +
 		        		"com.lowereast.guiceymongo.GuiceyBucket guiceyBucket = com.lowereast.guiceymongo.guice.GuiceyMongoUtil.getGuiceyBucket($p.memberVariableName$Bucket);\n" +
@@ -174,21 +228,33 @@ public class BlobPropertyGenerator extends PropertyGenerator<BlobType, BlobPrope
 	                "return $p.memberVariableName$ != null;\n" +
 				"}\n" +
 				// getInputStream
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"@Override\n" +
 				"public java.io.InputStream get$p.camelCaseName$InputStream() {\n" +
 					"return load$p.camelCaseName$() ? new java.io.ByteArrayInputStream($p.memberVariableName$.toByteArray()) : null;\n" +
 				"}\n" +
 				// getBucket
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"@Override\n" +
 				"public String get$p.camelCaseName$Bucket() {\n" +
 					"return $p.memberVariableName$Bucket;\n" +
 				"}\n" +
 				// getIdentity
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"@Override\n" +
 				"public org.bson.types.ObjectId get$p.camelCaseName$Identity() {\n" +
 					"return $p.memberVariableName$Identity;\n" +
 				"}\n" +
 				// getOutputStream
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"public java.io.OutputStream get$p.camelCaseName$OutputStream() {\n" +
 					"if (!load$p.camelCaseName$()) {\n" +
 						"$p.memberVariableName$Identity = null;\n" +
@@ -197,11 +263,17 @@ public class BlobPropertyGenerator extends PropertyGenerator<BlobType, BlobPrope
 					"return $p.memberVariableName$;\n" +
 				"}\n" +
 				// setBucket
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"public Builder set$p.camelCaseName$Bucket(String bucketKey) {\n" +
 					"$p.memberVariableName$Bucket = bucketKey;\n" +
 					"return this;\n" +
 				"}\n" +
 				// clear
+				"/**\n" +
+				" * $p.comment$\n" +
+				" */\n" +
 				"public Builder clear$p.camelCaseName$() {\n" +
 					"$p.memberVariableName$ = null;\n" +
 					"$p.memberVariableName$Bucket = null;\n" +

@@ -22,8 +22,8 @@ import com.lowereast.guiceymongo.data.generator.type.Type;
 import com.lowereast.guiceymongo.data.generator.type.UserDataType;
 
 public class ListProperty extends Property<ListType> {
-	public ListProperty(UserDataType enclosingType, String name, ListType type, boolean useCamelCaseKeys) {
-		super(enclosingType, name, type, useCamelCaseKeys);
+	public ListProperty(UserDataType enclosingType, String name, ListType type, String comment, boolean useCamelCaseKeys) {
+		super(enclosingType, name, type, comment, useCamelCaseKeys);
 	}
 
 	@Override

@@ -20,8 +20,8 @@ import com.lowereast.guiceymongo.data.generator.type.UserEnumType;
 import com.lowereast.guiceymongo.data.generator.type.UserDataType;
 
 public class UserEnumProperty extends Property<UserEnumType> {
-	public UserEnumProperty(UserDataType enclosingType, String name, UserEnumType type, boolean useCamelCaseKeys) {
-		super(enclosingType, name, type, useCamelCaseKeys);
+	public UserEnumProperty(UserDataType enclosingType, String name, UserEnumType type, String comment, boolean useCamelCaseKeys) {
+		super(enclosingType, name, type, comment, useCamelCaseKeys);
 	}
 	
 	public String getEnumType() {
