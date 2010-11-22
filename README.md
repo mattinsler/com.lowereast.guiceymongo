@@ -1,16 +1,6 @@
-## GuiceyMongo (Guice integration for MongoDB) ##
+# Project has been moved
 
-GuiceyMongo home: http://github.com/mattinsler/com.lowereast.guiceymongo/
-
-mongodb home: http://www.mongodb.org/
-
-#### Usage
- * Check out the `src/examples` directory and the posts at [Fun with Dependencies](http://www.mattinsler.com).
- * Jake Wharton created [guiceydata-maven-plugin](http://github.com/JakeWharton/guiceydata-maven-plugin) which is awesome!
-
-#### Questions and Bug Reports
- * email matt.insler@gmail.com
- * post an issue to http://github.com/mattinsler/com.lowereast.guiceymongo/issues
-
-### Authors:
- * Matt Insler       matt.insler@gmail.com
+This project has been discontinued in it's current form.  It is now available in 3 pieces:
+ * [http://github.com/mattinsler/guiceytools](http://github.com/mattinsler/guiceytools)
+ * [http://github.com/mattinsler/guiceymongo](http://github.com/mattinsler/guiceymongo)
+ * [http://github.com/mattinsler/guiceymongo-generator](http://github.com/mattinsler/guiceymongo-generator)
